@@ -1,4 +1,4 @@
-# Fluid Modular Typography
+# Modular Fluid Typography
 
 > Generate fluid typography variables that conform to a modular scale.
 
