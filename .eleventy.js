@@ -10,6 +10,7 @@ const TEMPLATE_ENGINE = 'liquid';
 module.exports = (eleventyConfig) => {
   // Watch targets
   eleventyConfig.addWatchTarget(`${dir.input}/assets/styles`);
+  eleventyConfig.addWatchTarget(`${dir.input}/assets/scripts`);
 
   // Custom shortcodes
   eleventyConfig.addShortcode('image', imageShortcode);
