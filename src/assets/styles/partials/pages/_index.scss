@@ -1,10 +1,11 @@
 @import "../functions";
 
 body {
-  max-width: 680px;
+  max-width: 768px;
   margin: 0 auto;
   padding: clamped(12px, 24px);
   padding-top: clamped(32px, 100px);
+  font-size: var(--font-size-base);
 }
 
 #app {
@@ -13,13 +14,13 @@ body {
 }
 
 .title {
-  font-size: xxx-large;
+  font-size: var(--font-size-xxxl);
   font-weight: var(--fw-bold);
   margin-bottom: 16px;
 }
 
 .subtitle {
-  font-size: large;
+  font-size: var(--font-size-md);
   margin-bottom: 16px;
 }
 
@@ -41,7 +42,7 @@ label {
 }
 
 .label-description {
-  font-size: smaller;
+  font-size: var(--font-size-sm);
 
   &,
   a {
@@ -99,7 +100,7 @@ fieldset {
 footer {
   padding: clamped(16px, 32px) 0;
   text-align: center;
-  font-size: smaller;
+  font-size: var(--font-size-sm);
 }
 
 a {
