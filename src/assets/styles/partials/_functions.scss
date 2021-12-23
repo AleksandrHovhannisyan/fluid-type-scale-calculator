@@ -1,1 +1,31 @@
-// Add reusable functions here
+@use "sass:math";
+@use "sass:list";
+@use "sass:map";
+
+@import "./breakpoints";
+
+@function to-rems($value) {
+  $value-rems: math.div($value, 16px) * 1rem;
+  @return $value-rems;
+}
+
+@function rnd($number, $places: 0) {
+  $n: 1;
+  @if $places > 0 {
+    @for $i from 1 through $places {
+      $n: $n * 10;
+    }
+  }
+  @return math.div(math.round($number * $n), $n);
+}
+
+/// Returns a CSS clamp(...) declaration, with the responsive argument computed automatically.
+/// It's assumed that min should correspond to the minimum mobile breakpoint for design work.
+
+@function clamped($min, $max) {
+  $min-rems: to-rems($min);
+  $max-rems: to-rems($max);
+  $mobile-min-rems: to-rems(map.get($media-breakpoints, "mobile"));
+  $min-to-mobile-ratio: rnd(math.div($min-rems, $mobile-min-rems) * 100, 2);
+  @return clamp(#{$min-rems}, #{$min-to-mobile-ratio}vw, #{$max-rems});
+}

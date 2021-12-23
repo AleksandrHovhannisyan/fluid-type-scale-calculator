@@ -1,7 +1,9 @@
+@import "../functions";
+
 body {
   max-width: 600px;
   margin: 0 auto;
-  padding: 24px;
+  padding: clamped(12px, 24px);
 }
 
 #app {
@@ -39,7 +41,7 @@ fieldset {
   display: grid;
   gap: 24px;
   margin: 0;
-  padding: 32px;
+  padding: clamped(16px, 32px);
 }
 
 #output {
@@ -48,7 +50,7 @@ fieldset {
   font-family: monospace;
   font-size: larger;
   overflow-x: auto;
-  padding: 16px 32px;
+  padding: clamped(8px, 16px) clamped(16px, 32px);
 }
 
 #copy-to-clipboard {
