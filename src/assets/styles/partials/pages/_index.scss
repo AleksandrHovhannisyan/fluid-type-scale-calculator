@@ -38,7 +38,7 @@ label {
 
 input,
 select {
-  padding: 4px 8px;
+  padding: 8px;
 }
 
 fieldset {
@@ -46,7 +46,7 @@ fieldset {
   gap: 24px;
   margin: 0;
   padding: clamped(16px, 32px);
-  border: solid 4px;
+  border: solid 2px;
 }
 
 #output {
