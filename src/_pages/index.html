@@ -1,0 +1,57 @@
+---
+permalink: /
+---
+
+<main id="app">
+  <header>
+    <h1 class="title">Fluid Modular Scale</h1>
+    <p class="subtitle">Generate fluid typography variables that conform to a modular scale.</p>
+  </header>
+  <fieldset>
+    <label>
+      Base font size (px)
+      <span>The base font size of your app, in pixels. 16px in most browsers.</span>
+      <input type="number" id="input-base-font-size" value="16">
+    </label>
+    <label>
+      Modular scale
+      <span>The larger the ratio, the faster your font sizes grow in each successive step.</span>
+      {%- assign defaultModularRatio = modularSteps["perfectFourth"].ratio -%}
+      <select id="select-type-scale" value="{{ defaultModularRatio }}">
+        {%- assign steps = modularSteps | values -%}
+        {%- for step in steps -%}
+          {%- assign modularStepName = step.name -%}
+          {%- assign modularStepRatio = step.ratio -%}
+          <option {% if modularStepRatio == defaultModularRatio %}selected{% endif %} value="{{ modularStepRatio }}">{{ modularStepName }} ({{ modularStepRatio }})</option>
+        {%- endfor -%}
+      </select>
+    </label>
+    <label>
+      Modular steps
+      <span>A comma-separated list of names for each modular step in your design system.</span>
+      <input type="text" id="input-modular-steps" value="sm,base,md,lg,xl,xxl,xxxl">
+    </label>
+    <label>
+      Base modular step
+      <span>The name of the step corresponding to the base font size.</span>
+      <input type="text" id="input-base-modular-step" value="base">
+    </label>
+    <label>
+      Variable naming convention
+      <span>This will be prefixed to each modular step to produce a unique variable.</span>
+      <input type="text" id="input-variable-name" value="font-size">
+    </label>
+    <label>
+      Mobile breakpoint (px)
+      <span>The breakpoint at which clamp should return the min font size for each step.</span>
+      <input type="number" id="input-mobile-breakpoint" value="400">
+    </label>
+    <label data-flow="horizontal">
+      Use rems for font sizing
+      <input type="checkbox" id="input-use-rems" checked>
+    </label>
+  </fieldset>
+  <output id="output"></output>
+  <button type="button" id="copy-to-clipboard" aria-label="Copy code to clipboard" data-copied="false"></button>
+  <footer>Created by <a href="https://www.aleksandrhovhannisyan.com/" target="_blank">Aleksandr Hovhannisyan</a> using the <a href="https://github.com/AleksandrHovhannisyan/11ty-sass-images-seo" target="_blank">11ty-sass-images-seo</a> starter.</footer>
+</main>

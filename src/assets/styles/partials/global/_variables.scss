@@ -1,2 +1,10 @@
-// Add custom properties (--var) here for your design tokens.
-// Alternatively, you can use Sass variables, in which case you don't want to import this into main.scss.
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}
+@media (prefers-color-scheme: light) {
+  html {
+    color-scheme: light;
+  }
+}

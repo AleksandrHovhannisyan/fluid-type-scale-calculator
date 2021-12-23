@@ -1,0 +1,73 @@
+body {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+#app {
+  display: grid;
+  gap: 16px;
+}
+
+.title,
+.subtitle {
+  text-align: center;
+}
+
+label {
+  display: grid;
+  gap: 6px;
+  font-weight: bold;
+
+  span {
+    font-size: smaller;
+    font-weight: normal;
+  }
+
+  &[data-flow="horizontal"] {
+    grid-auto-flow: column;
+    grid-template-columns: auto 1fr;
+  }
+}
+
+input,
+select {
+  padding: 4px 8px;
+}
+
+fieldset {
+  display: grid;
+  gap: 24px;
+  margin: 0;
+  padding: 32px;
+}
+
+#output {
+  white-space: pre;
+  display: flex;
+  font-family: monospace;
+  font-size: larger;
+  overflow-x: auto;
+  padding: 16px 32px;
+}
+
+#copy-to-clipboard {
+  padding: 16px;
+  text-align: center;
+
+  &[data-copied="false"] {
+    &::before {
+      content: "Copy code to clipboard";
+    }
+  }
+
+  &[data-copied="true"] {
+    &::before {
+      content: "Copied!";
+    }
+  }
+}
+
+footer {
+  margin-top: 32px;
+}

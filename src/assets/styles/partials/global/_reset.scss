@@ -1,1 +1,33 @@
-/* Stick your favorite CSS reset here */
+* {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  @media (prefers-reduced-motion) {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+body {
+  font-family: Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+label,
+input,
+textarea,
+button,
+select,
+option {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+}
+
+img {
+  height: auto;
+}

@@ -35,6 +35,8 @@ stylesheets:
   {%- for href in stylesheets -%}
     <link rel="stylesheet" href="{{ href }}">
   {%- endfor -%}
+  {%- comment -%}JavaScript bundles{%- endcomment -%}
+  <script type="module" src="/assets/scripts/index.mjs"></script>
   {%- comment -%}Open Graph social media previews{%- endcomment -%}
   <meta property="og:title" content="{{ pageTitle }}">
   {%- if thumbnail -%}
