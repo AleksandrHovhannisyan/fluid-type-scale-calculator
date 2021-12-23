@@ -34,8 +34,7 @@ module.exports = (eleventyConfig) => {
       format: 'esm',
       outExtension: { '.js': '.mjs' },
       bundle: true,
-      splitting: true,
-      minify: true,
+      minify: process.env.ELEVENTY_ENV === 'production',
       sourcemap: process.env.ELEVENTY_ENV !== 'production',
     });
   });
