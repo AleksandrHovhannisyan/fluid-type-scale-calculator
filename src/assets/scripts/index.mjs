@@ -5,7 +5,8 @@ const elements = {
   modularSteps: document.querySelector('#input-modular-steps'),
   baseModularStep: document.querySelector('#input-base-modular-step'),
   variableName: document.querySelector('#input-variable-name'),
-  mobileBreakpoint: document.querySelector('#input-mobile-breakpoint'),
+  minBreakpoint: document.querySelector('#input-min-breakpoint'),
+  maxBreakpoint: document.querySelector('#input-max-breakpoint'),
   shouldUseRems: document.querySelector('#input-use-rems'),
   rounding: document.querySelector('#input-rounding'),
 };
@@ -20,7 +21,6 @@ const generateTypographyVariables = () => {
   const baseModularStep = elements.baseModularStep.value;
   const baseModularStepIndex = modularSteps.indexOf(baseModularStep);
   const variableNamingConvention = elements.variableName.value;
-  const mobileBreakpoint = elements.mobileBreakpoint.value;
   const shouldUseRems = elements.shouldUseRems.checked;
   let outputText = ``;
 
@@ -30,15 +30,23 @@ const generateTypographyVariables = () => {
   }
 
   modularSteps.forEach((step, i) => {
-    const min = baseFontSize * Math.pow(typeScale, i - baseModularStepIndex);
-    const max = baseFontSize * Math.pow(typeScale, i - baseModularStepIndex + 1);
-    const preferredValue = round((min / mobileBreakpoint) * 100);
+    const minFontSizePx = baseFontSize * Math.pow(typeScale, i - baseModularStepIndex);
+    const minBreakpointPx = elements.minBreakpoint.value;
 
-    const minFinal = shouldUseRems ? `${round(toRems(min))}rem` : `${round(min)}px`;
-    const maxFinal = shouldUseRems ? `${round(toRems(max))}rem` : `${round(max)}px`;
+    const maxFontSizePx = baseFontSize * Math.pow(typeScale, i - baseModularStepIndex + 1);
+    const maxBreakpointPx = elements.maxBreakpoint.value;
+
+    const slope = (maxFontSizePx - minFontSizePx) / (maxBreakpointPx - minBreakpointPx);
+    const slopeVw = round(slope * 100);
+
+    let intercept = minFontSizePx - slope * minBreakpointPx;
+    intercept = shouldUseRems ? `${round(toRems(intercept))}rem` : `${round(intercept)}px`;
+
+    const minFontSizeFinal = shouldUseRems ? `${round(toRems(minFontSizePx))}rem` : `${round(minFontSizePx)}px`;
+    const maxFontSizeFinal = shouldUseRems ? `${round(toRems(maxFontSizePx))}rem` : `${round(maxFontSizePx)}px`;
 
     const customPropertyName = `--${variableNamingConvention}-${step}`;
-    const customPropertyValue = `clamp(${minFinal}, ${preferredValue}vw, ${maxFinal})`;
+    const customPropertyValue = `clamp(${minFontSizeFinal}, ${slopeVw}vw + ${intercept}, ${maxFontSizeFinal})`;
     outputText += `${customPropertyName}: ${customPropertyValue};\n`;
   });
   elements.output.innerHTML = outputText;

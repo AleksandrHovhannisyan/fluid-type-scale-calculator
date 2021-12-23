@@ -42,9 +42,14 @@ permalink: /
       <input type="text" id="input-variable-name" required value="font-size">
     </label>
     <label>
-      Mobile breakpoint (px)
-      <span>The breakpoint at which clamp should return the min font size for each step. This directly influences the viewport units for clamp.</span>
-      <input type="number" id="input-mobile-breakpoint" required value="400">
+      Min breakpoint (px)
+      <span>The breakpoint at which clamp should return the min font size for each step.</span>
+      <input type="number" id="input-min-breakpoint" required value="400">
+    </label>
+    <label>
+      Max breakpoint (px)
+      <span>The breakpoint at which clamp should return the max font size for each step.</span>
+      <input type="number" id="input-max-breakpoint" required value="1000">
     </label>
     <label data-flow="horizontal">
       Use rems for font sizing
