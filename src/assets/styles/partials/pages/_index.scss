@@ -12,7 +12,7 @@ body {
 }
 
 .title {
-  font-weight: 900;
+  font-weight: var(--fw-bold);
 }
 
 .title,
@@ -23,7 +23,7 @@ body {
 label {
   display: grid;
   gap: 6px;
-  font-weight: bold;
+  font-weight: var(--fw-bold);
 
   span {
     font-size: smaller;
