@@ -1,9 +1,10 @@
 @import "../functions";
 
 body {
-  max-width: 600px;
+  max-width: 680px;
   margin: 0 auto;
   padding: clamped(12px, 24px);
+  padding-top: clamped(32px, 100px);
 }
 
 #app {
@@ -12,7 +13,14 @@ body {
 }
 
 .title {
+  font-size: xxx-large;
   font-weight: var(--fw-bold);
+  margin-bottom: 16px;
+}
+
+.subtitle {
+  font-size: large;
+  margin-bottom: 16px;
 }
 
 .title,
@@ -51,20 +59,24 @@ fieldset {
   gap: 24px;
   margin: 0;
   padding: clamped(16px, 32px);
-  border: solid 2px;
+  border: none;
+  border: solid 8px black;
+  border-radius: 4px;
 }
 
 #output {
+  background-color: hsl(0deg 0% 95%);
   white-space: pre;
   display: flex;
   font-family: monospace;
   font-size: larger;
   overflow-x: auto;
-  padding: clamped(8px, 16px) clamped(16px, 32px);
+  padding: clamped(16px, 32px);
+  border-radius: 4px;
 }
 
 #copy-to-clipboard {
-  padding: 16px;
+  padding: 24px;
   text-align: center;
 
   &[data-copied="false"] {
@@ -84,4 +96,15 @@ footer {
   padding: clamped(16px, 32px) 0;
   text-align: center;
   font-size: smaller;
+}
+
+a {
+  color: black;
+  font-weight: var(--fw-bold);
+}
+
+button {
+  background: black;
+  color: white;
+  font-weight: var(--fw-bold);
 }
