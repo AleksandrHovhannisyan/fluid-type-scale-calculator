@@ -1,0 +1,6 @@
+.sass-cache
+node_modules/
+_site/
+public/
+**/*.cjs
+**/*.scss

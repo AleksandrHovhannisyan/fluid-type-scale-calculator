@@ -1,0 +1,6 @@
+public/
+_site/
+node_modules/
+.cache
+.eslintcache
+.env

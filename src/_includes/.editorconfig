@@ -1,0 +1,3 @@
+[*]
+# This can mess up layouts with includes if we introduce unnecessary newlines
+insert_final_newline = false

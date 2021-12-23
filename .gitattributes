@@ -1,0 +1,8 @@
+# https://www.aleksandrhovhannisyan.com/blog/crlf-vs-lf-normalizing-line-endings-in-git/
+
+# Let Git's auto-detection algorithm infer if a file is text. If it is,
+# enforce LF line endings regardless of OS or git configurations.
+* text=auto eol=lf
+
+# Don't brick binary files by changing their line endings
+*.{png,jpg,jpeg,gif,webp,woff,woff2,mov,mp3,mp4} binary

@@ -1,0 +1,55 @@
+{
+  "name": "11ty-sass-images-seo",
+  "description": "An 11ty starter with project scaffolding, Sass, image optimization, and SEO enhancements.",
+  "version": "0.0.1",
+  "license": "MIT",
+  "author": "AleksandrHovhannisyan",
+  "scripts": {
+    "clean": "rimraf _site",
+    "debug:html": "cross-env DEBUG=Eleventy* ELEVENTY_ENV=development npx @11ty/eleventy --serve --incremental --port=8080",
+    "serve": "npm-run-all --parallel serve:*",
+    "serve:html": "cross-env ELEVENTY_ENV=development npx @11ty/eleventy --serve --incremental --port=8080",
+    "serve:css": "sass --watch src/assets/styles:_site/assets/styles --style=expanded",
+    "build": "run-s build:html build:css build:js",
+    "build:html": "cross-env ELEVENTY_ENV=production npx @11ty/eleventy",
+    "build:css": "sass src/assets/styles:_site/assets/styles --style=compressed",
+    "lint": "npm-run-all lint:*",
+    "lint:fix": "npm-run-all --parallel lint:*:fix",
+    "lint:css": "stylelint \"src/**/*.scss\"",
+    "lint:css:fix": "stylelint --fix \"src/**/*.scss\"",
+    "lint:js": "eslint --cache \"**/*.js\"",
+    "lint:js:fix": "eslint --cache --fix \"**/*.js\""
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^1.0.0-beta.8",
+    "@11ty/eleventy-img": "^1.0.0",
+    "@11ty/eleventy-upgrade-help": "^1.0.1",
+    "cross-env": "^7.0.3",
+    "dayjs": "^1.10.7",
+    "eslint": "^8.3.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^4.3.0",
+    "lint-staged": "^10.4.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.5.0",
+    "rimraf": "^3.0.2",
+    "sass": "^1.43.5",
+    "slugify": "^1.6.3",
+    "stylelint": "^14.1.0",
+    "stylelint-config-standard-scss": "^3.0.0"
+  },
+  "browserslist": [
+    "defaults and supports es6-module and not IE <= 11"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "post-checkout": "yarn"
+    }
+  },
+  "lint-staged": {
+    "*.js": "yarn run lint:js:fix",
+    "*.scss": "yarn run lint:css:fix"
+  }
+}

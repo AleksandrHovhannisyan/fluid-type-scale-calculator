@@ -1,0 +1,59 @@
+---
+stylesheets:
+  - /assets/styles/main.css
+---
+{%- comment -%}Global variables for reuse in meta tags{%- endcomment -%}
+{%- if page.url == "/" -%}
+  {%- assign pageTitle = site.title -%}
+{%- else -%}
+  {%- assign pageTitle = title | default: renderData.title -%}
+  {%- assign pipe = " | " -%}
+  {%- assign pageTitle = pageTitle | append: pipe | append: site.title -%}
+{%- endif -%}
+{%- assign description = description | default: site.description -%}
+{%- assign keywords = keywords | default: site.keywords -%}
+{%- comment -%}Canonical URL. Make sure each page has one.{%- endcomment -%}
+{%- assign canonicalUrl = page.url | toAbsoluteUrl -%}
+
+<!DOCTYPE html>
+<html lang="{{ site.language }}">
+<head>
+  {%- comment -%}Must appear in the first 1024 bytes: https://web.dev/charset/{%- endcomment -%}
+  <meta charset="utf-8">
+  {%- comment -%}Metadata for search engines{%- endcomment -%}
+  <title>{{ pageTitle }}</title>
+  <meta name="description" content="{{ description }}">
+  <meta name="keywords" content="{{ keywords | join: ', ' }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="{{ site.author }}">
+  <link rel="canonical" href="{{ canonicalUrl }}">
+  {%- comment -%}Set noindex: true in front matter to prevent this page from showing up on search engines{%- endcomment -%}
+  {%- if noindex -%}
+    <meta name="robots" content="noindex">
+  {%- endif -%}
+  {%- comment -%}Global and page/layout-specific CSS{%- endcomment -%}
+  {%- for href in stylesheets -%}
+    <link rel="stylesheet" href="{{ href }}">
+  {%- endfor -%}
+  {%- comment -%}Open Graph social media previews{%- endcomment -%}
+  <meta property="og:title" content="{{ pageTitle }}">
+  {%- if thumbnail -%}
+    <meta property="og:image" content="{{ thumbnail }}">
+  {%- endif -%}
+  <meta property="og:description" content="{{ description }}">
+  <meta property="og:url" content="{{ page.url | toAbsoluteUrl }}">
+  {%- comment -%}Twitter card meta tags{%- endcomment -%}
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="{{ pageTitle }}">
+  <meta name="twitter:description" content="{{ description }}">
+  {%- if thumbnail -%}
+    <meta name="twitter:image" content="{{ thumbnail }}">
+  {%- endif -%}
+  {%- comment -%}Favicons{%- endcomment -%}
+  {% favicon '/assets/images/favicon/favicon.png' %}
+</head>
+<body>
+  {%- comment -%}Add common layout components here (e.g., site nav/footer){%- endcomment -%}
+  {{ content }}
+</body>
+</html>
