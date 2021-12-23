@@ -51,7 +51,7 @@ copyToClipboardButton.addEventListener('click', () => {
   copyToClipboardButton.dataset.copied = true;
   setTimeout(() => {
     copyToClipboardButton.dataset.copied = false;
-  }, 1000);
+  }, 2000);
 });
 
 // Whenever any input value changes, recompute the output
