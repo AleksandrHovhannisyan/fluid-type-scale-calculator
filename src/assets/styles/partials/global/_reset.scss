@@ -35,10 +35,10 @@ option {
   font-size: inherit;
   line-height: inherit;
   letter-spacing: inherit;
+}
 
-  &:focus {
-    outline: solid 4px;
-  }
+:where(button,label,input,textarea,select,option,a):focus-visible {
+  outline: solid 4px;
 }
 
 img {
