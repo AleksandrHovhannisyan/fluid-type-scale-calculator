@@ -11,8 +11,6 @@ const elements = {
   rounding: document.querySelector('#input-rounding'),
 };
 
-console.log(elements);
-
 const toRems = (px) => px / 16;
 const round = (val) => Number(val.toFixed(elements.rounding.value));
 
