@@ -11,13 +11,13 @@ permalink: /
     <label>
       Base font size (px)
       <span>The base font size of your app, in pixels. 16px in most browsers.</span>
-      <input type="number" id="input-base-font-size" value="16">
+      <input type="number" id="input-base-font-size" required value="16">
     </label>
     <label>
       Modular scale
       <span>The larger the ratio, the faster your font sizes grow in each successive step.</span>
       {%- assign defaultModularRatio = modularSteps["perfectFourth"].ratio -%}
-      <select id="select-type-scale" value="{{ defaultModularRatio }}">
+      <select id="select-type-scale" required value="{{ defaultModularRatio }}">
         {%- assign steps = modularSteps | values -%}
         {%- for step in steps -%}
           {%- assign modularStepName = step.name -%}
@@ -29,22 +29,22 @@ permalink: /
     <label>
       Modular steps
       <span>A comma-separated list of names for each modular step in your design system.</span>
-      <input type="text" id="input-modular-steps" value="sm,base,md,lg,xl,xxl,xxxl">
+      <input type="text" id="input-modular-steps" required value="sm,base,md,lg,xl,xxl,xxxl">
     </label>
     <label>
       Base modular step
       <span>The name of the step corresponding to the base font size.</span>
-      <input type="text" id="input-base-modular-step" value="base">
+      <input type="text" id="input-base-modular-step" required value="base">
     </label>
     <label>
       Variable naming convention
       <span>This will be prefixed to each modular step to produce a unique variable.</span>
-      <input type="text" id="input-variable-name" value="font-size">
+      <input type="text" id="input-variable-name" required value="font-size">
     </label>
     <label>
       Mobile breakpoint (px)
       <span>The breakpoint at which clamp should return the min font size for each step. This directly influences the viewport units for clamp.</span>
-      <input type="number" id="input-mobile-breakpoint" value="400">
+      <input type="number" id="input-mobile-breakpoint" required value="400">
     </label>
     <label data-flow="horizontal">
       Use rems for font sizing
