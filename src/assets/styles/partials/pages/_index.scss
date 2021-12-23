@@ -1,9 +1,8 @@
 @import "../functions";
+@import "../mixins";
 
 body {
-  max-width: 768px;
-  margin: 0 auto;
-  padding: clamped(12px, 24px);
+  padding: clamped(12px, 48px);
   padding-top: clamped(32px, 100px);
   font-size: var(--font-size-base);
 }
@@ -11,6 +10,30 @@ body {
 #app {
   display: grid;
   gap: 16px;
+
+  header {
+    margin-bottom: 32px;
+  }
+}
+
+.content {
+  display: grid;
+  gap: 32px;
+  grid-template-columns: 1fr;
+  grid-auto-flow: row;
+  @include desktop-lg {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.result {
+  height: fit-content;
+  display: grid;
+  gap: 16px;
+  @include desktop-lg {
+    position: sticky;
+    top: 25%;
+  }
 }
 
 .title {
@@ -21,7 +44,6 @@ body {
 
 .subtitle {
   font-size: var(--font-size-md);
-  margin-bottom: 16px;
 }
 
 .title,
@@ -101,11 +123,6 @@ footer {
   padding: clamped(16px, 32px) 0;
   text-align: center;
   font-size: var(--font-size-sm);
-}
-
-a {
-  color: black;
-  font-weight: var(--fw-bold);
 }
 
 button {

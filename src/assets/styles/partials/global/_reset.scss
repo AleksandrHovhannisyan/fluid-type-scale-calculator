@@ -19,6 +19,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+a {
+  color: black;
+  font-weight: var(--fw-bold);
+}
+
 /* stylelint-disable-next-line no-descending-specificity */
 button,
 label,
