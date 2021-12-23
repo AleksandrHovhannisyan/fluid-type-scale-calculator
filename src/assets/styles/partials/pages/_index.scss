@@ -22,6 +22,7 @@ body {
 
 label {
   display: grid;
+  align-items: center;
   gap: 6px;
   font-weight: var(--fw-bold);
 
@@ -34,6 +35,10 @@ label {
     grid-auto-flow: column;
     grid-template-columns: auto 1fr;
   }
+}
+
+input[type="number"] {
+  max-width: calc(4ch + 2rem);
 }
 
 input,

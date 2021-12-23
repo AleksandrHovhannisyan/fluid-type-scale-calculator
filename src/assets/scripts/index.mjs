@@ -6,11 +6,12 @@ const input = {
   variableName: document.querySelector('#input-variable-name'),
   mobileBreakpoint: document.querySelector('#input-mobile-breakpoint'),
   shouldUseRems: document.querySelector('#input-use-rems'),
+  rounding: document.querySelector('#input-rounding'),
 };
 const output = document.querySelector('#output');
 
 const toRems = (px) => px / 16;
-const round = (val) => Math.round(val, 2);
+const round = (val) => Number(val.toFixed(input.rounding.value));
 
 const generateTypographyVariables = () => {
   const baseFontSize = input.baseFontSize.value;
@@ -29,13 +30,15 @@ const generateTypographyVariables = () => {
   }
 
   modularSteps.forEach((step, i) => {
-    const min = round(baseFontSize * Math.pow(typeScale, i - baseModularStepIndex));
-    const max = round(baseFontSize * Math.pow(typeScale, i - baseModularStepIndex + 1));
+    const min = baseFontSize * Math.pow(typeScale, i - baseModularStepIndex);
+    const max = baseFontSize * Math.pow(typeScale, i - baseModularStepIndex + 1);
     const preferredValue = round((min / mobileBreakpoint) * 100);
+
+    const minFinal = shouldUseRems ? `${round(toRems(min))}rem` : `${round(min)}px`;
+    const maxFinal = shouldUseRems ? `${round(toRems(max))}rem` : `${round(max)}px`;
+
     const customPropertyName = `--${variableNamingConvention}-${step}`;
-    const customPropertyValue = `clamp(${shouldUseRems ? `${toRems(min)}rem` : `${min}px`}, ${preferredValue}vw, ${
-      shouldUseRems ? `${toRems(max)}rem` : `${max}px`
-    })`;
+    const customPropertyValue = `clamp(${minFinal}, ${preferredValue}vw, ${maxFinal})`;
     outputText += `${customPropertyName}: ${customPropertyValue};\n`;
   });
   output.innerHTML = outputText;
