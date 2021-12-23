@@ -19,17 +19,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-button {
-  cursor: pointer;
-  border: none;
-  border-radius: 4px;
-
-  &:focus-visible {
-    outline: solid 4px black;
-    outline-offset: 4px;
-  }
-}
-
 /* stylelint-disable-next-line no-descending-specificity */
 button,
 label,
@@ -55,4 +44,16 @@ img {
   background-color: black;
   color: white;
   text-shadow: none;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+
+  &:focus-visible {
+    outline: solid 4px black;
+    outline-offset: 4px;
+  }
 }
