@@ -16,7 +16,7 @@ permalink: /
       </label>
       <label>
         Modular scale
-        <span class="label-description">The larger the ratio, the faster your font sizes grow in each successive step. Learn more about <a href="https://every-layout.dev/rudiments/modular-scale/" rel="noreferrer noopener" target="_blank">modular scales.</a></span>
+        <span class="label-description">The larger the ratio, the faster your font sizes grow in each successive step. <a href="https://every-layout.dev/rudiments/modular-scale/" rel="noreferrer noopener" target="_blank">Learn more about modular scales.</a></span>
         {%- assign defaultModularRatio = modularSteps["perfectFourth"].ratio -%}
         <select id="input-type-scale" required value="{{ defaultModularRatio }}">
           {%- assign steps = modularSteps | values -%}
@@ -29,12 +29,12 @@ permalink: /
       </label>
       <label>
         Modular steps
-        <span class="label-description">A comma-separated list of names for each modular step, in ascending order of size.</span>
+        <span class="label-description">A comma-separated list of names for each modular step, in ascending order of size. Use any convention you want.</span>
         <input type="text" id="input-modular-steps" required spellcheck="false" value="sm,base,md,lg,xl,xxl,xxxl">
       </label>
       <label>
         Base modular step
-        <span class="label-description">The name of the step corresponding to the base font size. This must exist in the list of font size steps entered above.</span>
+        <span class="label-description">The name of the base font size step in your type scale. This must exist in the list of font size steps entered above.</span>
         <input type="text" id="input-base-modular-step" required value="base">
       </label>
       <label>
