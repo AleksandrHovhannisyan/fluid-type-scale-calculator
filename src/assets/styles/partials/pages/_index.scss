@@ -34,14 +34,18 @@ label {
   gap: 6px;
   font-weight: var(--fw-bold);
 
-  span {
-    font-size: smaller;
-    font-weight: normal;
-  }
-
   &[data-flow="horizontal"] {
     grid-auto-flow: column;
     grid-template-columns: auto 1fr;
+  }
+}
+
+.label-description {
+  font-size: smaller;
+
+  &,
+  a {
+    font-weight: var(--fw-regular);
   }
 }
 

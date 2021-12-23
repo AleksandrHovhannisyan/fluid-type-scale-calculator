@@ -1,7 +1,7 @@
 const elements = {
   output: document.querySelector('#output'),
   baseFontSize: document.querySelector('#input-base-font-size'),
-  typeScale: document.querySelector('#select-type-scale'),
+  typeScale: document.querySelector('#input-type-scale'),
   modularSteps: document.querySelector('#input-modular-steps'),
   baseModularStep: document.querySelector('#input-base-modular-step'),
   variableName: document.querySelector('#input-variable-name'),
@@ -10,6 +10,8 @@ const elements = {
   shouldUseRems: document.querySelector('#input-use-rems'),
   rounding: document.querySelector('#input-rounding'),
 };
+
+console.log(elements);
 
 const toRems = (px) => px / 16;
 const round = (val) => Number(val.toFixed(elements.rounding.value));
