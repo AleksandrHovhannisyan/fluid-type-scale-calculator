@@ -65,6 +65,7 @@ fieldset {
 }
 
 #output {
+  border: solid 1px hsl(0deg 0% 60%);
   background-color: hsl(0deg 0% 95%);
   white-space: pre;
   display: flex;
