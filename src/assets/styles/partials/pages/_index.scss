@@ -74,6 +74,8 @@ body {
 
 .subtitle {
   font-size: var(--font-size-md);
+  max-width: 50ch;
+  margin: 0 auto;
 }
 
 .title,
