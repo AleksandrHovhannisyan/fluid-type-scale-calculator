@@ -1,4 +1,5 @@
-const input = {
+const elements = {
+  output: document.querySelector('#output'),
   baseFontSize: document.querySelector('#input-base-font-size'),
   typeScale: document.querySelector('#select-type-scale'),
   modularSteps: document.querySelector('#input-modular-steps'),
@@ -8,24 +9,23 @@ const input = {
   shouldUseRems: document.querySelector('#input-use-rems'),
   rounding: document.querySelector('#input-rounding'),
 };
-const output = document.querySelector('#output');
 
 const toRems = (px) => px / 16;
-const round = (val) => Number(val.toFixed(input.rounding.value));
+const round = (val) => Number(val.toFixed(elements.rounding.value));
 
 const generateTypographyVariables = () => {
-  const baseFontSize = input.baseFontSize.value;
-  const typeScale = input.typeScale.value;
-  const modularSteps = input.modularSteps.value.split(',').map((step) => step.trim());
-  const baseModularStep = input.baseModularStep.value;
+  const baseFontSize = elements.baseFontSize.value;
+  const typeScale = elements.typeScale.value;
+  const modularSteps = elements.modularSteps.value.split(',').map((step) => step.trim());
+  const baseModularStep = elements.baseModularStep.value;
   const baseModularStepIndex = modularSteps.indexOf(baseModularStep);
-  const variableNamingConvention = input.variableName.value;
-  const mobileBreakpoint = input.mobileBreakpoint.value;
-  const shouldUseRems = input.shouldUseRems.checked;
+  const variableNamingConvention = elements.variableName.value;
+  const mobileBreakpoint = elements.mobileBreakpoint.value;
+  const shouldUseRems = elements.shouldUseRems.checked;
   let outputText = ``;
 
   if (baseModularStepIndex === -1) {
-    output.innerHTML = `Base modular step not found.`;
+    elements.output.innerHTML = `Base modular step not found.`;
     return;
   }
 
@@ -41,13 +41,13 @@ const generateTypographyVariables = () => {
     const customPropertyValue = `clamp(${minFinal}, ${preferredValue}vw, ${maxFinal})`;
     outputText += `${customPropertyName}: ${customPropertyValue};\n`;
   });
-  output.innerHTML = outputText;
+  elements.output.innerHTML = outputText;
 };
 
 // Copy to clipboard functionality for keyboard users
 const copyToClipboardButton = document.querySelector('#copy-to-clipboard');
 copyToClipboardButton.addEventListener('click', () => {
-  window.navigator.clipboard.writeText(output.textContent);
+  window.navigator.clipboard.writeText(elements.output.textContent);
   copyToClipboardButton.dataset.copied = true;
   setTimeout(() => {
     copyToClipboardButton.dataset.copied = false;
@@ -55,7 +55,7 @@ copyToClipboardButton.addEventListener('click', () => {
 });
 
 // Whenever any input value changes, recompute the output
-Object.values(input).forEach((el) => {
+Object.values(elements).forEach((el) => {
   el.addEventListener('input', (e) => {
     el.setAttribute('value', e.target.value);
     generateTypographyVariables();
