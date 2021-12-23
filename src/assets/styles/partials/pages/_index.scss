@@ -32,10 +32,37 @@ body {
 .result {
   height: fit-content;
   display: grid;
-  gap: 16px;
   @include desktop-lg {
     position: sticky;
     top: 25%;
+  }
+}
+
+#output {
+  border: solid 1px hsl(0deg 0% 60%);
+  background-color: hsl(0deg 0% 95%);
+  white-space: pre;
+  display: flex;
+  font-family: IBM Plex Mono, monospace;
+  font-size: var(--font-size-sm);
+  overflow-x: auto;
+  padding: clamped(16px, 32px);
+}
+
+#copy-to-clipboard {
+  padding: 24px;
+  text-align: center;
+
+  &[data-copied="false"] {
+    &::before {
+      content: "Copy code to clipboard 📋";
+    }
+  }
+
+  &[data-copied="true"] {
+    &::before {
+      content: "Copied! 🎉";
+    }
   }
 }
 
@@ -91,45 +118,10 @@ fieldset {
   padding: clamped(16px, 32px);
   border: none;
   border: solid 8px black;
-  border-radius: 4px;
-}
-
-#output {
-  border: solid 1px hsl(0deg 0% 60%);
-  background-color: hsl(0deg 0% 95%);
-  white-space: pre;
-  display: flex;
-  font-family: IBM Plex Mono, monospace;
-  font-size: var(--font-size-sm);
-  overflow-x: auto;
-  padding: clamped(16px, 32px);
-  border-radius: 4px;
-}
-
-#copy-to-clipboard {
-  padding: 24px;
-  text-align: center;
-
-  &[data-copied="false"] {
-    &::before {
-      content: "Copy code to clipboard 📋";
-    }
-  }
-
-  &[data-copied="true"] {
-    &::before {
-      content: "Copied! 🎉";
-    }
-  }
 }
 
 footer {
   padding: clamped(16px, 64px) 0;
   text-align: center;
   font-size: var(--font-size-sm);
-}
-
-button {
-  background: black;
-  color: white;
 }

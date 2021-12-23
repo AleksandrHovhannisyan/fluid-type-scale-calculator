@@ -55,7 +55,8 @@ img {
 button {
   cursor: pointer;
   border: none;
-  border-radius: 4px;
+  background: black;
+  color: white;
 
   &:focus-visible {
     outline: solid 4px black;
