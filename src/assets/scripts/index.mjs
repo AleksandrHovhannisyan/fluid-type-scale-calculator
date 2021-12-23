@@ -24,9 +24,7 @@ const generateTypographyVariables = () => {
   let outputText = ``;
 
   if (baseModularStepIndex === -1) {
-    output.innerHTML = `The base modular step must appear in the list of modular steps you provided.\n\nYour base modular step: ${baseModularStep}.\nAvailable steps: ${modularSteps.join(
-      ', '
-    )}.`;
+    output.innerHTML = `Base modular step not found.`;
     return;
   }
 
