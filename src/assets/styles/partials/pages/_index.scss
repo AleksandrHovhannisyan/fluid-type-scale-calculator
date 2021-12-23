@@ -4,6 +4,7 @@
 body {
   padding: clamped(12px, 48px);
   padding-top: clamped(32px, 100px);
+  padding-bottom: 0;
   font-size: var(--font-size-base);
 }
 
@@ -97,7 +98,8 @@ fieldset {
   white-space: pre;
   display: flex;
   font-family: IBM Plex Mono, monospace;
-  overflow-x: scroll;
+  font-size: var(--font-size-sm);
+  overflow-x: auto;
   padding: clamped(16px, 32px);
   border-radius: 4px;
 }
@@ -108,19 +110,19 @@ fieldset {
 
   &[data-copied="false"] {
     &::before {
-      content: "Copy code to clipboard";
+      content: "Copy code to clipboard 📋";
     }
   }
 
   &[data-copied="true"] {
     &::before {
-      content: "Copied!";
+      content: "Copied! 🎉";
     }
   }
 }
 
 footer {
-  padding: clamped(16px, 32px) 0;
+  padding: clamped(16px, 64px) 0;
   text-align: center;
   font-size: var(--font-size-sm);
 }
@@ -128,5 +130,4 @@ footer {
 button {
   background: black;
   color: white;
-  font-weight: var(--fw-bold);
 }
