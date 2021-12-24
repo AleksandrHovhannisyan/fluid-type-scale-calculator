@@ -5,13 +5,13 @@ permalink: /
 <main id="app">
   <header>
     <h1 class="title">{{ site.title }}</h1>
-    <p class="subtitle">Generate a fluid <a href="https://every-layout.dev/rudiments/modular-scale/" rel="noreferrer noopener" target="_blank">type scale</a> for use in any project.<br> Grab the output CSS and drop it into any existing design system.</p>
+    <p class="subtitle">Generate font size variables for a fluid <a href="https://every-layout.dev/rudiments/modular-scale/" rel="noreferrer noopener" target="_blank">type scale</a>.<br> Grab the output CSS and drop it into any existing design system.</p>
   </header>
   <div class="content">
     <fieldset>
       <label>
         Base font size (px)
-        <span class="label-description">The base font size of your design system.</span>
+        <span class="label-description">The base font size of your type scale.</span>
         <input type="number" id="input-base-font-size" required value="16">
       </label>
       <label>
@@ -28,7 +28,7 @@ permalink: /
         </select>
       </label>
       <label>
-        Modular steps
+        Type scale steps
         <span class="label-description">A comma-separated list of names for each modular step in your type scale, in ascending order of size. Use any convention you want.</span>
         <input type="text" id="input-modular-steps" required spellcheck="false" value="sm,base,md,lg,xl,xxl,xxxl">
       </label>
@@ -39,17 +39,17 @@ permalink: /
       </label>
       <label>
         Min breakpoint (px)
-        <span class="label-description">The breakpoint corresponding to the minimum font size for each modular step.</span>
+        <span class="label-description">The breakpoint corresponding to the minimum font size for each step in your type scale.</span>
         <input type="number" id="input-min-breakpoint" required value="400">
       </label>
       <label>
         Max breakpoint (px)
-        <span class="label-description">The breakpoint corresponding to the maximum font size for each modular step.</span>
+        <span class="label-description">The breakpoint corresponding to the maximum font size for each step in your type scale.</span>
         <input type="number" id="input-max-breakpoint" required value="1000">
       </label>
       <label>
         Variable naming convention
-        <span class="label-description">Used to create unique variable names for each step in your type scale.</span>
+        <span class="label-description">Used to create unique variable names for each font size in your type scale.</span>
         <input type="text" id="input-variable-name" required value="font-size">
       </label>
       <label data-flow="horizontal">

@@ -11,7 +11,7 @@ module.exports = {
   title: 'Fluid Type Scale Generator',
   author: 'Aleksandr Hovhannisyan',
   email: 'aleksandrhovhannisyan@gmail.com',
-  description: 'Generate fluid type scale CSS variables for use in any project.',
+  description: 'Generate font size variables for a fluid type scale.',
   keywords: ['fluid type scale', 'modular scale', 'type scale'],
   language: 'en-US',
   favicon: {
