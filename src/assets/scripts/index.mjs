@@ -11,7 +11,6 @@ const elements = {
   rounding: document.querySelector('#input-rounding'),
 };
 
-const toRems = (px) => px / 16;
 const round = (val) => Number(val.toFixed(elements.rounding.value));
 
 const generateTypographyVariables = () => {
@@ -22,12 +21,15 @@ const generateTypographyVariables = () => {
   const baseModularStepIndex = modularSteps.indexOf(baseModularStep);
   const variableNamingConvention = elements.variableName.value;
   const shouldUseRems = elements.shouldUseRems.checked;
+  const unit = shouldUseRems ? 'rem' : 'px';
   let outputText = ``;
 
   if (baseModularStepIndex === -1) {
     elements.output.innerHTML = `Base modular step not found.`;
     return;
   }
+
+  const convertToDesiredUnit = (px) => (shouldUseRems ? px / 16 : px);
 
   modularSteps.forEach((step, i) => {
     const minFontSizePx = baseFontSize * Math.pow(typeScale, i - baseModularStepIndex);
@@ -38,15 +40,15 @@ const generateTypographyVariables = () => {
 
     const slope = (maxFontSizePx - minFontSizePx) / (maxBreakpointPx - minBreakpointPx);
     const slopeVw = round(slope * 100);
+    const intercept = convertToDesiredUnit(minFontSizePx - slope * minBreakpointPx);
 
-    let intercept = minFontSizePx - slope * minBreakpointPx;
-    intercept = shouldUseRems ? `${round(toRems(intercept))}rem` : `${round(intercept)}px`;
-
-    const minFontSizeFinal = shouldUseRems ? `${round(toRems(minFontSizePx))}rem` : `${round(minFontSizePx)}px`;
-    const maxFontSizeFinal = shouldUseRems ? `${round(toRems(maxFontSizePx))}rem` : `${round(maxFontSizePx)}px`;
+    const clampMin = `${round(convertToDesiredUnit(minFontSizePx))}${unit}`;
+    const clampPreferredValue = `${slopeVw}vw + ${round(intercept)}${unit}`;
+    const clampMax = `${round(convertToDesiredUnit(maxFontSizePx))}${unit}`;
 
     const customPropertyName = `--${variableNamingConvention}-${step}`;
-    const customPropertyValue = `clamp(${minFontSizeFinal}, ${slopeVw}vw + ${intercept}, ${maxFontSizeFinal})`;
+    // eslint-disable-next-line prettier/prettier
+    const customPropertyValue = `clamp(${clampMin}, ${clampPreferredValue}, ${clampMax})`;
     outputText += `${customPropertyName}: ${customPropertyValue};\n`;
   });
   elements.output.innerHTML = outputText;
