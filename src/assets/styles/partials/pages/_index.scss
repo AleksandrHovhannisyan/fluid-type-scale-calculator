@@ -48,6 +48,7 @@ body {
   font-size: var(--font-size-sm);
   overflow-x: auto;
   padding: clamped(16px, 32px);
+  user-select: all;
 }
 
 #copy-to-clipboard {
