@@ -1,4 +1,4 @@
-const { toISOString, toAbsoluteUrl } = require("./11ty/filters");
+const { toISOString, toAbsoluteUrl, compileAndMinifyScss } = require("./11ty/filters");
 const dir = require("./11ty/constants/dir");
 const imageShortcode = require("./11ty/shortcodes/image");
 const faviconShortcode = require("./11ty/shortcodes/favicon");
@@ -20,6 +20,7 @@ module.exports = (eleventyConfig) => {
   eleventyConfig.addShortcode('favicon', faviconShortcode);
 
   // Custom filters
+  eleventyConfig.addFilter('compileAndMinifyScss', compileAndMinifyScss);
   eleventyConfig.addFilter('toAbsoluteUrl', toAbsoluteUrl);
   eleventyConfig.addFilter('toIsoString', toISOString);
   eleventyConfig.addFilter('toJson', JSON.stringify);

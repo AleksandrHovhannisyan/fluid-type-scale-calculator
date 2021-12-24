@@ -32,6 +32,10 @@ stylesheets:
     <meta name="robots" content="noindex">
   {%- endif -%}
   {%- comment -%}Global and page/layout-specific CSS{%- endcomment -%}
+  {%- capture fontFaceCss -%}
+    {%- include "fontFace.liquid" -%}
+  {%- endcapture -%}
+  <style>{{ fontFaceCss | compileAndMinifyScss }}</style>
   {%- for href in stylesheets -%}
     <link rel="stylesheet" href="{{ href }}">
   {%- endfor -%}
