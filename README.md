@@ -21,6 +21,14 @@ Why not do both?
 2. Run `yarn` to install dependencies.
 3. Run `yarn serve` and visit `localhost:8080` to view the app.
 
+## Tech Stack
+
+This project was bootstrapped with my [11ty-sass-images-seo](https://github.com/AleksandrHovhannisyan/11ty-sass-images-seo) starter and uses the following technologies:
+
+- [11ty](https://github.com/11ty/eleventy/)
+- Vanilla JavaScript
+- Sass
+
 ## Additional Resources
 
 - [Type Scale](https://type-scale.com/) by Jeremy Church
