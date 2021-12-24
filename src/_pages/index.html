@@ -70,13 +70,12 @@ eleventyComputed:
       </div>
       <div>
         <h2>How it works</h2>
-        <p>Using a baseline font size, we first determine the minimum font size for each step up/down in the type scale. For example, if the baseline minimum font size is <code>16px</code> and your ratio is <code>1.333</code>, then the next step up from the baseline has a min font size of <code>21.328px</code> (<code>1.333rem</code>), while the first step down has a min font size of <code>12px</code> (<code>0.75rem</code>).</p>
-        <p>Similarly, the max font size for each step is computed by multiplying the min for that step by the modular ratio. The preferred value in the CSS <code>clamp</code> declaration guarantees that each step achieves its min font size at the min breakpoint and its max font size at the max breakpoint. Everything scales harmoniously!</p>
+        <p>A <a href="https://every-layout.dev/rudiments/modular-scale/" rel="noreferrer noopener" target="_blank">modular type scale</a> consists of a baseline font size and proportionally smaller and larger font sizes. We can leverage CSS <code>clamp</code> to generate a set of font size variables that scale linearly between a minimum and maximum font size. This involves solving the equation <code>y = mx + b</code> to compute the preferred value for <code>clamp</code>.</p>
       </div>
     </div>
   </div>
   <footer>
-    <span>Created by <a href="https://www.aleksandrhovhannisyan.com/" rel="noreferrer noopener" target="_blank">Aleksandr Hovhannisyan</a> using the <a href="https://github.com/AleksandrHovhannisyan/11ty-sass-images-seo" rel="noreferrer noopener" target="_blank">11ty-sass-images-seo</a> starter. Hosted on Netlify.    </span>
+    <span>Created by <a href="https://www.aleksandrhovhannisyan.com/" rel="noreferrer noopener" target="_blank">Aleksandr Hovhannisyan</a> using the <a href="https://github.com/AleksandrHovhannisyan/11ty-sass-images-seo" rel="noreferrer noopener" target="_blank">11ty-sass-images-seo</a> starter.</span>
     <ul class="socials" aria-label="Social media">
       {%- assign networks = socials | entries %}
       {%- for entry in networks -%}
