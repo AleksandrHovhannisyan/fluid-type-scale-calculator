@@ -66,10 +66,7 @@ copyToClipboardButton.addEventListener('click', () => {
 
 // Whenever any input value changes, recompute the output
 Object.values(elements).forEach((el) => {
-  el.addEventListener('input', (e) => {
-    el.setAttribute('value', e.target.value);
-    generateTypographyVariables();
-  });
+  el.addEventListener('input', generateTypographyVariables);
 });
 
 // Compute initial output
