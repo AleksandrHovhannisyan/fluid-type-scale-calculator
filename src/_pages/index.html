@@ -12,8 +12,8 @@ eleventyComputed:
   <div class="content">
     <fieldset>
       <label>
-        Min baseline font size (px)
-        <span class="label-description">The minimum baseline font size for your type scale. This value will be scaled up and down to generate all other font sizes.</span>
+        Baseline font size (px)
+        <span class="label-description">The baseline font size for your type scale. This will be used as the minimum of your base modular step and scaled up/down to generate all other sizes.</span>
         <input type="number" id="input-base-font-size" required value="16">
       </label>
       <label>
@@ -70,8 +70,8 @@ eleventyComputed:
       </div>
       <div>
         <h2>How it works</h2>
-        <p>Using a baseline minimum font size, we first determine the minimum font size for each step up/down in the type scale. These obey your chosen modular ratio. So if the baseline min is <code>16px</code> and your ratio is <code>1.333</code>, then the next step up has a min font size of <code>21.328px</code>, and the first step down has a min font size of <code>12px</code>.</p>
-        <p>Similarly, the max font size for each step is computed by multiplying the min by a power of the same modular ratio. The preferred value for <code>clamp</code> then guarantees that each step achieves its min font size at the min breakpoint and its max font size at the max breakpoint.</p>
+        <p>Using a baseline font size, we first determine the minimum font size for each step up/down in the type scale. For example, if the baseline minimum font size is <code>16px</code> and your ratio is <code>1.333</code>, then the next step up from the baseline has a min font size of <code>21.328px</code> (<code>1.333rem</code>), while the first step down has a min font size of <code>12px</code> (<code>0.75rem</code>).</p>
+        <p>Similarly, the max font size for each step is computed by multiplying the min for that step by the modular ratio. The preferred value in the CSS <code>clamp</code> declaration guarantees that each step achieves its min font size at the min breakpoint and its max font size at the max breakpoint. Everything scales harmoniously!</p>
       </div>
     </div>
   </div>
