@@ -47,6 +47,7 @@ body {
   white-space: pre;
   display: flex;
   font-family: var(--ff-code);
+  font-weight: var(--fw-code-regular);
   font-size: var(--fs-sm);
   overflow: auto;
   max-height: 250px;
@@ -75,7 +76,7 @@ body {
 
 .title {
   font-size: var(--fs-xxxl);
-  font-weight: var(--fw-bold);
+  font-weight: var(--fw-body-bold);
   margin-bottom: 16px;
 }
 
@@ -110,7 +111,7 @@ label {
   display: grid;
   align-items: center;
   gap: 6px;
-  font-weight: var(--fw-bold);
+  font-weight: var(--fw-body-bold);
 
   &[data-flow="horizontal"] {
     grid-auto-flow: column;
@@ -123,7 +124,7 @@ label {
 
   &,
   a {
-    font-weight: var(--fw-regular);
+    font-weight: var(--fw-body-regular);
   }
 }
 

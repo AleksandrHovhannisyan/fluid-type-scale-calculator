@@ -21,7 +21,7 @@ body {
 
 a {
   color: var(--color-surface-dark);
-  font-weight: var(--fw-bold);
+  font-weight: var(--fw-body-bold);
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
@@ -79,6 +79,7 @@ h6 {
 
 code {
   font-family: var(--ff-code);
+  font-weight: var(--fw-code-regular);
   font-size: var(--fs-sm);
   background-color: var(--color-surface-medium);
   padding: 4px;
