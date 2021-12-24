@@ -33,11 +33,11 @@ body {
   display: grid;
   gap: 32px;
   grid-template-columns: minmax(0, 1fr);
-  overflow: auto;
+  grid-template-rows: min-content 1fr;
   @include desktop-lg {
-    height: fit-content;
+    height: max-content;
     position: sticky;
-    top: 0;
+    top: 32px;
   }
 }
 
@@ -97,7 +97,7 @@ body {
       background-size: 100% 100%;
       background-repeat: no-repeat;
       background-position: center;
-      transform: rotate(14deg) translate(30%, 70%);
+      transform: rotate(14deg) translate(0%, 70%);
     }
   }
 }
@@ -121,11 +121,7 @@ label {
 
 .label-description {
   font-size: var(--fs-sm);
-
-  &,
-  a {
-    font-weight: var(--fw-body-regular);
-  }
+  font-weight: var(--fw-body-regular);
 }
 
 input[type="number"] {
@@ -160,6 +156,10 @@ footer {
   padding: clamped(16px, 96px) 0 clamped(16px, 32px);
   text-align: center;
   font-size: var(--fs-sm);
+
+  a {
+    font-weight: var(--fw-body-bold);
+  }
 }
 
 .socials {

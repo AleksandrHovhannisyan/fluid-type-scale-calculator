@@ -21,7 +21,7 @@ body {
 
 a {
   color: var(--color-surface-dark);
-  font-weight: var(--fw-body-bold);
+  font-weight: inherit;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
