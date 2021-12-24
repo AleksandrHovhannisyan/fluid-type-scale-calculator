@@ -8,7 +8,7 @@ const environmentSpecificVariables = {
 };
 
 module.exports = {
-  title: 'Modular Fluid Typography',
+  title: 'Fluid Type Scale Generator',
   author: 'Aleksandr Hovhannisyan',
   email: 'aleksandrhovhannisyan@gmail.com',
   description: 'Generate fluid typography variables with a modular type scale.',
