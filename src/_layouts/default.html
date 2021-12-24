@@ -51,6 +51,7 @@ stylesheets:
   {%- comment -%}Twitter card meta tags{%- endcomment -%}
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="{{ pageTitle }}">
+  <meta name="twitter:author" content="{{ socials.twitter }}">
   <meta name="twitter:description" content="{{ description }}">
   {%- if thumbnail -%}
     <meta name="twitter:image" content="{{ thumbnail }}">
@@ -64,5 +65,19 @@ stylesheets:
 <body>
   {%- comment -%}Add common layout components here (e.g., site nav/footer){%- endcomment -%}
   {{ content }}
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "WebApplication",
+      "name": "{{ site.title }}",
+      "url": "{{ site.url }}",
+      "description": "{{ site.description }}",
+      "applicationCategory": "DeveloperApplication",
+      "genre": "design",
+      "browserRequirements": "Requires JavaScript.",
+      "softwareVersion": "1.0.0",
+      "operatingSystem": "All"
+    }
+  </script>
 </body>
 </html>

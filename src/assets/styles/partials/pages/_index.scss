@@ -130,7 +130,30 @@ fieldset {
 }
 
 footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 16px;
   padding: clamped(16px, 64px) 0;
   text-align: center;
   font-size: var(--font-size-sm);
+}
+
+.socials {
+  display: flex;
+  gap: 8px;
+  list-style: none;
+
+  a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+  }
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
 }

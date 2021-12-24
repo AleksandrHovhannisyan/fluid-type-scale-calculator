@@ -1,0 +1,11 @@
+[[plugins]]
+  package = "netlify-plugin-checklinks"
+
+[dev]
+  command = "yarn serve"
+  targetPort = 4001
+  publish = "_site/"
+
+[build]
+  publish = "_site/"
+  command = "yarn build"

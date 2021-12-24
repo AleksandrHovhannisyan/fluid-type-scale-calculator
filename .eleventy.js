@@ -2,6 +2,7 @@ const { toISOString, toAbsoluteUrl, compileAndMinifyScss } = require("./11ty/fil
 const dir = require("./11ty/constants/dir");
 const imageShortcode = require("./11ty/shortcodes/image");
 const faviconShortcode = require("./11ty/shortcodes/favicon");
+const socialIconShortcode = require("./11ty/shortcodes/socialIcon");
 const esbuild = require('esbuild');
 
 // Template language for the site: https://www.11ty.dev/docs/languages/liquid/
@@ -18,6 +19,7 @@ module.exports = (eleventyConfig) => {
   // Custom shortcodes
   eleventyConfig.addShortcode('image', imageShortcode);
   eleventyConfig.addShortcode('favicon', faviconShortcode);
+  eleventyConfig.addShortcode('socialIcon', socialIconShortcode);
 
   // Custom filters
   eleventyConfig.addFilter('compileAndMinifyScss', compileAndMinifyScss);
