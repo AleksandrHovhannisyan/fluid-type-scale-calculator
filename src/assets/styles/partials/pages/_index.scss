@@ -12,10 +12,9 @@ body {
 
 #app {
   display: grid;
-  gap: 16px;
+  gap: clamped(16px, 32px);
 
   header {
-    margin-bottom: 32px;
     padding: clamped(12px, 48px) 0;
   }
 }
@@ -157,7 +156,7 @@ footer {
   align-items: center;
   flex-direction: column;
   gap: 16px;
-  padding: clamped(16px, 64px) 0;
+  padding: clamped(16px, 96px) 0 clamped(16px, 32px);
   text-align: center;
   font-size: var(--fs-sm);
 }

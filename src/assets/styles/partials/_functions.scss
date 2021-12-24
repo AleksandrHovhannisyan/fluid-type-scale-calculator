@@ -19,13 +19,13 @@
   @return math.div(math.round($number * $n), $n);
 }
 
-/// Returns a CSS clamp(...) declaration, with the responsive argument computed automatically.
-/// It's assumed that min should correspond to the minimum mobile breakpoint for design work.
-
-@function clamped($min, $max) {
-  $min-rems: to-rems($min);
-  $max-rems: to-rems($max);
-  $mobile-min-rems: to-rems(map.get($media-breakpoints, "mobile"));
-  $min-to-mobile-ratio: rnd(math.div($min-rems, $mobile-min-rems) * 100, 2);
-  @return clamp(#{$min-rems}, #{$min-to-mobile-ratio}vw, #{$max-rems});
+@function clamped($min-px, $max-px) {
+  $min-bp: map.get($media-breakpoints, "mobile");
+  $max-bp: map.get($media-breakpoints, "desktop");
+  $slope: math.div($max-px - $min-px, $max-bp - $min-bp);
+  $slope-vw: rnd($slope * 100, 2);
+  $intercept-rems: rnd(to-rems($min-px - $slope * $min-bp), 2);
+  $min-rems: rnd(to-rems($min-px), 2);
+  $max-rems: rnd(to-rems($max-px), 2);
+  @return clamp(#{$min-rems}, #{$slope-vw}vw + #{$intercept-rems}, #{$max-rems});
 }
