@@ -78,6 +78,22 @@ body {
   font-size: var(--font-size-md);
   max-width: 50ch;
   margin: 0 auto;
+  position: relative;
+  @include desktop-lg {
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 64px;
+      height: 64px;
+      background-image: url("/assets/images/arrow.svg");
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      background-position: center;
+      transform: rotate(14deg) translate(100%, 40%);
+    }
+  }
 }
 
 .title,

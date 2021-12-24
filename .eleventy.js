@@ -10,6 +10,7 @@ const TEMPLATE_ENGINE = 'liquid';
 
 module.exports = (eleventyConfig) => {
   // Pass-through copy
+  eleventyConfig.addPassthroughCopy(`${dir.input}/assets/images`);
   eleventyConfig.addPassthroughCopy(`${dir.input}/assets/fonts`);
 
   // Watch targets
