@@ -8,6 +8,9 @@ const esbuild = require('esbuild');
 const TEMPLATE_ENGINE = 'liquid';
 
 module.exports = (eleventyConfig) => {
+  // Pass-through copy
+  eleventyConfig.addPassthroughCopy(`${dir.input}/assets/fonts`);
+
   // Watch targets
   eleventyConfig.addWatchTarget(`${dir.input}/assets/styles`);
   eleventyConfig.addWatchTarget(`${dir.input}/assets/scripts`);
