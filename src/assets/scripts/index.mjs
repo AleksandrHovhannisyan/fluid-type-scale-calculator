@@ -47,7 +47,6 @@ const generateTypographyVariables = () => {
     const clampMax = `${round(convertToDesiredUnit(maxFontSizePx))}${unit}`;
 
     const customPropertyName = `--${variableNamingConvention}-${step}`;
-    // eslint-disable-next-line prettier/prettier
     const customPropertyValue = `clamp(${clampMin}, ${clampPreferredValue}, ${clampMax})`;
     outputText += `${customPropertyName}: ${customPropertyValue};\n`;
   });
