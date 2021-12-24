@@ -108,6 +108,11 @@ input[type="number"] {
   max-width: calc(4ch + 2rem);
 }
 
+input[type="checkbox"] {
+  width: 22px;
+  height: 22px;
+}
+
 input,
 select {
   padding: 8px;
