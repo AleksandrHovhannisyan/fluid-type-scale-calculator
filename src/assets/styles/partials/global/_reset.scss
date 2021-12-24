@@ -1,7 +1,7 @@
 * {
   box-sizing: border-box;
   margin: 0;
-  line-height: calc(2ex + 8px);
+  line-height: calc(2ex + 6px);
 }
 
 *,
@@ -14,14 +14,13 @@
 }
 
 body {
-  accent-color: black;
-  /* stylelint-disable-next-line max-line-length */
-  font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif;
+  accent-color: var(--color-surface-dark);
+  font-family: var(--ff-body);
   -webkit-font-smoothing: antialiased;
 }
 
 a {
-  color: black;
+  color: var(--color-surface-dark);
   font-weight: var(--fw-bold);
 }
 
@@ -47,8 +46,8 @@ img {
 }
 
 ::selection {
-  background-color: black;
-  color: white;
+  background-color: var(--color-surface-dark);
+  color: var(--color-surface-light);
   text-shadow: none;
 }
 
@@ -56,17 +55,17 @@ img {
 button {
   cursor: pointer;
   border: none;
-  background: black;
-  color: white;
+  background: var(--color-surface-dark);
+  color: var(--color-surface-light);
 
   &:focus-visible {
-    outline: solid 4px black;
+    outline: solid 4px var(--color-surface-dark);
     outline-offset: 4px;
   }
 }
 
-p {
-  margin-bottom: 1em;
+p + p {
+  margin-top: 1em;
 }
 
 h1,
@@ -75,5 +74,12 @@ h3,
 h4,
 h5,
 h6 {
-  margin-bottom: 0.75em;
+  margin-bottom: 0.25em;
+}
+
+code {
+  font-family: var(--ff-code);
+  font-size: var(--fs-sm);
+  background-color: var(--color-surface-medium);
+  padding: 4px;
 }
