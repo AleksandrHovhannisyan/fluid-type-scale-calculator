@@ -12,13 +12,13 @@ eleventyComputed:
   <div class="content">
     <fieldset>
       <label>
-        Base font size (px)
-        <span class="label-description">The base font size of your type scale.</span>
+        Min baseline font size (px)
+        <span class="label-description">The minimum baseline font size for your type scale. This value will be scaled up and down to generate all other font sizes.</span>
         <input type="number" id="input-base-font-size" required value="16">
       </label>
       <label>
         Modular scale
-        <span class="label-description">The larger the ratio, the faster your font sizes grow in each successive step.</span>
+        <span class="label-description">The larger the ratio, the faster your font sizes will grow/shrink in each step up/down from the baseline.</span>
         {%- assign defaultModularRatio = modularSteps["perfectFourth"].ratio -%}
         <select id="input-type-scale" required value="{{ defaultModularRatio }}">
           {%- assign steps = modularSteps | values -%}
@@ -30,16 +30,6 @@ eleventyComputed:
         </select>
       </label>
       <label>
-        Type scale steps
-        <span class="label-description">A comma-separated list of names for each modular step in your type scale, in ascending order of size. Use any convention you want.</span>
-        <input type="text" id="input-modular-steps" required spellcheck="false" value="sm,base,md,lg,xl,xxl,xxxl">
-      </label>
-      <label>
-        Base modular step
-        <span class="label-description">The name of the base font size step in your type scale. This must exist in the list of font size steps entered above.</span>
-        <input type="text" id="input-base-modular-step" required value="base">
-      </label>
-      <label>
         Min breakpoint (px)
         <span class="label-description">The breakpoint corresponding to the minimum font size for each step in your type scale.</span>
         <input type="number" id="input-min-breakpoint" required value="400">
@@ -48,6 +38,16 @@ eleventyComputed:
         Max breakpoint (px)
         <span class="label-description">The breakpoint corresponding to the maximum font size for each step in your type scale.</span>
         <input type="number" id="input-max-breakpoint" required value="1000">
+      </label>
+      <label>
+        Type scale steps
+        <span class="label-description">A comma-separated list of names for each modular step in your type scale, in ascending order of size. Use any convention you want.</span>
+        <input type="text" id="input-modular-steps" required spellcheck="false" value="sm,base,md,lg,xl,xxl,xxxl">
+      </label>
+      <label>
+        Base modular step
+        <span class="label-description">Identify the name of the baseline font size step in your type scale. This must appear in the list of font size steps entered above.</span>
+        <input type="text" id="input-base-modular-step" required value="base">
       </label>
       <label>
         Variable naming convention
@@ -64,8 +64,15 @@ eleventyComputed:
       </label>
     </fieldset>
     <div class="result">
-      <output id="output" aria-live="polite"></output>
-      <button type="button" id="copy-to-clipboard" aria-label="Copy code to clipboard" data-copied="false"></button>
+      <div>
+        <output id="output" aria-live="polite"></output>
+        <button type="button" id="copy-to-clipboard" aria-label="Copy code to clipboard" data-copied="false"></button>
+      </div>
+      <div>
+        <h2>How it works</h2>
+        <p>Using a baseline minimum font size, we first determine the minimum font size for each step up/down in the type scale. These obey your chosen modular ratio. So if the baseline min is <code>16px</code> and your ratio is <code>1.333</code>, then the next step up has a min font size of <code>21.328px</code>, and the first step down has a min font size of <code>12px</code>.</p>
+        <p>Similarly, the max font size for each step is computed by multiplying the min by a power of the same modular ratio. The preferred value for <code>clamp</code> then guarantees that each step achieves its min font size at the min breakpoint and its max font size at the max breakpoint.</p>
+      </div>
     </div>
   </div>
   <footer>

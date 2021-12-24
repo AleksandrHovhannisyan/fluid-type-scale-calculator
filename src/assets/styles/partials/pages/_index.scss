@@ -33,9 +33,13 @@ body {
 .result {
   height: fit-content;
   display: grid;
+  gap: 32px;
+  grid-template-columns: minmax(0, 1fr);
+  overflow: auto;
   @include desktop-lg {
+    height: 100vh;
     position: sticky;
-    top: 25%;
+    top: 32px;
   }
 }
 
@@ -53,6 +57,7 @@ body {
 }
 
 #copy-to-clipboard {
+  width: 100%;
   padding: 24px;
   text-align: center;
 
