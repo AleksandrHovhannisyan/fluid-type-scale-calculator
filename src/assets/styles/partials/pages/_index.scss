@@ -32,13 +32,12 @@ body {
 .result {
   display: grid;
   gap: 32px;
-  align-items: space-between;
   grid-template-columns: minmax(0, 1fr);
   overflow: auto;
   @include desktop-lg {
     height: fit-content;
     position: sticky;
-    top: 32px;
+    top: 0;
   }
 }
 
