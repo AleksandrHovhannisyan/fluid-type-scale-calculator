@@ -70,7 +70,7 @@ eleventyComputed:
   </div>
   <footer>
     <span>Created by <a href="https://www.aleksandrhovhannisyan.com/" rel="noreferrer noopener" target="_blank">Aleksandr Hovhannisyan</a> using the <a href="https://github.com/AleksandrHovhannisyan/11ty-sass-images-seo" rel="noreferrer noopener" target="_blank">11ty-sass-images-seo</a> starter. Hosted on Netlify.    </span>
-    <ul class="socials">
+    <ul class="socials" aria-label="Social media">
       {%- assign networks = socials | entries %}
       {%- for entry in networks -%}
         {%- assign networkId = entry | first -%}
