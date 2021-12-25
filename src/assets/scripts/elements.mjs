@@ -1,5 +1,11 @@
-export default {
-  output: document.querySelector('#output'),
+/** The element that outputs the CSS code for the app. */
+export const output = document.querySelector('#output');
+
+/** The preview element where sample text is shown to the user. */
+export const preview = document.querySelector('#preview tbody');
+
+/** All interactive inputs that the user can customize. */
+export const inputs = {
   baseFontSize: document.querySelector('#input-base-font-size'),
   typeScale: document.querySelector('#input-type-scale'),
   modularSteps: document.querySelector('#input-modular-steps'),
