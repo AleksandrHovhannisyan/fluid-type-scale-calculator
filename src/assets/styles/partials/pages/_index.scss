@@ -182,9 +182,8 @@ footer {
 }
 
 .github-corner {
-  position: fixed;
+  position: absolute;
   top: 0;
-  border: 0;
   right: 0;
 
   &:hover .octo-arm {
