@@ -77,6 +77,30 @@ h6 {
   margin-bottom: 0.25em;
 }
 
+h1 {
+  font-size: var(--fs-xxxl);
+}
+
+h2 {
+  font-size: var(--fs-xxl);
+}
+
+h3 {
+  font-size: var(--fs-xl);
+}
+
+h4 {
+  font-size: var(--fs-lg);
+}
+
+h5 {
+  font-size: var(--fs-md);
+}
+
+h6 {
+  font-size: var(--fs-base);
+}
+
 code {
   font-family: var(--ff-code);
   font-weight: var(--fw-code-regular);

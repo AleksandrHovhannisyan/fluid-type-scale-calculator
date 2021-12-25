@@ -3,6 +3,9 @@ import elements from './elements.mjs';
 export const round = (val) => Number(val.toFixed(elements.rounding.value));
 
 export const generateTypographyVariables = () => {
+  const previewBody = document.querySelector('#preview tbody');
+  previewBody.innerHTML = '';
+
   const baseFontSize = elements.baseFontSize.value;
   const typeScale = elements.typeScale.value;
   const modularSteps = elements.modularSteps.value.split(',').map((step) => step.trim());
@@ -37,7 +40,12 @@ export const generateTypographyVariables = () => {
 
     const customPropertyName = `--${variableNamingConvention}-${step}`;
     const customPropertyValue = `clamp(${clampMin}, ${clampPreferredValue}, ${clampMax})`;
+
     outputText += `${customPropertyName}: ${customPropertyValue};\n`;
+    previewBody.innerHTML += `<tr>
+      <td class="preview-step">${step}</td>
+      <td class="preview-result"style="font-size: ${customPropertyValue}">${elements.previewText.value}.</td>
+    </tr>`;
   });
   elements.output.innerHTML = outputText;
 };
