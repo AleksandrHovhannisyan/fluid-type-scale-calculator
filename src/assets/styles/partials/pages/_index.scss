@@ -55,11 +55,26 @@ body {
   border: solid 8px var(--color-surface-dark);
 }
 
-label {
+.label {
   display: grid;
   align-items: center;
   gap: 6px;
-  font-weight: var(--fw-body-bold);
+  font-size: var(--fs-sm);
+
+  &-title {
+    font-size: var(--fs-base);
+    font-weight: var(--fw-body-bold);
+  }
+
+  &-description {
+    font-size: var(--fs-sm);
+  }
+
+  &-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
 
   &[data-flow="horizontal"] {
     grid-auto-flow: column;
@@ -67,18 +82,13 @@ label {
   }
 }
 
-.label-description {
-  font-size: var(--fs-sm);
-  font-weight: var(--fw-body-regular);
-}
-
 input[type="number"] {
   max-width: calc(4ch + 2rem);
 }
 
 input[type="checkbox"] {
-  width: clamped(11px, 22px);
-  height: clamped(11px, 22px);
+  width: clamped(12px, 18px);
+  height: clamped(12px, 18px);
 }
 
 input,

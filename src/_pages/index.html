@@ -11,13 +11,13 @@ eleventyComputed:
   </header>
   <div class="stack">
     <fieldset class="form">
-      <label>
-        Baseline font size (px)
+      <label class="label">
+        <span class="label-title">Baseline font size (pixels)</span>
         <span class="label-description">The baseline font size for your type scale. This will be used as the minimum of your base modular step and scaled up/down to generate all other sizes.</span>
         <input type="number" id="input-base-font-size" required value="16">
       </label>
-      <label>
-        Modular scale
+      <label class="label">
+        <span class="label-title">Modular scale</span>
         <span class="label-description">The larger the ratio, the faster your font sizes will grow/shrink in each step up/down from the baseline.</span>
         {%- assign defaultModularRatio = modularSteps["perfectFourth"].ratio -%}
         <select id="input-type-scale">
@@ -29,41 +29,45 @@ eleventyComputed:
           {%- endfor -%}
         </select>
       </label>
-      <label>
-        Min breakpoint (px)
-        <span class="label-description">The breakpoint up until which each modular step should use its minimum font size.</span>
-        <input type="number" id="input-min-breakpoint" required value="400">
-      </label>
-      <label>
-        Max breakpoint (px)
-        <span class="label-description">The breakpoint at which each modular step should begin using its maximum font size.</span>
-        <input type="number" id="input-max-breakpoint" required value="1000">
-      </label>
-      <label>
-        Type scale steps
+      <div class="label">
+        <span class="label-title">Viewport range (pixels)</span>
+        <span class="label-description">Between these two breakpoints, every step in your type scale will take on a responsive size that scales linearly with the viewport width.</span>
+        <div class="label-group">
+          <label data-flow="horizontal">
+            Start
+            <input type="number" id="input-min-breakpoint" required value="400">
+          </label>
+          <label data-flow="horizontal">
+            End
+            <input type="number" id="input-max-breakpoint" required value="1000">
+          </label>
+        </div>
+      </div>
+      <label class="label">
+        <span class="label-title">Type scale steps</span>
         <span class="label-description">A comma-separated list of names for each modular step in your type scale, in ascending order of size. Use any convention you want.</span>
         <input type="text" id="input-modular-steps" required spellcheck="false" value="sm,base,md,lg,xl,xxl,xxxl">
       </label>
-      <label>
-        Base modular step
+      <label class="label">
+        <span class="label-title">Base modular step</span>
         <span class="label-description">Identify the name of the baseline font size step in your type scale. This must appear in the list entered above.</span>
         <input type="text" id="input-base-modular-step" required value="base">
       </label>
-      <label>
-        Variable naming convention
+      <label class="label">
+        <span class="label-title">Variable naming convention</span>
         <span class="label-description">Prefixed to each modular step to create unique variable names.</span>
         <input type="text" id="input-variable-name" required value="font-size">
       </label>
-      <label data-flow="horizontal">
-        Use rems for font sizing
+      <label class="label" data-flow="horizontal">
+        <span class="label-title">Use rems for font sizing</span>
         <input type="checkbox" id="input-use-rems" checked>
       </label>
-      <label data-flow="horizontal">
-        Number of decimal places to show:
+      <label class="label" data-flow="horizontal">
+        <span class="label-title">Number of decimal places to show:</span>
         <input type="number" min="0" required value="2" id="input-rounding">
       </label>
-      <label>
-        Preview text
+      <label class="label">
+        <span class="label-title">Preview text</span>
         <textarea id="input-preview-text">Almost before we knew it, we had left the ground</textarea>
       </label>
     </fieldset>
