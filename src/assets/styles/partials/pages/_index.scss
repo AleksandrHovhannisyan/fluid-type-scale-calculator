@@ -46,13 +46,26 @@ body {
   }
 }
 
+.flow {
+  max-width: 64ch;
+
+  > * + * {
+    margin-top: var(--line-height);
+  }
+}
+
 .form {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 24px;
   margin: 0;
   padding: clamped(16px, 32px);
   border: none;
   border: solid 8px var(--color-surface-dark);
+
+  h2 {
+    font-size: var(--fs-xl);
+  }
 }
 
 .label {
@@ -135,7 +148,7 @@ textarea {
   align-items: center;
   flex-direction: column;
   gap: 16px;
-  padding: clamped(16px, 32px);
+  padding: clamped(32px, 64px) clamped(16px, 32px);
   text-align: center;
   font-size: var(--fs-sm);
 

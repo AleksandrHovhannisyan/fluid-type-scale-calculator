@@ -1,7 +1,9 @@
 * {
   box-sizing: border-box;
   margin: 0;
-  line-height: calc(2ex + 6px);
+
+  --line-height: calc(2ex + 6px);
+  line-height: var(--line-height);
 }
 
 *,
@@ -42,6 +44,7 @@ option {
 }
 
 img {
+  max-width: 100%;
   height: auto;
 }
 
@@ -62,10 +65,6 @@ button {
     outline: solid 4px var(--color-surface-dark);
     outline-offset: 4px;
   }
-}
-
-p + p {
-  margin-top: 1em;
 }
 
 h1,

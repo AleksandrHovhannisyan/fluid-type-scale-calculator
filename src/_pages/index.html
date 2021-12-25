@@ -70,6 +70,11 @@ eleventyComputed:
         <span class="label-title">Preview text</span>
         <textarea id="input-preview-text">Almost before we knew it, we had left the ground</textarea>
       </label>
+      <div>
+        <h2>Your type scale:</h2>
+        <output id="output" aria-live="polite"></output>
+        <button type="button" id="copy-to-clipboard" aria-label="Copy code to clipboard" data-copied="false"></button>
+      </div>
     </fieldset>
     <div id="preview">
       <table>
@@ -83,14 +88,22 @@ eleventyComputed:
       </table>
     </div>
   </div>
-  <div class="stack">
-    <div>
-      <output id="output" aria-live="polite"></output>
-      <button type="button" id="copy-to-clipboard" aria-label="Copy code to clipboard" data-copied="false"></button>
-    </div>
-    <div>
+  <div>
+  <div class="stack info">
+    <div class="flow">
       <h2>How it works</h2>
-      <p>A <a href="https://every-layout.dev/rudiments/modular-scale/" rel="noreferrer noopener" target="_blank">modular type scale</a> consists of a baseline font size and proportionally smaller and larger font sizes. Traditional design systems use static font sizing, where each step has a fixed font size at every viewport width. By contrast, in a fluid type scale, each modular step has a minimum, maximum, and variable font size. We can leverage CSS <code>clamp</code> to generate a set of font size variables that scale linearly between their minimum and maximum sizes, with mathematical precision.</p>
+      <p>A <a href="https://every-layout.dev/rudiments/modular-scale/" rel="noreferrer noopener" target="_blank">modular type scale</a> consists of a baseline font size and proportionally smaller and larger font sizes. Traditional design systems use static font sizing, where each step has a fixed font size at every viewport width.</p>
+      <p>By contrast, in a fluid type scale, each modular step has a minimum, maximum, and variable font size. We can leverage CSS <code>clamp</code> to generate a set of font size variables that scale linearly between their minimum and maximum sizes, with mathematical precision.</p>
+      <p>This is done with linear interpolation by solving the equation <code>y = mx + b</code>, which corresponds to the preferred value for a CSS <code>clamp</code> declaration.</p>
+    </div>
+    <div class="flow">
+      <h2>Additional Resources</h2>
+      <ul>
+        <li><a href="https://modern-fluid-typography.vercel.app/" rel="noreferrer noopener" target="_blank">Modern Fluid Typography Editor</a>, a tool by Adrian Bece.</li>
+        <li><a href="https://css-tricks.com/consistent-fluidly-scaling-type-and-spacing/" rel="noreferrer noopener" target="_blank">Consistent, Fluidly Scaling Type and Spacing</a> by Andy Bell.</li>
+        <li><a href="https://type-scale.com/" rel="noreferrer noopener" target="_blank">Type Scale</a>, a tool by Jeremy Church.</li>
+        <li><a href="https://kittygiraudel.com/2020/05/18/using-calc-to-figure-out-optimal-line-height/" rel="noreferrer noopener" target="_blank">Using calc to figure out optimal line-height</a> by Jesús Ricarte.</li>
+      </ul>
     </div>
   </div>
   <footer class="page-footer">
