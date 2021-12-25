@@ -10,13 +10,13 @@ body {
   margin: 0 auto;
 }
 
+header {
+  padding: clamped(12px, 48px) 0;
+}
+
 #app {
   display: grid;
-  gap: clamped(16px, 32px);
-
-  header {
-    padding: clamped(12px, 48px) 0;
-  }
+  gap: 48px;
 }
 
 .title {
