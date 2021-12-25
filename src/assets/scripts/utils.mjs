@@ -3,7 +3,7 @@ import { output, preview, inputs } from './elements.mjs';
 /** Rounds the given value to a fixed number of decimal places, according to the user's specified value. */
 export const round = (val) => Number(val.toFixed(inputs.rounding.value));
 
-export const generateTypographyVariables = () => {
+export const generateOutput = () => {
   preview.innerHTML = '';
 
   const baseFontSize = inputs.baseFontSize.value;
@@ -44,8 +44,57 @@ export const generateTypographyVariables = () => {
     outputText += `${customPropertyName}: ${customPropertyValue};\n`;
     preview.innerHTML += `<tr>
       <td class="preview-step">${step}</td>
-      <td class="preview-result"style="font-size: ${customPropertyValue}">${inputs.previewText.value}.</td>
+      <td class="preview-result"style="font-size: ${customPropertyValue}">${inputs.previewText.value}</td>
     </tr>`;
   });
   output.innerHTML = outputText;
+};
+
+/** Listens for changes to any of the interactive inputs. On change, saves the value in localStorage and re-generates the output. */
+export const subscribeToInputChanges = () => {
+  Object.values(inputs).forEach((input) => {
+    input.addEventListener('input', (e) => {
+      localStorage.setItem(input.id, input.type === 'checkbox' ? e.target.checked : e.target.value);
+      generateOutput();
+    });
+  });
+};
+
+/** Loads the user's previously saved values from localStorage. */
+export const loadValuesFromLocalStorage = () => {
+  Object.values(inputs).forEach((input) => {
+    const savedValue = localStorage.getItem(input.id);
+    if (!savedValue) return;
+    switch (input.nodeName) {
+      case 'TEXTAREA':
+        input.setAttribute('value', savedValue);
+        break;
+      case 'INPUT': {
+        if (input.type === 'checkbox') {
+          if (savedValue === 'true') {
+            input.setAttribute('checked', true);
+          } else {
+            input.removeAttribute('checked');
+          }
+        } else {
+          input.setAttribute('value', savedValue);
+        }
+        break;
+      }
+      case 'SELECT': {
+        const options = Array.from(input.querySelectorAll('option'));
+        options.forEach((option) => {
+          if (option.hasAttribute('selected') && option.value !== savedValue) {
+            option.removeAttribute('selected');
+          }
+          if (option.value === savedValue) {
+            option.setAttribute('selected', true);
+          }
+        });
+        break;
+      }
+      default:
+        break;
+    }
+  });
 };
