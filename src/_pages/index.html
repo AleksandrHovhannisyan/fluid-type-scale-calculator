@@ -31,12 +31,12 @@ eleventyComputed:
       </label>
       <label>
         Min breakpoint (px)
-        <span class="label-description">The breakpoint corresponding to the minimum font size for each step in your type scale.</span>
+        <span class="label-description">The breakpoint up until which each modular step should use its minimum font size.</span>
         <input type="number" id="input-min-breakpoint" required value="400">
       </label>
       <label>
         Max breakpoint (px)
-        <span class="label-description">The breakpoint corresponding to the maximum font size for each step in your type scale.</span>
+        <span class="label-description">The breakpoint at which each modular step should begin using its maximum font size.</span>
         <input type="number" id="input-max-breakpoint" required value="1000">
       </label>
       <label>
@@ -46,7 +46,7 @@ eleventyComputed:
       </label>
       <label>
         Base modular step
-        <span class="label-description">Identify the name of the baseline font size step in your type scale. This must appear in the list of font size steps entered above.</span>
+        <span class="label-description">Identify the name of the baseline font size step in your type scale. This must appear in the list entered above.</span>
         <input type="text" id="input-base-modular-step" required value="base">
       </label>
       <label>
@@ -74,7 +74,7 @@ eleventyComputed:
       </div>
       <div>
         <h2>How it works</h2>
-        <p>A <a href="https://every-layout.dev/rudiments/modular-scale/" rel="noreferrer noopener" target="_blank">modular type scale</a> consists of a baseline font size and proportionally smaller and larger font sizes. We can leverage CSS <code>clamp</code> to generate a set of font size variables that scale linearly between a minimum and maximum font size. This involves solving the equation <code>y = mx + b</code> to compute the preferred value for <code>clamp</code>.</p>
+        <p>A <a href="https://every-layout.dev/rudiments/modular-scale/" rel="noreferrer noopener" target="_blank">modular type scale</a> consists of a baseline font size and proportionally smaller and larger font sizes. In a fluid type scale, each modular step has a minimum, maximum, and preferred size. We leverage CSS <code>clamp</code> to generate a set of font size variables that scale linearly between their minimum and maximum sizes.</p>
       </div>
     </div>
   </div>
