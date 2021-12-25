@@ -1,0 +1,26 @@
+@import "../functions";
+@import "../mixins";
+
+.stack {
+  display: grid;
+  gap: clamped(24px, 48px);
+  grid-template-columns: minmax(0, 1fr);
+  grid-auto-flow: row;
+  @include desktop-lg {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.flow {
+  max-width: 64ch;
+
+  > * + * {
+    margin-top: var(--line-height);
+  }
+}
+
+.list {
+  padding-inline-start: 1em;
+  display: grid;
+  gap: 8px;
+}

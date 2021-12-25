@@ -1,6 +1,9 @@
+@import "../functions";
+
 * {
   box-sizing: border-box;
   margin: 0;
+  padding: 0;
 
   --line-height: calc(2ex + 5px);
   line-height: var(--line-height);
@@ -16,7 +19,6 @@
 }
 
 body {
-  accent-color: var(--color-surface-dark);
   font-family: var(--ff-body);
   -webkit-font-smoothing: antialiased;
 }
@@ -37,6 +39,22 @@ option {
   font-size: inherit;
   line-height: inherit;
   letter-spacing: inherit;
+  accent-color: var(--color-surface-dark);
+}
+
+input,
+select,
+textarea {
+  padding: 8px;
+}
+
+input[type="number"] {
+  max-width: calc(4ch + 2rem);
+}
+
+input[type="checkbox"] {
+  width: clamped(12px, 18px);
+  height: clamped(12px, 18px);
 }
 
 :where(input,textarea,select,option) {

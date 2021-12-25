@@ -36,32 +36,14 @@ body {
   text-align: center;
 }
 
-.stack {
-  display: grid;
-  gap: clamped(24px, 48px);
-  grid-template-columns: minmax(0, 1fr);
-  grid-auto-flow: row;
-  @include desktop-lg {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.flow {
-  max-width: 64ch;
-
-  > * + * {
-    margin-top: var(--line-height);
-  }
-}
-
 .form {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 24px;
+  gap: clamped(24px, 32px);
   margin: 0;
-  padding: clamped(16px, 32px);
+  padding: clamped(24px, 32px);
   border: none;
-  border: solid 8px var(--color-surface-dark);
+  border: solid clamped(4px, 8px) var(--color-surface-dark);
 
   h2 {
     font-size: var(--fs-xl);
@@ -69,9 +51,10 @@ body {
 }
 
 .label {
+  --gap: 12px;
   display: grid;
   align-items: center;
-  gap: 6px;
+  gap: var(--gap);
   font-weight: var(--fw-body-light);
 
   &-title {
@@ -82,28 +65,13 @@ body {
   &-group {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
+    gap: var(--gap);
   }
 
   &[data-flow="horizontal"] {
     grid-auto-flow: column;
     grid-template-columns: auto 1fr;
   }
-}
-
-input[type="number"] {
-  max-width: calc(4ch + 2rem);
-}
-
-input[type="checkbox"] {
-  width: clamped(12px, 18px);
-  height: clamped(12px, 18px);
-}
-
-input,
-select,
-textarea {
-  padding: 8px;
 }
 
 #output {
@@ -138,13 +106,52 @@ textarea {
   }
 }
 
+#preview {
+  max-height: 100vh;
+  @include desktop-lg {
+    height: max-content;
+    position: sticky;
+    top: 32px;
+  }
+
+  &,
+  table {
+    max-width: 100%;
+    width: 100%;
+    overflow: auto;
+  }
+
+  table {
+    margin: 0 calc(-1 * #{clamped(6px, 12px)});
+  }
+
+  th,
+  td {
+    border: none;
+    padding: clamped(6px, 12px);
+  }
+
+  th {
+    font-size: var(--fs-md);
+    text-align: start;
+    font-weight: var(--fw-body-bold);
+    padding-top: 0;
+  }
+
+  td:nth-child(2) {
+    width: 100%;
+    white-space: nowrap;
+  }
+}
+
 .page-footer {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   gap: 16px;
-  padding: clamped(32px, 64px) clamped(16px, 32px);
+  padding-top: clamped(64px, 96px);
+  padding-bottom: 64px;
   text-align: center;
   font-size: var(--fs-sm);
 
@@ -205,43 +212,5 @@ textarea {
 
   .github-corner:hover .octo-arm {
     animation: none;
-  }
-}
-
-#preview {
-  max-height: 100vh;
-  @include desktop-lg {
-    height: max-content;
-    position: sticky;
-    top: 32px;
-  }
-
-  &,
-  table {
-    max-width: 100%;
-    width: 100%;
-    overflow: auto;
-  }
-
-  table {
-    margin: 0 calc(-1 * #{clamped(6px, 12px)});
-  }
-
-  th,
-  td {
-    border: none;
-    padding: clamped(6px, 12px);
-  }
-
-  th {
-    font-size: var(--fs-md);
-    text-align: start;
-    font-weight: var(--fw-body-bold);
-    padding-top: 0;
-  }
-
-  td:nth-child(2) {
-    width: 100%;
-    white-space: nowrap;
   }
 }
