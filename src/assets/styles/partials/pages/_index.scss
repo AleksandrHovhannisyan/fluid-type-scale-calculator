@@ -72,15 +72,11 @@ body {
   display: grid;
   align-items: center;
   gap: 6px;
-  font-size: var(--fs-sm);
+  font-weight: var(--fw-body-light);
 
   &-title {
     font-size: var(--fs-base);
     font-weight: var(--fw-body-bold);
-  }
-
-  &-description {
-    font-size: var(--fs-sm);
   }
 
   &-group {

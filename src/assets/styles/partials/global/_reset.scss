@@ -39,6 +39,10 @@ option {
   letter-spacing: inherit;
 }
 
+:where(input,textarea,select,option) {
+  font-weight: var(--fw-body-regular);
+}
+
 :where(button,label,input,textarea,select,option,a):focus-visible {
   outline: solid 4px;
 }
