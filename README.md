@@ -2,11 +2,13 @@
 
 > Generate font size variables for a fluid type scale.
 
+## Overview
+
 Customize everything, grab the output CSS, and drop it into any existing design system.
 
 ![](./src/assets/images/thumbnail.png)
 
-## Motivation
+### Motivation
 
 Most apps do one of two things:
 
@@ -15,19 +17,26 @@ Most apps do one of two things:
 
 Why not do both?
 
-## Running Locally
+### Features
 
-1. Clone the repo.
-2. Run `yarn` to install dependencies.
-3. Run `yarn serve` and visit `localhost:8080` to view the app.
+- Fully customizable parameters.
+- Output CSS variables for fluid font sizing.
+- Live preview text.
+- Persistence to `localStorage`.
 
-## Tech Stack
+### Tech Stack
 
 This project was bootstrapped with my [11ty-sass-images-seo](https://github.com/AleksandrHovhannisyan/11ty-sass-images-seo) starter and uses the following technologies:
 
 - [11ty](https://github.com/11ty/eleventy/)
 - Vanilla JavaScript
 - Sass
+
+## Running Locally
+
+1. Clone the repo.
+2. Run `yarn` to install dependencies.
+3. Run `yarn serve` and visit `localhost:8080` to view the app.
 
 ## Additional Resources
 
