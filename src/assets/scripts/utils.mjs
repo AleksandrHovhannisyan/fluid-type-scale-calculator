@@ -44,7 +44,9 @@ export const generateOutput = () => {
     outputText += `${customPropertyName}: ${customPropertyValue};\n`;
     preview.innerHTML += `<tr>
       <td class="preview-step">${step}</td>
-      <td class="preview-result"style="font-size: ${customPropertyValue}">${inputs.previewText.value}</td>
+      <td class="preview-min">${clampMin}</td>
+      <td class="preview-max">${clampMax}</td>
+      <td class="preview-result" style="font-size: ${customPropertyValue}">${inputs.previewText.value}</td>
     </tr>`;
   });
   output.innerHTML = outputText;
