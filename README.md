@@ -21,7 +21,7 @@ Why not do both?
 
 - Fully customizable parameters.
 - Output CSS variables for fluid font sizing.
-- Live preview text.
+- Live table updated with your modular steps, min and max font sizes, and preview text.
 - Persistence to `localStorage`.
 
 ### Tech Stack
