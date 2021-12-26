@@ -125,10 +125,13 @@ header {
     margin: 0 calc(-1 * #{clamped(6px, 12px)});
   }
 
-  th,
-  td {
+  :is(th, td) {
     border: none;
     padding: clamped(6px, 12px);
+
+    &.numeric {
+      text-align: end;
+    }
   }
 
   th {

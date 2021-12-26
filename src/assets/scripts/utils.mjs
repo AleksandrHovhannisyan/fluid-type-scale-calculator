@@ -1,7 +1,7 @@
 import { output, preview, inputs } from './elements.mjs';
 
 /** Rounds the given value to a fixed number of decimal places, according to the user's specified value. */
-export const round = (val) => Number(val.toFixed(inputs.rounding.value));
+export const round = (val) => val.toFixed(inputs.rounding.value);
 
 export const generateOutput = () => {
   preview.innerHTML = '';
@@ -44,8 +44,8 @@ export const generateOutput = () => {
     outputText += `${customPropertyName}: ${customPropertyValue};\n`;
     preview.innerHTML += `<tr>
       <td class="preview-step">${step}</td>
-      <td class="preview-min">${clampMin}</td>
-      <td class="preview-max">${clampMax}</td>
+      <td class="preview-min numeric">${clampMin}</td>
+      <td class="preview-max numeric">${clampMax}</td>
       <td class="preview-result" style="font-size: ${customPropertyValue}">${inputs.previewText.value}</td>
     </tr>`;
   });
