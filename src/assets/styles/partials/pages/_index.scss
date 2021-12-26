@@ -51,7 +51,7 @@ header {
 }
 
 .label {
-  --gap: 12px;
+  --gap: #{clamped(6px, 12px)};
   display: grid;
   align-items: center;
   gap: var(--gap);
