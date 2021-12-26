@@ -3,9 +3,7 @@ import { output, preview, inputs } from './elements.mjs';
 /** Rounds the given value to a fixed number of decimal places, according to the user's specified value. */
 export const round = (val) => val.toFixed(inputs.rounding.value);
 
-export const generateOutput = () => {
-  preview.innerHTML = '';
-
+export const generateFluidTypeScale = () => {
   const baseFontSize = inputs.baseFontSize.value;
   const typeScale = inputs.typeScale.value;
   const modularSteps = inputs.modularSteps.value.split(',').map((step) => step.trim());
@@ -14,42 +12,57 @@ export const generateOutput = () => {
   const variableNamingConvention = inputs.variableName.value;
   const shouldUseRems = inputs.shouldUseRems.checked;
   const unit = shouldUseRems ? 'rem' : 'px';
-  let outputText = ``;
+
+  let outputText,
+    previewText = ``;
 
   if (baseModularStepIndex === -1) {
     output.innerHTML = `Base modular step not found.`;
     return;
   }
 
+  /** If we're using rems, converts the pixel arg to rems. Else, keeps it in pixels. */
   const convertToDesiredUnit = (px) => (shouldUseRems ? px / 16 : px);
 
+  /** Appends the unit to a unitless value. */
+  const withUnit = (unitlessValue) => `${unitlessValue}${unit}`;
+
+  // For each modular step, generate the corresponding CSS custom property
   modularSteps.forEach((step, i) => {
-    const minFontSizePx = baseFontSize * Math.pow(typeScale, i - baseModularStepIndex);
-    const minBreakpointPx = inputs.minBreakpoint.value;
+    const min = {
+      fontSize: baseFontSize * Math.pow(typeScale, i - baseModularStepIndex),
+      breakpoint: inputs.minBreakpoint.value,
+    };
+    const max = {
+      fontSize: baseFontSize * Math.pow(typeScale, i - baseModularStepIndex + 1),
+      breakpoint: inputs.maxBreakpoint.value,
+    };
 
-    const maxFontSizePx = baseFontSize * Math.pow(typeScale, i - baseModularStepIndex + 1);
-    const maxBreakpointPx = inputs.maxBreakpoint.value;
-
-    const slope = (maxFontSizePx - minFontSizePx) / (maxBreakpointPx - minBreakpointPx);
+    const slope = (max.fontSize - min.fontSize) / (max.breakpoint - min.breakpoint);
     const slopeVw = round(slope * 100);
-    const intercept = convertToDesiredUnit(minFontSizePx - slope * minBreakpointPx);
+    const intercept = convertToDesiredUnit(min.fontSize - slope * min.breakpoint);
 
-    const clampMin = `${round(convertToDesiredUnit(minFontSizePx))}${unit}`;
-    const clampPreferredValue = `${slopeVw}vw + ${round(intercept)}${unit}`;
-    const clampMax = `${round(convertToDesiredUnit(maxFontSizePx))}${unit}`;
+    const clamp = {
+      min: withUnit(round(convertToDesiredUnit(min.fontSize))),
+      preferred: `${slopeVw}vw + ${withUnit(round(intercept))}`,
+      max: withUnit(round(convertToDesiredUnit(max.fontSize))),
+    };
 
     const customPropertyName = `--${variableNamingConvention}-${step}`;
-    const customPropertyValue = `clamp(${clampMin}, ${clampPreferredValue}, ${clampMax})`;
+    const customPropertyValue = `clamp(${clamp.min}, ${clamp.preferred}, ${clamp.max})`;
 
     outputText += `${customPropertyName}: ${customPropertyValue};\n`;
-    preview.innerHTML += `<tr>
+    previewText += `<tr>
       <td class="preview-step">${step}</td>
-      <td class="preview-min numeric">${clampMin}</td>
-      <td class="preview-max numeric">${clampMax}</td>
+      <td class="preview-min numeric">${clamp.min}</td>
+      <td class="preview-max numeric">${clamp.max}</td>
       <td class="preview-result" style="font-size: ${customPropertyValue}">${inputs.previewText.value}</td>
     </tr>`;
   });
+
+  // DOM updates at the very end for performance
   output.innerHTML = outputText;
+  preview.innerHTML = previewText;
 };
 
 /** Listens for changes to any of the interactive inputs. On change, saves the value in localStorage and re-generates the output. */
@@ -57,7 +70,7 @@ export const subscribeToInputChanges = () => {
   Object.values(inputs).forEach((input) => {
     input.addEventListener('input', (e) => {
       localStorage.setItem(input.id, input.type === 'checkbox' ? e.target.checked : e.target.value);
-      generateOutput();
+      generateFluidTypeScale();
     });
   });
 };
