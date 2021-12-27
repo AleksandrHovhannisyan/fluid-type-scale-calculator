@@ -40,6 +40,7 @@ This project was bootstrapped with my [11ty-sass-images-seo](https://github.com/
 
 ## Additional Resources
 
+- [Creating a Fluid Type Scale with CSS Clamp](https://www.aleksandrhovhannisyan.com/blog/fluid-type-scale-with-css-clamp/), a deep dive I wrote on this topic
 - [Type Scale](https://type-scale.com/) by Jeremy Church
 - [Modern fluid typography editor](https://modern-fluid-typography.vercel.app/) by Adrian Bece
 - [Consistent, Fluidly Scaling Type and Spacing](https://css-tricks.com/consistent-fluidly-scaling-type-and-spacing/) by Andy Bell
