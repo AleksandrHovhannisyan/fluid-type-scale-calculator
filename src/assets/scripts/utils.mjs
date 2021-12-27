@@ -1,76 +1,131 @@
-import { output, preview, inputs } from './elements.mjs';
+import { code, preview, inputs } from './elements.mjs';
 
-/** Rounds the given value to a fixed number of decimal places, according to the user's specified value. */
-export const round = (val) => val.toFixed(inputs.rounding.value);
-
-export const generateFluidTypeScale = () => {
-  const baseFontSize = inputs.baseFontSize.value;
-  const typeScale = inputs.typeScale.value;
-  const modularSteps = inputs.modularSteps.value.split(',').map((step) => step.trim());
-  const baseModularStep = inputs.baseModularStep.value;
-  const baseModularStepIndex = modularSteps.indexOf(baseModularStep);
-  const variableNamingConvention = inputs.variableName.value;
-  const shouldUseRems = inputs.shouldUseRems.checked;
-  const unit = shouldUseRems ? 'rem' : 'px';
-
-  let outputText = '',
-    previewText = '';
-
-  if (baseModularStepIndex === -1) {
-    output.innerHTML = `Base modular step not found.`;
-    return;
+/** Generates a mapping from modular steps to min/max/preferred values for each step. Step order is preserved. */
+export const generateFluidTypeScale = ({
+  baseFontSizePx,
+  breakpoints,
+  typeScaleRatio,
+  modularSteps,
+  baseModularStep,
+  shouldUseRems,
+  decimalPlacesToKeep,
+}) => {
+  if (breakpoints.max <= breakpoints.min) {
+    throw new Error('The max breakpoint must be greater than the min breakpoint.');
   }
+  if (!modularSteps.length) {
+    throw new Error('You must provide a set of modular steps');
+  }
+
+  const baseModularStepIndex = modularSteps.indexOf(baseModularStep);
+  if (baseModularStepIndex === -1) {
+    throw new Error('The base modular step must appear in the list of all modular steps.');
+  }
+
+  /** Rounds the given value to a fixed number of decimal places, according to the user's specified value. */
+  const round = (val) => val.toFixed(decimalPlacesToKeep);
 
   /** If we're using rems, converts the pixel arg to rems. Else, keeps it in pixels. */
   const convertToDesiredUnit = (px) => (shouldUseRems ? px / 16 : px);
 
+  const unit = shouldUseRems ? 'rem' : 'px';
   /** Appends the unit to a unitless value. */
   const withUnit = (unitlessValue) => `${unitlessValue}${unit}`;
 
   // For each modular step, generate the corresponding CSS custom property
-  modularSteps.forEach((step, i) => {
+  const typeScale = modularSteps.reduce((steps, step, i) => {
     const min = {
-      fontSize: baseFontSize * Math.pow(typeScale, i - baseModularStepIndex),
-      breakpoint: inputs.minBreakpoint.value,
+      fontSize: baseFontSizePx * Math.pow(typeScaleRatio, i - baseModularStepIndex),
+      breakpoint: breakpoints.min,
     };
     const max = {
-      fontSize: baseFontSize * Math.pow(typeScale, i - baseModularStepIndex + 1),
-      breakpoint: inputs.maxBreakpoint.value,
+      fontSize: baseFontSizePx * Math.pow(typeScaleRatio, i - baseModularStepIndex + 1),
+      breakpoint: breakpoints.max,
     };
 
     const slope = (max.fontSize - min.fontSize) / (max.breakpoint - min.breakpoint);
     const slopeVw = round(slope * 100);
     const intercept = convertToDesiredUnit(min.fontSize - slope * min.breakpoint);
 
-    const clamp = {
+    steps[step] = {
       min: withUnit(round(convertToDesiredUnit(min.fontSize))),
-      preferred: `${slopeVw}vw + ${withUnit(round(intercept))}`,
       max: withUnit(round(convertToDesiredUnit(max.fontSize))),
+      preferred: `${slopeVw}vw + ${withUnit(round(intercept))}`,
     };
-
-    const customPropertyName = `--${variableNamingConvention}-${step}`;
-    const customPropertyValue = `clamp(${clamp.min}, ${clamp.preferred}, ${clamp.max})`;
-
-    outputText += `${customPropertyName}: ${customPropertyValue};\n`;
-    previewText += `<tr>
-      <td class="preview-step">${step}</td>
-      <td class="preview-min numeric">${clamp.min}</td>
-      <td class="preview-max numeric">${clamp.max}</td>
-      <td class="preview-result" style="font-size: ${customPropertyValue}">${inputs.previewText.value}</td>
-    </tr>`;
-  });
-
-  // DOM updates at the very end for performance
-  output.innerHTML = outputText;
-  preview.innerHTML = previewText;
+    return steps;
+  }, {});
+  return typeScale;
 };
 
-/** Listens for changes to any of the interactive inputs. On change, saves the value in localStorage and re-generates the output. */
+/** Helper that returns all necessary params for `generateFluidTypeScale` from UI inputs. */
+export const getFluidTypeScaleParams = () => {
+  const baseFontSizePx = inputs.baseFontSize.value;
+  const typeScaleRatio = inputs.typeScale.value;
+  const modularSteps = inputs.modularSteps.value
+    .split(',')
+    .filter((step) => step.length)
+    .map((step) => step.trim());
+  const baseModularStep = inputs.baseModularStep.value;
+  const shouldUseRems = inputs.shouldUseRems.checked;
+  const decimalPlacesToKeep = inputs.rounding.value;
+  const breakpoints = {
+    min: Number(inputs.minBreakpoint.value),
+    max: Number(inputs.maxBreakpoint.value),
+  };
+  return {
+    baseFontSizePx,
+    typeScaleRatio,
+    modularSteps,
+    baseModularStep,
+    shouldUseRems,
+    decimalPlacesToKeep,
+    breakpoints,
+  };
+};
+
+const reset = () => {
+  code.innerHTML = '';
+  preview.innerHTML = '';
+};
+
+/** Updates the app UI. */
+export const render = () => {
+  reset();
+
+  try {
+    const typeScaleParams = getFluidTypeScaleParams();
+    const typeScale = generateFluidTypeScale(typeScaleParams);
+    const variableNamingConvention = inputs.variableName.value;
+    let cssOutput = '',
+      previewText = '';
+
+    Object.entries(typeScale).forEach(([step, clamp]) => {
+      const customPropertyName = `--${variableNamingConvention}-${step}`;
+      const customPropertyValue = `clamp(${clamp.min}, ${clamp.preferred}, ${clamp.max})`;
+
+      cssOutput += `${customPropertyName}: ${customPropertyValue};\n`;
+      previewText += `<tr>
+        <td class="preview-step">${step}</td>
+        <td class="preview-min numeric">${clamp.min}</td>
+        <td class="preview-max numeric">${clamp.max}</td>
+        <td class="preview-text" style="font-size: ${customPropertyValue}">${inputs.previewText.value}</td>
+      </tr>`;
+    });
+
+    // DOM updates at the very end for performance
+    code.innerHTML = cssOutput;
+    preview.innerHTML = previewText;
+  } catch (e) {
+    code.innerHTML = e;
+  }
+};
+
+/** Listens for changes to any of the interactive inputs. On change, saves the value in localStorage and re-renders the app. */
 export const subscribeToInputChanges = () => {
   Object.values(inputs).forEach((input) => {
     input.addEventListener('input', (e) => {
       localStorage.setItem(input.id, input.type === 'checkbox' ? e.target.checked : e.target.value);
-      generateFluidTypeScale();
+      render();
     });
   });
 };

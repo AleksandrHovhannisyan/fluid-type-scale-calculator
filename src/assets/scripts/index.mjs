@@ -1,10 +1,10 @@
-import { output } from './elements.mjs';
-import { generateFluidTypeScale, loadValuesFromLocalStorage, subscribeToInputChanges } from './utils.mjs';
+import { code } from './elements.mjs';
+import { render, loadValuesFromLocalStorage, subscribeToInputChanges } from './utils.mjs';
 
 // Copy to clipboard functionality for keyboard users
 const copyToClipboardButton = document.querySelector('#copy-to-clipboard');
 copyToClipboardButton.addEventListener('click', () => {
-  window.navigator.clipboard.writeText(output.textContent);
+  window.navigator.clipboard.writeText(code.textContent);
   copyToClipboardButton.dataset.copied = true;
   setTimeout(() => {
     copyToClipboardButton.dataset.copied = false;
@@ -13,4 +13,4 @@ copyToClipboardButton.addEventListener('click', () => {
 
 loadValuesFromLocalStorage();
 subscribeToInputChanges();
-generateFluidTypeScale();
+render();

@@ -1,5 +1,5 @@
 /** The element that outputs the CSS code for the app. */
-export const output = document.querySelector('#output');
+export const code = document.querySelector('#code');
 
 /** The preview element where sample text is shown to the user. */
 export const preview = document.querySelector('#preview tbody');

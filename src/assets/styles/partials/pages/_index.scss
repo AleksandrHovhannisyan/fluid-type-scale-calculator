@@ -74,7 +74,7 @@ header {
   }
 }
 
-#output {
+#code {
   border: solid 1px var(--color-border);
   background-color: var(--color-surface-medium);
   white-space: pre;
@@ -141,7 +141,7 @@ header {
     padding-top: 0;
   }
 
-  .preview-result {
+  .preview-text {
     width: 100%;
     white-space: nowrap;
   }
