@@ -13,8 +13,8 @@ export const generateFluidTypeScale = () => {
   const shouldUseRems = inputs.shouldUseRems.checked;
   const unit = shouldUseRems ? 'rem' : 'px';
 
-  let outputText,
-    previewText = ``;
+  let outputText = '',
+    previewText = '';
 
   if (baseModularStepIndex === -1) {
     output.innerHTML = `Base modular step not found.`;
