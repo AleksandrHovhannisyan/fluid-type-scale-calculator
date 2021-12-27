@@ -1,5 +1,5 @@
 import { code } from './elements.mjs';
-import { render, loadValuesFromLocalStorage, subscribeToInputChanges } from './utils.mjs';
+import { render, subscribeToInputChanges } from './utils.mjs';
 
 // Copy to clipboard functionality for keyboard users
 const copyToClipboardButton = document.querySelector('#copy-to-clipboard');
@@ -11,6 +11,5 @@ copyToClipboardButton.addEventListener('click', () => {
   }, 2000);
 });
 
-loadValuesFromLocalStorage();
 subscribeToInputChanges();
 render();

@@ -120,51 +120,9 @@ export const render = () => {
   }
 };
 
-/** Listens for changes to any of the interactive inputs. On change, saves the value in localStorage and re-renders the app. */
+/** Listens for changes to any of the interactive inputs. On change, re-renders the app. */
 export const subscribeToInputChanges = () => {
   Object.values(inputs).forEach((input) => {
-    input.addEventListener('input', (e) => {
-      localStorage.setItem(input.id, input.type === 'checkbox' ? e.target.checked : e.target.value);
-      render();
-    });
-  });
-};
-
-/** Loads the user's previously saved values from localStorage. */
-export const loadValuesFromLocalStorage = () => {
-  Object.values(inputs).forEach((input) => {
-    const savedValue = localStorage.getItem(input.id);
-    if (!savedValue) return;
-    switch (input.nodeName) {
-      case 'TEXTAREA':
-        input.setAttribute('value', savedValue);
-        break;
-      case 'INPUT': {
-        if (input.type === 'checkbox') {
-          if (savedValue === 'true') {
-            input.setAttribute('checked', true);
-          } else {
-            input.removeAttribute('checked');
-          }
-        } else {
-          input.setAttribute('value', savedValue);
-        }
-        break;
-      }
-      case 'SELECT': {
-        const options = Array.from(input.querySelectorAll('option'));
-        options.forEach((option) => {
-          if (option.hasAttribute('selected') && option.value !== savedValue) {
-            option.removeAttribute('selected');
-          }
-          if (option.value === savedValue) {
-            option.setAttribute('selected', true);
-          }
-        });
-        break;
-      }
-      default:
-        break;
-    }
+    input.addEventListener('input', render);
   });
 };
