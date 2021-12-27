@@ -3,7 +3,7 @@ const environmentSpecificVariables = {
     url: 'http://localhost:8080',
   },
   production: {
-    url: '',
+    url: 'https://www.fluid-type-scale.com',
   },
 };
 
