@@ -9,12 +9,12 @@ eleventyComputed:
     <h1 class="title">{{ site.title }}</h1>
     <p class="subtitle">Generate font size variables for a fluid type scale. Grab the output CSS and drop it into any existing design system.</p>
   </header>
-  <div class="stack">
+  <div class="stack generator">
     <fieldset class="form">
       <label class="label">
         <span class="label-title">Baseline font size (pixels)</span>
         <span class="label-description">The baseline font size for your type scale. This will be used as the minimum font size of your base modular step and scaled up/down to generate all other sizes.</span>
-        <input type="number" id="input-base-font-size" required value="16">
+        <input type="number" id="input-base-font-size" value="16">
       </label>
       <label class="label">
         <span class="label-title">Modular scale</span>
@@ -35,28 +35,28 @@ eleventyComputed:
         <div class="label-group">
           <label data-flow="horizontal">
             Start
-            <input type="number" id="input-min-breakpoint" required value="400">
+            <input type="number" id="input-min-breakpoint" value="400">
           </label>
           <label data-flow="horizontal">
             End
-            <input type="number" id="input-max-breakpoint" required value="1000">
+            <input type="number" id="input-max-breakpoint" value="1000">
           </label>
         </div>
       </div>
       <label class="label">
         <span class="label-title">Type scale steps</span>
         <span class="label-description">A comma-separated list of names for each step in your type scale, in ascending order of size. Use any convention you want.</span>
-        <input type="text" id="input-modular-steps" required spellcheck="false" value="sm,base,md,lg,xl,xxl,xxxl">
+        <input type="text" id="input-modular-steps" spellcheck="false" value="sm,base,md,lg,xl,xxl,xxxl">
       </label>
       <label class="label">
         <span class="label-title">Base modular step</span>
         <span class="label-description">Identify the name of the baseline font size step in your type scale. This must appear in the list entered above.</span>
-        <input type="text" id="input-base-modular-step" required value="base">
+        <input type="text" id="input-base-modular-step" value="base">
       </label>
       <label class="label">
         <span class="label-title">Variable naming convention</span>
         <span class="label-description">Prefixed to each modular step to create unique variable names.</span>
-        <input type="text" id="input-variable-name" required value="font-size">
+        <input type="text" id="input-variable-name" value="font-size">
       </label>
       <label class="label" data-flow="horizontal">
         <span class="label-title">Use rems for font sizing</span>
@@ -64,7 +64,7 @@ eleventyComputed:
       </label>
       <label class="label" data-flow="horizontal">
         <span class="label-title">Number of decimal places to show:</span>
-        <input type="number" min="0" required value="2" id="input-rounding">
+        <input type="number" min="0" value="2" id="input-rounding">
       </label>
       <label class="label">
         <span class="label-title">Preview text</span>

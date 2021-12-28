@@ -38,6 +38,10 @@ header {
   word-break: break-word;
 }
 
+.generator {
+  --desktop-cols: 2fr 3fr;
+}
+
 .form {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -55,6 +59,7 @@ header {
 .label {
   --gap: #{clamped(6px, 12px)};
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   align-items: center;
   gap: var(--gap);
   font-weight: var(--fw-body-light);
@@ -110,17 +115,13 @@ header {
 
 #preview {
   max-height: 100vh;
+  max-width: 100%;
+  width: 100%;
+  overflow: auto;
   @include desktop-lg {
     height: max-content;
     position: sticky;
     top: 32px;
-  }
-
-  &,
-  table {
-    max-width: 100%;
-    width: 100%;
-    overflow: auto;
   }
 
   table {

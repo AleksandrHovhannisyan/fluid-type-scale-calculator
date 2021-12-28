@@ -61,6 +61,10 @@ input[type="checkbox"] {
   font-weight: var(--fw-body-regular);
 }
 
+:where(input, select, option):not([type="checkbox"]) {
+  max-width: fit-content;
+}
+
 :where(button,label,input,textarea,select,option,a):focus-visible {
   outline: solid 4px;
 }
