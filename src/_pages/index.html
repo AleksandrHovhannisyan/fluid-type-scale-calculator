@@ -33,13 +33,15 @@ eleventyComputed:
         <span class="label-title">Viewport range (pixels)</span>
         <span class="label-description">Between these two breakpoints, every step in your type scale will scale responsively with the viewport width.</span>
         <div class="label-group">
+          {% assign start = 400 %}
+          {% assign end = 1000 %}
           <label data-flow="horizontal">
             Start
-            <input type="number" id="input-min-breakpoint" required min="0" max="999" value="400">
+            <input type="number" id="input-min-breakpoint" required min="0" max="{{ end | minus: 1 }}" value="{{ start }}">
           </label>
           <label data-flow="horizontal">
             End
-            <input type="number" id="input-max-breakpoint" required min="401" value="1000">
+            <input type="number" id="input-max-breakpoint" required min="{{ start | plus: 1 }}" value="{{ end }}">
           </label>
         </div>
       </div>
