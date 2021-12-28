@@ -18,6 +18,10 @@
   }
 }
 
+noscript {
+  display: contents;
+}
+
 body {
   font-family: var(--ff-body);
   -webkit-font-smoothing: antialiased;
