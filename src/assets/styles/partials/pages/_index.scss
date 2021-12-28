@@ -34,6 +34,8 @@ header {
 .title,
 .subtitle {
   text-align: center;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .form {
