@@ -59,15 +59,15 @@ export const generateFluidTypeScale = ({
 
 /** Helper that returns all necessary params for `generateFluidTypeScale` from UI inputs. */
 export const getFluidTypeScaleParams = () => {
-  const baseFontSizePx = inputs.baseFontSize.value;
-  const typeScaleRatio = inputs.typeScale.value;
+  const baseFontSizePx = Number(inputs.baseFontSize.value);
+  const typeScaleRatio = Number(inputs.typeScale.value);
   const modularSteps = inputs.modularSteps.value
     .split(',')
     .filter((step) => step.length)
     .map((step) => step.trim());
   const baseModularStep = inputs.baseModularStep.value;
   const shouldUseRems = inputs.shouldUseRems.checked;
-  const decimalPlacesToKeep = inputs.rounding.value;
+  const decimalPlacesToKeep = Number(inputs.rounding.value);
   const breakpoints = {
     min: Number(inputs.minBreakpoint.value),
     max: Number(inputs.maxBreakpoint.value),
