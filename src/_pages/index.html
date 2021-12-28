@@ -9,12 +9,12 @@ eleventyComputed:
     <h1 class="title">{{ site.title }}</h1>
     <p class="subtitle">Generate font size variables for a fluid type scale. Grab the output CSS and drop it into any existing design system.</p>
   </header>
-  <div class="stack generator">
+  <div class="stack type-scale-generator">
     <fieldset class="form">
       <label class="label">
         <span class="label-title">Baseline font size (pixels)</span>
         <span class="label-description">The baseline font size for your type scale. This will be used as the minimum font size of your base modular step and scaled up/down to generate all other sizes.</span>
-        <input type="number" id="input-base-font-size" value="16">
+        <input type="number" id="input-base-font-size" required min="0" value="16">
       </label>
       <label class="label">
         <span class="label-title">Modular scale</span>
@@ -35,23 +35,23 @@ eleventyComputed:
         <div class="label-group">
           <label data-flow="horizontal">
             Start
-            <input type="number" id="input-min-breakpoint" value="400">
+            <input type="number" id="input-min-breakpoint" required min="0" value="400">
           </label>
           <label data-flow="horizontal">
             End
-            <input type="number" id="input-max-breakpoint" value="1000">
+            <input type="number" id="input-max-breakpoint" required min="0" value="1000">
           </label>
         </div>
       </div>
       <label class="label">
         <span class="label-title">Type scale steps</span>
         <span class="label-description">A comma-separated list of names for each step in your type scale, in ascending order of size. Use any convention you want.</span>
-        <input type="text" id="input-modular-steps" spellcheck="false" value="sm,base,md,lg,xl,xxl,xxxl">
+        <input type="text" id="input-modular-steps" required spellcheck="false" value="sm,base,md,lg,xl,xxl,xxxl">
       </label>
       <label class="label">
         <span class="label-title">Base modular step</span>
         <span class="label-description">Identify the name of the baseline font size step in your type scale. This must appear in the list entered above.</span>
-        <input type="text" id="input-base-modular-step" value="base">
+        <input type="text" id="input-base-modular-step" required value="base">
       </label>
       <label class="label">
         <span class="label-title">Variable naming convention</span>
@@ -70,27 +70,27 @@ eleventyComputed:
         <span class="label-title">Preview text</span>
         <textarea id="input-preview-text">Almost before we knew it, we had left the ground</textarea>
       </label>
-      <div>
-        <h2>Your type scale:</h2>
-        <output id="code"></output>
-        <button type="button" id="copy-to-clipboard" aria-label="Copy code to clipboard" data-copied="false"></button>
-      </div>
     </fieldset>
-    <div id="preview">
-      <table>
-        <thead>
-          <tr>
-            <th scope="col">Step</th>
-            <th scope="col" class="numeric">Min</th>
-            <th scope="col" class="numeric">Max</th>
-            <th scope="col" class="preview-text">Preview</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
+    <aside class="output">
+      <div class="output-wrapper">
+        <output id="code"></output>
+      </div>
+      <button type="button" id="copy-to-clipboard" aria-label="Copy code to clipboard" data-copied="false"></button>
+    </aside>
   </div>
-  <div>
+  <div id="preview">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Step</th>
+          <th scope="col" class="numeric">Min</th>
+          <th scope="col" class="numeric">Max</th>
+          <th scope="col" class="preview-text">Preview</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
   <div class="stack info">
     <div class="flow">
       <h2>How it works</h2>

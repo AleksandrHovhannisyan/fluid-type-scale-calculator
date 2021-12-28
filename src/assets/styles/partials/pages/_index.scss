@@ -16,7 +16,7 @@ header {
 
 #app {
   display: grid;
-  gap: 48px;
+  gap: var(--fs-xl);
 }
 
 .title {
@@ -38,8 +38,16 @@ header {
   word-break: break-word;
 }
 
-.generator {
-  --desktop-cols: 2fr 3fr;
+.output {
+  &-wrapper {
+    max-height: 50vh;
+    overflow: auto;
+  }
+  @include desktop {
+    align-self: flex-start;
+    position: sticky;
+    top: var(--gap);
+  }
 }
 
 .form {
@@ -114,23 +122,18 @@ header {
 }
 
 #preview {
-  max-height: 100vh;
   max-width: 100%;
   width: 100%;
   overflow: auto;
-  @include desktop-lg {
-    height: max-content;
-    position: sticky;
-    top: 32px;
-  }
 
   table {
-    margin: 0 calc(-1 * #{clamped(6px, 12px)});
+    --cell-padding: #{clamped(6px, 12px)};
+    margin: 0 calc(-1 * var(--cell-padding));
   }
 
   :is(th, td) {
     border: none;
-    padding: clamped(6px, 12px);
+    padding: var(--cell-padding);
 
     &.numeric {
       text-align: end;
@@ -138,7 +141,6 @@ header {
   }
 
   th {
-    font-size: var(--fs-md);
     text-align: start;
     font-weight: var(--fw-body-bold);
     padding-top: 0;
@@ -155,9 +157,8 @@ header {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 16px;
-  padding-top: clamped(64px, 96px);
-  padding-bottom: 64px;
+  gap: var(--fs-sm);
+  padding: var(--fs-xl) 0;
   text-align: center;
   font-size: var(--fs-sm);
 
