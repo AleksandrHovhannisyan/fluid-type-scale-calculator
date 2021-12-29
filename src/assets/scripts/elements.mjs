@@ -19,5 +19,4 @@ export const inputs = {
   maxBreakpoint: document.querySelector('#input-max-breakpoint'),
   shouldUseRems: document.querySelector('#input-use-rems'),
   rounding: document.querySelector('#input-rounding'),
-  previewText: document.querySelector('#input-preview-text'),
 };

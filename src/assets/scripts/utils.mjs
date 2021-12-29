@@ -102,7 +102,7 @@ export const render = () => {
         <td class="preview-step">${step}</td>
         <td class="preview-min numeric">${clamp.min}</td>
         <td class="preview-max numeric">${clamp.max}</td>
-        <td class="preview-text" style="font-size: ${customPropertyValue}; font-family: ${preview.fontPicker.value};">${inputs.previewText.value}</td>
+        <td class="preview-text" style="font-size: ${customPropertyValue}; font-family: ${preview.fontPicker.value};">${preview.textInput.value}</td>
       </tr>`;
   });
 
@@ -152,7 +152,7 @@ export const getStylesheetTag = (id) => {
 
 /** On font load, waits for the font-face CSS to actually become available and then renders the app. */
 export const onFontLoaded = (fontFamily) => async () => {
-  await document.fonts.load(`1em ${fontFamily}`, inputs.previewText.value);
+  await document.fonts.load(`1em ${fontFamily}`, preview.textInput.value);
   render();
 };
 
