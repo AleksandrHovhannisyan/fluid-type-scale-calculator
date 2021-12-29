@@ -1,4 +1,4 @@
-import { code, preview, inputs } from './elements.mjs';
+import { code, preview, inputs, googleFontPicker } from './elements.mjs';
 
 /** Generates a mapping from modular steps to min/max/preferred values for each step. Step order is preserved. */
 export const generateFluidTypeScale = ({
@@ -102,7 +102,7 @@ export const render = () => {
         <td class="preview-step">${step}</td>
         <td class="preview-min numeric">${clamp.min}</td>
         <td class="preview-max numeric">${clamp.max}</td>
-        <td class="preview-text" style="font-size: ${customPropertyValue}">${inputs.previewText.value}</td>
+        <td class="preview-text" style="font-size: ${customPropertyValue}; font-family: ${googleFontPicker.value};">${inputs.previewText.value}</td>
       </tr>`;
   });
 
@@ -140,6 +140,25 @@ const validateModularSteps = (baseModularStep, allSteps) => {
     });
     return true;
   }
+};
+
+/** Returns a link tag with `rel="stylesheet"` and the provided id. */
+export const getStylesheetTag = (id) => {
+  const existingLink = document.getElementById(id);
+  if (existingLink) {
+    existingLink.removeEventListener('load', onFontLoaded);
+    document.head.removeChild(existingLink);
+  }
+  const link = document.createElement('link');
+  link.id = id;
+  link.rel = 'stylesheet';
+  return link;
+};
+
+/** On font load, waits for the font-face CSS to actually become available and then renders the app. */
+export const onFontLoaded = (fontFamily) => async () => {
+  await document.fonts.load(`1em ${fontFamily}`, inputs.previewText.value);
+  render();
 };
 
 /** Listens for changes to any of the interactive inputs. On change, re-renders the app. */

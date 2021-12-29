@@ -72,6 +72,15 @@ eleventyComputed:
         <span class="label-title">Preview text</span>
         <textarea id="input-preview-text" required>Almost before we knew it, we had left the ground</textarea>
       </label>
+      <label class="label">
+        <span class="label-title">Preview font</span>
+        <span class="label-description">Pick from one of the following Google Fonts to preview your type scale in that family.</span>
+        <select id="font-picker">
+          {% for font in googleFonts %}
+            <option {% if font == "Inter" %}selected{% endif %} value="{{ font }}">{{ font }}</option>
+          {% endfor %}
+        </select>
+      </label>
     </fieldset>
     <aside class="output">
       <div class="output-wrapper">
