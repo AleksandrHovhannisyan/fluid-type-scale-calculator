@@ -2,10 +2,11 @@
 export const code = document.querySelector('#code');
 
 /** The preview element where sample text is shown to the user. */
-export const preview = document.querySelector('#preview tbody');
-
-/** Google Font picker */
-export const googleFontPicker = document.querySelector('#font-picker');
+export const preview = {
+  fontPicker: document.querySelector('#font-picker'),
+  textInput: document.querySelector('#input-preview-text'),
+  tableBody: document.querySelector('#preview tbody'),
+};
 
 /** All interactive inputs that the user can customize. */
 export const inputs = {

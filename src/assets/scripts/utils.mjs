@@ -1,4 +1,4 @@
-import { code, preview, inputs, googleFontPicker } from './elements.mjs';
+import { code, preview, inputs } from './elements.mjs';
 
 /** Generates a mapping from modular steps to min/max/preferred values for each step. Step order is preserved. */
 export const generateFluidTypeScale = ({
@@ -80,7 +80,7 @@ export const getFluidTypeScaleParams = () => {
 
 const reset = () => {
   code.innerHTML = '';
-  preview.innerHTML = '';
+  preview.tableBody.innerHTML = '';
 };
 
 /** Updates the app UI. */
@@ -102,13 +102,13 @@ export const render = () => {
         <td class="preview-step">${step}</td>
         <td class="preview-min numeric">${clamp.min}</td>
         <td class="preview-max numeric">${clamp.max}</td>
-        <td class="preview-text" style="font-size: ${customPropertyValue}; font-family: ${googleFontPicker.value};">${inputs.previewText.value}</td>
+        <td class="preview-text" style="font-size: ${customPropertyValue}; font-family: ${preview.fontPicker.value};">${inputs.previewText.value}</td>
       </tr>`;
   });
 
   // DOM updates at the very end for performance
   code.innerHTML = cssOutput;
-  preview.innerHTML = previewText;
+  preview.tableBody.innerHTML = previewText;
 };
 
 /** Checks and updates the validity state for the given input. Returns the validity state (`true` if valid, `false` otherwise). */
@@ -164,6 +164,13 @@ export const onFontLoaded = (fontFamily) => async () => {
 /** Listens for changes to any of the interactive inputs. On change, re-renders the app. */
 export const subscribeToInputChanges = () => {
   let isValid = true;
+
+  // TODO: only re-render preview table
+  preview.textInput.addEventListener('input', (e) => {
+    if (updateValidityState(e.target)) {
+      render();
+    }
+  });
 
   // Keep min breakpoint in sync with max
   inputs.minBreakpoint.addEventListener('input', (e) => {

@@ -1,4 +1,4 @@
-import { code, googleFontPicker } from './elements.mjs';
+import { code, preview } from './elements.mjs';
 import { getStylesheetTag, onFontLoaded, render, subscribeToInputChanges } from './utils.mjs';
 
 // Copy to clipboard functionality for keyboard users
@@ -12,7 +12,8 @@ copyToClipboardButton.addEventListener('click', () => {
 });
 
 // Custom font picker for preview text
-googleFontPicker.addEventListener('input', async (e) => {
+preview.fontPicker.addEventListener('input', async (e) => {
+  if (!preview.textInput.value) return;
   const fontFamily = e.target.value;
   const linkTag = getStylesheetTag('user-selected-font');
   document.head.appendChild(linkTag);

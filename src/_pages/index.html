@@ -68,19 +68,6 @@ eleventyComputed:
         <span class="label-title">Number of decimal places to show:</span>
         <input type="number" min="0" value="2" required id="input-rounding">
       </label>
-      <label class="label">
-        <span class="label-title">Preview text</span>
-        <textarea id="input-preview-text" required>Almost before we knew it, we had left the ground</textarea>
-      </label>
-      <label class="label">
-        <span class="label-title">Preview font</span>
-        <span class="label-description">Pick from one of the following Google Fonts to preview your type scale in that family.</span>
-        <select id="font-picker">
-          {% for font in googleFonts %}
-            <option {% if font == "Inter" %}selected{% endif %} value="{{ font }}">{{ font }}</option>
-          {% endfor %}
-        </select>
-      </label>
     </fieldset>
     <aside class="output">
       <div class="output-wrapper">
@@ -89,7 +76,22 @@ eleventyComputed:
       <button type="button" id="copy-to-clipboard" aria-label="Copy code to clipboard" data-copied="false"></button>
     </aside>
   </div>
-  <div id="preview">
+  <div id="preview" class="flow">
+    <h2>Preview your type scale</h2>
+    <div class="label-group">
+      <label class="label">
+        <span class="label-title">Preview text</span>
+        <input id="input-preview-text" type="text" required value="Almost before we knew it, we had left the ground">
+      </label>
+      <label class="label">
+        <span class="label-title">Preview font</span>
+        <select id="font-picker">
+          {% for font in googleFonts %}
+            <option {% if font == "Inter" %}selected{% endif %} value="{{ font }}">{{ font }}</option>
+          {% endfor %}
+        </select>
+      </label>
+    </div>
     <table>
       <thead>
         <tr>

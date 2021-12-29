@@ -65,11 +65,10 @@ header {
 }
 
 .label {
-  --gap: #{clamped(6px, 12px)};
-  display: grid;
+  display: inline-grid;
   grid-template-columns: minmax(0, 1fr);
   align-items: center;
-  gap: var(--gap);
+  gap: #{clamped(6px, 12px)};
   font-weight: var(--fw-body-light);
 
   &-title {
@@ -80,7 +79,7 @@ header {
   &-group {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--gap);
+    gap: #{clamped(6px, 12px)};
   }
 
   &[data-flow="horizontal"] {
@@ -122,13 +121,16 @@ header {
 }
 
 #preview {
+  padding: 4px;
   max-width: 100%;
   width: 100%;
   overflow: auto;
 
   table {
     --cell-padding: #{clamped(6px, 12px)};
-    margin: 0 calc(-1 * var(--cell-padding));
+    margin-left: calc(-1 * var(--cell-padding));
+    margin-right: calc(-1 * var(--cell-padding));
+    margin-top: var(--fs-xxl);
   }
 
   :is(th, td) {
