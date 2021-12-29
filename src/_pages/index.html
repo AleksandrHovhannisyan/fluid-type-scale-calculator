@@ -11,11 +11,20 @@ eleventyComputed:
   </header>
   <div class="stack type-scale-generator">
     <fieldset class="form">
-      <label class="label">
-        <span class="label-title">Baseline font size (pixels)</span>
-        <span class="label-description">The baseline font size for your type scale. This will be used as the minimum font size of your base modular step and scaled up/down to generate all other sizes.</span>
-        <input type="number" id="input-base-font-size" required min="0" value="16">
-      </label>
+      <div class="label">
+        <span class="label-title">Baseline minimum font size</span>
+        <span class="label-description">The minimum font size of your baseline step. Used to generate all other font sizes (min/max) in your type scale.</span>
+        <div class="label-group">
+          <label>
+            Font size (pixels)
+            <input type="number" id="input-base-font-size" required min="0" value="16">
+          </label>
+          <label>
+            Show output in rems
+            <input type="checkbox" id="input-use-rems" checked>
+          </label>
+        </div>
+      </div>
       <label class="label">
         <span class="label-title">Modular scale</span>
         <span class="label-description">The larger the ratio, the faster your font sizes will grow/shrink in each step up/down from the baseline.</span>
@@ -59,10 +68,6 @@ eleventyComputed:
         <span class="label-title">Variable naming convention</span>
         <span class="label-description">Prefixed to each modular step to create unique variable names.</span>
         <input type="text" id="input-variable-name" required value="font-size">
-      </label>
-      <label class="label" data-flow="horizontal">
-        <span class="label-title">Use rems for font sizing</span>
-        <input type="checkbox" id="input-use-rems" checked>
       </label>
       <label class="label" data-flow="horizontal">
         <span class="label-title">Number of decimal places to show:</span>

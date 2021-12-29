@@ -52,6 +52,12 @@ textarea {
   padding: 8px;
 }
 
+label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
 input[type="number"] {
   max-width: calc(4ch + 2rem);
 }
