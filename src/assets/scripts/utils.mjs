@@ -114,11 +114,9 @@ export const render = () => {
 /** Checks and updates the validity state for the given input. Returns the validity state (`true` if valid, `false` otherwise). */
 const updateValidityState = (input) => {
   const isValid = input.checkValidity();
-  if (isValid) {
-    input.setAttribute('aria-valid', true);
-  } else {
+  input.setAttribute('aria-invalid', !isValid);
+  if (!isValid) {
     input.reportValidity();
-    input.setAttribute('aria-valid', false);
   }
   return isValid;
 };
@@ -126,20 +124,17 @@ const updateValidityState = (input) => {
 /** Keeps the base modular step and the list of all modular steps in sync with each other and updates their validity states. */
 const validateModularSteps = (baseModularStep, allSteps) => {
   const modularStepInputs = [inputs.baseModularStep, inputs.modularSteps];
-  if (!allSteps.includes(baseModularStep)) {
-    modularStepInputs.forEach((input) => {
-      input.setAttribute('aria-valid', false);
+  const isValid = allSteps.includes(baseModularStep);
+  modularStepInputs.forEach((input) => {
+    input.setAttribute('aria-invalid', !isValid);
+    if (!isValid) {
       input.setCustomValidity('The base modular step must exist in the list of all modular steps.');
       input.reportValidity();
-    });
-    return false;
-  } else {
-    modularStepInputs.forEach((input) => {
+    } else {
       input.setCustomValidity('');
-      input.setAttribute('aria-valid', true);
-    });
-    return true;
-  }
+    }
+  });
+  return isValid;
 };
 
 /** Returns a link tag with `rel="stylesheet"` and the provided id. */
@@ -167,9 +162,9 @@ export const subscribeToInputChanges = () => {
 
   // TODO: only re-render preview table
   preview.textInput.addEventListener('input', (e) => {
-    if (updateValidityState(e.target)) {
-      render();
-    }
+    const isValid = updateValidityState(e.target);
+    if (!isValid) return;
+    render();
   });
 
   // Keep min breakpoint in sync with max
