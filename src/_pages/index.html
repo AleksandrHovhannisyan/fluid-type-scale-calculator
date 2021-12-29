@@ -13,7 +13,7 @@ eleventyComputed:
     <fieldset class="form">
       <div class="label">
         <span class="label-title">Baseline minimum font size</span>
-        <span class="label-description">The minimum font size of your baseline step. Used to generate all other font sizes (min/max) in your type scale.</span>
+        <span class="label-description">The minimum font size of your baseline step. Multiplied by the modular ratio to generate all other font sizes in your type scale.</span>
         <div class="label-group">
           <label>
             Font size (pixels)
@@ -26,7 +26,7 @@ eleventyComputed:
         </div>
       </div>
       <label class="label">
-        <span class="label-title">Modular scale</span>
+        <span class="label-title">Modular scale ratio</span>
         <span class="label-description">The larger the ratio, the faster your font sizes will grow/shrink in each step up/down from the baseline.</span>
         {%- assign defaultModularRatio = modularSteps["perfectFourth"].ratio -%}
         <select id="input-type-scale">
@@ -40,7 +40,7 @@ eleventyComputed:
       </label>
       <div class="label">
         <span class="label-title">Viewport range (pixels)</span>
-        <span class="label-description">Between these two breakpoints, every step in your type scale will scale responsively with the viewport width.</span>
+        <span class="label-description">Between the start and end breakpoints, every step in your type scale will take on a responsive font size.</span>
         <div class="label-group">
           {% assign start = 400 %}
           {% assign end = 1000 %}
@@ -69,8 +69,9 @@ eleventyComputed:
         <span class="label-description">Prefixed to each modular step to create unique variable names.</span>
         <input type="text" id="input-variable-name" required value="font-size">
       </label>
-      <label class="label" data-flow="horizontal">
-        <span class="label-title">Number of decimal places to show:</span>
+      <label class="label">
+        <span class="label-title">Rounding</span>
+        <span class="label-description">Control how many decimal places are shown in the output.</span>
         <input type="number" min="0" value="2" required id="input-rounding">
       </label>
     </fieldset>
