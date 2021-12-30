@@ -7,7 +7,6 @@ const Input = ({ onChange, ...otherProps }) => {
     <input
       {...otherProps}
       aria-invalid={!isValid}
-      onInvalid={(e) => e.target.reportValidity()}
       onChange={(e) => {
         const isValid = e.target.checkValidity();
         setIsValid(isValid);
@@ -15,6 +14,8 @@ const Input = ({ onChange, ...otherProps }) => {
           // clear validity
           e.target.setCustomValidity('');
           onChange?.(e);
+        } else {
+          e.target.reportValidity();
         }
       }}
     />
