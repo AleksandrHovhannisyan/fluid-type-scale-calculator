@@ -112,6 +112,7 @@ header {
 
 .preview-label-group {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--sp-base);
 }
 
