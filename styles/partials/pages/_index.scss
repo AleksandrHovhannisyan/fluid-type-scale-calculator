@@ -14,7 +14,8 @@ header {
   padding: clamped(12px, 48px) 0;
 }
 
-#app {
+#app,
+.type-scale-generator {
   display: grid;
   gap: var(--sp-xl);
 }
@@ -78,6 +79,7 @@ header {
 
   &-group {
     display: flex;
+    align-items: center;
     flex-wrap: wrap;
     gap: var(--sp-xs);
   }
@@ -106,24 +108,16 @@ header {
   width: 100%;
   padding: 24px;
   text-align: center;
-
-  &[data-copied="false"] {
-    &::before {
-      content: "Copy code to clipboard 📋";
-    }
-  }
-
-  &[data-copied="true"] {
-    &::before {
-      content: "Copied! 🎉";
-    }
-  }
 }
 
 #preview {
   max-width: 100%;
   width: 100%;
   overflow: hidden;
+
+  input {
+    width: 100%;
+  }
 
   table {
     --cell-padding: var(--sp-xs);

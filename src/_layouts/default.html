@@ -1,7 +1,3 @@
----
-stylesheets:
-  - /assets/styles/main.css
----
 {%- comment -%}Global variables for reuse in meta tags{%- endcomment -%}
 {%- assign description = description | default: site.description -%}
 {%- assign keywords = keywords | default: site.keywords -%}
@@ -29,11 +25,9 @@ stylesheets:
     {%- include "fontFace.liquid" -%}
   {%- endcapture -%}
   <style>{{ fontFaceCss | compileAndMinifyScss }}</style>
-  {%- for href in stylesheets -%}
-    <link rel="stylesheet" href="{{ href }}">
-  {%- endfor -%}
+  <link rel="stylesheet" href="/@root/styles/main.scss">
   {%- comment -%}JavaScript bundles{%- endcomment -%}
-  <script type="module" src="/assets/scripts/index.mjs"></script>
+  <!-- <script type="module" src="/assets/scripts/index.mjs"></script> -->
   {%- comment -%}Open Graph social media previews{%- endcomment -%}
   <meta property="og:title" content="{{ pageTitle }}">
   {%- if thumbnail -%}
@@ -50,12 +44,15 @@ stylesheets:
     <meta name="twitter:image" content="{{ thumbnail }}">
   {%- endif -%}
   {%- comment -%}Favicons{%- endcomment -%}
-  {% favicon '/assets/images/favicon.png' %}
+  {% for width in site.favicon.widths %}
+    <link rel="icon" href="/assets/images/favicon-{{ width }}.png" sizes="{{ width }}x{{ width }}">
+  {% endfor %}
+  {%- comment -%}Preloads{%- endcomment -%}
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/inter-300.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/inter-regular.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/inter-900.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/ibm-plex-mono-regular.woff2" crossorigin>
-  <noscript><style>#preview{display:none}</style></noscript>
+  <noscript><style>#preview,#copy-to-clipboard{display:none}</style></noscript>
 </head>
 <body>
   {%- comment -%}Add common layout components here (e.g., site nav/footer){%- endcomment -%}

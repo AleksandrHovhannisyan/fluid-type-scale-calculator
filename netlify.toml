@@ -2,10 +2,10 @@
   package = "netlify-plugin-checklinks"
 
 [dev]
-  command = "npm run serve"
+  command = "npm run dev"
   targetPort = 8080
   publish = "_site/"
 
 [build]
   publish = "_site/"
-  command = "yarn build"
+  command = "npm run build"

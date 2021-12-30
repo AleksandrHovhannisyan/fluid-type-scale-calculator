@@ -6,13 +6,9 @@
   "author": "AleksandrHovhannisyan",
   "scripts": {
     "clean": "rimraf _site",
-    "debug:html": "cross-env DEBUG=Eleventy* ELEVENTY_ENV=development npx @11ty/eleventy --serve --incremental --port=8080",
-    "serve": "npm-run-all --parallel serve:*",
-    "serve:html": "cross-env ELEVENTY_ENV=development npx @11ty/eleventy --serve --incremental --port=8080",
-    "serve:css": "sass --watch src/assets/styles:_site/assets/styles --style=expanded",
-    "build": "run-s build:html build:css",
-    "build:html": "cross-env ELEVENTY_ENV=production npx @11ty/eleventy",
-    "build:css": "sass src/assets/styles:_site/assets/styles --style=compressed",
+    "debug:html": "cross-env DEBUG=Eleventy* ELEVENTY_ENV=development npx slinkity --serve --incremental --port=8080",
+    "dev": "cross-env ELEVENTY_ENV=development npx slinkity --serve --incremental --port=8080",
+    "build": "cross-env ELEVENTY_ENV=production npx slinkity",
     "lint": "npm-run-all lint:*",
     "lint:fix": "npm-run-all --parallel lint:*:fix",
     "lint:css": "stylelint \"src/**/*.scss\"",
@@ -31,6 +27,8 @@
     "eslint": "^8.3.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
     "husky": "^4.3.0",
     "lint-staged": "^10.4.0",
     "netlify-cli": "^8.5.0",
@@ -39,9 +37,11 @@
     "rimraf": "^3.0.2",
     "sass": "^1.43.5",
     "simple-icons": "^6.3.0",
+    "slinkity": "^0.4.2",
     "slugify": "^1.6.3",
     "stylelint": "^14.1.0",
-    "stylelint-config-standard-scss": "^3.0.0"
+    "stylelint-config-standard-scss": "^3.0.0",
+    "vite": "^2.7.9"
   },
   "browserslist": [
     "defaults and supports es6-module and not IE <= 11"
@@ -55,5 +55,9 @@
   "lint-staged": {
     "*.js": "yarn run lint:js:fix",
     "*.scss": "yarn run lint:css:fix"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   }
 }
