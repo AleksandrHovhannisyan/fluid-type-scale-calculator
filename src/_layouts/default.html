@@ -7,14 +7,14 @@ stylesheets:
 {%- assign keywords = keywords | default: site.keywords -%}
 {%- comment -%}Canonical URL. Make sure each page has one.{%- endcomment -%}
 {%- assign canonicalUrl = page.url | toAbsoluteUrl -%}
-
+{%- assign pageTitle = "Fluid Type Scale - Generate responsive font-size variables" -%}
 <!DOCTYPE html>
 <html lang="{{ site.language }}">
 <head>
   {%- comment -%}Must appear in the first 1024 bytes: https://web.dev/charset/{%- endcomment -%}
   <meta charset="utf-8">
   {%- comment -%}Metadata for search engines{%- endcomment -%}
-  <title>Fluid Type Scale - Generate responsive font-size variables</title>
+  <title>{{ pageTitle }}</title>
   <meta name="description" content="{{ description }}">
   <meta name="keywords" content="{{ keywords | join: ', ' }}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">

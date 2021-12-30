@@ -8,7 +8,7 @@ const environmentSpecificVariables = {
 };
 
 module.exports = {
-  title: 'Fluid Type Scale Generator',
+  title: 'Fluid Type Scale Calculator',
   author: 'Aleksandr Hovhannisyan',
   email: 'aleksandrhovhannisyan@gmail.com',
   description: 'Generate font size variables for a fluid type scale.',
