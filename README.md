@@ -8,15 +8,6 @@ Customize everything, grab the output CSS, and drop it into any existing design 
 
 ![](./src/assets/images/thumbnail.png)
 
-### Motivation
-
-Most apps do one of two things:
-
-1. They generate fluid typography variables, which are great for responsive sizing.
-2. They generate a type scale, which defines a harmonic relationship between font size steps.
-
-Why not do both?
-
 ### Features
 
 - Fully customizable parameters.
