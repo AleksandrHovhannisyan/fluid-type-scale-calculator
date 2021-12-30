@@ -10,7 +10,7 @@
     "serve": "npm-run-all --parallel serve:*",
     "serve:html": "cross-env ELEVENTY_ENV=development npx @11ty/eleventy --serve --incremental --port=8080",
     "serve:css": "sass --watch src/assets/styles:_site/assets/styles --style=expanded",
-    "build": "run-s build:html build:css build:js",
+    "build": "run-s build:html build:css",
     "build:html": "cross-env ELEVENTY_ENV=production npx @11ty/eleventy",
     "build:css": "sass src/assets/styles:_site/assets/styles --style=compressed",
     "lint": "npm-run-all lint:*",
