@@ -109,33 +109,33 @@ h6 {
 }
 
 h1 {
-  font-size: var(--fs-xxxl);
+  font-size: var(--sp-xxxl);
 }
 
 h2 {
-  font-size: var(--fs-xxl);
+  font-size: var(--sp-xxl);
 }
 
 h3 {
-  font-size: var(--fs-xl);
+  font-size: var(--sp-xl);
 }
 
 h4 {
-  font-size: var(--fs-lg);
+  font-size: var(--sp-lg);
 }
 
 h5 {
-  font-size: var(--fs-md);
+  font-size: var(--sp-md);
 }
 
 h6 {
-  font-size: var(--fs-base);
+  font-size: var(--sp-base);
 }
 
 code {
   font-family: var(--ff-code);
   font-weight: var(--fw-code-regular);
-  font-size: var(--fs-sm);
+  font-size: var(--sp-sm);
   background-color: var(--color-surface-medium);
   padding: 4px;
 }

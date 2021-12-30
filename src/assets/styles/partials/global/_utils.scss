@@ -2,7 +2,7 @@
 @import "../mixins";
 
 .stack {
-  --gap: var(--fs-xl);
+  --gap: var(--sp-xl);
   display: grid;
   gap: var(--gap);
   grid-template-columns: minmax(0, 1fr);
@@ -23,5 +23,5 @@
 .list {
   padding-inline-start: 1em;
   display: grid;
-  gap: var(--fs-sm);
+  gap: var(--sp-sm);
 }

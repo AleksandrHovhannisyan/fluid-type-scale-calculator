@@ -5,7 +5,7 @@ body {
   padding: clamped(12px, 32px);
   padding-top: clamped(48px, 100px);
   padding-bottom: 0;
-  font-size: var(--fs-base);
+  font-size: var(--sp-base);
   max-width: 1800px;
   margin: 0 auto;
 }
@@ -16,17 +16,17 @@ header {
 
 #app {
   display: grid;
-  gap: var(--fs-xl);
+  gap: var(--sp-xl);
 }
 
 .title {
-  font-size: var(--fs-xxxxl);
+  font-size: var(--sp-xxxxl);
   font-weight: var(--fw-body-bold);
-  margin-bottom: 16px;
+  margin-bottom: var(--sp-base);
 }
 
 .subtitle {
-  font-size: var(--fs-lg);
+  font-size: var(--sp-lg);
   max-width: 50ch;
   margin: 0 auto;
 }
@@ -53,14 +53,14 @@ header {
 .form {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: clamped(24px, 32px);
+  gap: var(--sp-lg);
   margin: 0;
-  padding: clamped(24px, 32px);
+  padding: var(--sp-lg);
   border: none;
-  border: solid clamped(4px, 8px) var(--color-surface-dark);
+  border: solid var(--sp-xxs) var(--color-surface-dark);
 
   h2 {
-    font-size: var(--fs-lg);
+    font-size: var(--sp-lg);
   }
 }
 
@@ -68,18 +68,18 @@ header {
   display: inline-grid;
   grid-template-columns: minmax(0, 1fr);
   align-items: center;
-  gap: 12px;
+  gap: var(--sp-xs);
   font-weight: var(--fw-body-light);
 
   &-title {
-    font-size: var(--fs-base);
+    font-size: var(--sp-base);
     font-weight: var(--fw-body-bold);
   }
 
   &-group {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: var(--sp-xs);
   }
 
   &[data-flow="horizontal"] {
@@ -95,9 +95,9 @@ header {
   display: flex;
   font-family: var(--ff-code);
   font-weight: var(--fw-code-regular);
-  font-size: var(--fs-sm);
+  font-size: var(--sp-sm);
   overflow: auto;
-  padding: clamped(16px, 32px);
+  padding: var(--sp-lg);
   user-select: all;
   line-height: 1.6;
 }
@@ -121,16 +121,16 @@ header {
 }
 
 #preview {
-  padding: 4px;
   max-width: 100%;
   width: 100%;
   overflow: auto;
 
   table {
-    --cell-padding: #{clamped(6px, 12px)};
+    --cell-padding: var(--sp-xs);
     margin-left: calc(-1 * var(--cell-padding));
     margin-right: calc(-1 * var(--cell-padding));
-    margin-top: var(--fs-xxl);
+    margin-top: var(--sp-xxl);
+    overflow-x: auto;
   }
 
   :is(th, td) {
@@ -159,10 +159,10 @@ header {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: var(--fs-sm);
-  padding: var(--fs-xl) 0;
+  gap: var(--sp-sm);
+  padding: var(--sp-xl) 0;
   text-align: center;
-  font-size: var(--fs-sm);
+  font-size: var(--sp-sm);
 
   a {
     font-weight: var(--fw-body-bold);
@@ -171,19 +171,19 @@ header {
 
 .socials {
   display: flex;
-  gap: 8px;
+  gap: var(--sp-xxs);
   list-style: none;
 
   a {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 8px;
+    padding: var(--sp-xxs);
   }
 
   svg {
-    width: 24px;
-    height: 24px;
+    width: var(--sp-md);
+    height: var(--sp-md);
   }
 }
 
