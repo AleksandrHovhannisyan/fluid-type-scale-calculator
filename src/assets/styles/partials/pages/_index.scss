@@ -123,14 +123,13 @@ header {
 #preview {
   max-width: 100%;
   width: 100%;
-  overflow: auto;
+  overflow: hidden;
 
   table {
     --cell-padding: var(--sp-xs);
     margin-left: calc(-1 * var(--cell-padding));
     margin-right: calc(-1 * var(--cell-padding));
     margin-top: var(--sp-xxl);
-    overflow-x: auto;
   }
 
   :is(th, td) {
