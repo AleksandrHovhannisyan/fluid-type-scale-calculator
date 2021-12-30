@@ -5,12 +5,16 @@ import { modularRatios } from './constants';
 import Preview from './Preview';
 
 export const initialState = {
-  baseFontSizePx: 16,
-  breakpoints: {
-    min: 400,
-    max: 1000,
+  min: {
+    fontSize: 16,
+    screenWidth: 400,
+    modularRatio: modularRatios.majorThird.ratio,
   },
-  modularRatio: modularRatios.perfectFourth.ratio,
+  max: {
+    fontSize: 19,
+    screenWidth: 1000,
+    modularRatio: modularRatios.perfectFourth.ratio,
+  },
   modularSteps: ['sm', 'base', 'md', 'lg', 'xl', 'xxl', 'xxxl'],
   baseModularStep: 'base',
   namingConvention: 'font-size',
@@ -20,14 +24,11 @@ export const initialState = {
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'setBaseFontSize': {
-      return { ...state, baseFontSizePx: action.payload };
+    case 'setMin': {
+      return { ...state, min: { ...state.min, ...action.payload } };
     }
-    case 'setBreakpoints': {
-      return { ...state, breakpoints: { ...state.breakpoints, ...action.payload } };
-    }
-    case 'setModularRatio': {
-      return { ...state, modularRatio: action.payload };
+    case 'setMax': {
+      return { ...state, max: { ...state.max, ...action.payload } };
     }
     case 'setModularSteps': {
       return { ...state, modularSteps: action.payload };
@@ -67,12 +68,12 @@ const FluidTypeScaleGenerator = (props) => {
 
     const newTypeScale = state.modularSteps.reduce((steps, step, i) => {
       const min = {
-        fontSize: state.baseFontSizePx * Math.pow(state.modularRatio, i - baseModularStepIndex),
-        breakpoint: state.breakpoints.min,
+        fontSize: state.min.fontSize * Math.pow(state.min.modularRatio, i - baseModularStepIndex),
+        breakpoint: state.min.screenWidth,
       };
       const max = {
-        fontSize: state.baseFontSizePx * Math.pow(state.modularRatio, i - baseModularStepIndex + 1),
-        breakpoint: state.breakpoints.max,
+        fontSize: state.max.fontSize * Math.pow(state.max.modularRatio, i - baseModularStepIndex),
+        breakpoint: state.max.screenWidth,
       };
 
       const slope = (max.fontSize - min.fontSize) / (max.breakpoint - min.breakpoint);
@@ -89,9 +90,8 @@ const FluidTypeScaleGenerator = (props) => {
 
     setTypeScale(newTypeScale);
   }, [
-    state.baseFontSizePx,
-    state.breakpoints,
-    state.modularRatio,
+    state.min,
+    state.max,
     state.modularSteps,
     state.baseModularStep,
     state.shouldUseRems,

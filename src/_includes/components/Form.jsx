@@ -2,26 +2,17 @@ import { modularRatios } from './constants';
 import Input from './Input';
 
 const Form = (props) => {
-  const {
-    baseFontSizePx,
-    shouldUseRems,
-    modularRatio,
-    modularSteps,
-    baseModularStep,
-    breakpoints,
-    namingConvention,
-    roundingDecimalPlaces,
-    dispatch,
-  } = props;
+  const { min, max, shouldUseRems, modularSteps, baseModularStep, namingConvention, roundingDecimalPlaces, dispatch } =
+    props;
 
   return (
     <fieldset className="form">
       <div className="label">
-        <span className="label-title">Baseline minimum font size</span>
-        <span className="label-description">
-          The minimum font size of your baseline step. Multiplied by the modular ratio to generate all other font sizes
-          in your type scale.
-        </span>
+        <div className="label-title">Baseline Minimum</div>
+        <div className="label-description">
+          The baseline step in your modular scale will take on the minimum font size you&apos;ve specified at your
+          chosen screen width. The min font size for all other steps is the baseline times your chosen ratio.
+        </div>
         <div className="label-group">
           <label>
             Font size (pixels)
@@ -29,88 +20,107 @@ const Form = (props) => {
               type="number"
               required={true}
               min={0}
-              defaultValue={baseFontSizePx}
+              defaultValue={min.fontSize}
               onChange={(e) =>
                 dispatch({
-                  type: 'setBaseFontSize',
-                  payload: Number(e.target.value),
+                  type: 'setMin',
+                  payload: {
+                    fontSize: Number(e.target.value),
+                  },
                 })
               }
             />
           </label>
           <label>
-            Show output in rems
-            <Input
-              type="checkbox"
-              checked={shouldUseRems}
-              onChange={(e) =>
-                dispatch({
-                  type: 'setShouldUseRems',
-                  payload: e.target.checked,
-                })
-              }
-            />
-          </label>
-        </div>
-      </div>
-      <label className="label">
-        <span className="label-title">Modular scale</span>
-        <span className="label-description">
-          The larger the ratio, the faster your font sizes will grow/shrink in each step up/down from the baseline.
-        </span>
-        <select
-          defaultValue={modularRatio}
-          onChange={(e) => dispatch({ type: 'setModularRatio', payload: e.target.value })}
-        >
-          {Object.entries(modularRatios).map(([key, { name, ratio }]) => {
-            return (
-              <option key={key} value={ratio}>
-                {name} ({ratio})
-              </option>
-            );
-          })}
-        </select>
-      </label>
-      <div className="label">
-        <span className="label-title">Viewport range (pixels)</span>
-        <span className="label-description">
-          Between the start and end breakpoints, every step in your type scale will take on a responsive font size.
-        </span>
-        <div className="label-group">
-          <label data-flow="horizontal">
-            Start
+            Screen width (pixels)
             <Input
               type="number"
               required={true}
               min={0}
-              max={breakpoints.max - 1}
-              defaultValue={breakpoints.min}
+              max={max.screenWidth - 1}
+              defaultValue={min.screenWidth}
               onChange={(e) =>
                 dispatch({
-                  type: 'setBreakpoints',
+                  type: 'setMin',
                   payload: {
-                    min: Number(e.target.value),
+                    screenWidth: Number(e.target.value),
                   },
                 })
               }
             />
           </label>
-          <label data-flow="horizontal">
-            End
+          <label>
+            Type scale ratio
+            <select
+              defaultValue={min.modularRatio}
+              onChange={(e) => dispatch({ type: 'setMin', payload: { modularRatio: Number(e.target.value) } })}
+            >
+              {Object.entries(modularRatios).map(([key, { ratio }]) => {
+                return (
+                  <option key={key} value={ratio}>
+                    {ratio}
+                  </option>
+                );
+              })}
+            </select>
+          </label>
+        </div>
+      </div>
+      <div className="label">
+        <div className="label-title">Baseline Maximum</div>
+        <div className="label-description">
+          The baseline step in your modular scale will take on the maximum font size you&apos;ve specified at your
+          chosen screen width. The max font size for all other steps is the baseline times your chosen ratio.
+        </div>
+        <div className="label-group">
+          <label>
+            Font size (pixels)
             <Input
               type="number"
               required={true}
-              min={breakpoints.min + 1}
-              defaultValue={breakpoints.max}
+              min={0}
+              defaultValue={max.fontSize}
               onChange={(e) =>
                 dispatch({
-                  type: 'setBreakpoints',
+                  type: 'setMax',
                   payload: {
-                    max: Number(e.target.value),
+                    fontSize: Number(e.target.value),
                   },
                 })
               }
             />
+          </label>
+          <label>
+            Screen width (pixels)
+            <Input
+              type="number"
+              required={true}
+              min={min.screenWidth + 1}
+              defaultValue={max.screenWidth}
+              onChange={(e) =>
+                dispatch({
+                  type: 'setMax',
+                  payload: {
+                    screenWidth: Number(e.target.value),
+                  },
+                })
+              }
+            />
+          </label>
+          <label>
+            Type scale ratio
+            <select
+              defaultValue={max.modularRatio}
+              onChange={(e) => dispatch({ type: 'setMax', payload: { modularRatio: Number(e.target.value) } })}
+            >
+              {Object.entries(modularRatios).map(([key, { ratio }]) => {
+                return (
+                  <option key={key} value={ratio}>
+                    {ratio}
+                  </option>
+                );
+              })}
+            </select>
           </label>
         </div>
       </div>
@@ -138,7 +148,7 @@ const Form = (props) => {
         />
       </label>
       <label className="label">
-        <span className="label-title">Base modular step</span>
+        <span className="label-title">Baseline modular step</span>
         <span className="label-description">
           Identify the name of the baseline font size step in your type scale. This must appear in the list entered
           above.
@@ -182,6 +192,19 @@ const Form = (props) => {
             dispatch({
               type: 'setRoundingDecimalPlaces',
               payload: Number(e.target.value),
+            })
+          }
+        />
+      </label>
+      <label className="label" data-flow="horizontal">
+        <span className="label-title">Show output in rems</span>
+        <Input
+          type="checkbox"
+          checked={shouldUseRems}
+          onChange={(e) =>
+            dispatch({
+              type: 'setShouldUseRems',
+              payload: e.target.checked,
             })
           }
         />

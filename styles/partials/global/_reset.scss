@@ -50,12 +50,15 @@ textarea {
 
 label {
   display: inline-flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
   gap: 8px;
 }
 
-input[type="number"] {
-  max-width: calc(4ch + 2rem);
+select,
+input:where([type="number"], [type="text"]) {
+  width: 100%;
 }
 
 input[type="checkbox"] {

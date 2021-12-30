@@ -33,7 +33,7 @@ const Preview = ({ typeScale, fonts }) => {
   return (
     <div id="preview" className="flow">
       <h2>Preview your type scale</h2>
-      <div className="label-group" data-size="lg">
+      <div className="preview-label-group">
         <label className="label">
           <span className="label-title">Preview font</span>
           <select defaultValue={previewFont} onChange={(e) => onFontSelected(e.target.value)}>

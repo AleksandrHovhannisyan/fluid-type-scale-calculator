@@ -78,9 +78,9 @@ header {
   }
 
   &-group {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     align-items: center;
-    flex-wrap: wrap;
     gap: var(--sp-xs);
   }
 
@@ -110,10 +110,16 @@ header {
   text-align: center;
 }
 
+.preview-label-group {
+  display: flex;
+  gap: var(--sp-base);
+}
+
 #preview {
   max-width: 100%;
   width: 100%;
   overflow: hidden;
+  padding: 0 4px;
 
   input {
     width: 100%;
