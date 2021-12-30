@@ -129,7 +129,6 @@ header {
     --cell-padding: var(--sp-xs);
     margin-left: calc(-1 * var(--cell-padding));
     margin-right: calc(-1 * var(--cell-padding));
-    margin-top: var(--sp-xxl);
   }
 
   :is(th, td) {
