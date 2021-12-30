@@ -39,6 +39,8 @@ This project was bootstrapped with my [11ty-sass-images-seo](https://github.com/
 - [Utopia.fyi fluid type scale calculator](https://utopia.fyi/type/calculator/) by James Gilyead and Trys Mudford
 - [Type Scale](https://type-scale.com/) by Jeremy Church
 - [Modern fluid typography editor](https://modern-fluid-typography.vercel.app/) by Adrian Bece
+- [Fluid Typography](https://fluid-typography.netlify.app/) by Erik André Jakobsen
+- [fluidtypography.com](https://fluidtypography.com/) by Kip Hughes
 
 ## Learn More
 
