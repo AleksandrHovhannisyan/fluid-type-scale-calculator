@@ -8,14 +8,14 @@ const Form = (props) => {
   return (
     <fieldset className="form">
       <div className="label">
-        <div className="label-title">Baseline Minimum</div>
+        <div className="label-title">Minimum (Mobile)</div>
         <div className="label-description">
           The baseline step in your modular scale will take on the minimum font size you&apos;ve specified at your
-          chosen screen width. The min font size for all other steps is the baseline times your chosen ratio.
+          chosen screen width. The min font size for all other steps is the baseline size times your chosen ratio.
         </div>
         <div className="label-group">
           <label>
-            Font size (pixels)
+            Base font size (pixels)
             <Input
               type="number"
               required={true}
@@ -67,14 +67,14 @@ const Form = (props) => {
         </div>
       </div>
       <div className="label">
-        <div className="label-title">Baseline Maximum</div>
+        <div className="label-title">Maximum (Desktop)</div>
         <div className="label-description">
           The baseline step in your modular scale will take on the maximum font size you&apos;ve specified at your
-          chosen screen width. The max font size for all other steps is the baseline times your chosen ratio.
+          chosen screen width. The max font size for all other steps is the baseline size times your chosen ratio.
         </div>
         <div className="label-group">
           <label>
-            Font size (pixels)
+            Base font size (pixels)
             <Input
               type="number"
               required={true}
