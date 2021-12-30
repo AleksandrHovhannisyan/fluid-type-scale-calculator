@@ -65,30 +65,6 @@ header {
   }
 }
 
-.label {
-  display: inline-grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--sp-xs);
-  font-weight: var(--fw-body-light);
-
-  &-title {
-    font-size: var(--sp-base);
-    font-weight: var(--fw-body-bold);
-  }
-
-  &-group {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    align-items: center;
-    gap: var(--sp-xs);
-  }
-
-  &[data-flow="horizontal"] {
-    grid-auto-flow: column;
-    grid-template-columns: auto 1fr;
-  }
-}
-
 #code {
   border: solid 1px var(--color-border);
   background-color: var(--color-surface-medium);
