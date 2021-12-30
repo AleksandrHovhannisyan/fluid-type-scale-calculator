@@ -1,5 +1,5 @@
-import { modularRatios } from './constants';
 import Input from './Input';
+import TypeScalePicker from './TypeScalePicker';
 
 const Form = (props) => {
   const { min, max, shouldUseRems, modularSteps, baseModularStep, namingConvention, roundingDecimalPlaces, dispatch } =
@@ -49,21 +49,10 @@ const Form = (props) => {
               }
             />
           </label>
-          <label>
-            Type scale ratio
-            <select
-              defaultValue={min.modularRatio}
-              onChange={(e) => dispatch({ type: 'setMin', payload: { modularRatio: Number(e.target.value) } })}
-            >
-              {Object.entries(modularRatios).map(([key, { ratio }]) => {
-                return (
-                  <option key={key} value={ratio}>
-                    {ratio}
-                  </option>
-                );
-              })}
-            </select>
-          </label>
+          <TypeScalePicker
+            ratio={min.modularRatio}
+            onChange={(e) => dispatch({ type: 'setMin', payload: { modularRatio: Number(e.target.value) } })}
+          />
         </div>
       </div>
       <div className="label">
@@ -107,21 +96,10 @@ const Form = (props) => {
               }
             />
           </label>
-          <label>
-            Type scale ratio
-            <select
-              defaultValue={max.modularRatio}
-              onChange={(e) => dispatch({ type: 'setMax', payload: { modularRatio: Number(e.target.value) } })}
-            >
-              {Object.entries(modularRatios).map(([key, { ratio }]) => {
-                return (
-                  <option key={key} value={ratio}>
-                    {ratio}
-                  </option>
-                );
-              })}
-            </select>
-          </label>
+          <TypeScalePicker
+            ratio={max.modularRatio}
+            onChange={(e) => dispatch({ type: 'setMax', payload: { modularRatio: Number(e.target.value) } })}
+          />
         </div>
       </div>
       <label className="label">
