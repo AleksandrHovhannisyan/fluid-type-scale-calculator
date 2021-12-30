@@ -68,7 +68,6 @@ header {
 .label {
   display: inline-grid;
   grid-template-columns: minmax(0, 1fr);
-  align-items: center;
   gap: var(--sp-xs);
   font-weight: var(--fw-body-light);
 
@@ -111,9 +110,15 @@ header {
 }
 
 .preview-label-group {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
   gap: var(--sp-base);
+  @include tablet {
+    grid-template-columns: auto 1fr;
+  }
+}
+
+.preview-text-input {
+  flex: 1 0 0;
 }
 
 #preview {
@@ -121,10 +126,6 @@ header {
   width: 100%;
   overflow: hidden;
   padding: 0 4px;
-
-  input {
-    width: 100%;
-  }
 
   table {
     --cell-padding: var(--sp-xs);

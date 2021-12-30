@@ -44,7 +44,7 @@ const Preview = ({ baseSizes, typeScale, fonts }) => {
             ))}
           </select>
         </label>
-        <label className="label">
+        <label className="label preview-text-input">
           <span className="label-title">Preview text</span>
           <Input type="text" required defaultValue={previewText} onChange={(e) => setPreviewText(e.target.value)} />
         </label>
