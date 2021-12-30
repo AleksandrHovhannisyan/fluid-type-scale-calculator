@@ -6,7 +6,7 @@ const Form = (props) => {
     props;
 
   return (
-    <fieldset className="form">
+    <form className="form">
       <div className="label">
         <div className="label-title">Minimum (Mobile)</div>
         <div className="label-description">
@@ -187,7 +187,7 @@ const Form = (props) => {
           }
         />
       </label>
-    </fieldset>
+    </form>
   );
 };
 
