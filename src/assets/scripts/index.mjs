@@ -1,5 +1,5 @@
 import { code, preview } from './elements.mjs';
-import { getStylesheetTag, onFontLoaded, render, subscribeToInputChanges } from './utils.mjs';
+import { getStylesheetTag, render, subscribeToInputChanges } from './utils.mjs';
 
 // Copy to clipboard functionality for keyboard users
 const copyToClipboardButton = document.querySelector('#copy-to-clipboard');
@@ -17,7 +17,11 @@ preview.fontPicker.addEventListener('input', async (e) => {
   const fontFamily = e.target.value;
   const linkTag = getStylesheetTag('user-selected-font');
   document.head.appendChild(linkTag);
-  linkTag.addEventListener('load', onFontLoaded(fontFamily));
+  linkTag.addEventListener('load', async () => {
+    await document.fonts.load(`1em ${fontFamily}`, preview.textInput.value);
+    // TODO: only render preview
+    render();
+  });
   linkTag.href = `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/ /g, '+')}&display=swap`;
 });
 

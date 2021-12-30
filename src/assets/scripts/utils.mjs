@@ -141,19 +141,12 @@ const validateModularSteps = (baseModularStep, allSteps) => {
 export const getStylesheetTag = (id) => {
   const existingLink = document.getElementById(id);
   if (existingLink) {
-    existingLink.removeEventListener('load', onFontLoaded);
     document.head.removeChild(existingLink);
   }
   const link = document.createElement('link');
   link.id = id;
   link.rel = 'stylesheet';
   return link;
-};
-
-/** On font load, waits for the font-face CSS to actually become available and then renders the app. */
-export const onFontLoaded = (fontFamily) => async () => {
-  await document.fonts.load(`1em ${fontFamily}`, preview.textInput.value);
-  render();
 };
 
 /** Listens for changes to any of the interactive inputs. On change, re-renders the app. */
