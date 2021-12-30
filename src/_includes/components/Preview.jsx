@@ -19,7 +19,7 @@ const onLinkLoaded = (fontFamily, previewText, setFont) => async () => {
   setFont(fontFamily);
 };
 
-const Preview = ({ typeScale, fonts }) => {
+const Preview = ({ baseSizes, typeScale, fonts }) => {
   const [previewText, setPreviewText] = useState('Almost before we knew it, we had left the ground');
   const [previewFont, setPreviewFont] = useState('Inter');
 
@@ -54,11 +54,11 @@ const Preview = ({ typeScale, fonts }) => {
           <thead>
             <tr>
               <th scope="col">Step</th>
-              <th scope="col" className="numeric">
-                Min
+              <th scope="col" className="numeric nowrap">
+                Min ({baseSizes.min.screenWidth}px)
               </th>
-              <th scope="col" className="numeric">
-                Max
+              <th scope="col" className="numeric nowrap">
+                Max ({baseSizes.max.screenWidth}px)
               </th>
               <th scope="col" className="preview-text">
                 Preview
@@ -73,7 +73,7 @@ const Preview = ({ typeScale, fonts }) => {
                   <td className="preview-step">{step}</td>
                   <td className="preview-min numeric">{min}</td>
                   <td className="preview-max numeric">{max}</td>
-                  <td className="preview-text" style={{ fontSize, fontFamily: previewFont }}>
+                  <td className="preview-text nowrap" style={{ fontSize, fontFamily: previewFont }}>
                     {previewText}
                   </td>
                 </tr>

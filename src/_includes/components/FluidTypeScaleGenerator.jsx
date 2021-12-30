@@ -12,7 +12,7 @@ export const initialState = {
   },
   max: {
     fontSize: 19,
-    screenWidth: 1000,
+    screenWidth: 1280,
     modularRatio: modularRatios.perfectFourth.ratio,
   },
   modularSteps: ['sm', 'base', 'md', 'lg', 'xl', 'xxl', 'xxxl'],
@@ -104,7 +104,7 @@ const FluidTypeScaleGenerator = (props) => {
         <Form {...state} dispatch={dispatch} />
         <Output namingConvention={state.namingConvention} typeScale={typeScale} />
       </div>
-      <Preview typeScale={typeScale} fonts={props.fonts} />
+      <Preview baseSizes={{ min: { ...state.min }, max: { ...state.max } }} typeScale={typeScale} fonts={props.fonts} />
     </div>
   );
 };
