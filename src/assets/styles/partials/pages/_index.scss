@@ -68,7 +68,7 @@ header {
   display: inline-grid;
   grid-template-columns: minmax(0, 1fr);
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   font-weight: var(--fw-body-light);
 
   &-title {
@@ -79,7 +79,7 @@ header {
   &-group {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 12px;
   }
 
   &[data-flow="horizontal"] {

@@ -63,8 +63,8 @@ input[type="number"] {
 }
 
 input[type="checkbox"] {
-  width: clamped(12px, 18px);
-  height: clamped(12px, 18px);
+  width: clamped(16px, 18px);
+  height: clamped(16px, 18px);
 }
 
 :where(input,textarea,select,option) {
