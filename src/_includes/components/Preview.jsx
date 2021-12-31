@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Input from './Input';
 import RangeInput from './RangeInput';
 
@@ -25,6 +25,11 @@ const Preview = ({ baseSizes, typeScale, fonts }) => {
   const [previewFont, setPreviewFont] = useState('Inter');
   const [screenWidth, setScreenWidth] = useState(baseSizes.max.screenWidth);
 
+  // Since Slinkity uses SSR
+  useEffect(() => {
+    setScreenWidth(window.innerWidth);
+  }, []);
+
   const onFontSelected = async (fontFamily) => {
     const link = getFontLinkTag('user-selected-font');
     document.head.appendChild(link);
@@ -42,7 +47,8 @@ const Preview = ({ baseSizes, typeScale, fonts }) => {
           value={screenWidth}
           onChange={(e) => setScreenWidth(Number(e.target.value))}
           min={0}
-          max={baseSizes.max.screenWidth * 1.5}
+          // TODO: better pattern?
+          max={1920}
         />
         <label className="label">
           <span className="label-title">Font family</span>
