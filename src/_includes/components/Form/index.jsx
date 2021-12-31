@@ -1,18 +1,23 @@
-import Input from './Input';
-import TypeScalePicker from './TypeScalePicker';
+import Checkbox from '../Checkbox';
+import { Action } from '../constants';
+import Input from '../Input';
+import TypeScalePicker from '../TypeScalePicker';
+import styles from './styles.module.scss';
 
 const Form = (props) => {
   const { min, max, shouldUseRems, modularSteps, baseModularStep, namingConvention, roundingDecimalPlaces, dispatch } =
     props;
 
   return (
-    <form className="form">
-      <div className="label">
-        <div className="label-title">Minimum (Mobile)</div>
-        <div className="label-description">
-          Define the minimum font size and viewport width for your type scale&apos;s baseline step. The minimum font
-          size for all other steps is this baseline font size scaled up/down by your chosen type scale ratio.
-        </div>
+    <form className={styles.form}>
+      <fieldset className="label">
+        <legend>
+          <span className="label-title">Minimum (Mobile)</span>
+          <span className="label-description">
+            Define the minimum font size and viewport width for your type scale&apos;s baseline step. The minimum font
+            size for all other steps is this baseline font size scaled up/down by your chosen type scale ratio.
+          </span>
+        </legend>
         <div className="label-group">
           <label>
             Base font size (pixels)
@@ -23,7 +28,7 @@ const Form = (props) => {
               defaultValue={min.fontSize}
               onChange={(e) =>
                 dispatch({
-                  type: 'setMin',
+                  type: Action.SET_MIN,
                   payload: {
                     fontSize: Number(e.target.value),
                   },
@@ -41,7 +46,7 @@ const Form = (props) => {
               defaultValue={min.screenWidth}
               onChange={(e) =>
                 dispatch({
-                  type: 'setMin',
+                  type: Action.SET_MIN,
                   payload: {
                     screenWidth: Number(e.target.value),
                   },
@@ -51,16 +56,18 @@ const Form = (props) => {
           </label>
           <TypeScalePicker
             ratio={min.modularRatio}
-            onChange={(e) => dispatch({ type: 'setMin', payload: { modularRatio: Number(e.target.value) } })}
+            onChange={(e) => dispatch({ type: Action.SET_MIN, payload: { modularRatio: Number(e.target.value) } })}
           />
         </div>
-      </div>
-      <div className="label">
-        <div className="label-title">Maximum (Desktop)</div>
-        <div className="label-description">
-          Define the maximum font size and viewport width for your type scale&apos;s baseline step. The max font size
-          for all other steps is this baseline font size scaled up/down by your chosen type scale ratio.
-        </div>
+      </fieldset>
+      <fieldset className="label">
+        <legend>
+          <span className="label-title">Maximum (Desktop)</span>
+          <span className="label-description">
+            Define the maximum font size and viewport width for your type scale&apos;s baseline step. The max font size
+            for all other steps is this baseline font size scaled up/down by your chosen type scale ratio.
+          </span>
+        </legend>
         <div className="label-group">
           <label>
             Base font size (pixels)
@@ -71,7 +78,7 @@ const Form = (props) => {
               defaultValue={max.fontSize}
               onChange={(e) =>
                 dispatch({
-                  type: 'setMax',
+                  type: Action.SET_MAX,
                   payload: {
                     fontSize: Number(e.target.value),
                   },
@@ -88,7 +95,7 @@ const Form = (props) => {
               defaultValue={max.screenWidth}
               onChange={(e) =>
                 dispatch({
-                  type: 'setMax',
+                  type: Action.SET_MAX,
                   payload: {
                     screenWidth: Number(e.target.value),
                   },
@@ -98,10 +105,10 @@ const Form = (props) => {
           </label>
           <TypeScalePicker
             ratio={max.modularRatio}
-            onChange={(e) => dispatch({ type: 'setMax', payload: { modularRatio: Number(e.target.value) } })}
+            onChange={(e) => dispatch({ type: Action.SET_MAX, payload: { modularRatio: Number(e.target.value) } })}
           />
         </div>
-      </div>
+      </fieldset>
       <label className="label">
         <span className="label-title">Type scale steps</span>
         <span className="label-description">
@@ -116,7 +123,7 @@ const Form = (props) => {
           defaultValue={modularSteps.join(',')}
           onChange={(e) =>
             dispatch({
-              type: 'setModularSteps',
+              type: Action.SET_MODULAR_STEPS,
               payload: e.target.value
                 .split(',')
                 .filter((step) => !!step.length)
@@ -137,7 +144,7 @@ const Form = (props) => {
           defaultValue={baseModularStep}
           onChange={(e) =>
             dispatch({
-              type: 'setBaseModularStep',
+              type: Action.SET_BASE_MODULAR_STEP,
               payload: e.target.value,
             })
           }
@@ -152,7 +159,7 @@ const Form = (props) => {
           defaultValue={namingConvention}
           onChange={(e) =>
             dispatch({
-              type: 'setNamingConvention',
+              type: Action.SET_NAMING_CONVENTION,
               payload: e.target.value,
             })
           }
@@ -168,25 +175,23 @@ const Form = (props) => {
           defaultValue={roundingDecimalPlaces}
           onChange={(e) =>
             dispatch({
-              type: 'setRoundingDecimalPlaces',
+              type: Action.SET_ROUNDING_DECIMAL_PLACES,
               payload: Number(e.target.value),
             })
           }
         />
       </label>
-      <label className="label" data-flow="horizontal">
-        <span className="label-title">Show output in rems</span>
-        <Input
-          type="checkbox"
-          checked={shouldUseRems}
-          onChange={(e) =>
-            dispatch({
-              type: 'setShouldUseRems',
-              payload: e.target.checked,
-            })
-          }
-        />
-      </label>
+      <Checkbox
+        checked={shouldUseRems}
+        onChange={(e) =>
+          dispatch({
+            type: Action.SET_SHOULD_USE_REMS,
+            payload: e.target.checked,
+          })
+        }
+      >
+        Show output in rems
+      </Checkbox>
     </form>
   );
 };

@@ -1,6 +1,8 @@
 @import "../functions";
 @import "../mixins";
 
+// Generic utility classes used for both statically and dynamically rendered content
+
 .stack {
   --gap: var(--sp-xl);
   display: grid;
@@ -37,18 +39,24 @@
 }
 
 .label {
-  display: inline-grid;
+  align-items: center;
   grid-template-columns: minmax(0, 1fr);
-  gap: var(--sp-xs);
   font-weight: var(--fw-body-light);
+
+  &,
+  legend {
+    display: inline-grid;
+    gap: var(--sp-xs);
+  }
 
   &-title {
     font-size: var(--sp-base);
     font-weight: var(--fw-body-bold);
+    display: block;
   }
 
   &-group {
-    padding-block-start: var(--sp-xs);
+    margin-block-start: var(--sp-md);
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     align-items: center;
@@ -56,7 +64,7 @@
 
     label {
       display: inline-grid;
-      gap: 0;
+      gap: 4px;
       grid-template-rows: auto min-content;
       height: 100%;
       align-items: start;
@@ -67,18 +75,5 @@
   &[data-flow="horizontal"] {
     grid-auto-flow: column;
     grid-template-columns: auto 1fr;
-  }
-}
-
-.range {
-  display: grid;
-
-  &-label {
-    display: inline;
-  }
-
-  &-display {
-    display: grid;
-    align-items: center;
   }
 }

@@ -14,8 +14,7 @@ header {
   padding: clamped(12px, 48px) 0;
 }
 
-#app,
-.type-scale-generator {
+#app {
   display: grid;
   gap: var(--sp-xl);
 }
@@ -37,97 +36,6 @@ header {
   text-align: center;
   overflow-wrap: anywhere;
   word-break: break-word;
-}
-
-.output {
-  &-wrapper {
-    max-height: 50vh;
-    overflow: auto;
-  }
-  @include desktop {
-    align-self: flex-start;
-    position: sticky;
-    top: var(--gap);
-  }
-}
-
-.form {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--sp-lg);
-  margin: 0;
-  padding: var(--sp-lg);
-  border: solid var(--sp-xxs) var(--color-surface-dark);
-
-  h2 {
-    font-size: var(--sp-lg);
-  }
-}
-
-#code {
-  border: solid 1px var(--color-border);
-  background-color: var(--color-surface-medium);
-  white-space: pre;
-  display: flex;
-  font-family: var(--ff-code);
-  font-weight: var(--fw-code-regular);
-  font-size: var(--sp-sm);
-  overflow: auto;
-  padding: var(--sp-lg);
-  user-select: all;
-  line-height: 1.6;
-}
-
-#copy-to-clipboard {
-  width: 100%;
-  padding: 24px;
-  text-align: center;
-}
-
-.preview-label-group {
-  display: grid;
-  align-items: end;
-  gap: var(--sp-base);
-  margin: var(--sp-xxl) 0;
-  @include desktop-lg {
-    grid-template-columns: auto auto 1fr;
-  }
-}
-
-.preview-text-input {
-  flex: 1 0 0;
-}
-
-#preview {
-  max-width: 100%;
-  width: 100%;
-  overflow: hidden;
-  padding: 0 4px;
-
-  table {
-    --cell-padding: var(--sp-xs);
-    margin-left: calc(-1 * var(--cell-padding));
-    margin-right: calc(-1 * var(--cell-padding));
-  }
-
-  :is(th, td) {
-    border: none;
-    padding: var(--cell-padding);
-
-    &.numeric {
-      text-align: end;
-    }
-  }
-
-  th {
-    text-align: start;
-    font-weight: var(--fw-body-bold);
-    padding-top: 0;
-  }
-
-  .preview-text {
-    width: 100%;
-  }
 }
 
 .page-footer {

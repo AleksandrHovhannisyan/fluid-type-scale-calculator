@@ -1,5 +1,3 @@
-@import "../functions";
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -48,21 +46,15 @@ textarea {
   padding: 8px;
 }
 
-label {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
 select,
 input:where([type="number"], [type="text"]) {
   width: 100%;
+  min-height: 46px;
 }
 
 input[type="checkbox"] {
-  width: clamped(16px, 18px);
-  height: clamped(16px, 18px);
+  width: var(--sp-base);
+  height: var(--sp-base);
 }
 
 :where(input,textarea,select,option) {
@@ -84,7 +76,6 @@ img {
   text-shadow: none;
 }
 
-/* stylelint-disable-next-line no-descending-specificity */
 button {
   cursor: pointer;
   border: none;
@@ -103,7 +94,7 @@ h3,
 h4,
 h5,
 h6 {
-  margin-bottom: 0.25em;
+  margin-block-end: 0.25em;
 }
 
 h1 {
@@ -136,4 +127,8 @@ code {
   font-size: var(--sp-sm);
   background-color: var(--color-surface-medium);
   padding: 4px;
+}
+
+fieldset {
+  border: none;
 }

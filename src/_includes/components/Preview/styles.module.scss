@@ -1,0 +1,44 @@
+@import "/@root/styles/partials/mixins";
+
+.preview {
+  max-width: 100%;
+  width: 100%;
+  overflow: hidden;
+  padding: 0 4px;
+
+  table {
+    --cell-padding: var(--sp-xs);
+    margin-left: calc(-1 * var(--cell-padding));
+    margin-right: calc(-1 * var(--cell-padding));
+  }
+
+  :is(th, td) {
+    border: none;
+    padding: var(--cell-padding);
+
+    &.numeric {
+      text-align: end;
+    }
+  }
+
+  th {
+    text-align: start;
+    font-weight: var(--fw-body-bold);
+    padding-top: 0;
+  }
+
+  &-text {
+    width: 100%;
+  }
+}
+
+.label-group {
+  display: grid;
+  align-items: end;
+  gap: var(--sp-base);
+  margin: var(--sp-xxl) 0;
+  @include desktop-lg {
+    // grid-auto-flow: column;
+    grid-template-columns: auto auto 1fr;
+  }
+}

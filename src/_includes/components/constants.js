@@ -32,3 +32,13 @@ export const modularRatios = {
     ratio: 1.618,
   },
 };
+
+export const Action = {
+  SET_MIN: 'setMin',
+  SET_MAX: 'setMax',
+  SET_MODULAR_STEPS: 'setModularSteps',
+  SET_BASE_MODULAR_STEP: 'setBaseModularStep',
+  SET_NAMING_CONVENTION: 'setNamingConvention',
+  SET_SHOULD_USE_REMS: 'setShouldUseRems',
+  SET_ROUNDING_DECIMAL_PLACES: 'setRoundingDecimalPlaces',
+};

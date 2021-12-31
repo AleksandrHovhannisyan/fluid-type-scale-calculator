@@ -1,4 +1,4 @@
-import { modularRatios } from './constants';
+import { modularRatios } from '../constants';
 
 const TypeScalePicker = ({ onChange, ratio }) => {
   return (

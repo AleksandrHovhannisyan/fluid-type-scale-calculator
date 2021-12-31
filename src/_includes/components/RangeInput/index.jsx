@@ -1,12 +1,13 @@
-import Input from './Input';
+import Input from '../Input';
+import styles from './styles.module.scss';
 
 const RangeInput = ({ id, label, ...otherProps }) => {
   return (
-    <div className="range">
-      <label htmlFor={id} className="range-label">
+    <div className={styles.range}>
+      <label htmlFor={id}>
         <span className="label-title">{label}</span>
       </label>
-      <div className="range-display">
+      <div className={styles['range-display']}>
         <Input type="range" id={id} {...otherProps} />
         <label className="label" data-flow="horizontal">
           Custom <Input type="number" {...otherProps} />
