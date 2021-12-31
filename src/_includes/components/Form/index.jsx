@@ -1,4 +1,5 @@
 import Checkbox from '../Checkbox';
+import { Action } from '../constants';
 import Input from '../Input';
 import TypeScalePicker from '../TypeScalePicker';
 import styles from './styles.module.scss';
@@ -25,7 +26,7 @@ const Form = (props) => {
               defaultValue={min.fontSize}
               onChange={(e) =>
                 dispatch({
-                  type: 'setMin',
+                  type: Action.SET_MIN,
                   payload: {
                     fontSize: Number(e.target.value),
                   },
@@ -43,7 +44,7 @@ const Form = (props) => {
               defaultValue={min.screenWidth}
               onChange={(e) =>
                 dispatch({
-                  type: 'setMin',
+                  type: Action.SET_MIN,
                   payload: {
                     screenWidth: Number(e.target.value),
                   },
@@ -53,7 +54,7 @@ const Form = (props) => {
           </label>
           <TypeScalePicker
             ratio={min.modularRatio}
-            onChange={(e) => dispatch({ type: 'setMin', payload: { modularRatio: Number(e.target.value) } })}
+            onChange={(e) => dispatch({ type: Action.SET_MIN, payload: { modularRatio: Number(e.target.value) } })}
           />
         </div>
       </div>
@@ -73,7 +74,7 @@ const Form = (props) => {
               defaultValue={max.fontSize}
               onChange={(e) =>
                 dispatch({
-                  type: 'setMax',
+                  type: Action.SET_MAX,
                   payload: {
                     fontSize: Number(e.target.value),
                   },
@@ -90,7 +91,7 @@ const Form = (props) => {
               defaultValue={max.screenWidth}
               onChange={(e) =>
                 dispatch({
-                  type: 'setMax',
+                  type: Action.SET_MAX,
                   payload: {
                     screenWidth: Number(e.target.value),
                   },
@@ -100,7 +101,7 @@ const Form = (props) => {
           </label>
           <TypeScalePicker
             ratio={max.modularRatio}
-            onChange={(e) => dispatch({ type: 'setMax', payload: { modularRatio: Number(e.target.value) } })}
+            onChange={(e) => dispatch({ type: Action.SET_MAX, payload: { modularRatio: Number(e.target.value) } })}
           />
         </div>
       </div>
@@ -118,7 +119,7 @@ const Form = (props) => {
           defaultValue={modularSteps.join(',')}
           onChange={(e) =>
             dispatch({
-              type: 'setModularSteps',
+              type: Action.SET_MODULAR_STEPS,
               payload: e.target.value
                 .split(',')
                 .filter((step) => !!step.length)
@@ -139,7 +140,7 @@ const Form = (props) => {
           defaultValue={baseModularStep}
           onChange={(e) =>
             dispatch({
-              type: 'setBaseModularStep',
+              type: Action.SET_BASE_MODULAR_STEP,
               payload: e.target.value,
             })
           }
@@ -154,7 +155,7 @@ const Form = (props) => {
           defaultValue={namingConvention}
           onChange={(e) =>
             dispatch({
-              type: 'setNamingConvention',
+              type: Action.SET_NAMING_CONVENTION,
               payload: e.target.value,
             })
           }
@@ -170,7 +171,7 @@ const Form = (props) => {
           defaultValue={roundingDecimalPlaces}
           onChange={(e) =>
             dispatch({
-              type: 'setRoundingDecimalPlaces',
+              type: Action.SET_ROUNDING_DECIMAL_PLACES,
               payload: Number(e.target.value),
             })
           }
@@ -180,7 +181,7 @@ const Form = (props) => {
         checked={shouldUseRems}
         onChange={(e) =>
           dispatch({
-            type: 'setShouldUseRems',
+            type: Action.SET_SHOULD_USE_REMS,
             payload: e.target.checked,
           })
         }

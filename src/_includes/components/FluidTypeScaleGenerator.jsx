@@ -1,7 +1,7 @@
 import { useReducer, useState, useEffect } from 'react';
 import Form from './Form';
 import Output from './Output';
-import { modularRatios } from './constants';
+import { Action, modularRatios } from './constants';
 import Preview from './Preview';
 import styles from './styles.module.scss';
 
@@ -25,25 +25,25 @@ export const initialState = {
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'setMin': {
+    case Action.SET_MIN: {
       return { ...state, min: { ...state.min, ...action.payload } };
     }
-    case 'setMax': {
+    case Action.SET_MAX: {
       return { ...state, max: { ...state.max, ...action.payload } };
     }
-    case 'setModularSteps': {
+    case Action.SET_MODULAR_STEPS: {
       return { ...state, modularSteps: action.payload };
     }
-    case 'setBaseModularStep': {
+    case Action.SET_BASE_MODULAR_STEP: {
       return { ...state, baseModularStep: action.payload };
     }
-    case 'setNamingConvention': {
+    case Action.SET_NAMING_CONVENTION: {
       return { ...state, namingConvention: action.payload };
     }
-    case 'setShouldUseRems': {
+    case Action.SET_SHOULD_USE_REMS: {
       return { ...state, shouldUseRems: action.payload };
     }
-    case 'setRoundingDecimalPlaces': {
+    case Action.SET_ROUNDING_DECIMAL_PLACES: {
       return { ...state, roundingDecimalPlaces: action.payload };
     }
     default:
