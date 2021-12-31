@@ -34,7 +34,7 @@
 
 .label-group {
   display: grid;
-  align-items: end;
+  align-items: center;
   gap: var(--sp-base);
   margin: var(--sp-xxl) 0;
   @include desktop-lg {
