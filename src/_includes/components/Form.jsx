@@ -10,8 +10,8 @@ const Form = (props) => {
       <div className="label">
         <div className="label-title">Minimum (Mobile)</div>
         <div className="label-description">
-          The baseline step in your modular scale will take on the minimum font size you&apos;ve specified at your
-          chosen screen width. The min font size for all other steps is the baseline size times your chosen ratio.
+          Define the minimum font size and viewport width for your type scale&apos;s baseline step. The minimum font
+          size for all other steps is this baseline font size scaled up/down by your chosen type scale ratio.
         </div>
         <div className="label-group">
           <label>
@@ -58,8 +58,8 @@ const Form = (props) => {
       <div className="label">
         <div className="label-title">Maximum (Desktop)</div>
         <div className="label-description">
-          The baseline step in your modular scale will take on the maximum font size you&apos;ve specified at your
-          chosen screen width. The max font size for all other steps is the baseline size times your chosen ratio.
+          Define the maximum font size and viewport width for your type scale&apos;s baseline step. The max font size
+          for all other steps is this baseline font size scaled up/down by your chosen type scale ratio.
         </div>
         <div className="label-group">
           <label>
