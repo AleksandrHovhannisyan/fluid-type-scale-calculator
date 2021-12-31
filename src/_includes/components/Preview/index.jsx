@@ -40,7 +40,7 @@ const Preview = ({ baseSizes, typeScale, fonts }) => {
   };
 
   return (
-    <output className={styles.preview}>
+    <section className={styles.preview}>
       <h2>Preview your type scale</h2>
       <div className={styles['label-group']}>
         <RangeInput
@@ -104,7 +104,7 @@ const Preview = ({ baseSizes, typeScale, fonts }) => {
           </tbody>
         </table>
       </div>
-    </output>
+    </section>
   );
 };
 export default Preview;
