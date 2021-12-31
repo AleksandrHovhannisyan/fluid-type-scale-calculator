@@ -1,3 +1,4 @@
+import Checkbox from './Checkbox';
 import Input from './Input';
 import TypeScalePicker from './TypeScalePicker';
 
@@ -174,19 +175,17 @@ const Form = (props) => {
           }
         />
       </label>
-      <label className="label" data-flow="horizontal">
-        <span className="label-title">Show output in rems</span>
-        <Input
-          type="checkbox"
-          checked={shouldUseRems}
-          onChange={(e) =>
-            dispatch({
-              type: 'setShouldUseRems',
-              payload: e.target.checked,
-            })
-          }
-        />
-      </label>
+      <Checkbox
+        checked={shouldUseRems}
+        onChange={(e) =>
+          dispatch({
+            type: 'setShouldUseRems',
+            payload: e.target.checked,
+          })
+        }
+      >
+        Show output in rems
+      </Checkbox>
     </form>
   );
 };

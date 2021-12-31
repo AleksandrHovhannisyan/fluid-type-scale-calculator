@@ -48,13 +48,6 @@ textarea {
   padding: 8px;
 }
 
-label {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
 select,
 input:where([type="number"], [type="text"]) {
   width: 100%;

@@ -3,7 +3,7 @@ import Input from './Input';
 const RangeInput = ({ id, label, ...otherProps }) => {
   return (
     <div className="range">
-      <label htmlFor={id} className="range-label">
+      <label htmlFor={id}>
         <span className="label-title">{label}</span>
       </label>
       <div className="range-display">

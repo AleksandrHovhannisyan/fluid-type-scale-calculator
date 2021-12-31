@@ -38,6 +38,7 @@
 
 .label {
   display: inline-grid;
+  align-items: center;
   grid-template-columns: minmax(0, 1fr);
   gap: var(--sp-xs);
   font-weight: var(--fw-body-light);
@@ -72,10 +73,6 @@
 
 .range {
   display: grid;
-
-  &-label {
-    display: inline;
-  }
 
   &-display {
     display: grid;
