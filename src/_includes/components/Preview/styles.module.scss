@@ -34,10 +34,11 @@
 
 .label-group {
   display: grid;
-  align-items: center;
+  align-items: end;
   gap: var(--sp-base);
   margin: var(--sp-xxl) 0;
   @include desktop-lg {
+    // grid-auto-flow: column;
     grid-template-columns: auto auto 1fr;
   }
 }
