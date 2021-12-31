@@ -3,6 +3,7 @@ import Form from './Form';
 import Output from './Output';
 import { modularRatios } from './constants';
 import Preview from './Preview';
+import styles from './styles.module.scss';
 
 export const initialState = {
   min: {
@@ -105,7 +106,7 @@ const FluidTypeScaleGenerator = (props) => {
   ]);
 
   return (
-    <div className="type-scale-generator">
+    <div className={styles['type-scale-generator']}>
       <div className="stack">
         <Form {...state} dispatch={dispatch} />
         <Output namingConvention={state.namingConvention} typeScale={typeScale} />

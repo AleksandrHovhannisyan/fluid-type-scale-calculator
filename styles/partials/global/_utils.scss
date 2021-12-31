@@ -1,6 +1,8 @@
 @import "../functions";
 @import "../mixins";
 
+// Generic utility classes used for both statically and dynamically rendered content
+
 .stack {
   --gap: var(--sp-xl);
   display: grid;
@@ -68,14 +70,5 @@
   &[data-flow="horizontal"] {
     grid-auto-flow: column;
     grid-template-columns: auto 1fr;
-  }
-}
-
-.range {
-  display: grid;
-
-  &-display {
-    display: grid;
-    align-items: center;
   }
 }

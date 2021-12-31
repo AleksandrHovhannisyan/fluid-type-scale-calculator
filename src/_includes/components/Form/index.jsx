@@ -1,13 +1,14 @@
-import Checkbox from './Checkbox';
-import Input from './Input';
-import TypeScalePicker from './TypeScalePicker';
+import Checkbox from '../Checkbox';
+import Input from '../Input';
+import TypeScalePicker from '../TypeScalePicker';
+import styles from './styles.module.scss';
 
 const Form = (props) => {
   const { min, max, shouldUseRems, modularSteps, baseModularStep, namingConvention, roundingDecimalPlaces, dispatch } =
     props;
 
   return (
-    <form className="form">
+    <form className={styles.form}>
       <div className="label">
         <div className="label-title">Minimum (Mobile)</div>
         <div className="label-description">

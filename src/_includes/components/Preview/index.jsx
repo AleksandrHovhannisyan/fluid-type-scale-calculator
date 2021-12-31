@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
-import Input from './Input';
-import RangeInput from './RangeInput';
+import Input from '../Input';
+import RangeInput from '../RangeInput';
+import clsx from 'clsx';
+import styles from './styles.module.scss';
 
 // No need to use a Head lib
 const getFontLinkTag = (id) => {
@@ -38,9 +40,9 @@ const Preview = ({ baseSizes, typeScale, fonts }) => {
   };
 
   return (
-    <div id="preview" className="flow">
+    <output className={styles.preview}>
       <h2>Preview your type scale</h2>
-      <div className="preview-label-group">
+      <div className={styles['label-group']}>
         <RangeInput
           id="screen-width-range"
           label="Screen width (pixels)"
@@ -60,7 +62,7 @@ const Preview = ({ baseSizes, typeScale, fonts }) => {
             ))}
           </select>
         </label>
-        <label className="label preview-text-input">
+        <label className="label">
           <span className="label-title">Preview text</span>
           <Input type="text" required defaultValue={previewText} onChange={(e) => setPreviewText(e.target.value)} />
         </label>
@@ -70,16 +72,16 @@ const Preview = ({ baseSizes, typeScale, fonts }) => {
           <thead>
             <tr>
               <th scope="col">Step</th>
-              <th scope="col" className="numeric nowrap">
+              <th scope="col" className={clsx(styles.numeric, 'nowrap')}>
                 Min
               </th>
-              <th scope="col" className="numeric nowrap">
+              <th scope="col" className={clsx(styles.numeric, 'nowrap')}>
                 Max
               </th>
-              <th scope="col" className="numeric nowrap">
+              <th scope="col" className={clsx(styles.numeric, 'nowrap')}>
                 Rendered
               </th>
-              <th scope="col" className="preview-text">
+              <th scope="col" className={clsx(styles['preview-text'], 'nowrap')}>
                 Preview
               </th>
             </tr>
@@ -90,10 +92,10 @@ const Preview = ({ baseSizes, typeScale, fonts }) => {
               return (
                 <tr key={step}>
                   <td>{step}</td>
-                  <td className="numeric">{min}</td>
-                  <td className="numeric">{max}</td>
-                  <td className="numeric">{getFontSizeAtScreenWidth(screenWidth)}</td>
-                  <td className="preview-text nowrap" style={{ fontSize, fontFamily: previewFont }}>
+                  <td className={styles.numeric}>{min}</td>
+                  <td className={styles.numeric}>{max}</td>
+                  <td className={styles.numeric}>{getFontSizeAtScreenWidth(screenWidth)}</td>
+                  <td className={clsx('nowrap', styles['preview-text'])} style={{ fontSize, fontFamily: previewFont }}>
                     {previewText}
                   </td>
                 </tr>
@@ -102,7 +104,7 @@ const Preview = ({ baseSizes, typeScale, fonts }) => {
           </tbody>
         </table>
       </div>
-    </div>
+    </output>
   );
 };
 export default Preview;

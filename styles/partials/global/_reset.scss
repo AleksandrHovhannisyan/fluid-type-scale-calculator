@@ -77,7 +77,6 @@ img {
   text-shadow: none;
 }
 
-/* stylelint-disable-next-line no-descending-specificity */
 button {
   cursor: pointer;
   border: none;
@@ -96,7 +95,7 @@ h3,
 h4,
 h5,
 h6 {
-  margin-bottom: 0.25em;
+  margin-block-end: 0.25em;
 }
 
 h1 {
