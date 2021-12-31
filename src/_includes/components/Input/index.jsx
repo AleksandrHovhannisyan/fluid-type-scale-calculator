@@ -1,11 +1,20 @@
 import { useState } from 'react';
 
-const Input = ({ onChange, ...otherProps }) => {
+const specializedPropsByType = {
+  number: {
+    inputMode: 'decimal',
+  },
+};
+
+const Input = ({ onChange, type, step = 'any', ...otherProps }) => {
   const [isValid, setIsValid] = useState(true);
 
   return (
     <input
       {...otherProps}
+      {...specializedPropsByType[type]}
+      type={type}
+      step={step}
       aria-invalid={!isValid}
       onChange={(e) => {
         const isValid = e.target.checkValidity();

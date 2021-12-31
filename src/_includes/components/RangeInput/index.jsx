@@ -8,9 +8,9 @@ const RangeInput = ({ id, label, ...otherProps }) => {
         <span className="label-title">{label}</span>
       </label>
       <div className={styles['range-display']}>
-        <Input type="range" id={id} {...otherProps} />
+        <Input type="range" id={id} step={1} {...otherProps} />
         <label className="label" data-flow="horizontal">
-          Custom <Input type="number" {...otherProps} />
+          Custom <Input type="number" step={1} {...otherProps} />
         </label>
       </div>
     </div>

@@ -170,6 +170,7 @@ const Form = (props) => {
         <span className="label-description">Control how many decimal places are shown in the output.</span>
         <Input
           type="number"
+          step={1}
           min={0}
           required={true}
           defaultValue={roundingDecimalPlaces}
