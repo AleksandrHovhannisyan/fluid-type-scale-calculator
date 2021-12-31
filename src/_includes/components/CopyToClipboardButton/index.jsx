@@ -17,7 +17,15 @@ const CopyToClipboardButton = ({ text, onClick, ...otherProps }) => {
       }}
       {...otherProps}
     >
-      {isCopied ? 'Copied! 🎉' : 'Copy to clipboard 📋'}
+      {isCopied ? (
+        <>
+          Copied! <span aria-hidden="true">🎉</span>
+        </>
+      ) : (
+        <>
+          Copy to clipboard <span aria-hidden="true">📋</span>
+        </>
+      )}
     </button>
   );
 };
