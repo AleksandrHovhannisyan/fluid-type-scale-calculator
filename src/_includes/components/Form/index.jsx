@@ -10,12 +10,14 @@ const Form = (props) => {
 
   return (
     <form className={styles.form}>
-      <div className="label">
-        <div className="label-title">Minimum (Mobile)</div>
-        <div className="label-description">
-          Define the minimum font size and viewport width for your type scale&apos;s baseline step. The minimum font
-          size for all other steps is this baseline font size scaled up/down by your chosen type scale ratio.
-        </div>
+      <fieldset className="label">
+        <legend>
+          <span className="label-title">Minimum (Mobile)</span>
+          <span className="label-description">
+            Define the minimum font size and viewport width for your type scale&apos;s baseline step. The minimum font
+            size for all other steps is this baseline font size scaled up/down by your chosen type scale ratio.
+          </span>
+        </legend>
         <div className="label-group">
           <label>
             Base font size (pixels)
@@ -57,13 +59,15 @@ const Form = (props) => {
             onChange={(e) => dispatch({ type: Action.SET_MIN, payload: { modularRatio: Number(e.target.value) } })}
           />
         </div>
-      </div>
-      <div className="label">
-        <div className="label-title">Maximum (Desktop)</div>
-        <div className="label-description">
-          Define the maximum font size and viewport width for your type scale&apos;s baseline step. The max font size
-          for all other steps is this baseline font size scaled up/down by your chosen type scale ratio.
-        </div>
+      </fieldset>
+      <fieldset className="label">
+        <legend>
+          <span className="label-title">Maximum (Desktop)</span>
+          <span className="label-description">
+            Define the maximum font size and viewport width for your type scale&apos;s baseline step. The max font size
+            for all other steps is this baseline font size scaled up/down by your chosen type scale ratio.
+          </span>
+        </legend>
         <div className="label-group">
           <label>
             Base font size (pixels)
@@ -104,7 +108,7 @@ const Form = (props) => {
             onChange={(e) => dispatch({ type: Action.SET_MAX, payload: { modularRatio: Number(e.target.value) } })}
           />
         </div>
-      </div>
+      </fieldset>
       <label className="label">
         <span className="label-title">Type scale steps</span>
         <span className="label-description">
