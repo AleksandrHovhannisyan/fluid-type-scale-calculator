@@ -1,5 +1,3 @@
-@import "../functions";
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -55,8 +53,8 @@ input:where([type="number"], [type="text"]) {
 }
 
 input[type="checkbox"] {
-  width: clamped(16px, 18px);
-  height: clamped(16px, 18px);
+  width: var(--sp-base);
+  height: var(--sp-base);
 }
 
 :where(input,textarea,select,option) {
