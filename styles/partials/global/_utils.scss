@@ -69,3 +69,16 @@
     grid-template-columns: auto 1fr;
   }
 }
+
+.range {
+  display: grid;
+
+  &-label {
+    display: inline;
+  }
+
+  &-display {
+    display: grid;
+    align-items: center;
+  }
+}

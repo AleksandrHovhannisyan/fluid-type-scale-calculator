@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Input from './Input';
+import RangeInput from './RangeInput';
 
 // No need to use a Head lib
 const getFontLinkTag = (id) => {
@@ -22,6 +23,7 @@ const onLinkLoaded = (fontFamily, previewText, setFont) => async () => {
 const Preview = ({ baseSizes, typeScale, fonts }) => {
   const [previewText, setPreviewText] = useState('Almost before we knew it, we had left the ground');
   const [previewFont, setPreviewFont] = useState('Inter');
+  const [screenWidth, setScreenWidth] = useState(baseSizes.max.screenWidth);
 
   const onFontSelected = async (fontFamily) => {
     const link = getFontLinkTag('user-selected-font');
@@ -34,8 +36,16 @@ const Preview = ({ baseSizes, typeScale, fonts }) => {
     <div id="preview" className="flow">
       <h2>Preview your type scale</h2>
       <div className="preview-label-group">
+        <RangeInput
+          id="screen-width-range"
+          label="Screen width (pixels)"
+          value={screenWidth}
+          onChange={(e) => setScreenWidth(Number(e.target.value))}
+          min={0}
+          max={baseSizes.max.screenWidth * 1.5}
+        />
         <label className="label">
-          <span className="label-title">Preview font</span>
+          <span className="label-title">Font family</span>
           <select defaultValue={previewFont} onChange={(e) => onFontSelected(e.target.value)}>
             {fonts.map((fontFamily) => (
               <option key={fontFamily} value={fontFamily}>
@@ -55,10 +65,13 @@ const Preview = ({ baseSizes, typeScale, fonts }) => {
             <tr>
               <th scope="col">Step</th>
               <th scope="col" className="numeric nowrap">
-                Min ({baseSizes.min.screenWidth}px)
+                Min
               </th>
               <th scope="col" className="numeric nowrap">
-                Max ({baseSizes.max.screenWidth}px)
+                Max
+              </th>
+              <th scope="col" className="numeric nowrap">
+                Rendered
               </th>
               <th scope="col" className="preview-text">
                 Preview
@@ -66,13 +79,14 @@ const Preview = ({ baseSizes, typeScale, fonts }) => {
             </tr>
           </thead>
           <tbody>
-            {Object.entries(typeScale).map(([step, { min, max, preferred }]) => {
-              const fontSize = `clamp(${min}, ${preferred}, ${max})`;
+            {Object.entries(typeScale).map(([step, { min, max, getFontSizeAtScreenWidth }]) => {
+              const fontSize = getFontSizeAtScreenWidth(screenWidth);
               return (
                 <tr key={step}>
-                  <td className="preview-step">{step}</td>
-                  <td className="preview-min numeric">{min}</td>
-                  <td className="preview-max numeric">{max}</td>
+                  <td>{step}</td>
+                  <td className="numeric">{min}</td>
+                  <td className="numeric">{max}</td>
+                  <td className="numeric">{getFontSizeAtScreenWidth(screenWidth)}</td>
                   <td className="preview-text nowrap" style={{ fontSize, fontFamily: previewFont }}>
                     {previewText}
                   </td>

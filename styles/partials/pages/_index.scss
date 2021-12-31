@@ -86,9 +86,11 @@ header {
 
 .preview-label-group {
   display: grid;
+  align-items: end;
   gap: var(--sp-base);
-  @include tablet {
-    grid-template-columns: auto 1fr;
+  margin: var(--sp-xxl) 0;
+  @include desktop-lg {
+    grid-template-columns: auto auto 1fr;
   }
 }
 
@@ -125,7 +127,6 @@ header {
 
   .preview-text {
     width: 100%;
-    white-space: nowrap;
   }
 }
 

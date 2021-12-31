@@ -78,12 +78,18 @@ const FluidTypeScaleGenerator = (props) => {
 
       const slope = (max.fontSize - min.fontSize) / (max.breakpoint - min.breakpoint);
       const slopeVw = `${round(slope * 100)}vw`;
-      const intercept = convertToDesiredUnit(min.fontSize - slope * min.breakpoint);
+      const intercept = min.fontSize - slope * min.breakpoint;
 
       steps[step] = {
         min: withUnit(round(convertToDesiredUnit(min.fontSize))),
         max: withUnit(round(convertToDesiredUnit(max.fontSize))),
-        preferred: `${slopeVw} + ${withUnit(round(intercept))}`,
+        preferred: `${slopeVw} + ${withUnit(round(convertToDesiredUnit(intercept)))}`,
+        getFontSizeAtScreenWidth: (width) => {
+          let preferredFontSize = width * slope + intercept;
+          preferredFontSize = Math.min(max.fontSize, preferredFontSize);
+          preferredFontSize = Math.max(min.fontSize, preferredFontSize);
+          return withUnit(round(convertToDesiredUnit(preferredFontSize)));
+        },
       };
       return steps;
     }, {});
