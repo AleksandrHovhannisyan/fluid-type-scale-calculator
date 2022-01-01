@@ -1,0 +1,19 @@
+@import "./functions";
+@import "./mixins";
+@import "./reset";
+@import "./variables";
+@import "./utils";
+
+body {
+  padding: clamped(12px, 32px);
+  padding-top: clamped(48px, 100px);
+  padding-bottom: 0;
+  font-size: var(--sp-base);
+  max-width: 1800px;
+  margin: 0 auto;
+}
+
+#page {
+  display: grid;
+  gap: var(--sp-xl);
+}

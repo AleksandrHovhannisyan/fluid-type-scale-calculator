@@ -1,0 +1,12 @@
+@import "/@root/styles/mixins";
+
+.stack {
+  --gap: var(--sp-xl);
+  display: grid;
+  gap: var(--gap);
+  grid-template-columns: minmax(0, 1fr);
+  grid-auto-flow: row;
+  @include desktop {
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  }
+}
