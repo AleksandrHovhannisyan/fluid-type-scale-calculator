@@ -22,14 +22,24 @@ const onLinkLoaded = (fontFamily, previewText, setFont) => async () => {
   setFont(fontFamily);
 };
 
-const Preview = ({ baseSizes, typeScale, fonts }) => {
-  const [previewText, setPreviewText] = useState('Almost before we knew it, we had left the ground');
-  const [previewFont, setPreviewFont] = useState('Inter');
-  const [screenWidth, setScreenWidth] = useState(baseSizes.max.screenWidth);
+const defaultFonts = ['Inter'];
 
-  // Since Slinkity uses SSR
+const Preview = (props) => {
+  const [previewText, setPreviewText] = useState('Almost before we knew it, we had left the ground');
+  const [fonts, setFonts] = useState(defaultFonts);
+  const [previewFont, setPreviewFont] = useState(defaultFonts[0]);
+  const [screenWidth, setScreenWidth] = useState(props.baseSizes.max.screenWidth);
+
   useEffect(() => {
+    // Since Slinkity uses SSR, this must be done on mount
     setScreenWidth(window.innerWidth);
+    /* Set fonts from static props (async 11ty data) on mount, for several reasons:
+    1. Don't want to fetch Google Fonts on mount because that would require using serverless functions. Without a cache, assuming decent traffic, this would quickly blow the Netlify limit.
+    2. Don't want the initially server-side rendered HTML to return ~1k font family names, or this will start matching really absurd and irrelevant search queries (already seeing this in Google Search Console).
+    3. This sends less HTML over the wire initially.
+    */
+    setFonts(props.fonts);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onFontSelected = async (fontFamily) => {
@@ -87,7 +97,7 @@ const Preview = ({ baseSizes, typeScale, fonts }) => {
             </tr>
           </thead>
           <tbody>
-            {Object.entries(typeScale).map(([step, { min, max, getFontSizeAtScreenWidth }]) => {
+            {Object.entries(props.typeScale).map(([step, { min, max, getFontSizeAtScreenWidth }]) => {
               const fontSize = getFontSizeAtScreenWidth(screenWidth);
               return (
                 <tr key={step}>
