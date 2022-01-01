@@ -26,8 +26,6 @@
   {%- endcapture -%}
   <style>{{ fontFaceCss | compileAndMinifyScss }}</style>
   <link rel="stylesheet" href="/@root/styles/main.scss">
-  {%- comment -%}JavaScript bundles{%- endcomment -%}
-  <!-- <script type="module" src="/assets/scripts/index.mjs"></script> -->
   {%- comment -%}Open Graph social media previews{%- endcomment -%}
   <meta property="og:title" content="{{ pageTitle }}">
   {%- if thumbnail -%}
