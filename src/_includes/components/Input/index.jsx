@@ -10,7 +10,8 @@ const specializedPropsByType = {
  * @param {React.HTMLProps<HTMLInputElement>} props
  */
 const Input = (props) => {
-  const { onChange, type, step = 'any', ...otherProps } = props;
+  const { onChange, type, step, ...otherProps } = props;
+  const htmlStep = type === 'number' ? step ?? 'any' : undefined;
   const [isValid, setIsValid] = useState(true);
 
   return (
@@ -18,7 +19,7 @@ const Input = (props) => {
       {...otherProps}
       {...specializedPropsByType[type]}
       type={type}
-      step={step}
+      step={htmlStep}
       aria-invalid={!isValid}
       onChange={(e) => {
         const isValid = e.target.checkValidity();
