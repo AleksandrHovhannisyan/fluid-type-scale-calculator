@@ -5,6 +5,7 @@ import { Action, modularRatios } from './constants';
 import Preview from './Preview';
 import styles from './styles.module.scss';
 
+/** @type {import('./typedefs').AppState} */
 export const initialState = {
   min: {
     fontSize: 16,
@@ -23,6 +24,10 @@ export const initialState = {
   roundingDecimalPlaces: 2,
 };
 
+/**
+ * @param {import('./typedefs').AppState} state - the previous app state
+ * @param {import('./typedefs').AppAction} action - the action to dispatch
+ */
 const reducer = (state, action) => {
   switch (action.type) {
     case Action.SET_MIN: {
@@ -51,9 +56,12 @@ const reducer = (state, action) => {
   }
 };
 
+/** @type {import('./typedefs').TypeScale} */
+const defaultTypeScale = {};
+
 const FluidTypeScaleGenerator = (props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [typeScale, setTypeScale] = useState({});
+  const [typeScale, setTypeScale] = useState(defaultTypeScale);
 
   useEffect(() => {
     /** Appends the correct unit to a unitless value. */

@@ -1,7 +1,18 @@
 import CopyToClipboardButton from '../CopyToClipboardButton';
 import styles from './styles.module.scss';
 
-const Output = ({ namingConvention, typeScale }) => {
+/**
+ * @typedef OutputProps
+ * @property {import('../typedefs').TypeScale} typeScale - the output type scale
+ */
+
+/**
+ *
+ * @param {OutputProps & Pick<import('../typedefs').AppState, 'namingConvention'>} props
+ */
+const Output = (props) => {
+  const { namingConvention, typeScale } = props;
+
   const code = Object.entries(typeScale)
     .map(([step, { min, max, preferred }]) => {
       return `--${namingConvention}-${step}: clamp(${min}, ${preferred}, ${max});`;

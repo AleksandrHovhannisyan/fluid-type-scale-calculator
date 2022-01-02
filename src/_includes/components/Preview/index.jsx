@@ -7,7 +7,16 @@ import GoogleFontsPicker from '../GoogleFontsPicker';
 import { getFontLinkTag, onLinkLoaded } from './utils';
 import { defaultFonts } from './constants';
 
-const Preview = ({ baseSizes, fonts, typeScale }) => {
+/**
+ * @typedef PreviewProps
+ * @property {{ min: import('../typedefs').BreakpointConfig; max: import('../typedefs').BreakpointConfig }} baseSizes
+ * @property {import('../typedefs').TypeScale} typeScale - the type scale to preview
+ * @property {string[]} fonts - all font families
+ */
+
+/** @param {PreviewProps} props */
+const Preview = (props) => {
+  const { baseSizes, fonts, typeScale } = props;
   const [previewText, setPreviewText] = useState('Almost before we knew it, we had left the ground');
   const [previewFont, setPreviewFont] = useState(defaultFonts[0]);
   const [screenWidth, setScreenWidth] = useState(baseSizes.max.screenWidth);
@@ -18,6 +27,7 @@ const Preview = ({ baseSizes, fonts, typeScale }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  /** @param {string} fontFamily - the name of the selected font */
   const onFontSelected = async (fontFamily) => {
     const link = getFontLinkTag('user-selected-font');
     document.head.appendChild(link);
