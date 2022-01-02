@@ -4,31 +4,13 @@ import RangeInput from '../RangeInput';
 import clsx from 'clsx';
 import styles from './styles.module.scss';
 import GoogleFontsPicker from '../GoogleFontsPicker';
+import { getFontLinkTag, onLinkLoaded } from './utils';
+import { defaultFonts } from './constants';
 
-// No need to use a Head lib
-const getFontLinkTag = (id) => {
-  const existingLink = document.getElementById(id);
-  if (existingLink) {
-    document.head.removeChild(existingLink);
-  }
-  const link = document.createElement('link');
-  link.removeEventListener('load', onLinkLoaded);
-  link.id = id;
-  link.rel = 'stylesheet';
-  return link;
-};
-
-const onLinkLoaded = (fontFamily, previewText, setFont) => async () => {
-  await document.fonts.load(`1em ${fontFamily}`, previewText);
-  setFont(fontFamily);
-};
-
-const defaultFonts = ['Inter'];
-
-const Preview = (props) => {
+const Preview = ({ baseSizes, fonts, typeScale }) => {
   const [previewText, setPreviewText] = useState('Almost before we knew it, we had left the ground');
   const [previewFont, setPreviewFont] = useState(defaultFonts[0]);
-  const [screenWidth, setScreenWidth] = useState(props.baseSizes.max.screenWidth);
+  const [screenWidth, setScreenWidth] = useState(baseSizes.max.screenWidth);
 
   useEffect(() => {
     // Since Slinkity uses SSR, this must be done on mount
@@ -59,7 +41,7 @@ const Preview = (props) => {
         <label className="label">
           <span className="label-title">Font family</span>
           <GoogleFontsPicker
-            fonts={props.fonts}
+            fonts={fonts}
             defaultValue={previewFont}
             onChange={(e) => onFontSelected(e.target.value)}
           />
@@ -89,7 +71,7 @@ const Preview = (props) => {
             </tr>
           </thead>
           <tbody>
-            {Object.entries(props.typeScale).map(([step, { min, max, getFontSizeAtScreenWidth }]) => {
+            {Object.entries(typeScale).map(([step, { min, max, getFontSizeAtScreenWidth }]) => {
               const fontSize = getFontSizeAtScreenWidth(screenWidth);
               return (
                 <tr key={step}>
