@@ -13,8 +13,8 @@ eleventyComputed:
   <div class="stack info">
     <div class="flow">
       <h2>How it works</h2>
-      <p>A {% link "https://every-layout.dev/rudiments/modular-scale/" %}modular type scale{% endlink %} consists of a baseline font size and proportionally smaller and larger font sizes. Traditional design systems use static font sizing, where each step has a fixed font size at every viewport width.</p>
-      <p>By contrast, in a fluid type scale, each modular step has a minimum, maximum, and variable font size. We can leverage {% link "https://developer.mozilla.org/en-US/docs/Web/CSS/clamp()" %}CSS <code>clamp</code>{% endlink %} to generate a set of font size variables that scale linearly between their minimum and maximum sizes, with mathematical precision.</p>
+      <p>A {% link "https://every-layout.dev/rudiments/modular-scale/" %}modular type scale{% endlink %} consists of a baseline font size and proportionally smaller and larger font sizes. Design systems traditionally used static font sizing, where each step has a fixed font size at every viewport width.</p>
+      <p>By contrast, in a fluid type scale, each modular step has a minimum, maximum, and variable font size. We can leverage {% link "https://developer.mozilla.org/en-US/docs/Web/CSS/clamp()" %}CSS <code>clamp</code>{% endlink %} and viewport width (<code>vw</code>) units to generate a set of font size variables that scale linearly between their minimum and maximum sizes, with mathematical precision.</p>
       <p>This is done with linear interpolation by solving the equation <code>y = mx + b</code>, which corresponds to the preferred value for a CSS <code>clamp</code> declaration.</p>
     </div>
     <div class="flow">
