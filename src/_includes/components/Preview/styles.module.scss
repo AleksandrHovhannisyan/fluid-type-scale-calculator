@@ -34,11 +34,15 @@
 
 .label-group {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   align-items: end;
   gap: var(--sp-base);
   margin: var(--sp-xxl) 0;
-  @include desktop-lg {
-    // grid-auto-flow: column;
-    grid-template-columns: auto auto 1fr;
+  @include desktop {
+    grid-template-columns: repeat(4, 1fr);
+
+    .preview-text-label {
+      grid-column: span 2;
+    }
   }
 }

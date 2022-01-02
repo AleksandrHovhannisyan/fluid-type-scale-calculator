@@ -56,7 +56,7 @@ const Preview = (props) => {
             onChange={(e) => onFontSelected(e.target.value)}
           />
         </label>
-        <label className="label">
+        <label className={clsx('label', styles['preview-text-label'])}>
           <span className="label-title">Preview text</span>
           <Input type="text" required defaultValue={previewText} onChange={(e) => setPreviewText(e.target.value)} />
         </label>
