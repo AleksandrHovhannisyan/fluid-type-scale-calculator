@@ -4,6 +4,9 @@ import Input from '../Input';
 import TypeScalePicker from '../TypeScalePicker';
 import styles from './styles.module.scss';
 
+/**
+ * @param {import('../typedefs').AppState & { dispatch: React.Dispatch<AppAction> }} props
+ */
 const Form = (props) => {
   const { min, max, shouldUseRems, modularSteps, baseModularStep, namingConvention, roundingDecimalPlaces, dispatch } =
     props;

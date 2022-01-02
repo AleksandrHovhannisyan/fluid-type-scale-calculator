@@ -1,6 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
 
-const GoogleFontsPicker = ({ defaultValue, fonts: allFonts, onChange }) => {
+/**
+ * @typedef GoogleFontsPickerProps
+ * @property {string[]} fonts - an array of all font families to display
+ */
+
+/**
+ * @param {GoogleFontsPickerProps & React.HTMLProps<HTMLSelectElement>} props
+ */
+const GoogleFontsPicker = (props) => {
+  const { defaultValue, fonts: allFonts, onChange } = props;
   const [fonts, setFonts] = useState([defaultValue]);
   const pickerRef = useRef(null);
 

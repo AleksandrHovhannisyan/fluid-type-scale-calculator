@@ -6,7 +6,11 @@ const specializedPropsByType = {
   },
 };
 
-const Input = ({ onChange, type, step = 'any', ...otherProps }) => {
+/**
+ * @param {React.HTMLProps<HTMLInputElement>} props
+ */
+const Input = (props) => {
+  const { onChange, type, step = 'any', ...otherProps } = props;
   const [isValid, setIsValid] = useState(true);
 
   return (

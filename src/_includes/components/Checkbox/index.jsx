@@ -1,5 +1,8 @@
 import Input from '../Input';
 
+/**
+ * @type React.FC<React.HTMLProps<HTMLInputElement>>
+ */
 const Checkbox = ({ children, ...otherProps }) => {
   return (
     <label className="label" data-flow="horizontal">

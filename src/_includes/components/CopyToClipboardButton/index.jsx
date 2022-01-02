@@ -1,7 +1,17 @@
 import { useState } from 'react';
 import styles from './styles.module.scss';
 
-const CopyToClipboardButton = ({ text, onClick, ...otherProps }) => {
+/**
+ * @typedef CopyToClipboardButtonProps
+ * @property {string} text - the text to copy to the clipboard on click
+ */
+
+/**
+ *
+ * @param {CopyToClipboardButtonProps & React.HTMLProps<HTMLButtonElement>} props
+ */
+const CopyToClipboardButton = (props) => {
+  const { text, onClick, ...otherProps } = props;
   const [isCopied, setIsCopied] = useState(false);
   return (
     <button

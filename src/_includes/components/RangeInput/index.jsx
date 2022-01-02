@@ -1,7 +1,17 @@
 import Input from '../Input';
 import styles from './styles.module.scss';
 
-const RangeInput = ({ id, label, ...otherProps }) => {
+/**
+ * @typedef RangeInputProps
+ * @property {string} label - a string to label the range input
+ */
+
+/**
+ * Displays a range input slider along with a custom input box to allow for manual inputs.
+ * @param {RangeInputProps & Omit<React.HTMLProps<HTMLInputElement>, 'label'>} props
+ */
+const RangeInput = (props) => {
+  const { id, label, ...otherProps } = props;
   return (
     <div className={styles.range}>
       <label htmlFor={id}>
