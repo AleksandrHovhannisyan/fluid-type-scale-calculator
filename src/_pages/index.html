@@ -7,7 +7,7 @@ eleventyComputed:
 <main id="app">
   <header>
     <h1 class="title">{{ site.title }}</h1>
-    <p class="subtitle">Generate font size variables for a fluid type scale. Grab the output CSS and drop it into any existing design system.</p>
+    <p class="subtitle">{{ site.description }}</p>
   </header>
   {% react 'components/FluidTypeScaleGenerator' 'fonts' googleFonts %}
   <div class="stack info">

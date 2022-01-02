@@ -1,6 +1,6 @@
 # Fluid Type Scale Calculator
 
-> Generate font size variables for a fluid type scale.
+> Generate font size variables for a fluid type scale with CSS clamp.
 
 ## Overview
 
