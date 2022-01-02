@@ -3,6 +3,7 @@ import Input from '../Input';
 import RangeInput from '../RangeInput';
 import clsx from 'clsx';
 import styles from './styles.module.scss';
+import GoogleFontsPicker from '../GoogleFontsPicker';
 
 // No need to use a Head lib
 const getFontLinkTag = (id) => {
@@ -26,19 +27,12 @@ const defaultFonts = ['Inter'];
 
 const Preview = (props) => {
   const [previewText, setPreviewText] = useState('Almost before we knew it, we had left the ground');
-  const [fonts, setFonts] = useState(defaultFonts);
   const [previewFont, setPreviewFont] = useState(defaultFonts[0]);
   const [screenWidth, setScreenWidth] = useState(props.baseSizes.max.screenWidth);
 
   useEffect(() => {
     // Since Slinkity uses SSR, this must be done on mount
     setScreenWidth(window.innerWidth);
-    /* Set fonts from static props (async 11ty data) on mount, for several reasons:
-    1. Don't want to fetch Google Fonts on mount because that would require using serverless functions. Without a cache, assuming decent traffic, this would quickly blow the Netlify limit.
-    2. Don't want the initially server-side rendered HTML to return ~1k font family names, or this will start matching really absurd and irrelevant search queries (already seeing this in Google Search Console).
-    3. This sends less HTML over the wire initially.
-    */
-    setFonts(props.fonts);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -64,13 +58,11 @@ const Preview = (props) => {
         />
         <label className="label">
           <span className="label-title">Font family</span>
-          <select defaultValue={previewFont} onChange={(e) => onFontSelected(e.target.value)}>
-            {fonts.map((fontFamily) => (
-              <option key={fontFamily} value={fontFamily}>
-                {fontFamily}
-              </option>
-            ))}
-          </select>
+          <GoogleFontsPicker
+            fonts={props.fonts}
+            defaultValue={previewFont}
+            onChange={(e) => onFontSelected(e.target.value)}
+          />
         </label>
         <label className="label">
           <span className="label-title">Preview text</span>
