@@ -17,7 +17,7 @@
  */
 
 /**
- * @typedef {Record<string, TypeScaleEntry>} TypeScale
+ * @typedef {Map<string, TypeScaleEntry>} TypeScale
  */
 
 /**

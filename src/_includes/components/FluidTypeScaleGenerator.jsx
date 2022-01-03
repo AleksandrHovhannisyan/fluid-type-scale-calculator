@@ -56,8 +56,9 @@ const reducer = (state, action) => {
   }
 };
 
+// NOTE: Using a Map instead of an object to preserve key insertion order.
 /** @type {import('./typedefs').TypeScale} */
-const defaultTypeScale = {};
+const defaultTypeScale = new Map();
 
 const FluidTypeScaleGenerator = (props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -89,7 +90,7 @@ const FluidTypeScaleGenerator = (props) => {
       const slopeVw = `${round(slope * 100)}vw`;
       const intercept = min.fontSize - slope * min.breakpoint;
 
-      steps[step] = {
+      steps.set(step, {
         min: withUnit(round(convertToDesiredUnit(min.fontSize))),
         max: withUnit(round(convertToDesiredUnit(max.fontSize))),
         preferred: `${slopeVw} + ${withUnit(round(convertToDesiredUnit(intercept)))}`,
@@ -99,10 +100,9 @@ const FluidTypeScaleGenerator = (props) => {
           preferredFontSize = Math.max(min.fontSize, preferredFontSize);
           return withUnit(round(convertToDesiredUnit(preferredFontSize)));
         },
-      };
+      });
       return steps;
-    }, {});
-
+    }, new Map());
     setTypeScale(newTypeScale);
   }, [
     state.min,

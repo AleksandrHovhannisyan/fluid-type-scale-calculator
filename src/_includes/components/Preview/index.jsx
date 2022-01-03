@@ -81,7 +81,7 @@ const Preview = (props) => {
             </tr>
           </thead>
           <tbody>
-            {Object.entries(typeScale).map(([step, { min, max, getFontSizeAtScreenWidth }]) => {
+            {Array.from(typeScale.entries()).map(([step, { min, max, getFontSizeAtScreenWidth }]) => {
               const fontSize = getFontSizeAtScreenWidth(screenWidth);
               return (
                 <tr key={step}>

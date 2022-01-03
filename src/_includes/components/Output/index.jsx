@@ -13,7 +13,7 @@ import styles from './styles.module.scss';
 const Output = (props) => {
   const { namingConvention, typeScale } = props;
 
-  const code = Object.entries(typeScale)
+  const code = Array.from(typeScale.entries())
     .map(([step, { min, max, preferred }]) => {
       return `--${namingConvention}-${step}: clamp(${min}, ${preferred}, ${max});`;
     })
