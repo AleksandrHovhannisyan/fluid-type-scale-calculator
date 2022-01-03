@@ -122,15 +122,12 @@ const Form = (props) => {
           type="text"
           required
           spellCheck="false"
-          pattern="^[a-zA-Z0-9](?:,?[a-zA-Z0-9])*$"
+          pattern="^[a-zA-Z0-9-](?:(,\s*)?[a-zA-Z0-9-])*$"
           defaultValue={modularSteps.join(',')}
           onChange={(e) =>
             dispatch({
               type: Action.SET_MODULAR_STEPS,
-              payload: e.target.value
-                .split(',')
-                .filter((step) => !!step.length)
-                .map((step) => step.trim()),
+              payload: e.target.value.split(',').map((step) => step.trim()),
             })
           }
         />
