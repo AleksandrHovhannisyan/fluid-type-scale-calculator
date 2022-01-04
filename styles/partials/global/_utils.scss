@@ -22,6 +22,20 @@
   }
 }
 
+.banner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--sp-base);
+  background-color: var(--color-surface-dark);
+  color: var(--color-surface-light);
+  font-size: var(--sp-sm);
+}
+
 .list {
   padding-inline-start: 1em;
   display: grid;

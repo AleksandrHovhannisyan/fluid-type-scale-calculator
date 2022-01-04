@@ -22,10 +22,7 @@ const Output = (props) => {
   return (
     <aside className={styles.output}>
       <div className={styles['output-wrapper']}>
-        <output className={styles['output-code']}>
-          <noscript>This app relies on JavaScript. Please enable it if you can.</noscript>
-          {code}
-        </output>
+        <output className={styles['output-code']}>{code}</output>
       </div>
       <CopyToClipboardButton text={code} />
     </aside>

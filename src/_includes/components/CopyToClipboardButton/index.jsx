@@ -15,6 +15,7 @@ const CopyToClipboardButton = (props) => {
   const [isCopied, setIsCopied] = useState(false);
   return (
     <button
+      id="copy-to-clipboard-button"
       type="button"
       className={styles['copy-to-clipboard-button']}
       onClick={() => {

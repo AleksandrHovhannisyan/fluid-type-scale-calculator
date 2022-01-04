@@ -106,6 +106,9 @@ const FluidTypeScaleGenerator = (props) => {
 
   return (
     <div className={styles['type-scale-generator']}>
+      <noscript>
+        <header className="banner">This app requires JavaScript. Please enable it if you can.</header>
+      </noscript>
       <div className="stack">
         <Form {...state} dispatch={dispatch} />
         <Output namingConvention={state.namingConvention} typeScale={typeScale} />

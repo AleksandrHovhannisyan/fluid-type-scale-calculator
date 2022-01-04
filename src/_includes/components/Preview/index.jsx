@@ -38,7 +38,7 @@ const Preview = (props) => {
   return (
     <section className={styles.preview}>
       <h2>Preview your type scale</h2>
-      <div className={styles['label-group']}>
+      <div id="preview-inputs" className={styles['label-group']}>
         <RangeInput
           id="screen-width-range"
           label="Screen width (pixels)"
