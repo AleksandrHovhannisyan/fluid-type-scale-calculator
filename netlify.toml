@@ -1,6 +1,9 @@
 [[plugins]]
   package = "netlify-plugin-checklinks"
 
+  [plugins.inputs]
+    skipPatterns = ['https://fonts.gstatic.com', 'https://fonts.googleapis.com']
+
 [dev]
   command = "npm run dev"
   targetPort = 8080

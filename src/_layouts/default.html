@@ -16,15 +16,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="author" content="{{ site.author }}">
   <link rel="canonical" href="{{ canonicalUrl }}">
+  {%- comment -%}Fonts{%- endcomment -%}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Inter:wght@300;400;900&display=swap" rel="stylesheet">
   {%- comment -%}Set noindex: true in front matter to prevent this page from showing up on search engines{%- endcomment -%}
   {%- if noindex -%}
     <meta name="robots" content="noindex">
   {%- endif -%}
-  {%- comment -%}Global and page/layout-specific CSS{%- endcomment -%}
-  {%- capture fontFaceCss -%}
-    {%- include "fontFace.liquid" -%}
-  {%- endcapture -%}
-  <style>{{ fontFaceCss | compileAndMinifyScss }}</style>
+  {%- comment -%}Page/layout-specific CSS{%- endcomment -%}
   <link rel="stylesheet" href="/@root/styles/main.scss">
   {%- comment -%}Open Graph social media previews{%- endcomment -%}
   <meta property="og:title" content="{{ pageTitle }}">
@@ -45,11 +45,6 @@
   {% for width in site.favicon.widths %}
     <link rel="icon" href="/assets/images/favicon-{{ width }}.png" sizes="{{ width }}x{{ width }}">
   {% endfor %}
-  {%- comment -%}Preloads{%- endcomment -%}
-  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/inter-300.woff2" crossorigin>
-  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/inter-regular.woff2" crossorigin>
-  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/inter-900.woff2" crossorigin>
-  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/ibm-plex-mono-regular.woff2" crossorigin>
   <noscript><style>#preview-inputs,#copy-to-clipboard-button{display:none}</style></noscript>
 </head>
 <body>
