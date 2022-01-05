@@ -18,6 +18,7 @@
 
 body {
   font-family: var(--ff-body);
+  accent-color: var(--color-surface-dark);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -33,11 +34,7 @@ input,
 textarea,
 select,
 option {
-  font-family: inherit;
-  font-size: inherit;
-  line-height: inherit;
-  letter-spacing: inherit;
-  accent-color: var(--color-surface-dark);
+  font: inherit;
 }
 
 input,
