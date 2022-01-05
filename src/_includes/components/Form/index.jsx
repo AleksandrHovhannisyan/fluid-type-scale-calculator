@@ -1,5 +1,5 @@
 import Checkbox from '../Checkbox';
-import { Action } from '../constants';
+import { Action, Delay } from '../constants';
 import Input from '../Input';
 import TypeScalePicker from '../TypeScalePicker';
 import styles from './styles.module.scss';
@@ -124,6 +124,7 @@ const Form = (props) => {
           spellCheck="false"
           pattern="^[a-zA-Z0-9-](?:(,\s*)?[a-zA-Z0-9-])*$"
           defaultValue={modularSteps.join(',')}
+          delay={Delay.MEDIUM}
           onChange={(e) =>
             dispatch({
               type: Action.SET_MODULAR_STEPS,

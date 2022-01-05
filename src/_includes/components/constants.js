@@ -42,3 +42,10 @@ export const Action = {
   SET_SHOULD_USE_REMS: 'setShouldUseRems',
   SET_ROUNDING_DECIMAL_PLACES: 'setRoundingDecimalPlaces',
 };
+
+/** Enum of delays in milliseconds, for consistency across event handlers. */
+export const Delay = {
+  SHORT: 150,
+  MEDIUM: 300,
+  LONG: 400,
+};

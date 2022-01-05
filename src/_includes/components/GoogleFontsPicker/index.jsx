@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
+import { Delay } from '../constants';
+import Select from '../Select';
 
 /**
  * @typedef GoogleFontsPickerProps
@@ -35,13 +37,13 @@ const GoogleFontsPicker = (props) => {
   }, []);
 
   return (
-    <select ref={pickerRef} defaultValue={defaultValue} onChange={onChange}>
+    <Select ref={pickerRef} defaultValue={defaultValue} onChange={onChange} delay={Delay.LONG}>
       {fonts.map((fontFamily) => (
         <option key={fontFamily} value={fontFamily}>
           {fontFamily}
         </option>
       ))}
-    </select>
+    </Select>
   );
 };
 

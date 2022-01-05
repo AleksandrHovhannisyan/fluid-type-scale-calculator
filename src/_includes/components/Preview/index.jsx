@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Input from '../Input';
 import RangeInput from '../RangeInput';
 import clsx from 'clsx';
@@ -28,12 +28,16 @@ const Preview = (props) => {
   }, []);
 
   /** @param {string} fontFamily - the name of the selected font */
-  const onFontSelected = async (fontFamily) => {
-    const link = getFontLinkTag('user-selected-font');
-    document.head.appendChild(link);
-    link.addEventListener('load', onLinkLoaded(fontFamily, previewText, setPreviewFont));
-    link.href = `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/ /g, '+')}&display=swap`;
-  };
+  const onFontSelected = useCallback(
+    async (e) => {
+      const fontFamily = e.target.value;
+      const link = getFontLinkTag('user-selected-font');
+      document.head.appendChild(link);
+      link.addEventListener('load', onLinkLoaded(fontFamily, previewText, setPreviewFont));
+      link.href = `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/ /g, '+')}&display=swap`;
+    },
+    [previewText]
+  );
 
   return (
     <section className={styles.preview}>
@@ -42,7 +46,7 @@ const Preview = (props) => {
         <RangeInput
           id="screen-width-range"
           label="Screen width (pixels)"
-          value={screenWidth}
+          defaultValue={screenWidth}
           onChange={(e) => setScreenWidth(Number(e.target.value))}
           min={0}
           // TODO: better pattern?
@@ -50,15 +54,17 @@ const Preview = (props) => {
         />
         <label className="label">
           <span className="label-title">Font family</span>
-          <GoogleFontsPicker
-            fonts={fonts}
-            defaultValue={previewFont}
-            onChange={(e) => onFontSelected(e.target.value)}
-          />
+          <GoogleFontsPicker fonts={fonts} defaultValue={previewFont} onChange={onFontSelected} />
         </label>
         <label className={clsx('label', styles['preview-text-label'])}>
           <span className="label-title">Preview text</span>
-          <Input type="text" required defaultValue={previewText} onChange={(e) => setPreviewText(e.target.value)} />
+          <Input
+            type="text"
+            required
+            defaultValue={previewText}
+            delay={0}
+            onChange={(e) => setPreviewText(e.target.value)}
+          />
         </label>
       </div>
       <div className="table-wrapper">
