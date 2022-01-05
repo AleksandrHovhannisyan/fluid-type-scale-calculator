@@ -21,6 +21,7 @@
     "@11ty/eleventy-cache-assets": "^2.3.0",
     "@11ty/eleventy-img": "^1.0.0",
     "@11ty/eleventy-upgrade-help": "^1.0.1",
+    "autoprefixer": "^10.4.1",
     "cross-env": "^7.0.3",
     "dayjs": "^1.10.7",
     "esbuild": "^0.14.8",
@@ -44,7 +45,7 @@
     "vite": "^2.7.9"
   },
   "browserslist": [
-    "defaults and supports es6-module and not IE <= 11"
+    "last 2 chrome versions or last 3 safari versions or last 2 firefox versions or last 2 edge versions"
   ],
   "husky": {
     "hooks": {
