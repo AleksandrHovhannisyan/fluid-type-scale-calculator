@@ -44,4 +44,8 @@
  * @property {*} payload - the payload used to update the state
  */
 
+/**
+ * @typedef {React.Dispatch<AppAction>} AppDispatcher
+ */
+
 export {};
