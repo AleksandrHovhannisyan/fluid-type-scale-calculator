@@ -27,6 +27,14 @@ a {
   font-weight: inherit;
 }
 
+select {
+  appearance: none;
+  background-color: var(--color-surface-light);
+  background-image: url('data:image/svg+xml;utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" viewBox="0 0 24 24"><path d="M2 4l10 12l10-12" stroke-width="4" stroke="currentColor" stroke-linejoin="round" stroke-linecap="round" fill="none"/></svg>');
+  background-repeat: no-repeat;
+  background-position: calc(100% - var(--input-padding)) center;
+}
+
 /* stylelint-disable-next-line no-descending-specificity */
 button,
 label,
@@ -40,7 +48,10 @@ option {
 input,
 select,
 textarea {
-  padding: 8px;
+  --input-padding: 8px;
+  padding: var(--input-padding);
+  border-radius: 0;
+  border: solid 1px var(--color-border);
 }
 
 select,
