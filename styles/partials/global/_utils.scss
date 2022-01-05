@@ -55,7 +55,6 @@
 .label {
   align-items: center;
   grid-template-columns: minmax(0, 1fr);
-  font-weight: var(--fw-body-light);
 
   &,
   legend {
@@ -64,9 +63,11 @@
   }
 
   &-title {
-    font-size: var(--sp-base);
     font-weight: var(--fw-body-bold);
-    display: block;
+  }
+
+  &-description {
+    font-weight: var(--fw-body-light);
   }
 
   &-group {
@@ -83,6 +84,7 @@
       height: 100%;
       align-items: start;
       justify-content: stretch;
+      font-weight: var(--fw-body-light);
     }
   }
 
