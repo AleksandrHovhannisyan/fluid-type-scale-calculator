@@ -33,6 +33,25 @@ export const modularRatios = {
   },
 };
 
+/** @type {import('./typedefs').AppState} */
+export const initialState = {
+  min: {
+    fontSize: 16,
+    screenWidth: 400,
+    modularRatio: modularRatios.majorThird.ratio,
+  },
+  max: {
+    fontSize: 19,
+    screenWidth: 1280,
+    modularRatio: modularRatios.perfectFourth.ratio,
+  },
+  modularSteps: ['sm', 'base', 'md', 'lg', 'xl', 'xxl', 'xxxl'],
+  baseModularStep: 'base',
+  namingConvention: 'font-size',
+  shouldUseRems: true,
+  roundingDecimalPlaces: 2,
+};
+
 export const Action = {
   SET_MIN: 'setMin',
   SET_MAX: 'setMax',

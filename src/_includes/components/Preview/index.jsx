@@ -6,20 +6,20 @@ import styles from './styles.module.scss';
 import GoogleFontsPicker from '../GoogleFontsPicker';
 import { getFontLinkTag, onLinkLoaded } from './utils';
 import { defaultFonts } from './constants';
+import { initialState } from '../constants';
 
 /**
  * @typedef PreviewProps
- * @property {{ min: import('../typedefs').BreakpointConfig; max: import('../typedefs').BreakpointConfig }} baseSizes
  * @property {import('../typedefs').TypeScale} typeScale - the type scale to preview
  * @property {string[]} fonts - all font families
  */
 
 /** @param {PreviewProps} props */
 const Preview = (props) => {
-  const { baseSizes, fonts, typeScale } = props;
+  const { fonts, typeScale } = props;
   const [previewText, setPreviewText] = useState('Almost before we knew it, we had left the ground');
   const [previewFont, setPreviewFont] = useState(defaultFonts[0]);
-  const [screenWidth, setScreenWidth] = useState(baseSizes.max.screenWidth);
+  const [screenWidth, setScreenWidth] = useState(initialState.max.screenWidth);
 
   useEffect(() => {
     // Since Slinkity uses SSR, this must be done on mount
@@ -107,4 +107,5 @@ const Preview = (props) => {
     </section>
   );
 };
+
 export default Preview;

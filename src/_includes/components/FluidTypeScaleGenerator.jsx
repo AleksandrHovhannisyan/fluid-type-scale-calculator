@@ -1,28 +1,9 @@
 import { useMemo, useReducer } from 'react';
 import Form from './Form';
 import Output from './Output';
-import { Action, modularRatios } from './constants';
+import { Action, initialState } from './constants';
 import Preview from './Preview';
 import styles from './styles.module.scss';
-
-/** @type {import('./typedefs').AppState} */
-export const initialState = {
-  min: {
-    fontSize: 16,
-    screenWidth: 400,
-    modularRatio: modularRatios.majorThird.ratio,
-  },
-  max: {
-    fontSize: 19,
-    screenWidth: 1280,
-    modularRatio: modularRatios.perfectFourth.ratio,
-  },
-  modularSteps: ['sm', 'base', 'md', 'lg', 'xl', 'xxl', 'xxxl'],
-  baseModularStep: 'base',
-  namingConvention: 'font-size',
-  shouldUseRems: true,
-  roundingDecimalPlaces: 2,
-};
 
 /**
  * @param {import('./typedefs').AppState} state - the previous app state
@@ -123,7 +104,7 @@ const FluidTypeScaleGenerator = (props) => {
         <Form {...state} dispatch={dispatch} />
         <Output namingConvention={state.namingConvention} typeScale={typeScale} />
       </div>
-      <Preview baseSizes={{ min: { ...state.min }, max: { ...state.max } }} typeScale={typeScale} fonts={props.fonts} />
+      <Preview typeScale={typeScale} fonts={props.fonts} />
     </div>
   );
 };
