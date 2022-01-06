@@ -17,10 +17,15 @@ const specializedPropsByType = {
  * @param {InputProps & React.HTMLProps<HTMLInputElement>} props
  */
 const Input = (props) => {
-  const { onChange, type, step, ...otherProps } = props;
+  const { onChange, type, step, pattern, ...otherProps } = props;
   const htmlStep = type === 'number' ? step ?? 'any' : undefined;
   const delay = ['checkbox', 'radio', 'range'].includes(type) ? 0 : props.delay ?? Delay.SHORT;
   const [isValid, setIsValid] = useState(true);
+
+  // RegExp throws an error if the provided regex pattern is invalid. HTML doesn't perform any validation on the
+  // pattern attribute (or any attribute, really), so best to let the error go uncaught and force the SSR build to fail.
+  // eslint-disable-next-line no-unused-vars
+  const regexp = new RegExp(pattern);
 
   const debouncedHandleChange = useMemo(
     () => {
