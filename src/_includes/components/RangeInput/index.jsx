@@ -20,7 +20,7 @@ const RangeInput = (props) => {
       <div className={styles['range-display']}>
         <Input type="range" id={id} step={1} {...otherProps} />
         <label className="label" data-flow="horizontal">
-          Custom <Input type="number" step={1} {...otherProps} />
+          Custom <Input type="number" step={1} delay={0} {...otherProps} />
         </label>
       </div>
     </div>

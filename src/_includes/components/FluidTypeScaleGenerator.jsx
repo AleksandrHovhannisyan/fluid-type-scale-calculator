@@ -1,28 +1,9 @@
 import { useReducer } from 'react';
 import Form from './Form';
 import Output from './Output';
-import { Action, modularRatios } from './constants';
+import { Action, initialState } from './constants';
 import Preview from './Preview';
 import styles from './styles.module.scss';
-
-/** @type {import('./typedefs').AppState} */
-export const initialState = {
-  min: {
-    fontSize: 16,
-    screenWidth: 400,
-    modularRatio: modularRatios.majorThird.ratio,
-  },
-  max: {
-    fontSize: 19,
-    screenWidth: 1280,
-    modularRatio: modularRatios.perfectFourth.ratio,
-  },
-  modularSteps: ['sm', 'base', 'md', 'lg', 'xl', 'xxl', 'xxxl'],
-  baseModularStep: 'base',
-  namingConvention: 'font-size',
-  shouldUseRems: true,
-  roundingDecimalPlaces: 2,
-};
 
 /**
  * @param {import('./typedefs').AppState} state - the previous app state
@@ -71,10 +52,6 @@ const FluidTypeScaleGenerator = (props) => {
   // Get the index of the base modular step to compute exponents relative to the base index (up/down)
   const baseModularStepIndex = state.modularSteps.indexOf(state.baseModularStep);
 
-  // NOTE: Calculate type scale as derived state on every render. This only leads to unnecessary computations
-  // whenever the naming convention is updated. All other re-renders are caused by updating a state slice
-  // that's needed for recomputing the type scale. If more state is added to the top level, we may
-  // want to move this logic to the reducer. But this should work well for now.
   /** @type {import('./typedefs').TypeScale} */
   const typeScale = state.modularSteps.reduce((steps, step, i) => {
     const min = {
@@ -113,7 +90,7 @@ const FluidTypeScaleGenerator = (props) => {
         <Form {...state} dispatch={dispatch} />
         <Output namingConvention={state.namingConvention} typeScale={typeScale} />
       </div>
-      <Preview baseSizes={{ min: { ...state.min }, max: { ...state.max } }} typeScale={typeScale} fonts={props.fonts} />
+      <Preview typeScale={typeScale} fonts={props.fonts} />
     </div>
   );
 };

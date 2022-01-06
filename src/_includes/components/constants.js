@@ -33,6 +33,25 @@ export const modularRatios = {
   },
 };
 
+/** @type {import('./typedefs').AppState} */
+export const initialState = {
+  min: {
+    fontSize: 16,
+    screenWidth: 400,
+    modularRatio: modularRatios.majorThird.ratio,
+  },
+  max: {
+    fontSize: 19,
+    screenWidth: 1280,
+    modularRatio: modularRatios.perfectFourth.ratio,
+  },
+  modularSteps: ['sm', 'base', 'md', 'lg', 'xl', 'xxl', 'xxxl'],
+  baseModularStep: 'base',
+  namingConvention: 'font-size',
+  shouldUseRems: true,
+  roundingDecimalPlaces: 2,
+};
+
 export const Action = {
   SET_MIN: 'setMin',
   SET_MAX: 'setMax',
@@ -41,4 +60,11 @@ export const Action = {
   SET_NAMING_CONVENTION: 'setNamingConvention',
   SET_SHOULD_USE_REMS: 'setShouldUseRems',
   SET_ROUNDING_DECIMAL_PLACES: 'setRoundingDecimalPlaces',
+};
+
+/** Enum of delays in milliseconds, for consistency across event handlers. */
+export const Delay = {
+  SHORT: 150,
+  MEDIUM: 300,
+  LONG: 400,
 };

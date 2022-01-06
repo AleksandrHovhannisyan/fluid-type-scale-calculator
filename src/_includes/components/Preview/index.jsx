@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Input from '../Input';
 import RangeInput from '../RangeInput';
 import clsx from 'clsx';
@@ -6,20 +6,20 @@ import styles from './styles.module.scss';
 import GoogleFontsPicker from '../GoogleFontsPicker';
 import { getFontLinkTag, onLinkLoaded } from './utils';
 import { defaultFonts } from './constants';
+import { initialState } from '../constants';
 
 /**
  * @typedef PreviewProps
- * @property {{ min: import('../typedefs').BreakpointConfig; max: import('../typedefs').BreakpointConfig }} baseSizes
  * @property {import('../typedefs').TypeScale} typeScale - the type scale to preview
  * @property {string[]} fonts - all font families
  */
 
 /** @param {PreviewProps} props */
 const Preview = (props) => {
-  const { baseSizes, fonts, typeScale } = props;
+  const { fonts, typeScale } = props;
   const [previewText, setPreviewText] = useState('Almost before we knew it, we had left the ground');
   const [previewFont, setPreviewFont] = useState(defaultFonts[0]);
-  const [screenWidth, setScreenWidth] = useState(baseSizes.max.screenWidth);
+  const [screenWidth, setScreenWidth] = useState(initialState.max.screenWidth);
 
   useEffect(() => {
     // Since Slinkity uses SSR, this must be done on mount
@@ -28,12 +28,16 @@ const Preview = (props) => {
   }, []);
 
   /** @param {string} fontFamily - the name of the selected font */
-  const onFontSelected = async (fontFamily) => {
-    const link = getFontLinkTag('user-selected-font');
-    document.head.appendChild(link);
-    link.addEventListener('load', onLinkLoaded(fontFamily, previewText, setPreviewFont));
-    link.href = `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/ /g, '+')}&display=swap`;
-  };
+  const onFontSelected = useCallback(
+    async (e) => {
+      const fontFamily = e.target.value;
+      const link = getFontLinkTag('user-selected-font');
+      document.head.appendChild(link);
+      link.addEventListener('load', onLinkLoaded(fontFamily, previewText, setPreviewFont));
+      link.href = `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/ /g, '+')}&display=swap`;
+    },
+    [previewText]
+  );
 
   return (
     <section className={styles.preview}>
@@ -42,7 +46,7 @@ const Preview = (props) => {
         <RangeInput
           id="screen-width-range"
           label="Screen width (pixels)"
-          value={screenWidth}
+          defaultValue={screenWidth}
           onChange={(e) => setScreenWidth(Number(e.target.value))}
           min={0}
           // TODO: better pattern?
@@ -50,15 +54,17 @@ const Preview = (props) => {
         />
         <label className="label">
           <span className="label-title">Font family</span>
-          <GoogleFontsPicker
-            fonts={fonts}
-            defaultValue={previewFont}
-            onChange={(e) => onFontSelected(e.target.value)}
-          />
+          <GoogleFontsPicker fonts={fonts} defaultValue={previewFont} onChange={onFontSelected} />
         </label>
         <label className={clsx('label', styles['preview-text-label'])}>
           <span className="label-title">Preview text</span>
-          <Input type="text" required defaultValue={previewText} onChange={(e) => setPreviewText(e.target.value)} />
+          <Input
+            type="text"
+            required
+            defaultValue={previewText}
+            delay={0}
+            onChange={(e) => setPreviewText(e.target.value)}
+          />
         </label>
       </div>
       <div className="table-wrapper">
@@ -101,4 +107,5 @@ const Preview = (props) => {
     </section>
   );
 };
+
 export default Preview;
