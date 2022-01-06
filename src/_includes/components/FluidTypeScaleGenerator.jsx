@@ -1,4 +1,4 @@
-import { useMemo, useReducer } from 'react';
+import { useReducer } from 'react';
 import Form from './Form';
 import Output from './Output';
 import { Action, initialState } from './constants';
@@ -40,60 +40,46 @@ const reducer = (state, action) => {
 const FluidTypeScaleGenerator = (props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  // Memoize because some state variables shouldn't trigger recomputing the type scale
+  /** Appends the correct unit to a unitless value. */
+  const withUnit = (unitlessValue) => (state.shouldUseRems ? `${unitlessValue}rem` : `${unitlessValue}px`);
+
+  /** Rounds the given value to a fixed number of decimal places, according to the user's specified value. */
+  const round = (val) => Number(val.toFixed(state.roundingDecimalPlaces));
+
+  /** If we're using rems, converts the pixel arg to rems. Else, keeps it in pixels. */
+  const convertToDesiredUnit = (px) => (state.shouldUseRems ? px / 16 : px);
+
+  // Get the index of the base modular step to compute exponents relative to the base index (up/down)
+  const baseModularStepIndex = state.modularSteps.indexOf(state.baseModularStep);
+
   /** @type {import('./typedefs').TypeScale} */
-  const typeScale = useMemo(() => {
-    /** Appends the correct unit to a unitless value. */
-    const withUnit = (unitlessValue) => (state.shouldUseRems ? `${unitlessValue}rem` : `${unitlessValue}px`);
+  const typeScale = state.modularSteps.reduce((steps, step, i) => {
+    const min = {
+      fontSize: state.min.fontSize * Math.pow(state.min.modularRatio, i - baseModularStepIndex),
+      breakpoint: state.min.screenWidth,
+    };
+    const max = {
+      fontSize: state.max.fontSize * Math.pow(state.max.modularRatio, i - baseModularStepIndex),
+      breakpoint: state.max.screenWidth,
+    };
+    const slope = (max.fontSize - min.fontSize) / (max.breakpoint - min.breakpoint);
+    const slopeVw = `${round(slope * 100)}vw`;
+    const intercept = min.fontSize - slope * min.breakpoint;
 
-    /** Rounds the given value to a fixed number of decimal places, according to the user's specified value. */
-    const round = (val) => Number(val.toFixed(state.roundingDecimalPlaces));
-
-    /** If we're using rems, converts the pixel arg to rems. Else, keeps it in pixels. */
-    const convertToDesiredUnit = (px) => (state.shouldUseRems ? px / 16 : px);
-
-    // Get the index of the base modular step to compute exponents relative to the base index (up/down)
-    const baseModularStepIndex = state.modularSteps.indexOf(state.baseModularStep);
-
-    return state.modularSteps.reduce((steps, step, i) => {
-      const min = {
-        fontSize: state.min.fontSize * Math.pow(state.min.modularRatio, i - baseModularStepIndex),
-        breakpoint: state.min.screenWidth,
-      };
-      const max = {
-        fontSize: state.max.fontSize * Math.pow(state.max.modularRatio, i - baseModularStepIndex),
-        breakpoint: state.max.screenWidth,
-      };
-      const slope = (max.fontSize - min.fontSize) / (max.breakpoint - min.breakpoint);
-      const slopeVw = `${round(slope * 100)}vw`;
-      const intercept = min.fontSize - slope * min.breakpoint;
-
-      steps.set(step, {
-        min: withUnit(round(convertToDesiredUnit(min.fontSize))),
-        max: withUnit(round(convertToDesiredUnit(max.fontSize))),
-        preferred: `${slopeVw} + ${withUnit(round(convertToDesiredUnit(intercept)))}`,
-        getFontSizeAtScreenWidth: (width) => {
-          let preferredFontSize = width * slope + intercept;
-          preferredFontSize = Math.min(max.fontSize, preferredFontSize);
-          preferredFontSize = Math.max(min.fontSize, preferredFontSize);
-          return withUnit(round(convertToDesiredUnit(preferredFontSize)));
-        },
-      });
-      return steps;
-      // NOTE: Using a Map instead of an object to preserve key insertion order.
-    }, new Map());
-  }, [
-    state.baseModularStep,
-    state.max.fontSize,
-    state.max.modularRatio,
-    state.max.screenWidth,
-    state.min.fontSize,
-    state.min.modularRatio,
-    state.min.screenWidth,
-    state.modularSteps,
-    state.roundingDecimalPlaces,
-    state.shouldUseRems,
-  ]);
+    steps.set(step, {
+      min: withUnit(round(convertToDesiredUnit(min.fontSize))),
+      max: withUnit(round(convertToDesiredUnit(max.fontSize))),
+      preferred: `${slopeVw} + ${withUnit(round(convertToDesiredUnit(intercept)))}`,
+      getFontSizeAtScreenWidth: (width) => {
+        let preferredFontSize = width * slope + intercept;
+        preferredFontSize = Math.min(max.fontSize, preferredFontSize);
+        preferredFontSize = Math.max(min.fontSize, preferredFontSize);
+        return withUnit(round(convertToDesiredUnit(preferredFontSize)));
+      },
+    });
+    return steps;
+    // NOTE: Using a Map instead of an object to preserve key insertion order.
+  }, new Map());
 
   return (
     <div className={styles['type-scale-generator']}>
