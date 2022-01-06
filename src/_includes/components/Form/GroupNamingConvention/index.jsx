@@ -14,6 +14,7 @@ const GroupNamingConvention = (props) => {
         type="text"
         required={true}
         defaultValue={namingConvention}
+        delay={0}
         onChange={(e) =>
           dispatch({
             type: Action.SET_NAMING_CONVENTION,
