@@ -41,7 +41,7 @@ const FluidTypeScaleGenerator = (props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   /** Appends the correct unit to a unitless value. */
-  const withUnit = (unitlessValue) => (state.shouldUseRems ? `${unitlessValue}rem` : `${unitlessValue}px`);
+  const withUnit = (unitlessValue) => `${unitlessValue}${state.shouldUseRems ? 'rem' : 'px'}`;
 
   /** Rounds the given value to a fixed number of decimal places, according to the user's specified value. */
   const round = (val) => Number(val.toFixed(state.roundingDecimalPlaces));
