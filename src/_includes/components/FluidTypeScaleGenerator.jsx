@@ -8,6 +8,7 @@ import styles from './styles.module.scss';
 /**
  * @param {import('./typedefs').AppState} state - the previous app state
  * @param {import('./typedefs').AppAction} action - the action to dispatch
+ * @returns {import('./typedefs').AppState}
  */
 const reducer = (state, action) => {
   switch (action.type) {
