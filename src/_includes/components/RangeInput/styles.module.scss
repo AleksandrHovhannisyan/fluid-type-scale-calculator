@@ -1,3 +1,5 @@
+@import "/@root/styles/partials/mixins";
+
 .range {
   display: grid;
   gap: var(--sp-xxs);
@@ -10,5 +12,8 @@
     display: grid;
     align-items: center;
     gap: var(--sp-xxs);
+    @include mobile-lg {
+      grid-template-columns: 1fr max-content;
+    }
   }
 }

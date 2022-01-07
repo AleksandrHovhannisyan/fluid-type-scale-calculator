@@ -39,10 +39,18 @@
   gap: var(--sp-base);
   margin: var(--sp-xxl) 0;
   @include desktop {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(12, 1fr);
 
-    .preview-text-label {
+    > :nth-child(1) {
       grid-column: span 2;
+    }
+
+    > :nth-child(2) {
+      grid-column: span 4;
+    }
+
+    > :nth-child(3) {
+      grid-column: span 4;
     }
   }
 }
