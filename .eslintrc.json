@@ -7,7 +7,8 @@
   "plugins": [
     "prettier",
     "react",
-    "react-hooks"
+    "react-hooks",
+    "simple-import-sort"
   ],
   "env": {
     "browser": true,
@@ -23,6 +24,7 @@
     }
   },
   "rules": {
+    "sort-imports": "off",
     "prettier/prettier": [
       "error"
     ],
@@ -31,6 +33,29 @@
     "react/react-in-jsx-scope": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
-    "react/prop-types": "off"
+    "react/prop-types": "off",
+    "simple-import-sort/exports": "error",
+    "simple-import-sort/imports": [
+      "warn",
+      {
+        "groups": [
+          [
+            // Packages. `react` related packages come first.
+            "^react",
+            "^@?\\w",
+            // Internal packages.
+            "^(components|modules|utils)(/.*|$)",
+            // Side effect imports.
+            "^\\u0000",
+            // Parent imports. Put `..` last.
+            "^\\.\\.(?!/?$)", "^\\.\\./?$",
+            // Other relative imports. Put same-folder imports and `.` last.
+            "^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$",
+            // Style imports.
+            "^.+\\.s?css$"
+          ]
+        ]
+      }
+    ]
   }
 }

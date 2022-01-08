@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
-import Input from '../Input';
-import RangeInput from '../RangeInput';
 import clsx from 'clsx';
-import styles from './styles.module.scss';
-import GoogleFontsPicker from '../GoogleFontsPicker';
-import { getFontLinkTag, onLinkLoaded } from './utils';
-import { defaultFonts } from './constants';
 import { initialState } from '../constants';
+import GoogleFontsPicker from '../GoogleFontsPicker';
+import Input from '../Input';
 import Label from '../Label';
+import RangeInput from '../RangeInput';
+import { defaultFonts } from './constants';
+import { getFontLinkTag, onLinkLoaded } from './utils';
+import styles from './styles.module.scss';
 
 /**
  * @typedef PreviewProps

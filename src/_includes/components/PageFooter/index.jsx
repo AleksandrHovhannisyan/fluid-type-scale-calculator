@@ -1,6 +1,6 @@
+import SimpleIcons from 'simple-icons';
 import Link from '../Link';
 import styles from './styles.module.scss';
-import SimpleIcons from 'simple-icons';
 
 const PageFooter = ({ socials }) => {
   return (

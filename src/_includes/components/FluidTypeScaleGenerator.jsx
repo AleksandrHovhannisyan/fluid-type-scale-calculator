@@ -1,10 +1,10 @@
 import { useReducer } from 'react';
-import Stack from './Stack';
 import Banner from './Banner';
+import { Action, initialState } from './constants';
 import Form from './Form';
 import Output from './Output';
-import { Action, initialState } from './constants';
 import Preview from './Preview';
+import Stack from './Stack';
 import styles from './styles.module.scss';
 
 /**

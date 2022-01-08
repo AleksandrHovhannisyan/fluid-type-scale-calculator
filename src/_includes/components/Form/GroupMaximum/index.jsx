@@ -1,7 +1,7 @@
 import { Action } from '../../constants';
 import Input from '../../Input';
-import LabelGroup from '../../Label/LabelGroup';
 import Label from '../../Label';
+import LabelGroup from '../../Label/LabelGroup';
 import TypeScalePicker from '../../TypeScalePicker';
 
 /**

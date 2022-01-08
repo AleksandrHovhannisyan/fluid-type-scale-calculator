@@ -1,6 +1,6 @@
 import Link from '../Link';
-import Stack from '../Stack';
 import Rhythm from '../Rhythm';
+import Stack from '../Stack';
 
 const Info = () => {
   return (
