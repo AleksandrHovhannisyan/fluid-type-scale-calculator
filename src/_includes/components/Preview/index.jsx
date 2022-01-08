@@ -43,15 +43,6 @@ const Preview = (props) => {
     <section className={styles.preview}>
       <h2>Preview your type scale</h2>
       <div id="preview-inputs" className={styles['label-group']}>
-        <RangeInput
-          id="screen-width-range"
-          label="Screen width (pixels)"
-          defaultValue={screenWidth}
-          onChange={(e) => setScreenWidth(Number(e.target.value))}
-          min={0}
-          // TODO: better pattern?
-          max={1920}
-        />
         <label className="label">
           <span className="label-title">Font family</span>
           <GoogleFontsPicker fonts={fonts} defaultValue={previewFont} onChange={onFontSelected} />
@@ -66,6 +57,15 @@ const Preview = (props) => {
             onChange={(e) => setPreviewText(e.target.value)}
           />
         </label>
+        <RangeInput
+          id="screen-width-range"
+          label="Screen width (pixels)"
+          defaultValue={screenWidth}
+          onChange={(e) => setScreenWidth(Number(e.target.value))}
+          min={0}
+          // TODO: better pattern?
+          max={1920}
+        />
       </div>
       <div className="table-wrapper">
         <table>
