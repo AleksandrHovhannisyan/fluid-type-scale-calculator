@@ -38,7 +38,7 @@
     "rimraf": "^3.0.2",
     "sass": "^1.43.5",
     "simple-icons": "^6.3.0",
-    "slinkity": "^0.4.2",
+    "slinkity": "^0.4.4",
     "slugify": "^1.6.3",
     "stylelint": "^14.1.0",
     "stylelint-config-standard-scss": "^3.0.0",
