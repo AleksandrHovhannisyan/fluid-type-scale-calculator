@@ -3,39 +3,6 @@
 
 // Generic utility classes used for both statically and dynamically rendered content
 
-.stack {
-  --gap: var(--sp-xl);
-  display: grid;
-  gap: var(--gap);
-  grid-template-columns: minmax(0, 1fr);
-  grid-auto-flow: row;
-  @include desktop {
-    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
-  }
-}
-
-.flow {
-  max-width: 64ch;
-
-  > * + * {
-    margin-top: var(--line-height);
-  }
-}
-
-.banner {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: var(--sp-base);
-  background-color: var(--color-surface-dark);
-  color: var(--color-surface-light);
-  font-size: var(--sp-sm);
-}
-
 .list {
   padding-inline-start: 1em;
   display: grid;
