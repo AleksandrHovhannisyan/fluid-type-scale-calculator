@@ -1,5 +1,7 @@
 import { Action } from '../../constants';
 import Input from '../../Input';
+import LabelGroup from '../../Label/LabelGroup';
+import Label from '../../Label';
 import TypeScalePicker from '../../TypeScalePicker';
 
 /**
@@ -9,15 +11,12 @@ const GroupMaximum = (props) => {
   const { max, dispatch, minScreenWidth } = props;
 
   return (
-    <fieldset className="label">
-      <legend>
-        <span className="label-title">Maximum (Desktop)</span>
-        <span className="label-description">
-          Define the maximum font size and viewport width for your type scale&apos;s baseline step. The max font size
-          for all other steps is this baseline font size scaled up/down by your chosen type scale ratio.
-        </span>
-      </legend>
-      <div className="label-group">
+    <Label
+      as="fieldset"
+      title="Maximum (Desktop)"
+      description="Define the maximum font size and viewport width for your type scale's baseline step. The max font size for all other steps is this baseline font size scaled up/down by your chosen type scale ratio."
+    >
+      <LabelGroup>
         <label>
           Base font size (pixels)
           <Input
@@ -56,8 +55,8 @@ const GroupMaximum = (props) => {
           ratio={max.modularRatio}
           onChange={(e) => dispatch({ type: Action.SET_MAX, payload: { modularRatio: Number(e.target.value) } })}
         />
-      </div>
-    </fieldset>
+      </LabelGroup>
+    </Label>
   );
 };
 

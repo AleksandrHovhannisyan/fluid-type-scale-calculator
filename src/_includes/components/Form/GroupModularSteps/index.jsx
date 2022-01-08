@@ -1,5 +1,6 @@
 import { Action, Delay } from '../../constants';
 import Input from '../../Input';
+import Label from '../../Label';
 
 /**
  * @param {Pick<import("../../typedefs").AppState, 'modularSteps'> & { dispatch: import("../../typedefs").AppDispatcher } } props
@@ -7,12 +8,10 @@ import Input from '../../Input';
 const GroupModularSteps = (props) => {
   const { modularSteps, dispatch } = props;
   return (
-    <label className="label">
-      <span className="label-title">Type scale steps</span>
-      <span className="label-description">
-        A comma-separated list of names for each step in your type scale, in ascending order of size. Use any convention
-        you want.
-      </span>
+    <Label
+      title="Type scale steps"
+      description="A comma-separated list of names for each step in your type scale, in ascending order of size. Use any convention you want."
+    >
       <Input
         type="text"
         required
@@ -27,7 +26,7 @@ const GroupModularSteps = (props) => {
           })
         }
       />
-    </label>
+    </Label>
   );
 };
 

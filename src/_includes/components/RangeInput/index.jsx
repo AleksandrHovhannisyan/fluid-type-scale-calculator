@@ -1,4 +1,5 @@
 import Input from '../Input';
+import Label from '../Label';
 import styles from './styles.module.scss';
 
 /**
@@ -14,14 +15,12 @@ const RangeInput = (props) => {
   const { id, label, ...otherProps } = props;
   return (
     <div className={styles.range}>
-      <label htmlFor={id}>
-        <span className="label-title">{label}</span>
-      </label>
+      <Label htmlFor={id} title={label} />
       <div className={styles['range-display']}>
         <Input type="range" id={id} step={1} {...otherProps} />
-        <label className="label" data-flow="horizontal">
-          Custom <Input type="number" step={1} delay={0} {...otherProps} />
-        </label>
+        <Label direction="horizontal" title="Custom">
+          <Input type="number" step={1} delay={0} {...otherProps} />
+        </Label>
       </div>
     </div>
   );

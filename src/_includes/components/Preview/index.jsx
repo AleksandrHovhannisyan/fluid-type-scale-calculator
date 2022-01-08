@@ -7,6 +7,7 @@ import GoogleFontsPicker from '../GoogleFontsPicker';
 import { getFontLinkTag, onLinkLoaded } from './utils';
 import { defaultFonts } from './constants';
 import { initialState } from '../constants';
+import Label from '../Label';
 
 /**
  * @typedef PreviewProps
@@ -43,12 +44,10 @@ const Preview = (props) => {
     <section className={styles.preview}>
       <h2>Preview your type scale</h2>
       <div id="preview-inputs" className={styles['label-group']}>
-        <label className="label">
-          <span className="label-title">Font family</span>
+        <Label title="Font family">
           <GoogleFontsPicker fonts={fonts} defaultValue={previewFont} onChange={onFontSelected} />
-        </label>
-        <label className={clsx('label', styles['preview-text-label'])}>
-          <span className="label-title">Preview text</span>
+        </Label>
+        <Label title="Preview text" className={clsx('label', styles['preview-text-label'])}>
           <Input
             type="text"
             required
@@ -56,7 +55,7 @@ const Preview = (props) => {
             delay={0}
             onChange={(e) => setPreviewText(e.target.value)}
           />
-        </label>
+        </Label>
         <RangeInput
           id="screen-width-range"
           label="Screen width (pixels)"

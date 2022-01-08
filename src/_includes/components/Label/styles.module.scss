@@ -1,0 +1,23 @@
+.label {
+  align-items: center;
+  grid-template-columns: minmax(0, 1fr);
+
+  &,
+  legend {
+    display: inline-grid;
+    gap: var(--sp-xs);
+  }
+
+  &-title {
+    font-weight: var(--fw-body-bold);
+  }
+
+  &-description {
+    font-weight: var(--fw-body-light);
+  }
+
+  &[data-direction="horizontal"] {
+    grid-auto-flow: column;
+    grid-template-columns: auto 1fr;
+  }
+}
