@@ -25,7 +25,7 @@
     {%- include "fontFace.liquid" -%}
   {%- endcapture -%}
   <style>{{ fontFaceCss | compileAndMinifyScss }}</style>
-  <link rel="stylesheet" href="/@root/styles/main.scss">
+  <link rel="stylesheet" href="/@root/styles/global.scss">
   {%- comment -%}Open Graph social media previews{%- endcomment -%}
   <meta property="og:title" content="{{ pageTitle }}">
   {%- if thumbnail -%}

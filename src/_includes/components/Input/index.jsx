@@ -17,9 +17,9 @@ const specializedPropsByType = {
  * @param {InputProps & React.HTMLProps<HTMLInputElement>} props
  */
 const Input = (props) => {
-  const { onChange, type, step, pattern, ...otherProps } = props;
+  const { onChange, type, step, pattern, delay = Delay.SHORT, ...otherProps } = props;
   const htmlStep = type === 'number' ? step ?? 'any' : undefined;
-  const delay = ['checkbox', 'radio', 'range'].includes(type) ? 0 : props.delay ?? Delay.SHORT;
+  const finalDelay = ['checkbox', 'radio', 'range'].includes(type) ? 0 : delay;
   const [isValid, setIsValid] = useState(true);
 
   // RegExp throws an error if the provided regex pattern is invalid. HTML doesn't perform any validation on the
@@ -41,13 +41,13 @@ const Input = (props) => {
         }
       };
       // Sub-optimization: don't debounce if no delay
-      if (delay === 0) {
+      if (finalDelay === 0) {
         return handleChange;
       }
-      return debounce(handleChange, delay);
+      return debounce(handleChange, finalDelay);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [delay]
+    [finalDelay]
   );
 
   return (
