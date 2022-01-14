@@ -58,6 +58,7 @@ const Input = (props) => {
       type={type}
       step={htmlStep}
       aria-invalid={!isValid}
+      pattern={pattern}
       onChange={debouncedHandleChange}
     />
   );
