@@ -1,10 +1,10 @@
 import { useReducer } from 'react';
-import Banner from './Banner';
-import { Action, initialState } from './constants';
+import Banner from '../Banner';
+import { Action, initialState } from '../constants';
+import Stack from '../Stack';
 import Form from './Form';
 import Output from './Output';
 import Preview from './Preview';
-import Stack from './Stack';
 import styles from './styles.module.scss';
 
 /**
@@ -39,7 +39,7 @@ const reducer = (state, action) => {
   }
 };
 
-const FluidTypeScaleGenerator = (props) => {
+const FluidTypeScaleCalculator = (props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   /** Appends the correct unit to a unitless value. */
@@ -97,4 +97,4 @@ const FluidTypeScaleGenerator = (props) => {
   );
 };
 
-export default FluidTypeScaleGenerator;
+export default FluidTypeScaleCalculator;

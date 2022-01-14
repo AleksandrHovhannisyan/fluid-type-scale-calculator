@@ -1,5 +1,5 @@
-import Checkbox from '../../Checkbox';
-import { Action } from '../../constants';
+import Checkbox from '../../../Checkbox';
+import { Action } from '../../../constants';
 
 /**
  * @param {Pick<import("../../typedefs").AppState, 'shouldUseRems'> & { dispatch: import("../../typedefs").AppDispatcher } } props

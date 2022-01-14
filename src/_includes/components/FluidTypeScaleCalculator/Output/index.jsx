@@ -1,4 +1,4 @@
-import CopyToClipboardButton from '../CopyToClipboardButton';
+import CopyToClipboardButton from '../../CopyToClipboardButton';
 import styles from './styles.module.scss';
 
 /**

@@ -1,5 +1,5 @@
-import { modularRatios } from '../constants';
-import Select from '../Select';
+import { modularRatios } from '../../constants';
+import Select from '../../Select';
 
 /**
  * @typedef TypeScalePickerProps

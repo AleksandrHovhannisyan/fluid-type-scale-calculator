@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
 import clsx from 'clsx';
-import { initialState } from '../constants';
-import GoogleFontsPicker from '../GoogleFontsPicker';
-import Input from '../Input';
-import Label from '../Label';
-import RangeInput from '../RangeInput';
+import { initialState } from '../../constants';
+import GoogleFontsPicker from '../../GoogleFontsPicker';
+import Input from '../../Input';
+import Label from '../../Label';
+import RangeInput from '../../RangeInput';
 import { defaultFonts } from './constants';
 import { getFontLinkTag, onLinkLoaded } from './utils';
 import styles from './styles.module.scss';

@@ -1,8 +1,8 @@
-import { Action, Delay } from '../../constants';
-import Input from '../../Input';
-import Label from '../../Label';
-import LabelGroup from '../../Label/LabelGroup';
-import Select from '../../Select';
+import { Action, Delay } from '../../../constants';
+import Input from '../../../Input';
+import Label from '../../../Label';
+import LabelGroup from '../../../Label/LabelGroup';
+import Select from '../../../Select';
 
 /**
  * @param {Pick<import("../../typedefs").AppState, 'modularSteps' | 'baseModularStep'> & { dispatch: import("../../typedefs").AppDispatcher } } props
