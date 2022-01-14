@@ -1,20 +1,18 @@
 import { Action } from '../constants';
-import Input from '../Input';
 import Label from '../Label';
+import Select from '../Select';
 
 /**
- * @param {Pick<import('../typedefs').AppState, 'baseModularStep'> & { dispatch: import('../typedefs').AppDispatcher }} props
+ * @param {Pick<import('../typedefs').AppState, 'baseModularStep' | 'modularSteps'> & { dispatch: import('../typedefs').AppDispatcher }} props
  */
 const GroupBaseModularStep = (props) => {
-  const { baseModularStep, dispatch } = props;
+  const { baseModularStep, modularSteps, dispatch } = props;
   return (
     <Label
       title="Baseline modular step"
       description="Identify the name of the baseline font size step in your type scale. This must appear in the list entered above."
     >
-      <Input
-        type="text"
-        required={true}
+      <Select
         defaultValue={baseModularStep}
         onChange={(e) =>
           dispatch({
@@ -22,7 +20,13 @@ const GroupBaseModularStep = (props) => {
             payload: e.target.value,
           })
         }
-      />
+      >
+        {modularSteps.map((step) => (
+          <option key={step} value={step}>
+            {step}
+          </option>
+        ))}
+      </Select>
     </Label>
   );
 };

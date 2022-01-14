@@ -17,7 +17,7 @@ const Form = (props) => {
       <GroupMinimum min={min} maxScreenWidth={max.screenWidth} dispatch={dispatch} />
       <GroupMaximum max={max} minScreenWidth={min.screenWidth} dispatch={dispatch} />
       <GroupModularSteps modularSteps={modularSteps} dispatch={dispatch} />
-      <GroupBaseModularStep baseModularStep={baseModularStep} dispatch={dispatch} />
+      <GroupBaseModularStep baseModularStep={baseModularStep} modularSteps={modularSteps} dispatch={dispatch} />
       <GroupNamingConvention namingConvention={namingConvention} dispatch={dispatch} />
       <GroupUseRems shouldUseRems={shouldUseRems} dispatch={dispatch} />
     </form>

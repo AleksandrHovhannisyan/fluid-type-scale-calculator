@@ -21,7 +21,9 @@ const reducer = (state, action) => {
       return { ...state, max: { ...state.max, ...action.payload } };
     }
     case Action.SET_MODULAR_STEPS: {
-      return { ...state, modularSteps: action.payload };
+      const modularSteps = action.payload;
+      const baseModularStep = modularSteps.includes(state.baseModularStep) ? state.baseModularStep : modularSteps[0];
+      return { ...state, modularSteps, baseModularStep };
     }
     case Action.SET_BASE_MODULAR_STEP: {
       return { ...state, baseModularStep: action.payload };
