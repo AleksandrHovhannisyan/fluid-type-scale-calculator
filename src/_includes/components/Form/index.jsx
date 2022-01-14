@@ -1,4 +1,3 @@
-import GroupBaseModularStep from '../GroupBaseModularStep';
 import GroupMaximum from './GroupMaximum';
 import GroupMinimum from './GroupMinimum';
 import GroupModularSteps from './GroupModularSteps';
@@ -16,8 +15,7 @@ const Form = (props) => {
     <form className={styles.form}>
       <GroupMinimum min={min} maxScreenWidth={max.screenWidth} dispatch={dispatch} />
       <GroupMaximum max={max} minScreenWidth={min.screenWidth} dispatch={dispatch} />
-      <GroupModularSteps modularSteps={modularSteps} dispatch={dispatch} />
-      <GroupBaseModularStep baseModularStep={baseModularStep} modularSteps={modularSteps} dispatch={dispatch} />
+      <GroupModularSteps modularSteps={modularSteps} baseModularStep={baseModularStep} dispatch={dispatch} />
       <GroupNamingConvention namingConvention={namingConvention} dispatch={dispatch} />
       <GroupUseRems shouldUseRems={shouldUseRems} dispatch={dispatch} />
     </form>
