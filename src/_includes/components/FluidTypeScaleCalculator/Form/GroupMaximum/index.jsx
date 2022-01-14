@@ -17,7 +17,7 @@ const GroupMaximum = (props) => {
       description="Define the maximum font size and viewport width for your type scale's baseline step. The max font size for all other steps is this baseline font size scaled up/down by your chosen type scale ratio."
     >
       <LabelGroup>
-        <label>
+        <Label>
           Base font size (pixels)
           <Input
             type="number"
@@ -33,8 +33,8 @@ const GroupMaximum = (props) => {
               })
             }
           />
-        </label>
-        <label>
+        </Label>
+        <Label>
           Screen width (pixels)
           <Input
             type="number"
@@ -50,7 +50,7 @@ const GroupMaximum = (props) => {
               })
             }
           />
-        </label>
+        </Label>
         <TypeScalePicker
           ratio={max.modularRatio}
           onChange={(e) => dispatch({ type: Action.SET_MAX, payload: { modularRatio: Number(e.target.value) } })}

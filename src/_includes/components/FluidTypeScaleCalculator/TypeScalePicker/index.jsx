@@ -1,4 +1,5 @@
 import { modularRatios } from '../../constants';
+import Label from '../../Label';
 import Select from '../../Select';
 
 /**
@@ -14,7 +15,7 @@ import Select from '../../Select';
 const TypeScalePicker = (props) => {
   const { onChange, ratio } = props;
   return (
-    <label>
+    <Label>
       Type scale ratio
       <Select defaultValue={ratio} onChange={onChange}>
         {Object.entries(modularRatios).map(([key, { ratio }]) => {
@@ -25,7 +26,7 @@ const TypeScalePicker = (props) => {
           );
         })}
       </Select>
-    </label>
+    </Label>
   );
 };
 

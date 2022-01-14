@@ -16,7 +16,7 @@ const GroupModularSteps = (props) => {
       description="Provide a comma-separated list of names for each step in your type scale, in ascending order of size. Use any convention you want. Be sure to also select your base modular step."
     >
       <LabelGroup>
-        <label>
+        <Label>
           All steps
           <Input
             type="text"
@@ -32,8 +32,8 @@ const GroupModularSteps = (props) => {
               })
             }
           />
-        </label>
-        <label>
+        </Label>
+        <Label>
           Baseline step
           <Select
             defaultValue={baseModularStep}
@@ -50,7 +50,7 @@ const GroupModularSteps = (props) => {
               </option>
             ))}
           </Select>
-        </label>
+        </Label>
       </LabelGroup>
     </Label>
   );
