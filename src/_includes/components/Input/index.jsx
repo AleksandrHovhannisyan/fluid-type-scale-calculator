@@ -32,7 +32,6 @@ const Input = (props) => {
       const handleChange = (e) => {
         const isValid = e.target.checkValidity();
         setIsValid(isValid);
-        console.log('isValid', isValid);
         if (isValid) {
           // clear validity
           e.target.setCustomValidity('');
