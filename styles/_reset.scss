@@ -42,6 +42,19 @@ textarea {
   font-weight: var(--fw-body-regular);
 }
 
+input {
+  // Reset for datalist dropdown icon: https://stackoverflow.com/a/20941546/5323344
+  &::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &[type="checkbox"] {
+    width: var(--sp-base);
+    height: var(--sp-base);
+  }
+}
+
 select {
   appearance: none;
   background-color: var(--color-surface-light);
@@ -55,11 +68,6 @@ select,
 input:where([type="number"], [type="text"]) {
   width: 100%;
   min-height: 46px;
-}
-
-input[type="checkbox"] {
-  width: var(--sp-base);
-  height: var(--sp-base);
 }
 
 :where(input,textarea,select,option) {

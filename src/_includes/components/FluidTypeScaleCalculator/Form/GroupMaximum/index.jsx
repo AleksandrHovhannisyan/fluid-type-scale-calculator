@@ -52,6 +52,7 @@ const GroupMaximum = (props) => {
           />
         </Label>
         <TypeScalePicker
+          id="type-scale-max"
           ratio={max.modularRatio}
           onChange={(e) => dispatch({ type: Action.SET_MAX, payload: { modularRatio: Number(e.target.value) } })}
         />
