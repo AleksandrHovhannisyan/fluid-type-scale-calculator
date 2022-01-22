@@ -1,7 +1,7 @@
 @import "./functions";
 @import "./mixins";
 
-// Generic utility classes used for both statically and dynamically rendered content
+// Generic utility classes that don't need to be CSS modules
 
 .list {
   padding-inline-start: 1em;
@@ -17,4 +17,12 @@
 
 .nowrap {
   white-space: nowrap;
+}
+
+// Numeric table cells
+.numeric {
+  text-align: end;
+
+  // https://github.com/AleksandrHovhannisyan/fluid-type-scale-calculator/issues/14
+  font-variant-numeric: tabular-nums;
 }

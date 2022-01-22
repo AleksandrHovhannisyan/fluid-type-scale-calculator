@@ -15,20 +15,12 @@
   :is(th, td) {
     border: none;
     padding: var(--cell-padding);
-
-    &.numeric {
-      text-align: end;
-    }
   }
 
   th {
     text-align: start;
     font-weight: var(--fw-body-bold);
     padding-top: 0;
-  }
-
-  &-text {
-    width: 100%;
   }
 }
 

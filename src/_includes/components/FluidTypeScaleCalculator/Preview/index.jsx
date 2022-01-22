@@ -71,13 +71,13 @@ const Preview = (props) => {
           <thead>
             <tr>
               <th scope="col">Step</th>
-              <th scope="col" className={clsx(styles.numeric, 'nowrap')}>
+              <th scope="col" className="numeric nowrap">
                 Min
               </th>
-              <th scope="col" className={clsx(styles.numeric, 'nowrap')}>
+              <th scope="col" className="numeric nowrap">
                 Max
               </th>
-              <th scope="col" className={clsx(styles.numeric, 'nowrap')}>
+              <th scope="col" className="numeric nowrap">
                 Rendered
               </th>
               <th scope="col" className={clsx(styles['preview-text'], 'nowrap')}>
@@ -91,10 +91,10 @@ const Preview = (props) => {
               return (
                 <tr key={step}>
                   <td>{step}</td>
-                  <td className={styles.numeric}>{min}</td>
-                  <td className={styles.numeric}>{max}</td>
-                  <td className={styles.numeric}>{getFontSizeAtScreenWidth(screenWidth)}</td>
-                  <td className={clsx('nowrap', styles['preview-text'])} style={{ fontSize, fontFamily: previewFont }}>
+                  <td className="numeric">{min}</td>
+                  <td className="numeric">{max}</td>
+                  <td className="numeric">{getFontSizeAtScreenWidth(screenWidth)}</td>
+                  <td className="nowrap" style={{ fontSize, fontFamily: previewFont }}>
                     {previewText}
                   </td>
                 </tr>
