@@ -145,3 +145,8 @@ code {
 fieldset {
   border: none;
 }
+
+table {
+  // https://github.com/AleksandrHovhannisyan/fluid-type-scale-calculator/issues/14
+  font-variant-numeric: tabular-nums;
+}
