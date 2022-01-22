@@ -3,7 +3,7 @@ import debounce from 'lodash/debounce';
 
 /**
  * @typedef SelectProps
- * @property {number} delay - the delay (in milliseconds) for the change event. Defaults to `0` (no delay).
+ * @property {number} delay The delay (in milliseconds) for the change event. Defaults to `0` (no delay).
  */
 
 /**

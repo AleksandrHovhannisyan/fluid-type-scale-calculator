@@ -3,7 +3,7 @@ import styles from './styles.module.scss';
 
 /**
  * @typedef StackProps
- * @property {React.ElementType} as - the tag name to render
+ * @property {React.ElementType} as The tag name to render
  */
 
 /**

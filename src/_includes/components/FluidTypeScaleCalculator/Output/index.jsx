@@ -3,7 +3,7 @@ import styles from './styles.module.scss';
 
 /**
  * @typedef OutputProps
- * @property {import('../typedefs').TypeScale} typeScale - the output type scale
+ * @property {import('../typedefs').TypeScale} typeScale The output type scale
  */
 
 /**

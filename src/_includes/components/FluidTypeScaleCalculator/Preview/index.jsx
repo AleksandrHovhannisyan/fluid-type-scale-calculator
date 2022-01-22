@@ -11,8 +11,8 @@ import styles from './styles.module.scss';
 
 /**
  * @typedef PreviewProps
- * @property {import('../typedefs').TypeScale} typeScale - the type scale to preview
- * @property {string[]} fonts - all font families
+ * @property {import('../typedefs').TypeScale} typeScale The type scale to preview
+ * @property {string[]} fonts All font families
  */
 
 /** @param {PreviewProps} props */
@@ -28,7 +28,7 @@ const Preview = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  /** @param {string} fontFamily - the name of the selected font */
+  /** @param {string} fontFamily The name of the selected font */
   const onFontSelected = useCallback(
     async (e) => {
       const fontFamily = e.target.value;

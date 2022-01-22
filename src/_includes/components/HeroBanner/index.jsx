@@ -2,8 +2,8 @@ import styles from './styles.module.scss';
 
 /**
  * @typedef HeroBannerProps
- * @property {string} title - the title of the hero banner
- * @property {string} subtitle - the subtitle of the hero banner, to be displayed below the title
+ * @property {string} title The title of the hero banner
+ * @property {string} subtitle The subtitle of the hero banner, to be displayed below the title
  */
 
 /**

@@ -3,7 +3,7 @@ import styles from './styles.module.scss';
 
 /**
  * @typedef CopyToClipboardButtonProps
- * @property {string} text - the text to copy to the clipboard on click
+ * @property {string} text The text to copy to the clipboard on click
  */
 
 /**

@@ -10,7 +10,7 @@ const specializedPropsByType = {
 
 /**
  * @typedef InputProps
- * @property {number} delay - the delay (in milliseconds) for the change event. Defaults to a short delay if not specified and `0` for checkboxes, radio buttons, and range inputs.
+ * @property {number} delay The delay (in milliseconds) for the change event. Defaults to a short delay if not specified and `0` for checkboxes, radio buttons, and range inputs.
  */
 
 /**

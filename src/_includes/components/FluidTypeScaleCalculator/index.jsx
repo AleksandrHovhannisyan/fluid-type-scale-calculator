@@ -8,8 +8,8 @@ import Preview from './Preview';
 import styles from './styles.module.scss';
 
 /**
- * @param {import('./typedefs').AppState} state - the previous app state
- * @param {import('./typedefs').AppAction} action - the action to dispatch
+ * @param {import('./typedefs').AppState} state The previous app state
+ * @param {import('./typedefs').AppAction} action The action to dispatch
  * @returns {import('./typedefs').AppState}
  */
 const reducer = (state, action) => {

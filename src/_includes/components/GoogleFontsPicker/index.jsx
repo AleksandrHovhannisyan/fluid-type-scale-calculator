@@ -4,7 +4,7 @@ import Select from '../Select';
 
 /**
  * @typedef GoogleFontsPickerProps
- * @property {string[]} fonts - an array of all font families to display
+ * @property {string[]} fonts An array of all font families to display
  */
 
 /**

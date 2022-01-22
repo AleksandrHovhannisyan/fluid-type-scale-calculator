@@ -4,7 +4,7 @@ import styles from './styles.module.scss';
 
 /**
  * @typedef RangeInputProps
- * @property {string} label - a string to label the range input
+ * @property {string} label A string to label the range input
  */
 
 /**

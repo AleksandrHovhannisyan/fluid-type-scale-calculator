@@ -4,8 +4,8 @@ import Label from '../../Label';
 
 /**
  * @typedef TypeScalePickerProps
- * @property {ChangeEventHandler<HTMLInputElement>} onChange - callback for when a type scale is clicked
- * @property {number} ratio - the currently selected numerical ratio
+ * @property {ChangeEventHandler<HTMLInputElement>} onChange Callback for when a type scale is clicked
+ * @property {number} ratio The currently selected numerical ratio
  */
 
 /**
