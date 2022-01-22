@@ -35,6 +35,7 @@
  * @property {string} baseModularStep The name of the base modular step in the type scale
  * @property {string} namingConvention A string to prefix to each CSS custom property in the output
  * @property {boolean} shouldUseRems Whether to use rems for font sizing in the output
+ * @property {number} roundingDecimalPlaces The number of decimal places to round the output to
  */
 
 /**

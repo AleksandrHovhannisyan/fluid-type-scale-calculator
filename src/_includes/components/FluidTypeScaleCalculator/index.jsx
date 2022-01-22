@@ -34,6 +34,9 @@ const reducer = (state, action) => {
     case Action.SET_SHOULD_USE_REMS: {
       return { ...state, shouldUseRems: action.payload };
     }
+    case Action.SET_ROUNDING_DECIMAL_PLACES: {
+      return { ...state, roundingDecimalPlaces: action.payload };
+    }
     default:
       return initialState;
   }
@@ -45,8 +48,8 @@ const FluidTypeScaleCalculator = (props) => {
   /** Appends the correct unit to a unitless value. */
   const withUnit = (unitlessValue) => `${unitlessValue}${state.shouldUseRems ? 'rem' : 'px'}`;
 
-  /** Rounds the given value to a fixed number of decimal places. */
-  const round = (val) => Number(val.toFixed(2));
+  /** Rounds the given value to a fixed number of decimal places, according to the user's specified value. */
+  const round = (val) => Number(val.toFixed(state.roundingDecimalPlaces));
 
   /** If we're using rems, converts the pixel arg to rems. Else, keeps it in pixels. */
   const convertToDesiredUnit = (px) => (state.shouldUseRems ? px / 16 : px);

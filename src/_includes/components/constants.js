@@ -49,6 +49,7 @@ export const initialState = {
   baseModularStep: 'base',
   namingConvention: 'font-size',
   shouldUseRems: true,
+  roundingDecimalPlaces: 2,
 };
 
 export const Action = {
@@ -58,6 +59,7 @@ export const Action = {
   SET_BASE_MODULAR_STEP: 'setBaseModularStep',
   SET_NAMING_CONVENTION: 'setNamingConvention',
   SET_SHOULD_USE_REMS: 'setShouldUseRems',
+  SET_ROUNDING_DECIMAL_PLACES: 'setRoundingDecimalPlaces',
 };
 
 /** Enum of delays in milliseconds, for consistency across event handlers. */

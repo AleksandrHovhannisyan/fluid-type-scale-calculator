@@ -15,6 +15,7 @@ Customize everything, grab the output CSS, and drop it into any existing design 
   - Baseline max font size, screen width, type scale
   - All of your modular steps
   - Custom naming convention for CSS variables
+  - Rounding behavior
   - Whether to show output in rems or pixels
 - Output CSS variables for fluid font sizing.
 - Live preview table. Pick a font and enter some sample text to fine-tune the results.
