@@ -22,7 +22,7 @@
   {%- endif -%}
   {%- comment -%}Global and page/layout-specific CSS{%- endcomment -%}
   {%- capture fontFaceCss -%}
-    {%- include "fontFace.liquid" -%}
+    {%- include "fontFace.css" -%}
   {%- endcapture -%}
   <style>{{ fontFaceCss | compileAndMinifyScss }}</style>
   <link rel="stylesheet" href="/@root/styles/global.scss">
