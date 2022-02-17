@@ -9,8 +9,8 @@ const Info = () => {
         <h2>How it works</h2>
         <p>
           A <Link href="https://every-layout.dev/rudiments/modular-scale/">modular type scale</Link> consists of a
-          baseline font size and proportionally smaller and larger font sizes. Design systems traditionally used static
-          font sizing, where each step has a fixed font size at every viewport width.
+          baseline font size and proportionally smaller and larger font sizes. Traditionally, design systems used static
+          type scales, where each step has a fixed font size at every viewport width.
         </p>
         <p>
           By contrast, in a fluid type scale, each modular step has a minimum, maximum, and variable font size. We can
@@ -22,8 +22,8 @@ const Info = () => {
           between their minimum and maximum sizes, with mathematical precision.
         </p>
         <p>
-          This is done with linear interpolation by solving the equation <code>y = mx + b</code>, which corresponds to
-          the preferred value for a CSS <code>clamp</code> declaration.
+          This is done by solving the equation <code>y = mx + b</code>, which corresponds to the preferred value in a
+          CSS <code>clamp</code> declaration.
         </p>
       </Rhythm>
       <Rhythm as="section">
@@ -40,13 +40,17 @@ const Info = () => {
             by Adrian Bece that allows you to visualize a CSS <code>clamp</code> declaration.
           </li>
           <li>
+            <Link href="https://type-scale.com/">Type Scale - A Visual Calculator</Link> by Jeremy Church.
+          </li>
+          <li>
+            <Link href="https://utopia.fyi/type/calculator/">Utopia Fluid Type Scale Calculator</Link> by James Gilyead
+            and Trys Mudford.
+          </li>
+          <li>
             <Link href="https://css-tricks.com/consistent-fluidly-scaling-type-and-spacing/">
               Consistent, Fluidly Scaling Type and Spacing
             </Link>{' '}
             by Andy Bell.
-          </li>
-          <li>
-            <Link href="https://type-scale.com/">Type Scale</Link>, a tool by Jeremy Church.
           </li>
           <li>
             <Link href="https://kittygiraudel.com/2020/05/18/using-calc-to-figure-out-optimal-line-height/">
