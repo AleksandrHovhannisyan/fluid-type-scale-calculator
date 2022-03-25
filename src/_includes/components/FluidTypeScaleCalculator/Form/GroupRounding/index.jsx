@@ -1,6 +1,7 @@
 import { Action } from '../../../constants';
 import Input from '../../../Input';
 import Label from '../../../Label';
+import styles from './styles.module.scss';
 
 /**
  * @param {Pick<import("../../../typedefs").AppState, 'roundingDecimalPlaces'> & { dispatch: import("../../../typedefs").AppDispatcher } } props
@@ -8,8 +9,14 @@ import Label from '../../../Label';
 const GroupRounding = (props) => {
   const { roundingDecimalPlaces, dispatch } = props;
   return (
-    <Label title="Rounding" description="Control the maximum number of decimal places in the output.">
+    <div className={styles['group-rounding']}>
+      <Label
+        title="Rounding"
+        description="The maximum number of decimal places in the output."
+        htmlFor="group-rounding"
+      />
       <Input
+        id="group-rounding"
         type="number"
         step={1}
         min={0}
@@ -23,7 +30,7 @@ const GroupRounding = (props) => {
           })
         }
       />
-    </Label>
+    </div>
   );
 };
 export default GroupRounding;
