@@ -17,12 +17,12 @@
     background-color: var(--color-surface-medium);
     white-space: pre;
     display: flex;
-    font-family: var(--ff-code);
-    font-weight: var(--fw-code-regular);
-    font-size: var(--sp-sm);
     overflow: auto;
     padding: var(--sp-lg);
     user-select: all;
-    line-height: 1.6;
   }
+}
+
+.code {
+  --line-height: 1.7;
 }
