@@ -6,7 +6,9 @@
   "author": "AleksandrHovhannisyan",
   "scripts": {
     "dev": "next dev",
+    "prod": "run-s build start",
     "build": "next build",
+    "start": "next start",
     "postbuild": "next-sitemap",
     "lint": "npm-run-all lint:*",
     "lint:fix": "npm-run-all --parallel lint:*:fix",
