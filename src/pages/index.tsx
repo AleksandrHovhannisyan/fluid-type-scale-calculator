@@ -1,10 +1,6 @@
 import type { NextPage } from 'next';
-import FluidTypeScaleCalculator from '../components/FluidTypeScaleCalculator/FluidTypeScaleCalculator';
-import GithubCorner from '../components/GithubCorner/GithubCorner';
-import HeroBanner from '../components/HeroBanner/HeroBanner';
-import Info from '../components/Info/Info';
+import { FluidTypeScaleCalculator, GithubCorner, HeroBanner, Info, PageFooter } from '../components';
 import { Layout } from '../components/Layout';
-import PageFooter from '../components/PageFooter/PageFooter';
 import { site } from '../data';
 
 // Fetch Google Fonts at build time
