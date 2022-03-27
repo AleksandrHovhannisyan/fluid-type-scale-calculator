@@ -2,9 +2,12 @@ import type { NextPage } from 'next';
 import { FluidTypeScaleCalculator, GithubCorner, HeroBanner, Info, PageFooter } from '../components';
 import { Layout } from '../components/Layout';
 import { site } from '../data';
+import { WithFonts } from '../types';
+
+type HomePageProps = WithFonts;
 
 // Fetch Google Fonts at build time
-export const getStaticProps = async () => {
+export const getStaticProps = async (): Promise<{ props: HomePageProps }> => {
   try {
     const response = await (
       await fetch(`https://www.googleapis.com/webfonts/v1/webfonts?sort=alpha&key=${process.env.GOOGLE_FONTS_API_KEY}`)
@@ -14,10 +17,6 @@ export const getStaticProps = async () => {
   } catch (e) {
     return { props: { fonts: ['Inter'] } };
   }
-};
-
-type HomePageProps = {
-  fonts: string[];
 };
 
 const Home: NextPage<HomePageProps> = (props) => {

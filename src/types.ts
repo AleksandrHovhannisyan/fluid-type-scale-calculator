@@ -79,3 +79,8 @@ export type WithDispatch = {
   /** A dispatch function to update the app state. */
   dispatch: AppActionDispatcher;
 };
+
+export type WithFonts = {
+  /** A list of fonts that users can choose from. */
+  fonts: string[];
+};
