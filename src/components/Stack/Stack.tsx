@@ -1,6 +1,6 @@
 import { ElementType, FC, HTMLProps } from 'react';
 import clsx from 'clsx';
-import styles from './styles.module.scss';
+import styles from './Stack.module.scss';
 
 /**
  * @typedef StackProps

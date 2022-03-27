@@ -1,6 +1,6 @@
 import { ElementType, FC, HTMLProps } from 'react';
 import clsx from 'clsx';
-import styles from './styles.module.scss';
+import styles from './Rhythm.module.scss';
 
 type RhythmProps = HTMLProps<HTMLDivElement> & {
   /** The tag name to render. Defaults to `'div'`. */
