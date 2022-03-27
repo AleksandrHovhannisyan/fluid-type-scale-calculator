@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { initialState } from '../../../constants';
 import { TypeScale, WithFonts } from '../../../types';
@@ -6,8 +6,8 @@ import GoogleFontsPicker from '../../GoogleFontsPicker/GoogleFontsPicker';
 import Input from '../../Input/Input';
 import Label from '../../Label/Label';
 import RangeInput from '../../RangeInput/RangeInput';
-import { defaultFonts, MAX_ALLOWED_SCREEN_WIDTH_PX } from './Preview.constants';
-import { getFontLinkTag, onLinkLoaded } from './utils';
+import { defaultFonts, GOOGLE_FONT_LINK_TAG_ID, MAX_ALLOWED_SCREEN_WIDTH_PX } from './Preview.constants';
+import { getFontLinkTag } from './utils';
 import styles from './Preview.module.scss';
 
 type Props = WithFonts & {
@@ -27,13 +27,17 @@ const Preview = (props: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // TODO: rework
   const onFontSelected = useCallback(
-    async (e) => {
+    async (e: ChangeEvent<HTMLSelectElement>) => {
       const fontFamily = e.target.value;
-      const link = getFontLinkTag('user-selected-font');
+      const link = getFontLinkTag(GOOGLE_FONT_LINK_TAG_ID);
       document.head.appendChild(link);
-      link.addEventListener('load', onLinkLoaded(fontFamily, previewText, setPreviewFont));
+      // TODO: potential memory leak, figure out how to remove event listener without confusing HOC logic
+      link.addEventListener('load', async () => {
+        await document.fonts.load(`1em ${fontFamily}`, previewText);
+        setPreviewFont(fontFamily);
+      });
+      // Must set href after registering the listener
       link.href = `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/ /g, '+')}&display=swap`;
     },
     [previewText]
