@@ -3,8 +3,8 @@ import clsx from 'clsx';
 import NextLink, { LinkProps } from 'next/link';
 import styles from './Link.module.scss';
 
-type Props = LinkProps &
-  Pick<HTMLProps<HTMLAnchorElement>, 'dangerouslySetInnerHTML'> & {
+type Props = Pick<LinkProps, 'href'> &
+  Pick<HTMLProps<HTMLAnchorElement>, 'dangerouslySetInnerHTML' | 'aria-label'> & {
     /** Optional styling for the link. */
     className?: string;
   };
@@ -23,6 +23,7 @@ const Link: FC<Props> = ({ href, className, children, dangerouslySetInnerHTML, .
       href={href.toString()}
       className={clsx(styles.link, className)}
       dangerouslySetInnerHTML={dangerouslySetInnerHTML}
+      {...otherProps}
       {...hrefDependentProps}
     >
       {children}
@@ -34,7 +35,7 @@ const Link: FC<Props> = ({ href, className, children, dangerouslySetInnerHTML, .
   }
 
   return (
-    <NextLink href={href} passHref={true} {...otherProps}>
+    <NextLink href={href} passHref={true}>
       {link}
     </NextLink>
   );
