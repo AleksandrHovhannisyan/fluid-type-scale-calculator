@@ -15,6 +15,7 @@
     "lint:ts:fix": "eslint --cache --fix \"**/*.ts?(x)\""
   },
   "devDependencies": {
+    "@types/jsonld": "^1.5.6",
     "@types/node": "17.0.23",
     "@types/react": "17.0.43",
     "@types/react-dom": "17.0.14",
