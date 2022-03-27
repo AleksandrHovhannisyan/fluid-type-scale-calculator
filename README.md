@@ -22,11 +22,11 @@ Customize everything, grab the output CSS, and drop it into any existing design 
 
 ### Tech Stack
 
-This project was bootstrapped with my [11ty-sass-images-seo](https://github.com/AleksandrHovhannisyan/11ty-sass-images-seo) starter and uses the following technologies:
+Fluid Type Scale Calculator runs on [Next.js](https://nextjs.org/).
 
-- [11ty](https://github.com/11ty/eleventy/)
-- React for the interactive bits (à la [Slinkity](https://slinkity.dev/))
-- Sass
+- React
+- TypeScript
+- Sass + CSS Modules
 
 ### Running Locally
 
