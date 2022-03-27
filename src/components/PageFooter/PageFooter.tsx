@@ -1,7 +1,7 @@
 import SimpleIcons from 'simple-icons';
 import { socials } from '../../data';
 import Link from '../Link/Link';
-import styles from './styles.module.scss';
+import styles from './PageFooter.module.scss';
 
 const PageFooter = () => {
   return (
