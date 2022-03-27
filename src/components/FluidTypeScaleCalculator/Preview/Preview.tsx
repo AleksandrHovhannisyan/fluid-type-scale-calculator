@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { initialState } from '../../../constants';
-import { TypeScale } from '../../../types';
+import { TypeScale, WithFonts } from '../../../types';
 import GoogleFontsPicker from '../../GoogleFontsPicker/GoogleFontsPicker';
 import Input from '../../Input/Input';
 import Label from '../../Label/Label';
@@ -10,11 +10,9 @@ import { defaultFonts, MAX_ALLOWED_SCREEN_WIDTH_PX } from './Preview.constants';
 import { getFontLinkTag, onLinkLoaded } from './utils';
 import styles from './Preview.module.scss';
 
-type Props = {
+type Props = WithFonts & {
   /** The type scale to preview. */
   typeScale: TypeScale;
-  /** All font families, for the picker. */
-  fonts: string[];
 };
 
 const Preview = (props: Props) => {

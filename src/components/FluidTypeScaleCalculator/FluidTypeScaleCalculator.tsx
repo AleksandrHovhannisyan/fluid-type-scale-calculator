@@ -1,6 +1,6 @@
 import { useReducer } from 'react';
 import { initialState } from '../../constants';
-import { AppAction, AppState, TypeScale } from '../../types';
+import { AppAction, AppState, TypeScale, WithFonts } from '../../types';
 import Banner from '../Banner/Banner';
 import Stack from '../Stack/Stack';
 import Form from './Form/Form';
@@ -41,9 +41,7 @@ const reducer = (state: AppState, action: AppAction): AppState => {
   }
 };
 
-type Props = {
-  fonts: string[];
-};
+type Props = WithFonts;
 
 const FluidTypeScaleCalculator = (props: Props) => {
   const [state, dispatch] = useReducer(reducer, initialState);

@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { Delay } from '../../constants';
+import { WithFonts } from '../../types';
 import Select, { SelectProps } from '../Select/Select';
 
-export type GoogleFontsPickerProps = Omit<SelectProps, 'defaultValue'> & {
-  /** An array of all font families to display. */
-  fonts: string[];
-  /** The default selected font. */
-  defaultValue?: string;
-};
+export type GoogleFontsPickerProps = WithFonts &
+  Omit<SelectProps, 'defaultValue'> & {
+    /** The default selected font. */
+    defaultValue?: string;
+  };
 
 const GoogleFontsPicker = (props: GoogleFontsPickerProps) => {
   const { defaultValue, fonts: allFonts, onChange } = props;
