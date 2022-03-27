@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { JsonLd } from 'jsonld/jsonld-spec';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import packageJson from '../../../package.json';
 import SocialPreviewImage from '../../../public/assets/images/thumbnail.png';
 import { socials } from '../../data';
 import { toAbsoluteUrl } from '../../utils';
@@ -22,7 +23,7 @@ const Layout: FC<LayoutProps> = (props) => {
     applicationCategory: 'DeveloperApplication',
     genre: 'design',
     browserRequirements: 'Requires JavaScript.',
-    softwareVersion: '1.0.0',
+    softwareVersion: packageJson.version,
     operatingSystem: 'All',
   };
 
