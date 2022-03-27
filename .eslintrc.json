@@ -1,8 +1,8 @@
 {
   "extends": [
     "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "next/core-web-vitals"
   ],
   "plugins": [
     "prettier",
@@ -28,9 +28,6 @@
     "prettier/prettier": [
       "error"
     ],
-    "react/display-name": "off",
-    "react/no-children-prop": "off",
-    "react/react-in-jsx-scope": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "react/prop-types": "off",
