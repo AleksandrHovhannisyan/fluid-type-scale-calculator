@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import { FluidTypeScaleCalculator, GithubCorner, HeroBanner, Info, PageFooter } from '../components';
+import { FluidTypeScaleCalculator, HeroBanner, Info } from '../components';
 import { Layout } from '../components/Layout';
 import { site } from '../data';
 import { WithFonts } from '../types';
@@ -25,8 +25,6 @@ const Home: NextPage<HomePageProps> = (props) => {
       <HeroBanner title={site.title} subtitle={site.description} />
       <FluidTypeScaleCalculator fonts={props.fonts} />
       <Info />
-      <PageFooter />
-      <GithubCorner />
     </Layout>
   );
 };

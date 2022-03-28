@@ -6,6 +6,8 @@ import packageJson from '../../../package.json';
 import SocialPreviewImage from '../../../public/assets/images/thumbnail.png';
 import { socials } from '../../data';
 import { toAbsoluteUrl } from '../../utils';
+import GithubCorner from '../GithubCorner/GithubCorner';
+import PageFooter from '../PageFooter/PageFooter';
 import { defaultSeoProps, faviconSizes } from './Layout.constants';
 import { LayoutProps } from './Layout.types';
 
@@ -54,6 +56,8 @@ const Layout: FC<LayoutProps> = (props) => {
         </noscript>
       </Head>
       {props.children}
+      <PageFooter />
+      <GithubCorner />
     </main>
   );
 };
