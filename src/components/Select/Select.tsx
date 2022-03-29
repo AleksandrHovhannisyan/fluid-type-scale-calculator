@@ -1,4 +1,5 @@
-import { ChangeEventHandler, forwardRef, HTMLProps, useMemo } from 'react';
+import type { ChangeEventHandler, HTMLProps } from 'react';
+import { forwardRef, useMemo } from 'react';
 import debounce from 'lodash/debounce';
 
 export type SelectProps = Omit<HTMLProps<HTMLSelectElement>, 'ref' | 'onChange'> & {

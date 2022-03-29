@@ -1,5 +1,4 @@
-import { FC } from 'react';
-import { ElementType, HTMLAttributes } from 'react';
+import type { ElementType, FC, HTMLAttributes } from 'react';
 import clsx from 'clsx';
 import styles from './Banner.module.scss';
 

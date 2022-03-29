@@ -1,5 +1,5 @@
 import { Delay } from '../../../../constants';
-import { AppState, WithDispatch } from '../../../../types';
+import type { AppState, WithDispatch } from '../../../../types';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
 import LabelGroup from '../../../Label/LabelGroup/LabelGroup';

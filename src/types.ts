@@ -1,4 +1,4 @@
-import { Dispatch } from 'react';
+import type { Dispatch } from 'react';
 
 export type ClampDeclaration = {
   /** The minimum value for CSS `clamp`. */

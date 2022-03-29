@@ -1,4 +1,4 @@
-import { FC, HTMLProps } from 'react';
+import type { FC, HTMLProps } from 'react';
 import clsx from 'clsx';
 import NextLink, { LinkProps } from 'next/link';
 import styles from './Link.module.scss';

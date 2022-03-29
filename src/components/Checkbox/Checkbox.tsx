@@ -1,4 +1,4 @@
-import { ChangeEventHandler, HTMLProps } from 'react';
+import type { ChangeEventHandler, HTMLProps } from 'react';
 import Input from '../Input/Input';
 import Label from '../Label/Label';
 

@@ -1,7 +1,8 @@
-import { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import type { ChangeEvent } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { initialState } from '../../../constants';
-import { TypeScale, WithFonts } from '../../../types';
+import type { TypeScale, WithFonts } from '../../../types';
 import GoogleFontsPicker from '../../GoogleFontsPicker/GoogleFontsPicker';
 import Input from '../../Input/Input';
 import Label from '../../Label/Label';

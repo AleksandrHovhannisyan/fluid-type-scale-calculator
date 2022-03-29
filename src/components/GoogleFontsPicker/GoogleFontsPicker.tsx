@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Delay } from '../../constants';
-import { WithFonts } from '../../types';
+import type { WithFonts } from '../../types';
 import Select, { SelectProps } from '../Select/Select';
 
 export type GoogleFontsPickerProps = WithFonts &

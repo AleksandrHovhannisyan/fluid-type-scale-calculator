@@ -1,4 +1,4 @@
-import { AppState, WithDispatch } from '../../../types';
+import type { AppState, WithDispatch } from '../../../types';
 import GroupMaximum from './GroupMaximum/GroupMaximum';
 import GroupMinimum from './GroupMinimum/GroupMinimum';
 import GroupModularSteps from './GroupModularSteps/GroupModularSteps';

@@ -1,5 +1,5 @@
 import { site } from '../../data';
-import { SEOProps } from './Layout.types';
+import type { SEOProps } from './Layout.types';
 
 export const defaultSeoProps: SEOProps = {
   title: site.metaTitle,

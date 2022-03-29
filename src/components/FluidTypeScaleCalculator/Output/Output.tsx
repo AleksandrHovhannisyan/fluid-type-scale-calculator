@@ -1,4 +1,4 @@
-import { AppState, TypeScale } from '../../../types';
+import type { AppState, TypeScale } from '../../../types';
 import CopyToClipboardButton from '../../CopyToClipboardButton/CopyToClipboardButton';
 import styles from './Output.module.scss';
 
