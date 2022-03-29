@@ -1,6 +1,8 @@
 import type { NextPage } from 'next';
-import { FluidTypeScaleCalculator, HeroBanner, Info } from '../components';
-import { Layout } from '../components/Layout';
+import FluidTypeScaleCalculator from '../components/FluidTypeScaleCalculator/FluidTypeScaleCalculator';
+import HeroBanner from '../components/HeroBanner/HeroBanner';
+import Info from '../components/Info/Info';
+import Layout from '../components/Layout/Layout';
 import { site } from '../data';
 import { WithFonts } from '../types';
 
