@@ -1,4 +1,4 @@
-import { FC, HTMLProps } from 'react';
+import type { FC, HTMLProps } from 'react';
 import clsx from 'clsx';
 import styles from './LabelGroup.module.scss';
 

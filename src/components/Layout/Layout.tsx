@@ -1,5 +1,5 @@
-import { FC } from 'react';
-import { JsonLd } from 'jsonld/jsonld-spec';
+import type { FC } from 'react';
+import type { JsonLd } from 'jsonld/jsonld-spec';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import packageJson from '../../../package.json';
@@ -9,7 +9,7 @@ import { toAbsoluteUrl } from '../../utils';
 import GithubCorner from '../GithubCorner/GithubCorner';
 import PageFooter from '../PageFooter/PageFooter';
 import { defaultSeoProps, faviconSizes } from './Layout.constants';
-import { LayoutProps } from './Layout.types';
+import type { LayoutProps } from './Layout.types';
 
 const Layout: FC<LayoutProps> = (props) => {
   const { seoProps = defaultSeoProps } = props;

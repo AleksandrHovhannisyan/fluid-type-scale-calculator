@@ -1,4 +1,4 @@
-import { ElementType, FC, HTMLProps } from 'react';
+import type { ElementType, FC, HTMLProps } from 'react';
 import clsx from 'clsx';
 import styles from './Stack.module.scss';
 

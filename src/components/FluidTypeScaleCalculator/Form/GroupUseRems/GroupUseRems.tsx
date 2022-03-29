@@ -1,4 +1,4 @@
-import { AppState, WithDispatch } from '../../../../types';
+import type { AppState, WithDispatch } from '../../../../types';
 import Checkbox from '../../../Checkbox/Checkbox';
 
 type Props = WithDispatch & Pick<AppState, 'shouldUseRems'>;

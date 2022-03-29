@@ -1,4 +1,5 @@
-import { ButtonHTMLAttributes, useState } from 'react';
+import type { ButtonHTMLAttributes } from 'react';
+import { useState } from 'react';
 import Alert from '../Alert/Alert';
 import styles from './CopyToClipboardButton.module.scss';
 

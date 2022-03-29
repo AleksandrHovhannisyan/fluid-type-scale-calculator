@@ -1,4 +1,5 @@
-import { ChangeEvent, ChangeEventHandler, HTMLProps, useMemo, useState } from 'react';
+import type { ChangeEvent, ChangeEventHandler, HTMLProps } from 'react';
+import { useMemo, useState } from 'react';
 import debounce from 'lodash/debounce';
 import { Delay } from '../../constants';
 

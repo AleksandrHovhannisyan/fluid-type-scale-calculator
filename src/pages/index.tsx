@@ -4,7 +4,7 @@ import HeroBanner from '../components/HeroBanner/HeroBanner';
 import Info from '../components/Info/Info';
 import Layout from '../components/Layout/Layout';
 import { site } from '../data';
-import { WithFonts } from '../types';
+import type { WithFonts } from '../types';
 
 type HomePageProps = WithFonts;
 
