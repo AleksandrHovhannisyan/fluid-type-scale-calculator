@@ -1,7 +1,6 @@
 import { useReducer } from 'react';
 import { initialState } from '../../constants';
 import type { AppAction, AppState, TypeScale, WithFonts } from '../../types';
-import Banner from '../Banner/Banner';
 import Stack from '../Stack/Stack';
 import Form from './Form/Form';
 import Output from './Output/Output';
@@ -89,9 +88,6 @@ const FluidTypeScaleCalculator = (props: Props) => {
 
   return (
     <div className={styles['type-scale-generator']}>
-      <noscript>
-        <Banner>This app requires JavaScript. Please enable it if you can.</Banner>
-      </noscript>
       <Stack>
         <Form {...state} dispatch={dispatch} />
         <Output namingConvention={state.namingConvention} typeScale={typeScale} />

@@ -1,7 +1,4 @@
 .banner {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -9,5 +6,5 @@
   padding: var(--sp-base);
   background-color: var(--color-surface-dark);
   color: var(--color-surface-light);
-  font-size: var(--sp-sm);
+  font-size: var(--sp-xs);
 }

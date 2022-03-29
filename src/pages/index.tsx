@@ -1,10 +1,13 @@
 import type { NextPage } from 'next';
+import Banner from '../components/Banner/Banner';
 import FluidTypeScaleCalculator from '../components/FluidTypeScaleCalculator/FluidTypeScaleCalculator';
+import { GITHUB_CORNER_SIZE } from '../components/GithubCorner/GithubCorner.constants';
 import HeroBanner from '../components/HeroBanner/HeroBanner';
 import Info from '../components/Info/Info';
 import Layout from '../components/Layout/Layout';
 import { site } from '../data';
 import type { WithFonts } from '../types';
+import styles from './index.module.scss';
 
 type HomePageProps = WithFonts;
 
@@ -24,6 +27,11 @@ export const getStaticProps = async (): Promise<{ props: HomePageProps }> => {
 const Home: NextPage<HomePageProps> = (props) => {
   return (
     <Layout>
+      <noscript>
+        <Banner className={styles['no-js-banner']} style={{ paddingInline: GITHUB_CORNER_SIZE }}>
+          This app requires JavaScript. Please enable it if you can.
+        </Banner>
+      </noscript>
       <HeroBanner title={site.title} subtitle={site.description} />
       <FluidTypeScaleCalculator fonts={props.fonts} />
       <Info />
