@@ -1,4 +1,3 @@
-import SimpleIcons from 'simple-icons';
 import { socials } from '../../data';
 import Link from '../Link/Link';
 import styles from './PageFooter.module.scss';
@@ -12,10 +11,10 @@ const PageFooter = () => {
         <Link href="https://nextjs.org/">Next.js</Link>.
       </span>
       <ul className={styles.socials} aria-label="Social media">
-        {Object.entries(socials).map(([key, { name, url }]) => {
+        {Object.entries(socials).map(([key, { name, url, icon }]) => {
           return (
             <li key={key}>
-              <Link href={url} aria-label={name} dangerouslySetInnerHTML={{ __html: SimpleIcons.Get(key).svg }} />
+              <Link href={url} aria-label={name} dangerouslySetInnerHTML={{ __html: icon }} />
             </li>
           );
         })}
