@@ -57,7 +57,6 @@ const FluidTypeScaleCalculator = (props: Props) => {
   // Get the index of the base modular step to compute exponents relative to the base index (up/down)
   const baseModularStepIndex = state.modularSteps.indexOf(state.baseModularStep);
 
-  /** @type {import('./typedefs').TypeScale} */
   const typeScale = state.modularSteps.reduce((steps, step, i) => {
     const min = {
       fontSize: state.min.fontSize * Math.pow(state.min.modularRatio, i - baseModularStepIndex),
