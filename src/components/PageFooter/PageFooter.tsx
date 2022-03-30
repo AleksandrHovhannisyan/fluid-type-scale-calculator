@@ -7,7 +7,7 @@ const PageFooter = () => {
     <footer className={styles['page-footer']}>
       <span>
         <span aria-hidden="true">&copy;</span>Copyright{' '}
-        <Link href="https://www.aleksandrhovhannisyan.com/">Aleksandr Hovhannisyan</Link>, 2021.
+        <Link href="https://www.aleksandrhovhannisyan.com/">Aleksandr Hovhannisyan</Link>, 2021–Present.
       </span>
       <ul className={styles.socials} aria-label="Social media">
         {Object.entries(socials).map(([key, { name, url, icon }]) => {
