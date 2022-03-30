@@ -14,7 +14,7 @@ const specializedPropsByType: Partial<Record<InputType, Partial<HTMLProps<HTMLIn
 
 export type InputProps = Omit<HTMLProps<HTMLInputElement>, 'type' | 'onChange'> & {
   /** The delay (in milliseconds) for the change event. Defaults to a short delay if not specified and `0` for checkboxes, radio buttons, and range inputs. */
-  delay?: number;
+  delay?: Delay;
   /** The type of input. */
   type: InputType;
   /** Callback for the change event. */

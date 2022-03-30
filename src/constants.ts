@@ -55,8 +55,8 @@ export const initialFormState: FormState = {
 };
 
 /** Enum of delays in milliseconds, for consistency across event handlers. */
-export const Delay = {
-  SHORT: 150,
-  MEDIUM: 300,
-  LONG: 400,
-};
+export enum Delay {
+  SHORT = 150,
+  MEDIUM = 300,
+  LONG = 400,
+}
