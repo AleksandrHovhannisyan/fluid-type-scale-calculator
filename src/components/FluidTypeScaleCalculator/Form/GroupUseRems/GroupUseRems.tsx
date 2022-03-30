@@ -1,7 +1,7 @@
-import type { AppState, WithDispatch } from '../../../../types';
+import type { FormState, WithDispatch } from '../../../../types';
 import Checkbox from '../../../Checkbox/Checkbox';
 
-type Props = WithDispatch & Pick<AppState, 'shouldUseRems'>;
+type Props = WithDispatch & Pick<FormState, 'shouldUseRems'>;
 
 const GroupUseRems = (props: Props) => {
   const { shouldUseRems, dispatch } = props;
