@@ -4,10 +4,10 @@ export default function Document() {
   return (
     <Html lang="en-US">
       <Head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Inter:wght@300;400;900&display=swap"
-          rel="stylesheet"
-        />
+        <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-300.woff2" crossOrigin="" />
+        <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-regular.woff2" crossOrigin="" />
+        <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-900.woff2" crossOrigin="" />
+        <link rel="preload" as="font" type="font/woff2" href="/fonts/ibm-plex-mono-regular.woff2" crossOrigin="" />
         <meta charSet="utf-8" />
       </Head>
       <body>
