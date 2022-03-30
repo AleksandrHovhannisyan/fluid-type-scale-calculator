@@ -1,11 +1,9 @@
-import type { FormState, WithDispatch } from '../../../../types';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
+import { useFormState } from '../../FluidTypeScaleCalculator.context';
 
-type Props = WithDispatch & Pick<FormState, 'namingConvention'>;
-
-const GroupNamingConvention = (props: Props) => {
-  const { namingConvention, dispatch } = props;
+const GroupNamingConvention = () => {
+  const { state, dispatch } = useFormState();
   return (
     <Label
       title="Variable naming convention"
@@ -14,7 +12,7 @@ const GroupNamingConvention = (props: Props) => {
       <Input
         type="text"
         required={true}
-        defaultValue={namingConvention}
+        defaultValue={state.namingConvention}
         delay={0}
         onChange={(e) =>
           dispatch({

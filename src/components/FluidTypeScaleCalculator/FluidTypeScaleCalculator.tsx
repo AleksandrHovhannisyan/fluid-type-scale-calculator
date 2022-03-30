@@ -5,6 +5,7 @@ import Stack from '../Stack/Stack';
 import Form from './Form/Form';
 import Output from './Output/Output';
 import Preview from './Preview/Preview';
+import { FormStateContext } from './FluidTypeScaleCalculator.context';
 import styles from './FluidTypeScaleCalculator.module.scss';
 
 /** Given the previous app state and a dispatched action, returns the newly transformed state.
@@ -40,9 +41,7 @@ const reducer = (state: FormState, action: FormAction): FormState => {
   }
 };
 
-type Props = WithFonts;
-
-const FluidTypeScaleCalculator = (props: Props) => {
+const FluidTypeScaleCalculator = (props: WithFonts) => {
   const [state, dispatch] = useReducer(reducer, initialFormState);
 
   /** Appends the correct unit to a unitless value. */
@@ -86,13 +85,15 @@ const FluidTypeScaleCalculator = (props: Props) => {
   }, new Map() as TypeScale);
 
   return (
-    <div className={styles['type-scale-generator']}>
-      <Stack>
-        <Form {...state} dispatch={dispatch} />
-        <Output namingConvention={state.namingConvention} typeScale={typeScale} />
-      </Stack>
-      <Preview typeScale={typeScale} fonts={props.fonts} />
-    </div>
+    <FormStateContext.Provider value={{ state, dispatch }}>
+      <div className={styles['type-scale-generator']}>
+        <Stack>
+          <Form />
+          <Output typeScale={typeScale} />
+        </Stack>
+        <Preview typeScale={typeScale} fonts={props.fonts} />
+      </div>
+    </FormStateContext.Provider>
   );
 };
 

@@ -1,18 +1,20 @@
-import type { FormState, TypeScale } from '../../../types';
+import type { TypeScale } from '../../../types';
 import CopyToClipboardButton from '../../CopyToClipboardButton/CopyToClipboardButton';
+import { useFormState } from '../FluidTypeScaleCalculator.context';
 import styles from './Output.module.scss';
 
-type Props = Pick<FormState, 'namingConvention'> & {
+type Props = {
   /** The output type scale. */
   typeScale: TypeScale;
 };
 
 const Output = (props: Props) => {
-  const { namingConvention, typeScale } = props;
+  const { state } = useFormState();
+  const { typeScale } = props;
 
   const code = Array.from(typeScale.entries())
     .map(([step, { min, max, preferred }]) => {
-      return `--${namingConvention}-${step}: clamp(${min}, ${preferred}, ${max});`;
+      return `--${state.namingConvention}-${step}: clamp(${min}, ${preferred}, ${max});`;
     })
     .join('\n');
 

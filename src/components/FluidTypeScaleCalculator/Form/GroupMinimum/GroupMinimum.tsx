@@ -1,17 +1,11 @@
-import type { FormState, WithDispatch } from '../../../../types';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
 import LabelGroup from '../../../Label/LabelGroup/LabelGroup';
+import { useFormState } from '../../FluidTypeScaleCalculator.context';
 import TypeScalePicker from '../../TypeScalePicker/TypeScalePicker';
 
-type Props = Pick<FormState, 'min'> &
-  WithDispatch & {
-    /** The maximum breakpoint's screen width. */
-    maxScreenWidth: FormState['max']['screenWidth'];
-  };
-
-const GroupMinimum = (props: Props) => {
-  const { min, dispatch, maxScreenWidth } = props;
+const GroupMinimum = () => {
+  const { state, dispatch } = useFormState();
   return (
     <Label
       as="fieldset"
@@ -25,7 +19,7 @@ const GroupMinimum = (props: Props) => {
             type="number"
             required={true}
             min={0}
-            defaultValue={min.fontSize}
+            defaultValue={state.min.fontSize}
             onChange={(e) =>
               dispatch({
                 type: 'setMin',
@@ -42,8 +36,8 @@ const GroupMinimum = (props: Props) => {
             type="number"
             required={true}
             min={0}
-            max={maxScreenWidth - 1}
-            defaultValue={min.screenWidth}
+            max={state.max.screenWidth - 1}
+            defaultValue={state.min.screenWidth}
             onChange={(e) =>
               dispatch({
                 type: 'setMin',
@@ -56,7 +50,7 @@ const GroupMinimum = (props: Props) => {
         </Label>
         <TypeScalePicker
           id="type-scale-min"
-          ratio={min.modularRatio}
+          ratio={state.min.modularRatio}
           onChange={(e) => dispatch({ type: 'setMin', payload: { modularRatio: Number(e.target.value) } })}
         />
       </LabelGroup>
