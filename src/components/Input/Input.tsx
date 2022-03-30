@@ -30,7 +30,7 @@ const Input = (props: InputProps) => {
   // RegExp throws an error if the provided regex pattern is invalid. HTML doesn't perform any validation on the
   // pattern attribute (or any attribute, really), so best to let the error go uncaught and force the SSR build to fail.
   if (pattern) {
-    // eslint-disable-next-line no-unused-vars
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const regexp = new RegExp(pattern);
   }
 
