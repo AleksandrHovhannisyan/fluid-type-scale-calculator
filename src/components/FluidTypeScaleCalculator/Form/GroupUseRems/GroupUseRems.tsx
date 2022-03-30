@@ -1,13 +1,11 @@
-import type { FormState, WithDispatch } from '../../../../types';
 import Checkbox from '../../../Checkbox/Checkbox';
+import { useFormState } from '../../FluidTypeScaleCalculator.context';
 
-type Props = WithDispatch & Pick<FormState, 'shouldUseRems'>;
-
-const GroupUseRems = (props: Props) => {
-  const { shouldUseRems, dispatch } = props;
+const GroupUseRems = () => {
+  const { state, dispatch } = useFormState();
   return (
     <Checkbox
-      checked={shouldUseRems}
+      checked={state.shouldUseRems}
       onChange={(e) =>
         dispatch({
           type: 'setShouldUseRems',

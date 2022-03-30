@@ -1,12 +1,10 @@
-import type { FormState, WithDispatch } from '../../../../types';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
+import { useFormState } from '../../FluidTypeScaleCalculator.context';
 import styles from './GroupRounding.module.scss';
 
-type Props = WithDispatch & Pick<FormState, 'roundingDecimalPlaces'>;
-
-const GroupRounding = (props: Props) => {
-  const { roundingDecimalPlaces, dispatch } = props;
+const GroupRounding = () => {
+  const { state, dispatch } = useFormState();
   return (
     <div className={styles['group-rounding']}>
       <Label
@@ -21,7 +19,7 @@ const GroupRounding = (props: Props) => {
         min={0}
         max={5}
         required={true}
-        defaultValue={roundingDecimalPlaces}
+        defaultValue={state.roundingDecimalPlaces}
         onChange={(e) =>
           dispatch({
             type: 'setRoundingDecimalPlaces',

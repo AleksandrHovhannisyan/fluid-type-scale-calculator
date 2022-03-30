@@ -1,14 +1,12 @@
 import { Delay } from '../../../../constants';
-import type { FormState, WithDispatch } from '../../../../types';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
 import LabelGroup from '../../../Label/LabelGroup/LabelGroup';
 import Select from '../../../Select/Select';
+import { useFormState } from '../../FluidTypeScaleCalculator.context';
 
-type Props = WithDispatch & Pick<FormState, 'modularSteps' | 'baseModularStep'>;
-
-const GroupModularSteps = (props: Props) => {
-  const { modularSteps, baseModularStep, dispatch } = props;
+const GroupModularSteps = () => {
+  const { state, dispatch } = useFormState();
   return (
     <Label
       as="fieldset"
@@ -23,7 +21,7 @@ const GroupModularSteps = (props: Props) => {
             required
             spellCheck="false"
             pattern="^[a-zA-Z0-9-](?:(,\s*)?[a-zA-Z0-9-])*$"
-            defaultValue={modularSteps.join(',')}
+            defaultValue={state.modularSteps.join(',')}
             delay={Delay.MEDIUM}
             onChange={(e) =>
               dispatch({
@@ -36,7 +34,7 @@ const GroupModularSteps = (props: Props) => {
         <Label>
           Baseline step
           <Select
-            defaultValue={baseModularStep}
+            defaultValue={state.baseModularStep}
             onChange={(e) =>
               dispatch({
                 type: 'setBaseModularStep',
@@ -44,7 +42,7 @@ const GroupModularSteps = (props: Props) => {
               })
             }
           >
-            {modularSteps.map((step) => (
+            {state.modularSteps.map((step) => (
               <option key={step} value={step}>
                 {step}
               </option>
