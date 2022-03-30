@@ -1,4 +1,4 @@
-import type { AppState, WithDispatch } from '../../../types';
+import type { FormState, WithDispatch } from '../../../types';
 import GroupMaximum from './GroupMaximum/GroupMaximum';
 import GroupMinimum from './GroupMinimum/GroupMinimum';
 import GroupModularSteps from './GroupModularSteps/GroupModularSteps';
@@ -7,7 +7,7 @@ import GroupRounding from './GroupRounding/GroupRounding';
 import GroupUseRems from './GroupUseRems/GroupUseRems';
 import styles from './Form.module.scss';
 
-type Props = WithDispatch & AppState;
+type Props = WithDispatch & FormState;
 
 const Form = (props: Props) => {
   const { min, max, shouldUseRems, modularSteps, baseModularStep, namingConvention, roundingDecimalPlaces, dispatch } =

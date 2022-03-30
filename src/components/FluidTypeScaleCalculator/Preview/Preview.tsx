@@ -1,7 +1,7 @@
 import type { ChangeEvent } from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import clsx from 'clsx';
-import { initialState } from '../../../constants';
+import { initialFormState } from '../../../constants';
 import type { TypeScale, WithFonts } from '../../../types';
 import GoogleFontsPicker from '../../GoogleFontsPicker/GoogleFontsPicker';
 import Input from '../../Input/Input';
@@ -20,7 +20,7 @@ const Preview = (props: Props) => {
   const { fonts, typeScale } = props;
   const [previewText, setPreviewText] = useState('Almost before we knew it, we had left the ground');
   const [previewFont, setPreviewFont] = useState(defaultFonts[0]);
-  const [screenWidth, setScreenWidth] = useState(initialState.max.screenWidth);
+  const [screenWidth, setScreenWidth] = useState(initialFormState.max.screenWidth);
 
   useEffect(() => {
     // Since we use SSR, this must be done on mount

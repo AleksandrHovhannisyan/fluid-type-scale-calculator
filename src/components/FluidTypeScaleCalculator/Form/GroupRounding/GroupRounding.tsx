@@ -1,9 +1,9 @@
-import type { AppState, WithDispatch } from '../../../../types';
+import type { FormState, WithDispatch } from '../../../../types';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
 import styles from './GroupRounding.module.scss';
 
-type Props = WithDispatch & Pick<AppState, 'roundingDecimalPlaces'>;
+type Props = WithDispatch & Pick<FormState, 'roundingDecimalPlaces'>;
 
 const GroupRounding = (props: Props) => {
   const { roundingDecimalPlaces, dispatch } = props;

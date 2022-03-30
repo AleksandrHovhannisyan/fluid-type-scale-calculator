@@ -1,8 +1,8 @@
-import type { AppState, TypeScale } from '../../../types';
+import type { FormState, TypeScale } from '../../../types';
 import CopyToClipboardButton from '../../CopyToClipboardButton/CopyToClipboardButton';
 import styles from './Output.module.scss';
 
-type Props = Pick<AppState, 'namingConvention'> & {
+type Props = Pick<FormState, 'namingConvention'> & {
   /** The output type scale. */
   typeScale: TypeScale;
 };

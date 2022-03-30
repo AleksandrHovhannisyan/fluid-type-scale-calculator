@@ -1,11 +1,11 @@
 import { Delay } from '../../../../constants';
-import type { AppState, WithDispatch } from '../../../../types';
+import type { FormState, WithDispatch } from '../../../../types';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
 import LabelGroup from '../../../Label/LabelGroup/LabelGroup';
 import Select from '../../../Select/Select';
 
-type Props = WithDispatch & Pick<AppState, 'modularSteps' | 'baseModularStep'>;
+type Props = WithDispatch & Pick<FormState, 'modularSteps' | 'baseModularStep'>;
 
 const GroupModularSteps = (props: Props) => {
   const { modularSteps, baseModularStep, dispatch } = props;

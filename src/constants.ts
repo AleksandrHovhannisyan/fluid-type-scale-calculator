@@ -1,4 +1,4 @@
-import { AppState } from './types';
+import { FormState } from './types';
 
 export const modularRatios = {
   minorSecond: {
@@ -36,7 +36,7 @@ export const modularRatios = {
 } as const;
 
 /** The initial values used to populate the app's form. */
-export const initialState: AppState = {
+export const initialFormState: FormState = {
   min: {
     fontSize: 16,
     screenWidth: 400,

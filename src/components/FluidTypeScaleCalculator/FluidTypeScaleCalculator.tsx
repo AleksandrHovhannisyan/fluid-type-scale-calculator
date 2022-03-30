@@ -1,6 +1,6 @@
 import { useReducer } from 'react';
-import { initialState } from '../../constants';
-import type { AppAction, AppState, TypeScale, WithFonts } from '../../types';
+import { initialFormState } from '../../constants';
+import type { FormAction, FormState, TypeScale, WithFonts } from '../../types';
 import Stack from '../Stack/Stack';
 import Form from './Form/Form';
 import Output from './Output/Output';
@@ -10,7 +10,7 @@ import styles from './FluidTypeScaleCalculator.module.scss';
 /** Given the previous app state and a dispatched action, returns the newly transformed state.
  * https://www.aleksandrhovhannisyan.com/blog/managing-complex-state-react-usereducer/
  */
-const reducer = (state: AppState, action: AppAction): AppState => {
+const reducer = (state: FormState, action: FormAction): FormState => {
   switch (action.type) {
     case 'setMin': {
       return { ...state, min: { ...state.min, ...action.payload } };
@@ -36,14 +36,14 @@ const reducer = (state: AppState, action: AppAction): AppState => {
       return { ...state, roundingDecimalPlaces: action.payload };
     }
     default:
-      return initialState;
+      return initialFormState;
   }
 };
 
 type Props = WithFonts;
 
 const FluidTypeScaleCalculator = (props: Props) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialFormState);
 
   /** Appends the correct unit to a unitless value. */
   const withUnit = (unitlessValue: number) => `${unitlessValue}${state.shouldUseRems ? 'rem' : 'px'}`;

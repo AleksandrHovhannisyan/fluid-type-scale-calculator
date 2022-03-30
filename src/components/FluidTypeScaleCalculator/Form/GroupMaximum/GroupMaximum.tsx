@@ -1,13 +1,13 @@
-import type { AppState, WithDispatch } from '../../../../types';
+import type { FormState, WithDispatch } from '../../../../types';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
 import LabelGroup from '../../../Label/LabelGroup/LabelGroup';
 import TypeScalePicker from '../../TypeScalePicker/TypeScalePicker';
 
-type Props = Pick<AppState, 'max'> &
+type Props = Pick<FormState, 'max'> &
   WithDispatch & {
     /** The minimum breakpoint's screen width. */
-    minScreenWidth: AppState['min']['screenWidth'];
+    minScreenWidth: FormState['min']['screenWidth'];
   };
 
 const GroupMaximum = (props: Props) => {

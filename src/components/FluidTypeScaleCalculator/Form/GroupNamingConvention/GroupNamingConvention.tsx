@@ -1,8 +1,8 @@
-import type { AppState, WithDispatch } from '../../../../types';
+import type { FormState, WithDispatch } from '../../../../types';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
 
-type Props = WithDispatch & Pick<AppState, 'namingConvention'>;
+type Props = WithDispatch & Pick<FormState, 'namingConvention'>;
 
 const GroupNamingConvention = (props: Props) => {
   const { namingConvention, dispatch } = props;

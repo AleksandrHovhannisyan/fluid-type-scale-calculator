@@ -25,7 +25,7 @@ export type BreakpointConfig = {
   modularRatio: number;
 };
 
-export type AppState = {
+export type FormState = {
   /** The minimum (mobile) config, describing how the font size should behave when the viewport width is narrower than the desktop breakpoint. */
   min: BreakpointConfig;
   /** The maximum (desktop) config, describing how the font size should behave when the viewport width is >= this breakpoint. */
@@ -43,41 +43,39 @@ export type AppState = {
 };
 
 /** An action that can be dispatched to update the app state. */
-export type AppAction =
+export type FormAction =
   | {
       type: 'setMin';
-      payload: Partial<AppState['min']>;
+      payload: Partial<FormState['min']>;
     }
   | {
       type: 'setMax';
-      payload: Partial<AppState['max']>;
+      payload: Partial<FormState['max']>;
     }
   | {
       type: 'setModularSteps';
-      payload: AppState['modularSteps'];
+      payload: FormState['modularSteps'];
     }
   | {
       type: 'setBaseModularStep';
-      payload: AppState['baseModularStep'];
+      payload: FormState['baseModularStep'];
     }
   | {
       type: 'setNamingConvention';
-      payload: AppState['namingConvention'];
+      payload: FormState['namingConvention'];
     }
   | {
       type: 'setShouldUseRems';
-      payload: AppState['shouldUseRems'];
+      payload: FormState['shouldUseRems'];
     }
   | {
       type: 'setRoundingDecimalPlaces';
-      payload: AppState['roundingDecimalPlaces'];
+      payload: FormState['roundingDecimalPlaces'];
     };
-
-export type AppActionDispatcher = Dispatch<AppAction>;
 
 export type WithDispatch = {
   /** A dispatch function to update the app state. */
-  dispatch: AppActionDispatcher;
+  dispatch: Dispatch<FormAction>;
 };
 
 export type WithFonts = {
