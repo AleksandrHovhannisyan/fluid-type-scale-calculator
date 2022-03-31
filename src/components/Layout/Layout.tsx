@@ -24,7 +24,6 @@ const Layout: FC<LayoutProps> = (props) => {
     description: seoProps.description,
     applicationCategory: 'DeveloperApplication',
     genre: 'design',
-    browserRequirements: 'Requires JavaScript.',
     softwareVersion: packageJson.version,
     operatingSystem: 'All',
   };
