@@ -5,6 +5,7 @@ import Info from '../components/Info/Info';
 import Layout from '../components/Layout/Layout';
 import { initialFormState, site } from '../constants';
 import { FormDataKey, FormState, WithFonts } from '../types';
+import { getGoogleFontFamilies } from '../utils';
 
 type CalculatePageProps = WithFonts & {
   initialState: FormState;
@@ -14,7 +15,7 @@ type CalculatePageProps = WithFonts & {
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ): Promise<GetServerSidePropsResult<CalculatePageProps>> => {
-  // TODO: make a getFonts util and reuse here
+  const fonts = await getGoogleFontFamilies();
   try {
     const query = context.query as Record<FormDataKey, string>;
     // TODO: validate query params
@@ -38,14 +39,14 @@ export const getServerSideProps = async (
     return {
       props: {
         initialState,
-        fonts: [],
+        fonts,
       },
     };
   } catch (e) {
     return {
       props: {
         initialState: initialFormState,
-        fonts: ['Inter'],
+        fonts,
       },
     };
   }

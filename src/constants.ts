@@ -1,6 +1,9 @@
 import { siBuymeacoffee, siGithub, siLinkedin, siStackexchange, siTwitter } from 'simple-icons/icons';
 import { FormState } from './types';
 
+/** The default font family used by the app and shown in font pickers. */
+export const DEFAULT_FONT_FAMILY = 'Inter';
+
 export const modularRatios = {
   minorSecond: {
     name: 'Minor second',

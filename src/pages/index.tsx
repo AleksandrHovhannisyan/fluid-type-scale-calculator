@@ -7,21 +7,14 @@ import Info from '../components/Info/Info';
 import Layout from '../components/Layout/Layout';
 import { site } from '../constants';
 import type { WithFonts } from '../types';
+import { getGoogleFontFamilies } from '../utils';
 import styles from './index.module.scss';
 
 type HomePageProps = WithFonts;
 
-// Fetch Google Fonts at build time
 export const getStaticProps = async (): Promise<GetStaticPropsResult<HomePageProps>> => {
-  try {
-    const response = await (
-      await fetch(`https://www.googleapis.com/webfonts/v1/webfonts?sort=alpha&key=${process.env.GOOGLE_FONTS_API_KEY}`)
-    ).json();
-    const fonts = response.items.map((font: { family: string }) => font.family);
-    return { props: { fonts } };
-  } catch (e) {
-    return { props: { fonts: ['Inter'] } };
-  }
+  const fonts = await getGoogleFontFamilies();
+  return { props: { fonts } };
 };
 
 const Home: NextPage<HomePageProps> = (props) => {
