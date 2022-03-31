@@ -41,8 +41,13 @@ const reducer = (state: FormState, action: FormAction): FormState => {
   }
 };
 
-const FluidTypeScaleCalculator = (props: WithFonts) => {
-  const [state, dispatch] = useReducer(reducer, initialFormState);
+type Props = WithFonts & {
+  /** An optional initial state (e.g., from server-side query params). */
+  initialState?: FormState;
+};
+
+const FluidTypeScaleCalculator = (props: Props) => {
+  const [state, dispatch] = useReducer(reducer, props.initialState ?? initialFormState);
 
   /** Appends the correct unit to a unitless value. */
   const withUnit = (unitlessValue: number) => `${unitlessValue}${state.shouldUseRems ? 'rem' : 'px'}`;
