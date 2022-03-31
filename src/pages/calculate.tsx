@@ -11,7 +11,6 @@ type CalculatePageProps = WithFonts & {
   initialState: FormState;
 };
 
-// Fetch Google Fonts at build time
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ): Promise<GetServerSidePropsResult<CalculatePageProps>> => {
