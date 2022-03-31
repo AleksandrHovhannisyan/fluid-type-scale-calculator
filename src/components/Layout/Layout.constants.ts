@@ -1,4 +1,4 @@
-import { site } from '../../data';
+import { site } from '../../constants';
 import type { SEOProps } from './Layout.types';
 
 export const defaultSeoProps: SEOProps = {

@@ -5,7 +5,7 @@ import { GITHUB_CORNER_SIZE } from '../components/GithubCorner/GithubCorner.cons
 import HeroBanner from '../components/HeroBanner/HeroBanner';
 import Info from '../components/Info/Info';
 import Layout from '../components/Layout/Layout';
-import { site } from '../data';
+import { site } from '../constants';
 import type { WithFonts } from '../types';
 import styles from './index.module.scss';
 
