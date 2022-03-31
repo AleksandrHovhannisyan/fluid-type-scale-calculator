@@ -7,6 +7,7 @@ import GroupModularSteps from './GroupModularSteps/GroupModularSteps';
 import GroupNamingConvention from './GroupNamingConvention/GroupNamingConvention';
 import GroupRounding from './GroupRounding/GroupRounding';
 import GroupUseRems from './GroupUseRems/GroupUseRems';
+import { TYPE_SCALE_FORM_ID } from './Form.constants';
 import styles from './Form.module.scss';
 
 const Form = () => {
@@ -36,7 +37,14 @@ const Form = () => {
   }, [state, formRef]);
 
   return (
-    <form className={styles.form} action="/calculate" method="GET" ref={formRef} onSubmit={(e) => e.preventDefault()}>
+    <form
+      id={TYPE_SCALE_FORM_ID}
+      className={styles.form}
+      action="/calculate"
+      method="GET"
+      ref={formRef}
+      onSubmit={(e) => e.preventDefault()}
+    >
       <GroupMinimum />
       <GroupMaximum />
       <GroupModularSteps />
