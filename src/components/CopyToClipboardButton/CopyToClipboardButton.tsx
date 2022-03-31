@@ -1,7 +1,7 @@
 import type { ButtonHTMLAttributes } from 'react';
 import { useState } from 'react';
 import Alert from '../Alert/Alert';
-import styles from './CopyToClipboardButton.module.scss';
+import Button from '../Button/Button';
 
 type CopyToClipboardButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   /** The text to copy to the clipboard on click. */
@@ -13,10 +13,9 @@ const CopyToClipboardButton = (props: CopyToClipboardButtonProps) => {
   const [isCopied, setIsCopied] = useState(false);
   return (
     <>
-      <button
+      <Button
         id="copy-to-clipboard-button"
         type="button"
-        className={styles['copy-to-clipboard-button']}
         onClick={(e) => {
           window.navigator.clipboard.writeText(text);
           setIsCopied(true);
@@ -36,7 +35,7 @@ const CopyToClipboardButton = (props: CopyToClipboardButtonProps) => {
             Copy to clipboard <span aria-hidden="true">📋</span>
           </>
         )}
-      </button>
+      </Button>
       {isCopied && <Alert className="sr-only">Copied</Alert>}
     </>
   );

@@ -1,0 +1,13 @@
+.button {
+  cursor: pointer;
+  text-align: center;
+  border: none;
+  background: var(--color-surface-dark);
+  color: var(--color-surface-light);
+  padding: var(--sp-md);
+
+  &:focus-visible {
+    outline: solid 4px var(--color-surface-dark);
+    outline-offset: 4px;
+  }
+}

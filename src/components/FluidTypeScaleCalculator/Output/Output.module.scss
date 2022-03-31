@@ -1,6 +1,8 @@
 @import "../../../../styles/mixins";
 
 .output {
+  display: flex;
+  flex-direction: column;
   @include desktop {
     align-self: flex-start;
     position: sticky;
