@@ -1,4 +1,5 @@
 import { Delay } from '../../../../constants';
+import { FormDataKey } from '../../../../types';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
 import LabelGroup from '../../../Label/LabelGroup/LabelGroup';
@@ -17,6 +18,7 @@ const GroupModularSteps = () => {
         <Label>
           All steps
           <Input
+            name={FormDataKey.modularSteps}
             type="text"
             required
             spellCheck="false"
@@ -34,6 +36,7 @@ const GroupModularSteps = () => {
         <Label>
           Baseline step
           <Select
+            name={FormDataKey.baseModularStep}
             defaultValue={state.baseModularStep}
             onChange={(e) =>
               dispatch({
