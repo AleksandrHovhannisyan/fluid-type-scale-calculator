@@ -21,3 +21,7 @@ export const getGoogleFontFamilies = async (): Promise<string[]> => {
     return [DEFAULT_FONT_FAMILY];
   }
 };
+
+/** Given a font family, returns the properly formatted href that can be used to link to that font's @font-face CSS on Google's servers. */
+export const getGoogleFontLinkTagHref = (fontFamily: string) =>
+  `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/ /g, '+')}&display=swap`;
