@@ -7,7 +7,8 @@ import GoogleFontsPicker from '../../GoogleFontsPicker/GoogleFontsPicker';
 import Input from '../../Input/Input';
 import Label from '../../Label/Label';
 import RangeInput from '../../RangeInput/RangeInput';
-import { defaultFonts, GOOGLE_FONT_LINK_TAG_ID, MAX_ALLOWED_SCREEN_WIDTH_PX } from './Preview.constants';
+import { useFormState } from '../FluidTypeScaleCalculator.context';
+import { GOOGLE_FONT_LINK_TAG_ID, MAX_ALLOWED_SCREEN_WIDTH_PX } from './Preview.constants';
 import { getFontLinkTag } from './utils';
 import styles from './Preview.module.scss';
 
@@ -18,8 +19,8 @@ type Props = WithFonts & {
 
 const Preview = (props: Props) => {
   const { fonts, typeScale } = props;
+  const { state, dispatch } = useFormState();
   const [previewText, setPreviewText] = useState('Almost before we knew it, we had left the ground');
-  const [previewFont, setPreviewFont] = useState(defaultFonts[0]);
   const [screenWidth, setScreenWidth] = useState(initialFormState.max.screenWidth);
 
   useEffect(() => {
@@ -36,11 +37,12 @@ const Preview = (props: Props) => {
       // TODO: potential memory leak, figure out how to remove event listener without confusing HOC logic
       link.addEventListener('load', async () => {
         await document.fonts.load(`1em ${fontFamily}`, previewText);
-        setPreviewFont(fontFamily);
+        dispatch({ type: 'setFontFamily', payload: fontFamily });
       });
       // Must set href after registering the listener
       link.href = `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/ /g, '+')}&display=swap`;
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [previewText]
   );
 
@@ -49,7 +51,7 @@ const Preview = (props: Props) => {
       <h2>Preview your type scale</h2>
       <div id="preview-inputs" className={styles['label-group']}>
         <Label title="Font family">
-          <GoogleFontsPicker fonts={fonts} defaultValue={previewFont} onChange={onFontSelected} />
+          <GoogleFontsPicker fonts={fonts} defaultValue={state.fontFamily} onChange={onFontSelected} />
         </Label>
         <Label title="Preview text" className={clsx('label', styles['preview-text-label'])}>
           <Input
@@ -97,7 +99,7 @@ const Preview = (props: Props) => {
                   <td className="numeric">{min}</td>
                   <td className="numeric">{max}</td>
                   <td className="numeric">{getFontSizeAtScreenWidth(screenWidth)}</td>
-                  <td className="nowrap" style={{ fontSize, fontFamily: previewFont }}>
+                  <td className="nowrap" style={{ fontSize, fontFamily: state.fontFamily }}>
                     {previewText}
                   </td>
                 </tr>

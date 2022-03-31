@@ -40,6 +40,8 @@ export type FormState = {
   shouldUseRems: boolean;
   /** The number of decimal places to round the output to. */
   roundingDecimalPlaces: number;
+  /** The font family in which to preview the type scale. */
+  fontFamily: string;
 };
 
 /** An action that can be dispatched to update the app state. */
@@ -71,6 +73,10 @@ export type FormAction =
   | {
       type: 'setRoundingDecimalPlaces';
       payload: FormState['roundingDecimalPlaces'];
+    }
+  | {
+      type: 'setFontFamily';
+      payload: FormState['fontFamily'];
     };
 
 /** The name attributes for form inputs. Set on the individual form inputs but also used on the server side to read the data from query params. */
@@ -86,6 +92,7 @@ export enum FormDataKey {
   namingConvention = 'prefix',
   shouldUseRems = 'useRems',
   roundingDecimalPlaces = 'decimals',
+  fontFamily = 'font',
 }
 
 export type WithDispatch = {

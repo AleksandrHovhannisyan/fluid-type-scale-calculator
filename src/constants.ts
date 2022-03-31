@@ -56,6 +56,7 @@ export const initialFormState: FormState = {
   namingConvention: 'font-size',
   shouldUseRems: true,
   roundingDecimalPlaces: 2,
+  fontFamily: DEFAULT_FONT_FAMILY,
 };
 
 /** Enum of delays in milliseconds, for consistency across event handlers. */

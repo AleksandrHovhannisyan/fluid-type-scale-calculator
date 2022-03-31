@@ -34,6 +34,7 @@ export const getServerSideProps = async (
       namingConvention: query[FormDataKey.namingConvention],
       shouldUseRems: query[FormDataKey.shouldUseRems] === 'on',
       roundingDecimalPlaces: Number(query[FormDataKey.roundingDecimalPlaces]),
+      fontFamily: query[FormDataKey.fontFamily],
     };
     return {
       props: {

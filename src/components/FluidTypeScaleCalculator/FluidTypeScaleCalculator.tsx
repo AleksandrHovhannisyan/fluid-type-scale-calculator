@@ -36,6 +36,9 @@ const reducer = (state: FormState, action: FormAction): FormState => {
     case 'setRoundingDecimalPlaces': {
       return { ...state, roundingDecimalPlaces: action.payload };
     }
+    case 'setFontFamily': {
+      return { ...state, fontFamily: action.payload };
+    }
     default:
       return initialFormState;
   }
