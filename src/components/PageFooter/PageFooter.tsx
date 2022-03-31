@@ -1,4 +1,4 @@
-import { socials } from '../../data';
+import { socials } from '../../constants';
 import Link from '../Link/Link';
 import styles from './PageFooter.module.scss';
 

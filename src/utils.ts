@@ -1,4 +1,4 @@
-import { site } from './data';
+import { site } from './constants';
 
 /** Prefixes the given relative url string with the base site URL. */
 export const toAbsoluteUrl = (url: string) => {

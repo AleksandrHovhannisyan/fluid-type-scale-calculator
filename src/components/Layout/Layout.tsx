@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import packageJson from '../../../package.json';
 import SocialPreviewImage from '../../../public/assets/images/thumbnail.png';
-import { socials } from '../../data';
+import { socials } from '../../constants';
 import { toAbsoluteUrl } from '../../utils';
 import GithubCorner from '../GithubCorner/GithubCorner';
 import PageFooter from '../PageFooter/PageFooter';
