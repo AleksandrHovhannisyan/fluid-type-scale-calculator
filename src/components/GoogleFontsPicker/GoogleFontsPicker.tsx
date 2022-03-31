@@ -16,7 +16,7 @@ const GoogleFontsPicker = (props: GoogleFontsPickerProps) => {
   const pickerRef = useRef<HTMLSelectElement>(null);
 
   /* Set fonts from static props on intersection, for several reasons:
-    1. Scalability: Don't want to fetch Google Fonts on mount because that would require using serverless functions. Without a cache, assuming decent traffic, this would quickly blow the Netlify limit.
+    1. Scalability: Don't want to fetch Google Fonts on mount because that would require using serverless functions to keep the key private (unless we always do SSR). Without a cache, assuming decent traffic, this would quickly blow the Netlify limit.
     2. SEO: Don't want the initially server-side rendered HTML to return ~1k font family names, or this will start matching really absurd and irrelevant search queries (already seeing this in Google Search Console).
     3. Performance: This sends less HTML over the wire initially and on mount. */
   useEffect(() => {
