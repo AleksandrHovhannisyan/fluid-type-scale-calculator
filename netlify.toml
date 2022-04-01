@@ -1,7 +1,4 @@
 [[plugins]]
-  package = "netlify-plugin-checklinks"
-
-[[plugins]]
   package = "@netlify/plugin-lighthouse"
 
   # Fail build when a category is below a threshold
