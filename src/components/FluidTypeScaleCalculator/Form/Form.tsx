@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import Head from 'next/head';
 import Button from '../../Button/Button';
 import { useFormState } from '../FluidTypeScaleCalculator.context';
 import GroupMaximum from './GroupMaximum/GroupMaximum';
@@ -37,22 +38,31 @@ const Form = () => {
   }, [state, formRef]);
 
   return (
-    <form
-      id={TYPE_SCALE_FORM_ID}
-      className={styles.form}
-      action="/calculate"
-      method="GET"
-      ref={formRef}
-      onSubmit={(e) => e.preventDefault()}
-    >
-      <GroupMinimum />
-      <GroupMaximum />
-      <GroupModularSteps />
-      <GroupNamingConvention />
-      <GroupRounding />
-      <GroupUseRems />
-      <Button type="submit">Generate type scale variables</Button>
-    </form>
+    <>
+      <Head>
+        <noscript>
+          <style>{`.${styles['submit-button']} { display: unset !important; }`}</style>
+        </noscript>
+      </Head>
+      <form
+        id={TYPE_SCALE_FORM_ID}
+        className={styles.form}
+        action="/calculate"
+        method="GET"
+        ref={formRef}
+        onSubmit={(e) => e.preventDefault()}
+      >
+        <GroupMinimum />
+        <GroupMaximum />
+        <GroupModularSteps />
+        <GroupNamingConvention />
+        <GroupRounding />
+        <GroupUseRems />
+        <Button className={styles['submit-button']} type="submit">
+          Generate type scale variables
+        </Button>
+      </form>
+    </>
   );
 };
 

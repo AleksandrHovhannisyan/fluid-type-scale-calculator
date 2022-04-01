@@ -50,9 +50,6 @@ const Layout: FC<LayoutProps> = (props) => {
         {faviconSizes.map((width) => (
           <link key={width} rel="icon" href={`/assets/images/favicon-${width}.png`} sizes={`${width}x${width}`}></link>
         ))}
-        <noscript>
-          <style>{`#preview-inputs,#copy-to-clipboard-button{display:none}`}</style>
-        </noscript>
       </Head>
       {props.children}
       <PageFooter />
