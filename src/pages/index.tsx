@@ -1,24 +1,62 @@
-import type { GetStaticPropsResult, NextPage } from 'next';
+import type { GetServerSidePropsContext, GetServerSidePropsResult, NextPage } from 'next';
 import FluidTypeScaleCalculator from '../components/FluidTypeScaleCalculator/FluidTypeScaleCalculator';
 import HeroBanner from '../components/HeroBanner/HeroBanner';
 import Info from '../components/Info/Info';
 import Layout from '../components/Layout/Layout';
-import { site } from '../constants';
-import type { WithFonts } from '../types';
+import { initialFormState, site } from '../constants';
+import { FormDataKey, FormState, WithFonts } from '../types';
 import { getGoogleFontFamilies } from '../utils';
 
-type HomePageProps = WithFonts;
+type HomePageProps = WithFonts & {
+  initialState: FormState;
+};
 
-export const getStaticProps = async (): Promise<GetStaticPropsResult<HomePageProps>> => {
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext
+): Promise<GetServerSidePropsResult<HomePageProps>> => {
   const fonts = await getGoogleFontFamilies();
-  return { props: { fonts } };
+  try {
+    const query = context.query as Record<FormDataKey, string>;
+    // TODO: validate query params
+    const initialState: FormState = {
+      min: {
+        fontSize: Number(query[FormDataKey.minFontSize]),
+        screenWidth: Number(query[FormDataKey.minScreenWidth]),
+        modularRatio: Number(query[FormDataKey.minRatio]),
+      },
+      max: {
+        fontSize: Number(query[FormDataKey.maxFontSize]),
+        screenWidth: Number(query[FormDataKey.maxScreenWidth]),
+        modularRatio: Number(query[FormDataKey.maxRatio]),
+      },
+      modularSteps: query[FormDataKey.modularSteps].split(','),
+      baseModularStep: query[FormDataKey.baseModularStep],
+      namingConvention: query[FormDataKey.namingConvention],
+      shouldUseRems: query[FormDataKey.shouldUseRems] === 'on',
+      roundingDecimalPlaces: Number(query[FormDataKey.roundingDecimalPlaces]),
+      fontFamily: query[FormDataKey.fontFamily],
+    };
+    return {
+      props: {
+        initialState,
+        fonts,
+      },
+    };
+  } catch (e) {
+    return {
+      props: {
+        initialState: initialFormState,
+        fonts,
+      },
+    };
+  }
 };
 
 const Home: NextPage<HomePageProps> = (props) => {
   return (
     <Layout>
       <HeroBanner title={site.title} subtitle={site.description} />
-      <FluidTypeScaleCalculator fonts={props.fonts} />
+      <FluidTypeScaleCalculator initialState={props.initialState} fonts={props.fonts} />
       <Info />
     </Layout>
   );
