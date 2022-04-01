@@ -8,6 +8,7 @@
     "clean": "rimraf _site",
     "debug:html": "cross-env DEBUG=Eleventy* ELEVENTY_ENV=development npx slinkity --serve --incremental --port=8080",
     "dev": "cross-env ELEVENTY_ENV=development npx slinkity --serve --incremental --port=8080",
+    "serve": "cross-env ELEVENTY_ENV=production npx slinkity && npx serve _site",
     "build": "cross-env ELEVENTY_ENV=production npx slinkity",
     "lint": "npm-run-all lint:*",
     "lint:fix": "npm-run-all --parallel lint:*:fix",
