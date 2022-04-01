@@ -5,7 +5,7 @@ import GoogleFontsPicker from '../../GoogleFontsPicker/GoogleFontsPicker';
 import Input from '../../Input/Input';
 import Label from '../../Label/Label';
 import RangeInput from '../../RangeInput/RangeInput';
-import { defaultFonts } from './Preview.constants';
+import { DEFAULT_FONT_FAMILY } from './Preview.constants';
 import { getGoogleFontLinkHref } from './Preview.utils';
 import styles from './Preview.module.scss';
 
@@ -19,7 +19,7 @@ import styles from './Preview.module.scss';
 const Preview = (props) => {
   const { fonts, typeScale } = props;
   const [previewText, setPreviewText] = useState('Almost before we knew it, we had left the ground');
-  const [previewFont, setPreviewFont] = useState(defaultFonts[0]);
+  const [previewFont, setPreviewFont] = useState(DEFAULT_FONT_FAMILY);
   const [screenWidth, setScreenWidth] = useState(initialState.max.screenWidth);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ const Preview = (props) => {
 
   return (
     <section className={styles.preview}>
-      {!defaultFonts.includes(previewFont) && (
+      {previewFont !== DEFAULT_FONT_FAMILY && (
         <link rel="stylesheet" type="text/css" href={getGoogleFontLinkHref(previewFont)} />
       )}
       <h2>Preview your type scale</h2>

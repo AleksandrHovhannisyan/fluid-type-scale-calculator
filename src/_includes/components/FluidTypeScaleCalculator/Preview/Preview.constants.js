@@ -1,1 +1,1 @@
-export const defaultFonts = ['Inter'];
+export const DEFAULT_FONT_FAMILY = 'Inter';
