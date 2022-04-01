@@ -30,7 +30,9 @@ const Preview = (props) => {
 
   return (
     <section className={styles.preview}>
-      <link rel="stylesheet" type="text/css" href={getGoogleFontLinkHref(previewFont)} />
+      {!defaultFonts.includes(previewFont) && (
+        <link rel="stylesheet" type="text/css" href={getGoogleFontLinkHref(previewFont)} />
+      )}
       <h2>Preview your type scale</h2>
       <div id="preview-inputs" className={styles['label-group']}>
         <Label title="Font family">
