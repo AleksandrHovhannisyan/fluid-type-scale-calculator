@@ -1,5 +1,6 @@
 import type { ButtonHTMLAttributes } from 'react';
 import { useState } from 'react';
+import Head from 'next/head';
 import Alert from '../Alert/Alert';
 import Button from '../Button/Button';
 
@@ -8,13 +9,21 @@ type CopyToClipboardButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   text: string;
 };
 
+const BUTTON_ID = 'copy-to-clipboard-button';
+
 const CopyToClipboardButton = (props: CopyToClipboardButtonProps) => {
   const { text, onClick, ...otherProps } = props;
   const [isCopied, setIsCopied] = useState(false);
   return (
     <>
+      {/* Hide in a noscript environment since it's not possible to copy to clipboard without JS. */}
+      <Head>
+        <noscript>
+          <style>{`#${BUTTON_ID} { display: none; }`}</style>
+        </noscript>
+      </Head>
       <Button
-        id="copy-to-clipboard-button"
+        id={BUTTON_ID}
         type="button"
         onClick={(e) => {
           window.navigator.clipboard.writeText(text);

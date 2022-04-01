@@ -1,7 +1,6 @@
 import type { ChangeEvent } from 'react';
 import { useEffect, useState } from 'react';
 import clsx from 'clsx';
-import Head from 'next/head';
 import { DEFAULT_FONT_FAMILY, initialFormState } from '../../../constants';
 import type { TypeScale, WithFonts } from '../../../types';
 import { getGoogleFontLinkTagHref } from '../../../utils';
@@ -39,9 +38,8 @@ const Preview = (props: Props) => {
     <>
       {/* Don't make a duplicate request for the default font since we're self-hosting that. */}
       {state.fontFamily !== DEFAULT_FONT_FAMILY && (
-        <Head>
-          <link rel="stylesheet" type="text/css" href={getGoogleFontLinkTagHref(state.fontFamily)} />
-        </Head>
+        // Don't render in Head to bypass Next.js font optimization (which breaks in a no-JS environment)
+        <link rel="stylesheet" type="text/css" href={getGoogleFontLinkTagHref(state.fontFamily)} />
       )}
       <section className={styles.preview}>
         <h2>Preview your type scale</h2>
