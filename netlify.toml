@@ -2,7 +2,15 @@
   package = "netlify-plugin-checklinks"
 
 [[plugins]]
-  package = "netlify-plugin-lighthouse"
+  package = "@netlify/plugin-lighthouse"
+
+  # Fail build when a category is below a threshold
+  [plugins.inputs.thresholds]
+    performance = 0.9
+    accessibility = 1.0
+    best-practices = 0.9
+    seo = 0.9
+    pwa = 0
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
