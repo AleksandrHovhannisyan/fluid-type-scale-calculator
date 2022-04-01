@@ -35,7 +35,7 @@ const Layout: FC<LayoutProps> = (props) => {
         <title>{seoProps.title}</title>
         <meta name="description" content={seoProps.description} />
         <meta name="keywords" content={seoProps.keywords?.join(', ')} />
-        <meta name="author" content={process.env.NEXT_PUBLIC_SITE_AUTHOR} />
+        <meta name="author" content={packageJson.author.name} />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="canonical" href={pageUrl} />
         <meta property="og:title" content={seoProps.title} />

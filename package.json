@@ -3,7 +3,11 @@
   "description": "Generate fluid typography variables with a modular type scale.",
   "version": "1.0.2",
   "license": "MIT",
-  "author": "AleksandrHovhannisyan",
+  "author": {
+		"name": "Aleksandr Hovhannisyan",
+		"email": "aleksandrhovhannisyan@gmail.com",
+		"url": "https://www.aleksandrhovhannisyan.com/"
+	},
   "scripts": {
     "dev": "next dev",
     "prod": "run-s build start",
