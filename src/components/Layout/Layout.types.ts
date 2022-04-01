@@ -10,4 +10,6 @@ export type SEOProps = {
 export type LayoutProps = {
   /** SEO-specific props to change meta tags in the head. */
   seoProps?: SEOProps;
+  /** Whether the page should be blocked from indexing. More info: https://developers.google.com/search/docs/advanced/crawling/block-indexing */
+  isBlockedFromIndexing?: boolean;
 };

@@ -54,7 +54,7 @@ export const getServerSideProps = async (
 
 const Calculate: NextPage<CalculatePageProps> = (props) => {
   return (
-    <Layout>
+    <Layout isBlockedFromIndexing={true}>
       <HeroBanner title={site.title} subtitle={site.description} />
       <FluidTypeScaleCalculator initialState={props.initialState} fonts={props.fonts} />
       <Info />

@@ -47,6 +47,7 @@ const Layout: FC<LayoutProps> = (props) => {
         <meta name="twitter:author" content={socials.twitter.handle} />
         <meta name="twitter:description" content={seoProps.description} />
         <meta name="twitter:image" content={ogImageUrl} />
+        {props.isBlockedFromIndexing && <meta name="robots" content="noindex" />}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
         {faviconSizes.map((width) => (
           <link key={width} rel="icon" href={`/assets/images/favicon-${width}.png`} sizes={`${width}x${width}`}></link>
