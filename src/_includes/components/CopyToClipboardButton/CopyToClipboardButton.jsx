@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Alert } from '../Alert';
-import styles from './styles.module.scss';
+import { Alert } from '../Alert/Alert';
+import styles from './CopyToClipboardButton.module.scss';
 
 /**
  * @typedef CopyToClipboardButtonProps

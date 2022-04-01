@@ -1,6 +1,6 @@
 import { Action } from '../../../constants';
-import Input from '../../../Input';
-import Label from '../../../Label';
+import Input from '../../../Input/Input';
+import Label from '../../../Label/Label';
 
 /**
  * @param {Pick<import("../../typedefs").AppState, 'namingConvention'> & { dispatch: import("../../typedefs").AppDispatcher } } props

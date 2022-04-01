@@ -1,5 +1,5 @@
-import Input from '../Input';
-import Label from '../Label';
+import Input from '../Input/Input';
+import Label from '../Label/Label';
 
 /**
  * @type React.FC<React.HTMLProps<HTMLInputElement>>

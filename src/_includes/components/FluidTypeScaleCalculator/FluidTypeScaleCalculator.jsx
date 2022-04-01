@@ -1,11 +1,11 @@
 import { useReducer } from 'react';
-import Banner from '../Banner';
+import Banner from '../Banner/Banner';
 import { Action, initialState } from '../constants';
-import Stack from '../Stack';
-import Form from './Form';
-import Output from './Output';
-import Preview from './Preview';
-import styles from './styles.module.scss';
+import Stack from '../Stack/Stack';
+import Form from './Form/Form';
+import Output from './Output/Output';
+import Preview from './Preview/Preview';
+import styles from './FluidTypeScaleCalculator.module.scss';
 
 /**
  * @param {import('./typedefs').AppState} state The previous app state

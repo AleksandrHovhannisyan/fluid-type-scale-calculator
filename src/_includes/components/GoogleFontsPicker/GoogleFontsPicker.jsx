@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Delay } from '../constants';
-import Select from '../Select';
+import Select from '../Select/Select';
 
 /**
  * @typedef GoogleFontsPickerProps

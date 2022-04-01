@@ -1,8 +1,8 @@
 import { Action } from '../../../constants';
-import Input from '../../../Input';
-import Label from '../../../Label';
-import LabelGroup from '../../../Label/LabelGroup';
-import TypeScalePicker from '../../TypeScalePicker';
+import Input from '../../../Input/Input';
+import Label from '../../../Label/Label';
+import LabelGroup from '../../../Label/LabelGroup/LabelGroup';
+import TypeScalePicker from '../../TypeScalePicker/TypeScalePicker';
 
 /**
  * @param {Pick<import("../../typedefs").AppState, 'max'> & { dispatch: import("../../typedefs").AppDispatcher; minScreenWidth: number }} props

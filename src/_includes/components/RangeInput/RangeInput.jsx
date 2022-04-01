@@ -1,6 +1,6 @@
-import Input from '../Input';
-import Label from '../Label';
-import styles from './styles.module.scss';
+import Input from '../Input/Input';
+import Label from '../Label/Label';
+import styles from './RangeInput.module.scss';
 
 /**
  * @typedef RangeInputProps

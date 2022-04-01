@@ -1,4 +1,4 @@
-import styles from './styles.module.scss';
+import styles from './HeroBanner.module.scss';
 
 /**
  * @typedef HeroBannerProps

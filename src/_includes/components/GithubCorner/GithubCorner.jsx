@@ -1,5 +1,5 @@
-import Link from '../Link';
-import styles from './styles.module.scss';
+import Link from '../Link/Link';
+import styles from './GithubCorner.module.scss';
 
 const GithubCorner = () => {
   return (

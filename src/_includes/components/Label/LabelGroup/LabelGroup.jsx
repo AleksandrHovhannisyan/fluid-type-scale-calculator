@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import styles from './styles.module.scss';
+import styles from './LabelGroup.module.scss';
 
 /** @type {React.FC<React.HTMLProps<HTMLDivElement>>} */
 const LabelGroup = ({ className, children, ...otherProps }) => {

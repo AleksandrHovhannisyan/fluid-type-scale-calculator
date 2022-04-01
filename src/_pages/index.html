@@ -6,11 +6,11 @@ eleventyComputed:
 
 <main id="page">
   {%- comment -%}Static content{%- endcomment -%}
-  {% react 'components/HeroBanner/index' 'render' 'static' 'title' site.title 'subtitle' site.description %}
+  {% react 'components/HeroBanner/HeroBanner' 'render' 'static' 'title' site.title 'subtitle' site.description %}
   {%- comment -%}Interactive piece of the app{%- endcomment -%}
-  {% react 'components/FluidTypeScaleCalculator/index' 'fonts' googleFonts %}
+  {% react 'components/FluidTypeScaleCalculator/FluidTypeScaleCalculator' 'fonts' googleFonts %}
   {%- comment -%}Static content{%- endcomment -%}
-  {% react 'components/Info/index' 'render' 'static' %}
-  {% react 'components/PageFooter/index' 'render' 'static' 'socials' socials %}
-  {% react 'components/GithubCorner/index' 'render' 'static' %}
+  {% react 'components/Info/Info' 'render' 'static' %}
+  {% react 'components/PageFooter/PageFooter' 'render' 'static' 'socials' socials %}
+  {% react 'components/GithubCorner/GithubCorner' 'render' 'static' %}
 </main>

@@ -1,10 +1,10 @@
-import GroupMaximum from './GroupMaximum';
-import GroupMinimum from './GroupMinimum';
-import GroupModularSteps from './GroupModularSteps';
-import GroupNamingConvention from './GroupNamingConvention';
-import GroupRounding from './GroupRounding';
-import GroupUseRems from './GroupUseRems';
-import styles from './styles.module.scss';
+import GroupMaximum from './GroupMaximum/GroupMaximum';
+import GroupMinimum from './GroupMinimum/GroupMinimum';
+import GroupModularSteps from './GroupModularSteps/GroupModularSteps';
+import GroupNamingConvention from './GroupNamingConvention/GroupNamingConvention';
+import GroupRounding from './GroupRounding/GroupRounding';
+import GroupUseRems from './GroupUseRems/GroupUseRems';
+import styles from './Form.module.scss';
 
 /**
  * @param {import('../typedefs').AppState & { dispatch: import("../../typedefs").AppDispatcher }} props

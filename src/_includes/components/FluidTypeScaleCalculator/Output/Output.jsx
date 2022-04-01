@@ -1,5 +1,5 @@
-import CopyToClipboardButton from '../../CopyToClipboardButton';
-import styles from './styles.module.scss';
+import CopyToClipboardButton from '../../CopyToClipboardButton/CopyToClipboardButton';
+import styles from './Output.module.scss';
 
 /**
  * @typedef OutputProps

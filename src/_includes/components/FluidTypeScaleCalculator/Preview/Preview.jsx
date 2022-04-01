@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { initialState } from '../../constants';
-import GoogleFontsPicker from '../../GoogleFontsPicker';
-import Input from '../../Input';
-import Label from '../../Label';
-import RangeInput from '../../RangeInput';
-import { defaultFonts } from './constants';
-import { getGoogleFontLinkHref } from './utils';
-import styles from './styles.module.scss';
+import GoogleFontsPicker from '../../GoogleFontsPicker/GoogleFontsPicker';
+import Input from '../../Input/Input';
+import Label from '../../Label/Label';
+import RangeInput from '../../RangeInput/RangeInput';
+import { defaultFonts } from './Preview.constants';
+import { getGoogleFontLinkHref } from './Preview.utils';
+import styles from './Preview.module.scss';
 
 /**
  * @typedef PreviewProps
