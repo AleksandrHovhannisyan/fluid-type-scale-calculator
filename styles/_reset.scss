@@ -16,13 +16,6 @@
   }
 }
 
-body {
-  font-family: var(--ff-body);
-  accent-color: var(--color-surface-dark);
-  -webkit-font-smoothing: antialiased;
-}
-
-/* stylelint-disable-next-line no-descending-specificity */
 button,
 label,
 input,
@@ -83,12 +76,6 @@ img {
   height: auto;
 }
 
-::selection {
-  background-color: var(--color-surface-dark);
-  color: var(--color-surface-light);
-  text-shadow: none;
-}
-
 button {
   cursor: pointer;
   border: none;
@@ -99,47 +86,6 @@ button {
     outline: solid 4px var(--color-surface-dark);
     outline-offset: 4px;
   }
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin-block-end: 0.25em;
-}
-
-h1 {
-  font-size: var(--sp-xxxl);
-}
-
-h2 {
-  font-size: var(--sp-xxl);
-}
-
-h3 {
-  font-size: var(--sp-xl);
-}
-
-h4 {
-  font-size: var(--sp-lg);
-}
-
-h5 {
-  font-size: var(--sp-md);
-}
-
-h6 {
-  font-size: var(--sp-base);
-}
-
-code {
-  font-family: var(--ff-code);
-  font-weight: var(--fw-code-regular);
-  font-size: var(--sp-sm);
-  background-color: var(--color-surface-medium);
-  padding: 4px;
 }
 
 fieldset {

@@ -4,6 +4,12 @@
 @import "./variables";
 @import "./utils";
 
+::selection {
+  background-color: var(--color-surface-dark);
+  color: var(--color-surface-light);
+  text-shadow: none;
+}
+
 body {
   padding: clamped(12px, 32px);
   padding-top: clamped(48px, 100px);
@@ -11,9 +17,53 @@ body {
   font-size: var(--sp-base);
   max-width: 1800px;
   margin: 0 auto;
+  font-family: var(--ff-body);
+  accent-color: var(--color-surface-dark);
+  -webkit-font-smoothing: antialiased;
 }
 
 #page {
   display: grid;
   gap: var(--sp-xl);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-block-end: 0.25em;
+}
+
+h1 {
+  font-size: var(--sp-xxxl);
+}
+
+h2 {
+  font-size: var(--sp-xxl);
+}
+
+h3 {
+  font-size: var(--sp-xl);
+}
+
+h4 {
+  font-size: var(--sp-lg);
+}
+
+h5 {
+  font-size: var(--sp-md);
+}
+
+h6 {
+  font-size: var(--sp-base);
+}
+
+code {
+  font-family: var(--ff-code);
+  font-weight: var(--fw-code-regular);
+  font-size: var(--sp-sm);
+  background-color: var(--color-surface-medium);
+  padding: 4px;
 }
