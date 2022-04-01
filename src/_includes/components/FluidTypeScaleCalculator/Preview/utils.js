@@ -1,17 +1,3 @@
-// No need to use a Head lib
-export const getFontLinkTag = (id) => {
-  const existingLink = document.getElementById(id);
-  if (existingLink) {
-    document.head.removeChild(existingLink);
-  }
-  const link = document.createElement('link');
-  link.removeEventListener('load', onLinkLoaded);
-  link.id = id;
-  link.rel = 'stylesheet';
-  return link;
-};
-
-export const onLinkLoaded = (fontFamily, previewText, setFont) => async () => {
-  await document.fonts.load(`1em ${fontFamily}`, previewText);
-  setFont(fontFamily);
-};
+/** Returns the link href for a Google Font family. */
+export const getGoogleFontLinkHref = (fontFamily) =>
+  `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/ /g, '+')}&display=swap`;

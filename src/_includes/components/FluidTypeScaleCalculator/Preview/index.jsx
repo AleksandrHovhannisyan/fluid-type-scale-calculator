@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { initialState } from '../../constants';
 import GoogleFontsPicker from '../../GoogleFontsPicker';
@@ -6,7 +6,7 @@ import Input from '../../Input';
 import Label from '../../Label';
 import RangeInput from '../../RangeInput';
 import { defaultFonts } from './constants';
-import { getFontLinkTag, onLinkLoaded } from './utils';
+import { getGoogleFontLinkHref } from './utils';
 import styles from './styles.module.scss';
 
 /**
@@ -28,24 +28,17 @@ const Preview = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  /** @param {string} fontFamily The name of the selected font */
-  const onFontSelected = useCallback(
-    async (e) => {
-      const fontFamily = e.target.value;
-      const link = getFontLinkTag('user-selected-font');
-      document.head.appendChild(link);
-      link.addEventListener('load', onLinkLoaded(fontFamily, previewText, setPreviewFont));
-      link.href = `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/ /g, '+')}&display=swap`;
-    },
-    [previewText]
-  );
-
   return (
     <section className={styles.preview}>
+      <link rel="stylesheet" type="text/css" href={getGoogleFontLinkHref(previewFont)} />
       <h2>Preview your type scale</h2>
       <div id="preview-inputs" className={styles['label-group']}>
         <Label title="Font family">
-          <GoogleFontsPicker fonts={fonts} defaultValue={previewFont} onChange={onFontSelected} />
+          <GoogleFontsPicker
+            fonts={fonts}
+            defaultValue={previewFont}
+            onChange={(e) => setPreviewFont(e.target.value)}
+          />
         </Label>
         <Label title="Preview text" className={clsx('label', styles['preview-text-label'])}>
           <Input
