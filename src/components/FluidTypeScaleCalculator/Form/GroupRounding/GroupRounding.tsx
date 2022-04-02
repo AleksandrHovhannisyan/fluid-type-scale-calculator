@@ -25,7 +25,7 @@ const GroupRounding = () => {
         onChange={(e) =>
           dispatch({
             type: 'setRoundingDecimalPlaces',
-            payload: Number(e.target.value),
+            payload: e.target.valueAsNumber,
           })
         }
       />

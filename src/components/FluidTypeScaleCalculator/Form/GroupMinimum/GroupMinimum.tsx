@@ -26,7 +26,7 @@ const GroupMinimum = () => {
               dispatch({
                 type: 'setMin',
                 payload: {
-                  fontSize: Number(e.target.value),
+                  fontSize: e.target.valueAsNumber,
                 },
               })
             }
@@ -45,7 +45,7 @@ const GroupMinimum = () => {
               dispatch({
                 type: 'setMin',
                 payload: {
-                  screenWidth: Number(e.target.value),
+                  screenWidth: e.target.valueAsNumber,
                 },
               })
             }
@@ -55,7 +55,7 @@ const GroupMinimum = () => {
           name={FormDataKey.minRatio}
           id="type-scale-min"
           ratio={state.min.modularRatio}
-          onChange={(e) => dispatch({ type: 'setMin', payload: { modularRatio: Number(e.target.value) } })}
+          onChange={(e) => dispatch({ type: 'setMin', payload: { modularRatio: e.target.valueAsNumber } })}
         />
       </LabelGroup>
     </Label>

@@ -27,7 +27,7 @@ const GroupMaximum = () => {
               dispatch({
                 type: 'setMax',
                 payload: {
-                  fontSize: Number(e.target.value),
+                  fontSize: e.target.valueAsNumber,
                 },
               })
             }
@@ -45,7 +45,7 @@ const GroupMaximum = () => {
               dispatch({
                 type: 'setMax',
                 payload: {
-                  screenWidth: Number(e.target.value),
+                  screenWidth: e.target.valueAsNumber,
                 },
               })
             }
@@ -55,7 +55,7 @@ const GroupMaximum = () => {
           name={FormDataKey.maxRatio}
           id="type-scale-max"
           ratio={state.max.modularRatio}
-          onChange={(e) => dispatch({ type: 'setMax', payload: { modularRatio: Number(e.target.value) } })}
+          onChange={(e) => dispatch({ type: 'setMax', payload: { modularRatio: e.target.valueAsNumber } })}
         />
       </LabelGroup>
     </Label>
