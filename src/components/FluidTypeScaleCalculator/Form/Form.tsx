@@ -31,7 +31,6 @@ const Form = () => {
     const newUrl = `/calculate?${urlParams}`;
     // We could also do this routing with Next.js's router, but that would trigger a page reload (even with shallow: true)
     // because we're requesting a new page. Why two pages? Because I want the home page to be SSG for better TTFB but the calculate route to be SSR for link sharing via query params.
-    // Also, this ensures that pressing the back button forces the page to re-render and update the view rather than showing stale data in the UI and cycling through history.
     // See here for the solution: https://github.com/vercel/next.js/discussions/18072#discussioncomment-109059
     window.history.replaceState({ ...window.history.state, as: newUrl, url: newUrl }, '', newUrl);
     // eslint-disable-next-line react-hooks/exhaustive-deps
