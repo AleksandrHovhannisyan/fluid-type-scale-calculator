@@ -1,12 +1,9 @@
-import type { ChangeEventHandler, HTMLProps } from 'react';
-import Input from '../Input/Input';
+import Input, { InputProps } from '../Input/Input';
 import Label from '../Label/Label';
 
-type CheckboxProps = Omit<HTMLProps<HTMLInputElement>, 'onChange'> & {
+type CheckboxProps = Omit<InputProps, 'type'> & {
   /** The label for the checkbox. */
   children?: string;
-  /** Callback for the change event when the checkbox is toggled. */
-  onChange?: ChangeEventHandler<HTMLInputElement>;
 };
 
 const Checkbox = ({ children, ...otherProps }: CheckboxProps) => {
