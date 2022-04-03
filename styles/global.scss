@@ -12,20 +12,11 @@
 }
 
 body {
-  padding: clamped(12px, 32px);
-  padding-top: clamped(48px, 100px);
-  padding-bottom: 0;
   font-size: var(--sp-base);
-  max-width: 1800px;
-  margin: 0 auto;
   font-family: var(--ff-body);
+  font-weight: var(--fw-body-regular);
   accent-color: var(--color-surface-dark);
   -webkit-font-smoothing: antialiased;
-}
-
-#page {
-  display: grid;
-  gap: var(--sp-xl);
 }
 
 h1,

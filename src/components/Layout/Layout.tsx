@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import clsx from 'clsx';
 import type { JsonLd } from 'jsonld/jsonld-spec';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -9,6 +10,7 @@ import GithubCorner from '../GithubCorner/GithubCorner';
 import PageFooter from '../PageFooter/PageFooter';
 import { defaultSeoProps, faviconSizes } from './Layout.constants';
 import type { LayoutProps } from './Layout.types';
+import styles from './Layout.module.scss';
 
 const Layout: FC<LayoutProps> = (props) => {
   const { seoProps = defaultSeoProps } = props;
@@ -30,7 +32,7 @@ const Layout: FC<LayoutProps> = (props) => {
   const ogImageUrl = toAbsoluteUrl('/assets/images/thumbnail.png');
 
   return (
-    <main id="page">
+    <main className={clsx(styles.layout, 'container')}>
       <Head>
         <title>{seoProps.title}</title>
         <meta name="description" content={seoProps.description} />
