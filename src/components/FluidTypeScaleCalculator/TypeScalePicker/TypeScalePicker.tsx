@@ -25,6 +25,7 @@ const TypeScalePicker = (props: TypeScalePickerProps) => {
         defaultValue={ratio}
         onChange={onChange}
         required={true}
+        delay={0}
       />
       <datalist id={id}>
         {Object.entries(modularRatios).map(([key, { name, ratio }]) => {
