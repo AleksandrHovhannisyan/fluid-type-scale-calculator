@@ -49,7 +49,10 @@
     "typescript": "4.6.3"
   },
   "browserslist": [
-    "last 2 chrome versions or last 3 safari versions or last 2 firefox versions or last 2 edge versions"
+    "last 2 chrome versions",
+    "last 3 safari versions",
+    "last 2 firefox versions",
+    "last 2 edge versions"
   ],
   "husky": {
     "hooks": {
