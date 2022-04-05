@@ -76,18 +76,6 @@ img {
   height: auto;
 }
 
-button {
-  cursor: pointer;
-  border: none;
-  background: var(--color-surface-dark);
-  color: var(--color-surface-light);
-
-  &:focus-visible {
-    outline: solid 4px var(--color-surface-dark);
-    outline-offset: 4px;
-  }
-}
-
 fieldset {
   border: none;
 }

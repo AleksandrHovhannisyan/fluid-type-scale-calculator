@@ -1,8 +1,9 @@
 {
   "extends": [
     "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended"
   ],
   "plugins": [
     "prettier",
@@ -16,6 +17,7 @@
     "jest": true,
     "es6": true
   },
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "sourceType": "module",
     "ecmaVersion": "latest",
@@ -24,13 +26,16 @@
     }
   },
   "rules": {
+    "eqeqeq": "error",
+    "no-console": "warn",
+    "no-undef": "off",
+    "no-unused-vars": "off",
+    "prettier/prettier": "error",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/no-unused-vars": "warn",
     "sort-imports": "off",
-    "prettier/prettier": [
-      "error"
-    ],
-    "react/display-name": "off",
-    "react/no-children-prop": "off",
-    "react/react-in-jsx-scope": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "react/prop-types": "off",
