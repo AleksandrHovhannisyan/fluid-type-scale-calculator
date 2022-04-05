@@ -4,16 +4,17 @@
   "version": "1.0.2",
   "license": "MIT",
   "author": {
-		"name": "Aleksandr Hovhannisyan",
-		"email": "aleksandrhovhannisyan@gmail.com",
-		"url": "https://www.aleksandrhovhannisyan.com/"
-	},
+    "name": "Aleksandr Hovhannisyan",
+    "email": "aleksandrhovhannisyan@gmail.com",
+    "url": "https://www.aleksandrhovhannisyan.com/"
+  },
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "prod": "run-s build start",
     "build": "next build",
     "start": "next start",
-    "postbuild": "next-sitemap",
+    "postbuild": "next-sitemap --config next-sitemap.cjs",
     "lint": "npm-run-all lint:*",
     "lint:fix": "npm-run-all --parallel lint:*:fix",
     "lint:css": "stylelint \"src/**/*.scss\"",
@@ -39,6 +40,7 @@
     "husky": "^4.3.0",
     "lint-staged": "^10.4.0",
     "netlify-cli": "^8.5.0",
+    "next-plugin-preact": "^3.0.6",
     "next-sitemap": "^2.5.14",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.5.0",
@@ -68,7 +70,10 @@
     "clsx": "^1.1.1",
     "lodash": "^4.17.21",
     "next": "12.1.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "preact": "^10.7.1",
+    "preact-render-to-string": "^5.1.20",
+    "react": "npm:@preact/compat",
+    "react-dom": "npm:@preact/compat",
+    "react-ssr-prepass": "npm:preact-ssr-prepass"
   }
 }
