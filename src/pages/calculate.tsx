@@ -14,27 +14,30 @@ type CalculatePageProps = WithFonts & {
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ): Promise<GetServerSidePropsResult<CalculatePageProps>> => {
+  const query = context.query as Record<FormDataKey, string>;
   const fonts = await getGoogleFontFamilies();
+
+  /** Helper to return a query param by key. */
+  const getQueryParam = (key: keyof typeof FormDataKey) => query[FormDataKey[key]];
+
   try {
-    const query = context.query as Record<FormDataKey, string>;
-    // TODO: validate query params
     const initialState: FormState = {
       min: {
-        fontSize: Number(query[FormDataKey.minFontSize]),
-        screenWidth: Number(query[FormDataKey.minScreenWidth]),
-        modularRatio: Number(query[FormDataKey.minRatio]),
+        fontSize: Number(getQueryParam('minFontSize')),
+        screenWidth: Number(getQueryParam('minScreenWidth')),
+        modularRatio: Number(getQueryParam('minRatio')),
       },
       max: {
-        fontSize: Number(query[FormDataKey.maxFontSize]),
-        screenWidth: Number(query[FormDataKey.maxScreenWidth]),
-        modularRatio: Number(query[FormDataKey.maxRatio]),
+        fontSize: Number(getQueryParam('maxFontSize')),
+        screenWidth: Number(getQueryParam('maxScreenWidth')),
+        modularRatio: Number(getQueryParam('maxRatio')),
       },
-      modularSteps: query[FormDataKey.modularSteps].split(','),
-      baseModularStep: query[FormDataKey.baseModularStep],
-      namingConvention: query[FormDataKey.namingConvention],
-      shouldUseRems: query[FormDataKey.shouldUseRems] === 'on',
-      roundingDecimalPlaces: Number(query[FormDataKey.roundingDecimalPlaces]),
-      fontFamily: query[FormDataKey.fontFamily],
+      modularSteps: getQueryParam('modularSteps').split(','),
+      baseModularStep: getQueryParam('baseModularStep'),
+      namingConvention: getQueryParam('namingConvention'),
+      shouldUseRems: getQueryParam('shouldUseRems') === 'on',
+      roundingDecimalPlaces: Number(getQueryParam('roundingDecimalPlaces')),
+      fontFamily: getQueryParam('fontFamily'),
     };
     return {
       props: {
