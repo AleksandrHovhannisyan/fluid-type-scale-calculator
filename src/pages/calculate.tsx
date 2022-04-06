@@ -18,8 +18,8 @@ export const getServerSideProps = async (
   const query = context.query as Record<FormDataKey, string>;
   const fonts = await getGoogleFontFamilies();
 
-  /** Helper to return a query param by key. */
-  const getQueryParam = (key: keyof typeof FormDataKey) => query[FormDataKey[key]];
+  /** Helper to return a query param by key, if it exists, and an empty string otherwise. */
+  const getQueryParam = (key: keyof typeof FormDataKey) => query[FormDataKey[key]] ?? '';
 
   /** Checks if the provided value is a number. If it is, returns that value. Else, returns the specified fallback. */
   const withNumericFallback = (value: string, fallback: number): number =>
