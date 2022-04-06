@@ -8,13 +8,12 @@
     "email": "aleksandrhovhannisyan@gmail.com",
     "url": "https://www.aleksandrhovhannisyan.com/"
   },
-  "type": "module",
   "scripts": {
     "dev": "next dev",
     "prod": "run-s build start",
     "build": "next build",
     "start": "next start",
-    "postbuild": "next-sitemap --config next-sitemap.cjs",
+    "postbuild": "next-sitemap",
     "lint": "npm-run-all lint:*",
     "lint:fix": "npm-run-all --parallel lint:*:fix",
     "lint:css": "stylelint \"src/**/*.scss\"",
