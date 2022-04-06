@@ -5,6 +5,7 @@ import Label from '../../../Label/Label';
 import LabelGroup from '../../../Label/LabelGroup/LabelGroup';
 import Select from '../../../Select/Select';
 import { useFormState } from '../../FluidTypeScaleCalculator.context';
+import { COMMA_SEPARATED_LIST_REGEX } from './GroupModularSteps.constants';
 
 const GroupModularSteps = () => {
   const { state, dispatch } = useFormState();
@@ -22,7 +23,7 @@ const GroupModularSteps = () => {
             type="text"
             required
             spellCheck="false"
-            pattern="^[a-zA-Z0-9-](?:(,\s*)?[a-zA-Z0-9-])*$"
+            pattern={COMMA_SEPARATED_LIST_REGEX.source}
             defaultValue={state.modularSteps.join(',')}
             delay={Delay.MEDIUM}
             onChange={(e) =>
