@@ -1,6 +1,6 @@
 import type { GetServerSidePropsContext, GetServerSidePropsResult, NextPage } from 'next';
 import FluidTypeScaleCalculator from '../components/FluidTypeScaleCalculator/FluidTypeScaleCalculator';
-import { COMMA_SEPARATED_LIST_REGEX } from '../components/FluidTypeScaleCalculator/Form/GroupModularSteps/GroupModularSteps.constants';
+import { COMMA_SEPARATED_LIST_REGEX } from '../components/FluidTypeScaleCalculator/Form/GroupTypeScaleSteps/GroupTypeScaleSteps.constants.';
 import HeroBanner from '../components/HeroBanner/HeroBanner';
 import Info from '../components/Info/Info';
 import Layout from '../components/Layout/Layout';
@@ -26,9 +26,9 @@ export const getServerSideProps = async (
     Number.isNaN(+value) ? fallback : Number(value);
 
   try {
-    const modularSteps = getQueryParam('modularSteps');
-    const areStepsValid = COMMA_SEPARATED_LIST_REGEX.test(modularSteps);
-    const baseModularStep = getQueryParam('baseModularStep');
+    const allTypeScaleSteps = getQueryParam('allSteps');
+    const areStepsValid = COMMA_SEPARATED_LIST_REGEX.test(allTypeScaleSteps);
+    const baseTypeScaleStep = getQueryParam('baseStep');
     const fontFamily = getQueryParam('fontFamily');
 
     const initialState: FormState = {
@@ -42,10 +42,12 @@ export const getServerSideProps = async (
         screenWidth: withNumericFallback(getQueryParam('maxScreenWidth'), initialFormState.max.screenWidth),
         modularRatio: withNumericFallback(getQueryParam('maxRatio'), initialFormState.max.modularRatio),
       },
-      modularSteps: areStepsValid ? modularSteps.split(',') : initialFormState.modularSteps,
-      baseModularStep: modularSteps.split(',').includes(baseModularStep)
-        ? baseModularStep
-        : initialFormState.baseModularStep,
+      typeScaleSteps: {
+        all: areStepsValid ? allTypeScaleSteps.split(',') : initialFormState.typeScaleSteps.all,
+        base: allTypeScaleSteps.split(',').includes(baseTypeScaleStep)
+          ? baseTypeScaleStep
+          : initialFormState.typeScaleSteps.base,
+      },
       namingConvention: getQueryParam('namingConvention'),
       shouldUseRems: getQueryParam('shouldUseRems') === 'on',
       roundingDecimalPlaces: withNumericFallback(

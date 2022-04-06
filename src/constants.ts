@@ -51,8 +51,10 @@ export const initialFormState: FormState = {
     screenWidth: 1280,
     modularRatio: modularRatios.perfectFourth.ratio,
   },
-  modularSteps: ['sm', 'base', 'md', 'lg', 'xl', 'xxl', 'xxxl'],
-  baseModularStep: 'base',
+  typeScaleSteps: {
+    all: ['sm', 'base', 'md', 'lg', 'xl', 'xxl', 'xxxl'],
+    base: 'base',
+  },
   namingConvention: 'font-size',
   shouldUseRems: true,
   roundingDecimalPlaces: 2,

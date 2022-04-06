@@ -30,10 +30,13 @@ export type FormState = {
   min: BreakpointConfig;
   /** The maximum (desktop) config, describing how the font size should behave when the viewport width is >= this breakpoint. */
   max: BreakpointConfig;
-  /** A list of modular step names in the type scale. */
-  modularSteps: string[];
-  /** The name of the base modular step in the type scale. All other steps are up/down from this reference point. */
-  baseModularStep: string;
+  /** A config describing the user-defined type scale steps and base step. */
+  typeScaleSteps: {
+    /** The names of all of the steps in the user-defined type scale. */
+    all: string[];
+    /** The name of the type scale's base step. Steps that come before the base step have a smaller font size; steps that come after have a larger font size. */
+    base: string;
+  };
   /** The string prefix to use when creating the output CSS custom property variables. Example: `fs` with steps of `base`, `md`, and `lg` implies that you get three variables: `--fs-base`, `--fs-md`, and `--fs-lg`. */
   namingConvention: string;
   /** Whether to use rems for font sizing in the output. */
@@ -55,12 +58,8 @@ export type FormAction =
       payload: Partial<FormState['max']>;
     }
   | {
-      type: 'setModularSteps';
-      payload: FormState['modularSteps'];
-    }
-  | {
-      type: 'setBaseModularStep';
-      payload: FormState['baseModularStep'];
+      type: 'setTypeScaleSteps';
+      payload: Partial<FormState['typeScaleSteps']>;
     }
   | {
       type: 'setNamingConvention';
@@ -87,8 +86,8 @@ export enum FormDataKey {
   maxFontSize = 'maxFontSize',
   maxScreenWidth = 'maxWidth',
   maxRatio = 'maxRatio',
-  modularSteps = 'steps',
-  baseModularStep = 'base',
+  allSteps = 'steps',
+  baseStep = 'base',
   namingConvention = 'prefix',
   shouldUseRems = 'useRems',
   roundingDecimalPlaces = 'decimals',

@@ -19,13 +19,15 @@ const reducer = (state: FormState, action: FormAction): FormState => {
     case 'setMax': {
       return { ...state, max: { ...state.max, ...action.payload } };
     }
-    case 'setModularSteps': {
-      const modularSteps = action.payload;
-      const baseModularStep = modularSteps.includes(state.baseModularStep) ? state.baseModularStep : modularSteps[0];
-      return { ...state, modularSteps, baseModularStep };
-    }
-    case 'setBaseModularStep': {
-      return { ...state, baseModularStep: action.payload };
+    case 'setTypeScaleSteps': {
+      const allSteps = action.payload.all ?? state.typeScaleSteps.all;
+      let baseStep = action.payload.base ?? state.typeScaleSteps.base;
+      // This might happen if a user changes the array of steps and the base step becomes stale, pointing to a now-invalid value.
+      // In that case, we reset the base step to the first item in the array of all steps. Users can change this later.
+      if (!allSteps.includes(baseStep)) {
+        baseStep = allSteps[0];
+      }
+      return { ...state, typeScaleSteps: { all: allSteps, base: baseStep } };
     }
     case 'setNamingConvention': {
       return { ...state, namingConvention: action.payload };
@@ -62,15 +64,18 @@ const FluidTypeScaleCalculator = (props: Props) => {
   const convertToDesiredUnit = (px: number) => (state.shouldUseRems ? px / 16 : px);
 
   // Get the index of the base modular step to compute exponents relative to the base index (up/down)
-  const baseModularStepIndex = state.modularSteps.indexOf(state.baseModularStep);
+  const baseStepIndex = state.typeScaleSteps.all.indexOf(state.typeScaleSteps.base);
 
-  const typeScale = state.modularSteps.reduce((steps, step, i) => {
+  // Reshape the data so we map each step name to a config describing its fluid font sizing values.
+  // Do this on every render because it's essentially derived state; no need for a useEffect.
+  // Note that some state variables are not necessary for this calculation, but it's simple enough that it's not expensive.
+  const typeScale = state.typeScaleSteps.all.reduce((steps, step, i) => {
     const min = {
-      fontSize: state.min.fontSize * Math.pow(state.min.modularRatio, i - baseModularStepIndex),
+      fontSize: state.min.fontSize * Math.pow(state.min.modularRatio, i - baseStepIndex),
       breakpoint: state.min.screenWidth,
     };
     const max = {
-      fontSize: state.max.fontSize * Math.pow(state.max.modularRatio, i - baseModularStepIndex),
+      fontSize: state.max.fontSize * Math.pow(state.max.modularRatio, i - baseStepIndex),
       breakpoint: state.max.screenWidth,
     };
     const slope = (max.fontSize - min.fontSize) / (max.breakpoint - min.breakpoint);
