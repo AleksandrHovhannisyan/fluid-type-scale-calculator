@@ -6,7 +6,7 @@ import Info from '../components/Info/Info';
 import Layout from '../components/Layout/Layout';
 import { DEFAULT_FONT_FAMILY, initialFormState, site } from '../constants';
 import { FormDataKey, FormState, WithFonts } from '../types';
-import { getGoogleFontFamilies } from '../utils';
+import { getGoogleFontFamilies, isNumber, throwIf } from '../utils';
 
 type CalculatePageProps = WithFonts & {
   initialState: FormState;
@@ -19,42 +19,54 @@ export const getServerSideProps = async (
   const fonts = await getGoogleFontFamilies();
 
   /** Helper to return a query param by key, if it exists, and an empty string otherwise. */
-  const getQueryParam = (key: keyof typeof FormDataKey) => query[FormDataKey[key]] ?? '';
+  const getQueryParam = (key: keyof typeof FormDataKey): string | undefined => query[FormDataKey[key]];
 
-  /** Checks if the provided value is a number. If it is, returns that value. Else, returns the specified fallback. */
-  const withNumericFallback = (value: string, fallback: number): number =>
-    Number.isNaN(+value) ? fallback : Number(value);
+  /** Helper that fetches the given key from query params, expecting to find a string that looks like a number. If the param does not exist,
+   * returns the fallback. If the param exists but is not of a numeric type, throws an error. Else, returns the parsed param as a number. */
+  const getNumericParamWithFallback = (key: keyof typeof FormDataKey, fallback: number): number => {
+    const param = getQueryParam(key);
+    if (typeof param === 'undefined') {
+      return fallback;
+    }
+    throwIf(!isNumber(param));
+    return Number(param);
+  };
 
   try {
-    const allTypeScaleSteps = getQueryParam('allSteps');
-    const areStepsValid = COMMA_SEPARATED_LIST_REGEX.test(allTypeScaleSteps);
-    const baseTypeScaleStep = getQueryParam('baseStep');
-    const fontFamily = getQueryParam('fontFamily');
+    const allTypeScaleSteps = getQueryParam('allSteps') ?? initialFormState.typeScaleSteps.all.join(',');
+    const baseTypeScaleStep = getQueryParam('baseStep') ?? initialFormState.typeScaleSteps.base;
+    const fontFamily = getQueryParam('fontFamily') ?? DEFAULT_FONT_FAMILY;
+    const shouldUseRems = getQueryParam('shouldUseRems');
+
+    throwIf(
+      !COMMA_SEPARATED_LIST_REGEX.test(allTypeScaleSteps) ||
+        !allTypeScaleSteps.includes(baseTypeScaleStep) ||
+        (shouldUseRems && shouldUseRems !== 'on') ||
+        !fonts.includes(fontFamily)
+    );
 
     const initialState: FormState = {
       min: {
-        fontSize: withNumericFallback(getQueryParam('minFontSize'), initialFormState.min.fontSize),
-        screenWidth: withNumericFallback(getQueryParam('minScreenWidth'), initialFormState.min.screenWidth),
-        modularRatio: withNumericFallback(getQueryParam('minRatio'), initialFormState.min.modularRatio),
+        fontSize: getNumericParamWithFallback('minFontSize', initialFormState.min.fontSize),
+        screenWidth: getNumericParamWithFallback('minScreenWidth', initialFormState.min.screenWidth),
+        modularRatio: getNumericParamWithFallback('minRatio', initialFormState.min.modularRatio),
       },
       max: {
-        fontSize: withNumericFallback(getQueryParam('maxFontSize'), initialFormState.max.fontSize),
-        screenWidth: withNumericFallback(getQueryParam('maxScreenWidth'), initialFormState.max.screenWidth),
-        modularRatio: withNumericFallback(getQueryParam('maxRatio'), initialFormState.max.modularRatio),
+        fontSize: getNumericParamWithFallback('maxFontSize', initialFormState.max.fontSize),
+        screenWidth: getNumericParamWithFallback('maxScreenWidth', initialFormState.max.screenWidth),
+        modularRatio: getNumericParamWithFallback('maxRatio', initialFormState.max.modularRatio),
       },
       typeScaleSteps: {
-        all: areStepsValid ? allTypeScaleSteps.split(',') : initialFormState.typeScaleSteps.all,
-        base: allTypeScaleSteps.split(',').includes(baseTypeScaleStep)
-          ? baseTypeScaleStep
-          : initialFormState.typeScaleSteps.base,
+        all: allTypeScaleSteps.split(','),
+        base: baseTypeScaleStep,
       },
-      namingConvention: getQueryParam('namingConvention'),
-      shouldUseRems: getQueryParam('shouldUseRems') === 'on',
-      roundingDecimalPlaces: withNumericFallback(
-        getQueryParam('roundingDecimalPlaces'),
+      namingConvention: getQueryParam('namingConvention') ?? initialFormState.namingConvention,
+      shouldUseRems: shouldUseRems === 'on',
+      roundingDecimalPlaces: getNumericParamWithFallback(
+        'roundingDecimalPlaces',
         initialFormState.roundingDecimalPlaces
       ),
-      fontFamily: fonts.includes(fontFamily) ? fontFamily : DEFAULT_FONT_FAMILY,
+      fontFamily,
     };
     return {
       props: {
@@ -63,10 +75,12 @@ export const getServerSideProps = async (
       },
     };
   } catch (e) {
+    // If we encounter any invalid/bad data and throw an error, redirect instead of trying to fall back gracefully. Otherwise,
+    // users may be confused as to why certain params did not take effect.
     return {
-      props: {
-        initialState: initialFormState,
-        fonts,
+      redirect: {
+        destination: '/',
+        permanent: false,
       },
     };
   }

@@ -25,3 +25,13 @@ export const getGoogleFontFamilies = async (): Promise<string[]> => {
 /** Given a font family, returns the properly formatted href that can be used to link to that font's @font-face CSS on Google's servers. */
 export const getGoogleFontLinkTagHref = (fontFamily: string) =>
   `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/ /g, '+')}&display=swap`;
+
+/** Returns `true` if the given string represents a number and `false` otherwise. Example: `isNumber('2')` returns `true`. */
+export const isNumber = (value: string) => !Number.isNaN(+value);
+
+/** Throws an error if the condition evaluates to `true`. */
+export const throwIf = (condition: boolean) => {
+  if (condition) {
+    throw new Error();
+  }
+};
