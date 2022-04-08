@@ -34,32 +34,48 @@ export const getServerSideProps = async (
     if (typeof param === 'undefined') {
       return fallback;
     }
-    throwIf(!isNumber(param));
+    throwIf(!isNumber(param), `Expected a number for ${FormDataKey[key]} but received ${param}.`);
     return Number(param);
   };
 
   try {
+    const minScreenWidth = getNumericParamWithFallback('minScreenWidth', initialFormState.min.screenWidth);
+    const maxScreenWidth = getNumericParamWithFallback('maxScreenWidth', initialFormState.max.screenWidth);
     const allTypeScaleSteps = getQueryParam('allSteps') ?? initialFormState.typeScaleSteps.all.join(',');
     const baseTypeScaleStep = getQueryParam('baseStep') ?? initialFormState.typeScaleSteps.base;
     const fontFamily = getQueryParam('fontFamily') ?? DEFAULT_FONT_FAMILY;
     const shouldUseRems = getQueryParam('shouldUseRems');
 
     throwIf(
-      !COMMA_SEPARATED_LIST_REGEX.test(allTypeScaleSteps) ||
-        !allTypeScaleSteps.includes(baseTypeScaleStep) ||
-        (shouldUseRems && shouldUseRems !== 'on') ||
-        !fonts.includes(fontFamily)
+      minScreenWidth >= maxScreenWidth,
+      `${FormDataKey.minScreenWidth} (${minScreenWidth}) must be strictly less than ${FormDataKey.maxScreenWidth} (${maxScreenWidth}).`
+    );
+    throwIf(
+      !COMMA_SEPARATED_LIST_REGEX.test(allTypeScaleSteps),
+      `Expected a comma-separated list for ${FormDataKey.allSteps}.`
+    );
+    throwIf(
+      !allTypeScaleSteps.includes(baseTypeScaleStep),
+      `The base step ${baseTypeScaleStep} was not found in the list of all steps.`
+    );
+    throwIf(
+      !!shouldUseRems && shouldUseRems !== 'on',
+      `${FormDataKey.shouldUseRems} must either be 'on' if enabled or omitted if turned off.`
+    );
+    throwIf(
+      !fonts.includes(fontFamily),
+      `${fontFamily} is not a recognized Google Font family. Custom fonts are not currently supported.`
     );
 
     const initialState: FormState = {
       min: {
         fontSize: getNumericParamWithFallback('minFontSize', initialFormState.min.fontSize),
-        screenWidth: getNumericParamWithFallback('minScreenWidth', initialFormState.min.screenWidth),
+        screenWidth: minScreenWidth,
         modularRatio: getNumericParamWithFallback('minRatio', initialFormState.min.modularRatio),
       },
       max: {
         fontSize: getNumericParamWithFallback('maxFontSize', initialFormState.max.fontSize),
-        screenWidth: getNumericParamWithFallback('maxScreenWidth', initialFormState.max.screenWidth),
+        screenWidth: maxScreenWidth,
         modularRatio: getNumericParamWithFallback('maxRatio', initialFormState.max.modularRatio),
       },
       typeScaleSteps: {
@@ -81,7 +97,10 @@ export const getServerSideProps = async (
       },
     };
   } catch (e) {
+    // TypeScript doesn't support type annotations on catch
+    const error = e as Error;
     const statusCode = HTTP_STATUS_CODES.HTTP_STATUS_BAD_REQUEST;
+    const description = error.message ?? 'One or more query parameters are invalid. Please check the URL you entered.';
     return {
       props: {
         fonts,
@@ -89,8 +108,7 @@ export const getServerSideProps = async (
         error: {
           code: statusCode,
           reasonPhrase: REASON_PHRASES[statusCode] as string,
-          // TODO: provide more helpful feedback via error messaging. This should suffice for now.
-          description: 'One or more query parameters are invalid. Please check the URL you entered.',
+          description,
         },
       },
     };
