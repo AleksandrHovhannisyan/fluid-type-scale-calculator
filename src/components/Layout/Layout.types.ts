@@ -12,4 +12,6 @@ export type LayoutProps = {
   seoProps?: SEOProps;
   /** Whether the page should be blocked from indexing. More info: https://developers.google.com/search/docs/advanced/crawling/block-indexing */
   isBlockedFromIndexing?: boolean;
+  /** Optional class names to style the page layout. */
+  className?: string;
 };

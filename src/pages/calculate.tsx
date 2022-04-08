@@ -1,15 +1,21 @@
+import { STATUS_CODES as REASON_PHRASES } from 'http';
+import { constants as HTTP_STATUS_CODES } from 'http2';
 import type { GetServerSidePropsContext, GetServerSidePropsResult, NextPage } from 'next';
+import ErrorPage from '../components/ErrorPage/ErrorPage';
 import FluidTypeScaleCalculator from '../components/FluidTypeScaleCalculator/FluidTypeScaleCalculator';
 import { COMMA_SEPARATED_LIST_REGEX } from '../components/FluidTypeScaleCalculator/Form/GroupTypeScaleSteps/GroupTypeScaleSteps.constants.';
 import HeroBanner from '../components/HeroBanner/HeroBanner';
 import Info from '../components/Info/Info';
 import Layout from '../components/Layout/Layout';
 import { DEFAULT_FONT_FAMILY, initialFormState, site } from '../constants';
-import { FormDataKey, FormState, WithFonts } from '../types';
+import { FormDataKey, FormState, HTTPError, WithFonts } from '../types';
 import { getGoogleFontFamilies, isNumber, throwIf } from '../utils';
 
 type CalculatePageProps = WithFonts & {
+  /** The initial state with which to populate the app from query params. */
   initialState: FormState;
+  /** A server-side error. */
+  error?: HTTPError;
 };
 
 export const getServerSideProps = async (
@@ -75,18 +81,26 @@ export const getServerSideProps = async (
       },
     };
   } catch (e) {
-    // If we encounter any invalid/bad data and throw an error, redirect instead of trying to fall back gracefully. Otherwise,
-    // users may be confused as to why certain params did not take effect.
+    const statusCode = HTTP_STATUS_CODES.HTTP_STATUS_BAD_REQUEST;
     return {
-      redirect: {
-        destination: '/',
-        permanent: false,
+      props: {
+        fonts,
+        initialState: initialFormState,
+        error: {
+          code: statusCode,
+          reasonPhrase: REASON_PHRASES[statusCode] as string,
+          // TODO: provide more helpful feedback via error messaging. This should suffice for now.
+          description: 'One or more query parameters are invalid. Please check the URL you entered.',
+        },
       },
     };
   }
 };
 
 const Calculate: NextPage<CalculatePageProps> = (props) => {
+  if (props.error) {
+    return <ErrorPage {...props.error} />;
+  }
   return (
     <Layout isBlockedFromIndexing={true}>
       <HeroBanner title={site.title} subtitle={site.description} />

@@ -16,6 +16,13 @@
   }
 }
 
+/* stylelint-disable-next-line selector-id-pattern */
+#__next,
+html,
+body {
+  height: 100%;
+}
+
 button,
 label,
 input,
