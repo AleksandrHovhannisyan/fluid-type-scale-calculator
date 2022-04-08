@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Delay } from '../../constants';
-import { FormDataKey, WithFonts } from '../../types';
+import { QueryParamKey, WithFonts } from '../../types';
 import { TYPE_SCALE_FORM_ID } from '../FluidTypeScaleCalculator/Form/Form.constants';
 import Select, { SelectProps } from '../Select/Select';
 
@@ -39,7 +39,7 @@ const GoogleFontsPicker = (props: GoogleFontsPickerProps) => {
   return (
     <Select
       form={TYPE_SCALE_FORM_ID}
-      name={FormDataKey.fontFamily}
+      name={QueryParamKey.fontFamily}
       ref={pickerRef}
       defaultValue={defaultValue}
       onChange={onChange}

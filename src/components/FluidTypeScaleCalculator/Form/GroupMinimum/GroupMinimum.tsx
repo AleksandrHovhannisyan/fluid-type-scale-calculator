@@ -1,4 +1,4 @@
-import { FormDataKey } from '../../../../types';
+import { QueryParamKey } from '../../../../types';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
 import LabelGroup from '../../../Label/LabelGroup/LabelGroup';
@@ -18,7 +18,7 @@ const GroupMinimum = () => {
           Base font size (pixels)
           <Input
             type="number"
-            name={FormDataKey.minFontSize}
+            name={QueryParamKey.minFontSize}
             required={true}
             min={0}
             defaultValue={state.min.fontSize}
@@ -35,7 +35,7 @@ const GroupMinimum = () => {
         <Label>
           Screen width (pixels)
           <Input
-            name={FormDataKey.minScreenWidth}
+            name={QueryParamKey.minScreenWidth}
             type="number"
             required={true}
             min={0}
@@ -52,7 +52,7 @@ const GroupMinimum = () => {
           />
         </Label>
         <TypeScalePicker
-          name={FormDataKey.minRatio}
+          name={QueryParamKey.minRatio}
           id="type-scale-min"
           ratio={state.min.modularRatio}
           onChange={(e) => dispatch({ type: 'setMin', payload: { modularRatio: e.target.valueAsNumber } })}

@@ -1,5 +1,5 @@
 import { Delay } from '../../../../constants';
-import { FormDataKey } from '../../../../types';
+import { QueryParamKey } from '../../../../types';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
 import LabelGroup from '../../../Label/LabelGroup/LabelGroup';
@@ -19,7 +19,7 @@ const GroupTypeScaleSteps = () => {
         <Label>
           All steps
           <Input
-            name={FormDataKey.allSteps}
+            name={QueryParamKey.allSteps}
             type="text"
             required
             spellCheck="false"
@@ -37,7 +37,7 @@ const GroupTypeScaleSteps = () => {
         <Label>
           Baseline step
           <Select
-            name={FormDataKey.baseStep}
+            name={QueryParamKey.baseStep}
             defaultValue={state.typeScaleSteps.base}
             onChange={(e) =>
               dispatch({
