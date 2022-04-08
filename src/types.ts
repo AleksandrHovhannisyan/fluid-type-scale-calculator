@@ -103,3 +103,12 @@ export type WithFonts = {
   /** A list of fonts that users can choose from. */
   fonts: string[];
 };
+
+export type HTTPError = {
+  /** The HTTP status code for the error. */
+  code: number;
+  /** The reason phrase for the status code. */
+  reasonPhrase: string;
+  /** An extended description of the error. */
+  description: string;
+};

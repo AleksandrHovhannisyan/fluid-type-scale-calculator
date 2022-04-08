@@ -29,9 +29,12 @@ export const getGoogleFontLinkTagHref = (fontFamily: string) =>
 /** Returns `true` if the given string represents a number and `false` otherwise. Example: `isNumber('2')` returns `true`. */
 export const isNumber = (value: string) => !Number.isNaN(+value);
 
-/** Throws an error if the condition evaluates to `true`. */
-export const throwIf = (condition: boolean) => {
+/** Throws an error if the condition evaluates to `true`.
+ * @param {boolean} condition A boolean predicate condition to evaluate.
+ * @param {string} message An optional message to throw if the condition evaluates to `false`.
+ */
+export const throwIf = (condition: boolean, message?: string) => {
   if (condition) {
-    throw new Error();
+    throw new Error(message);
   }
 };
