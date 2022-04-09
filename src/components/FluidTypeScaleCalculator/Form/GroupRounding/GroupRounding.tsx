@@ -19,7 +19,6 @@ const GroupRounding = () => {
         type="number"
         step={1}
         min={0}
-        max={5}
         required={true}
         defaultValue={state.roundingDecimalPlaces}
         onChange={(e) =>
