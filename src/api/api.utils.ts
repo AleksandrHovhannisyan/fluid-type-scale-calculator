@@ -48,7 +48,7 @@ export const getQueryParamConfig = (queryString: ParsedUrlQuery, options: { font
     },
     [QueryParamKey.minRatio]: {
       id: QueryParamKey.minRatio,
-      value: parseNumericParam('minRatio', initialFormState.min.modularRatio),
+      value: parseNumericParam('minRatio', initialFormState.min.ratio),
       validate: (id, value, _config) => throwIf(!isNumber(value), `${id} must be a number.`),
     },
     [QueryParamKey.maxFontSize]: {
@@ -67,7 +67,7 @@ export const getQueryParamConfig = (queryString: ParsedUrlQuery, options: { font
     },
     [QueryParamKey.maxRatio]: {
       id: QueryParamKey.maxRatio,
-      value: parseNumericParam('maxRatio', initialFormState.max.modularRatio),
+      value: parseNumericParam('maxRatio', initialFormState.max.ratio),
       validate: (id, value, _config) => throwIf(!isNumber(value), `${id} must be a number.`),
     },
     [QueryParamKey.allSteps]: {

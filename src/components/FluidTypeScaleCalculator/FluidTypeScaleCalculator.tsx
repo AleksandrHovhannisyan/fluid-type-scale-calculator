@@ -71,11 +71,11 @@ const FluidTypeScaleCalculator = (props: Props) => {
   // Note that some state variables are not necessary for this calculation, but it's simple enough that it's not expensive.
   const typeScale = state.typeScaleSteps.all.reduce((steps, step, i) => {
     const min = {
-      fontSize: state.min.fontSize * Math.pow(state.min.modularRatio, i - baseStepIndex),
+      fontSize: state.min.fontSize * Math.pow(state.min.ratio, i - baseStepIndex),
       breakpoint: state.min.screenWidth,
     };
     const max = {
-      fontSize: state.max.fontSize * Math.pow(state.max.modularRatio, i - baseStepIndex),
+      fontSize: state.max.fontSize * Math.pow(state.max.ratio, i - baseStepIndex),
       breakpoint: state.max.screenWidth,
     };
     const slope = (max.fontSize - min.fontSize) / (max.breakpoint - min.breakpoint);

@@ -54,8 +54,8 @@ const GroupMinimum = () => {
         <TypeScalePicker
           name={QueryParamKey.minRatio}
           id="type-scale-min"
-          ratio={state.min.modularRatio}
-          onChange={(e) => dispatch({ type: 'setMin', payload: { modularRatio: e.target.valueAsNumber } })}
+          ratio={state.min.ratio}
+          onChange={(e) => dispatch({ type: 'setMin', payload: { ratio: e.target.valueAsNumber } })}
         />
       </LabelGroup>
     </Label>

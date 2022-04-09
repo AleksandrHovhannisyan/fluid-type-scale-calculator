@@ -33,12 +33,12 @@ export const getServerSideProps = async (
       min: {
         fontSize: getQueryParam<QueryParamKey.minFontSize>(params, QueryParamKey.minFontSize).value,
         screenWidth: getQueryParam<QueryParamKey.minScreenWidth>(params, QueryParamKey.minScreenWidth).value,
-        modularRatio: getQueryParam<QueryParamKey.minRatio>(params, QueryParamKey.minRatio).value,
+        ratio: getQueryParam<QueryParamKey.minRatio>(params, QueryParamKey.minRatio).value,
       },
       max: {
         fontSize: getQueryParam<QueryParamKey.maxFontSize>(params, QueryParamKey.maxFontSize).value,
         screenWidth: getQueryParam<QueryParamKey.maxScreenWidth>(params, QueryParamKey.maxScreenWidth).value,
-        modularRatio: getQueryParam<QueryParamKey.maxRatio>(params, QueryParamKey.maxRatio).value,
+        ratio: getQueryParam<QueryParamKey.maxRatio>(params, QueryParamKey.maxRatio).value,
       },
       typeScaleSteps: {
         all: getQueryParam<QueryParamKey.allSteps>(params, QueryParamKey.allSteps).value,

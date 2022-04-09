@@ -21,8 +21,8 @@ export type BreakpointConfig = {
   fontSize: number;
   /** The viewport width corresponding to this breakpoint. */
   screenWidth: number;
-  /** The type scale ratio to use at this target breakpoint. */
-  modularRatio: number;
+  /** The modular type scale ratio to use at this breakpoint to scale the base font size up/down. */
+  ratio: number;
 };
 
 export type FormState = {

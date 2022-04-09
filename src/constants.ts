@@ -10,7 +10,7 @@ export const DEFAULT_FONT_FAMILY = 'Inter';
 /** Regex to match a comma-separated of values, with only alphanumeric characters permitted between the commas. */
 export const COMMA_SEPARATED_LIST_REGEX = /^[a-zA-Z0-9-](?:(,\s*)?[a-zA-Z0-9-])*$/;
 
-export const modularRatios = {
+export const typeScaleRatios = {
   minorSecond: {
     name: 'Minor second',
     ratio: 1.067,
@@ -50,12 +50,12 @@ export const initialFormState: FormState = {
   min: {
     fontSize: 16,
     screenWidth: 400,
-    modularRatio: modularRatios.majorThird.ratio,
+    ratio: typeScaleRatios.majorThird.ratio,
   },
   max: {
     fontSize: 19,
     screenWidth: 1280,
-    modularRatio: modularRatios.perfectFourth.ratio,
+    ratio: typeScaleRatios.perfectFourth.ratio,
   },
   typeScaleSteps: {
     all: ['sm', 'base', 'md', 'lg', 'xl', 'xxl', 'xxxl'],
