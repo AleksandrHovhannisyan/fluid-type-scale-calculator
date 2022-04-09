@@ -8,7 +8,8 @@ import FluidTypeScaleCalculator from '../components/FluidTypeScaleCalculator/Flu
 import HeroBanner from '../components/HeroBanner/HeroBanner';
 import Info from '../components/Info/Info';
 import Layout from '../components/Layout/Layout';
-import { initialFormState, site } from '../constants';
+import { initialFormState } from '../constants';
+import site from '../data/site.json';
 import { FormState, HTTPError, WithFonts } from '../types';
 import { getGoogleFontFamilies } from '../utils';
 

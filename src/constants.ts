@@ -74,15 +74,6 @@ export enum Delay {
   LONG = 400,
 }
 
-/** Global site data reused throughout templates. */
-export const site = {
-  title: `Fluid Type Scale Calculator`,
-  metaTitle: `Fluid Type Scale - Generate responsive font-size variables`,
-  description: `Generate font size variables for a fluid type scale with CSS clamp. Grab the output CSS and drop it into any existing design system.`,
-  keywords: ['fluid type scale', 'type scale', 'CSS clamp'],
-  url: `https://www.fluid-type-scale.com`,
-} as const;
-
 /** Social media profiles and links. */
 export const socials = {
   linkedin: {

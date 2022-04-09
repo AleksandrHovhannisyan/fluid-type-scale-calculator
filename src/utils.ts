@@ -1,5 +1,6 @@
 import type { AtRule } from 'csstype';
-import { DEFAULT_FONT_FAMILY, GOOGLE_FONTS_BASE_URL, site } from './constants';
+import site from './data/site.json';
+import { DEFAULT_FONT_FAMILY, GOOGLE_FONTS_BASE_URL } from './constants';
 
 /** Prefixes the given relative url string with the base site URL. */
 export const toAbsoluteUrl = (url: string, baseUrl: string = site.url) => {
