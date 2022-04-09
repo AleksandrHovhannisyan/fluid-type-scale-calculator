@@ -11,6 +11,7 @@
   "scripts": {
     "dev": "next dev",
     "prod": "run-s build start",
+    "prebuild": "jest",
     "build": "next build",
     "start": "next start",
     "test:watch": "jest --watch",
