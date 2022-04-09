@@ -1,4 +1,5 @@
-import { MapDiscriminatedUnion, QueryParamKey } from '../types';
+import type { QueryParamKey } from '../types';
+import type { MapDiscriminatedUnion } from '../types.generics';
 
 /** A query parameter with a value and a corresponding validator function to check the value. */
 export type ValidatedQueryParam<T> = {
@@ -86,7 +87,3 @@ export type QueryParam =
 
 /** Mapped type where they keys `K` correspond to shapes that extend `{ id: K }`. Defines a config for each query parameter. */
 export type QueryParamConfig = MapDiscriminatedUnion<QueryParam, 'id'>;
-
-/** Given an ID, extracts the constituent from a discriminated union type `T` that has a property of `id` matching `N`.
- * Credit: https://stackoverflow.com/a/50499316/5323344 */
-export type NarrowById<T, N> = T extends { id: N } ? T : never;
