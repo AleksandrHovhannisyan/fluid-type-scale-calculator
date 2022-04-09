@@ -26,6 +26,7 @@ export const getQueryParamConfig = (queryString: ParsedUrlQuery, options: { font
    * returns the fallback. If the param exists but is not of a numeric type, throws an error. Else, returns the parsed param as a number. */
   const parseNumericParam = (key: keyof typeof QueryParamKey, fallback: number): number => {
     const param = parseRawParam(key) ?? fallback;
+    if (typeof param === 'string' && !param) return NaN;
     return Number(param);
   };
 
