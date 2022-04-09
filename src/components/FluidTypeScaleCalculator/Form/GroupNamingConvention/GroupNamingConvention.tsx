@@ -1,4 +1,4 @@
-import { FormDataKey } from '../../../../types';
+import { QueryParamKey } from '../../../../types';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
 import { useFormState } from '../../FluidTypeScaleCalculator.context';
@@ -11,7 +11,7 @@ const GroupNamingConvention = () => {
       description="Prefixed to each modular step to create unique variable names."
     >
       <Input
-        name={FormDataKey.namingConvention}
+        name={QueryParamKey.namingConvention}
         type="text"
         required={true}
         defaultValue={state.namingConvention}

@@ -1,15 +1,15 @@
 import { STATUS_CODES as REASON_PHRASES } from 'http';
 import { constants as HTTP_STATUS_CODES } from 'http2';
 import type { GetServerSidePropsContext, GetServerSidePropsResult, NextPage } from 'next';
+import { getQueryParam, getQueryParamConfig, validateQueryParams } from '../api/api.utils';
 import ErrorPage from '../components/ErrorPage/ErrorPage';
 import FluidTypeScaleCalculator from '../components/FluidTypeScaleCalculator/FluidTypeScaleCalculator';
-import { COMMA_SEPARATED_LIST_REGEX } from '../components/FluidTypeScaleCalculator/Form/GroupTypeScaleSteps/GroupTypeScaleSteps.constants.';
 import HeroBanner from '../components/HeroBanner/HeroBanner';
 import Info from '../components/Info/Info';
 import Layout from '../components/Layout/Layout';
-import { DEFAULT_FONT_FAMILY, initialFormState, site } from '../constants';
-import { FormDataKey, FormState, HTTPError, WithFonts } from '../types';
-import { getGoogleFontFamilies, isNumber, throwIf } from '../utils';
+import { initialFormState, site } from '../constants';
+import { FormState, HTTPError, QueryParamKey, WithFonts } from '../types';
+import { getGoogleFontFamilies } from '../utils';
 
 type CalculatePageProps = WithFonts & {
   /** The initial state with which to populate the app from query params. */
@@ -21,74 +21,34 @@ type CalculatePageProps = WithFonts & {
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ): Promise<GetServerSidePropsResult<CalculatePageProps>> => {
-  const query = context.query as Record<FormDataKey, string>;
   const fonts = await getGoogleFontFamilies();
 
-  /** Helper to return a query param by key, if it exists, and an empty string otherwise. */
-  const getQueryParam = (key: keyof typeof FormDataKey): string | undefined => query[FormDataKey[key]];
-
-  /** Helper that fetches the given key from query params, expecting to find a string that looks like a number. If the param does not exist,
-   * returns the fallback. If the param exists but is not of a numeric type, throws an error. Else, returns the parsed param as a number. */
-  const getNumericParamWithFallback = (key: keyof typeof FormDataKey, fallback: number): number => {
-    const param = getQueryParam(key);
-    if (typeof param === 'undefined') {
-      return fallback;
-    }
-    throwIf(!isNumber(param), `Expected a number for ${FormDataKey[key]} but received ${param}.`);
-    return Number(param);
-  };
-
   try {
-    const minScreenWidth = getNumericParamWithFallback('minScreenWidth', initialFormState.min.screenWidth);
-    const maxScreenWidth = getNumericParamWithFallback('maxScreenWidth', initialFormState.max.screenWidth);
-    const allTypeScaleSteps = getQueryParam('allSteps') ?? initialFormState.typeScaleSteps.all.join(',');
-    const baseTypeScaleStep = getQueryParam('baseStep') ?? initialFormState.typeScaleSteps.base;
-    const fontFamily = getQueryParam('fontFamily') ?? DEFAULT_FONT_FAMILY;
-    const shouldUseRems = getQueryParam('shouldUseRems');
-
-    throwIf(
-      minScreenWidth >= maxScreenWidth,
-      `${FormDataKey.minScreenWidth} (${minScreenWidth}) must be strictly less than ${FormDataKey.maxScreenWidth} (${maxScreenWidth}).`
-    );
-    throwIf(
-      !COMMA_SEPARATED_LIST_REGEX.test(allTypeScaleSteps),
-      `Expected a comma-separated list for ${FormDataKey.allSteps}.`
-    );
-    throwIf(
-      !allTypeScaleSteps.includes(baseTypeScaleStep),
-      `The base step ${baseTypeScaleStep} was not found in the list of all steps.`
-    );
-    throwIf(
-      !!shouldUseRems && shouldUseRems !== 'on',
-      `${FormDataKey.shouldUseRems} must either be 'on' if enabled or omitted if turned off.`
-    );
-    throwIf(
-      !fonts.includes(fontFamily),
-      `${fontFamily} is not a recognized Google Font family. Custom fonts are not currently supported.`
-    );
+    const params = getQueryParamConfig(context.query, { fonts });
+    validateQueryParams(params);
 
     const initialState: FormState = {
       min: {
-        fontSize: getNumericParamWithFallback('minFontSize', initialFormState.min.fontSize),
-        screenWidth: minScreenWidth,
-        modularRatio: getNumericParamWithFallback('minRatio', initialFormState.min.modularRatio),
+        fontSize: getQueryParam<QueryParamKey.minFontSize>(params, QueryParamKey.minFontSize).value,
+        screenWidth: getQueryParam<QueryParamKey.minScreenWidth>(params, QueryParamKey.minScreenWidth).value,
+        modularRatio: getQueryParam<QueryParamKey.minRatio>(params, QueryParamKey.minRatio).value,
       },
       max: {
-        fontSize: getNumericParamWithFallback('maxFontSize', initialFormState.max.fontSize),
-        screenWidth: maxScreenWidth,
-        modularRatio: getNumericParamWithFallback('maxRatio', initialFormState.max.modularRatio),
+        fontSize: getQueryParam<QueryParamKey.maxFontSize>(params, QueryParamKey.maxFontSize).value,
+        screenWidth: getQueryParam<QueryParamKey.maxScreenWidth>(params, QueryParamKey.maxScreenWidth).value,
+        modularRatio: getQueryParam<QueryParamKey.maxRatio>(params, QueryParamKey.maxRatio).value,
       },
       typeScaleSteps: {
-        all: allTypeScaleSteps.split(','),
-        base: baseTypeScaleStep,
+        all: getQueryParam<QueryParamKey.allSteps>(params, QueryParamKey.allSteps).value,
+        base: getQueryParam<QueryParamKey.baseStep>(params, QueryParamKey.baseStep).value,
       },
-      namingConvention: getQueryParam('namingConvention') ?? initialFormState.namingConvention,
-      shouldUseRems: shouldUseRems === 'on',
-      roundingDecimalPlaces: getNumericParamWithFallback(
-        'roundingDecimalPlaces',
-        initialFormState.roundingDecimalPlaces
-      ),
-      fontFamily,
+      namingConvention: getQueryParam<QueryParamKey.namingConvention>(params, QueryParamKey.namingConvention).value,
+      shouldUseRems: getQueryParam<QueryParamKey.shouldUseRems>(params, QueryParamKey.shouldUseRems).value,
+      roundingDecimalPlaces: getQueryParam<QueryParamKey.roundingDecimalPlaces>(
+        params,
+        QueryParamKey.roundingDecimalPlaces
+      ).value,
+      fontFamily: getQueryParam<QueryParamKey.fontFamily>(params, QueryParamKey.fontFamily).value,
     };
     return {
       props: {

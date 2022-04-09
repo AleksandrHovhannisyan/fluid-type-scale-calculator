@@ -26,8 +26,8 @@ export const getGoogleFontFamilies = async (): Promise<string[]> => {
 export const getGoogleFontLinkTagHref = (fontFamily: string) =>
   `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/ /g, '+')}&display=swap`;
 
-/** Returns `true` if the given string represents a number and `false` otherwise. Example: `isNumber('2')` returns `true`. */
-export const isNumber = (value: string) => !Number.isNaN(+value);
+/** Returns `true` if the given number is a valid number. */
+export const isNumber = (value: number) => !Number.isNaN(value);
 
 /** Throws an error if the condition evaluates to `true`.
  * @param {boolean} condition A boolean predicate condition to evaluate.

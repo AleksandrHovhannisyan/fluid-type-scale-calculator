@@ -1,4 +1,4 @@
-import { FormDataKey } from '../../../../types';
+import { QueryParamKey } from '../../../../types';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
 import LabelGroup from '../../../Label/LabelGroup/LabelGroup';
@@ -18,7 +18,7 @@ const GroupMaximum = () => {
         <Label>
           Base font size (pixels)
           <Input
-            name={FormDataKey.maxFontSize}
+            name={QueryParamKey.maxFontSize}
             type="number"
             required={true}
             min={0}
@@ -36,7 +36,7 @@ const GroupMaximum = () => {
         <Label>
           Screen width (pixels)
           <Input
-            name={FormDataKey.maxScreenWidth}
+            name={QueryParamKey.maxScreenWidth}
             type="number"
             required={true}
             min={state.min.screenWidth + 1}
@@ -52,7 +52,7 @@ const GroupMaximum = () => {
           />
         </Label>
         <TypeScalePicker
-          name={FormDataKey.maxRatio}
+          name={QueryParamKey.maxRatio}
           id="type-scale-max"
           ratio={state.max.modularRatio}
           onChange={(e) => dispatch({ type: 'setMax', payload: { modularRatio: e.target.valueAsNumber } })}

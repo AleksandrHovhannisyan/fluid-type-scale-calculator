@@ -79,7 +79,7 @@ export type FormAction =
     };
 
 /** The name attributes for form inputs. Set on the individual form inputs but also used on the server side to read the data from query params. */
-export enum FormDataKey {
+export enum QueryParamKey {
   minFontSize = 'minFontSize',
   minScreenWidth = 'minWidth',
   minRatio = 'minRatio',

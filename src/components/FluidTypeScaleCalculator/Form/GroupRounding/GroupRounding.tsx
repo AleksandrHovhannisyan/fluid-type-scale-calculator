@@ -1,4 +1,4 @@
-import { FormDataKey } from '../../../../types';
+import { QueryParamKey } from '../../../../types';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
 import { useFormState } from '../../FluidTypeScaleCalculator.context';
@@ -14,7 +14,7 @@ const GroupRounding = () => {
         htmlFor="group-rounding"
       />
       <Input
-        name={FormDataKey.roundingDecimalPlaces}
+        name={QueryParamKey.roundingDecimalPlaces}
         id="group-rounding"
         type="number"
         step={1}
