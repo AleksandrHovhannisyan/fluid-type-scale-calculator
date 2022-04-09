@@ -1,4 +1,5 @@
-import { toAbsoluteUrl } from './utils';
+import { GOOGLE_FONTS_BASE_URL } from './constants';
+import { getGoogleFontLinkTagHref, toAbsoluteUrl } from './utils';
 
 describe('App-wide utilities', () => {
   describe('toAbsoluteUrl', () => {
@@ -15,6 +16,18 @@ describe('App-wide utilities', () => {
     it('handles both site URL with trailing slash and url with preceding slash', () => {
       expect(toAbsoluteUrl('/some/path/', 'https://fluid-type-scale.com/')).toEqual(
         `https://fluid-type-scale.com/some/path/`
+      );
+    });
+  });
+  describe('getGoogleFontLinkTagHref', () => {
+    it('properly escapes spaces in font family names', () => {
+      expect(getGoogleFontLinkTagHref({ family: 'Libre Baskerville', display: 'swap' })).toStrictEqual(
+        `${GOOGLE_FONTS_BASE_URL}?family=Libre+Baskerville&display=swap`
+      );
+    });
+    it('respects the display property', () => {
+      expect(getGoogleFontLinkTagHref({ family: 'Libre Baskerville', display: 'fallback' })).toStrictEqual(
+        `${GOOGLE_FONTS_BASE_URL}?family=Libre+Baskerville&display=fallback`
       );
     });
   });

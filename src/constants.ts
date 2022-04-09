@@ -1,6 +1,9 @@
 import { siBuymeacoffee, siGithub, siLinkedin, siStackexchange, siTwitter } from 'simple-icons/icons';
 import { FormState } from './types';
 
+/** The root API endpoint for requesting @font-face declarations from Google Fonts. */
+export const GOOGLE_FONTS_BASE_URL = `https://fonts.googleapis.com/css2`;
+
 /** The default font family used by the app and shown in font pickers. */
 export const DEFAULT_FONT_FAMILY = 'Inter';
 
