@@ -102,14 +102,11 @@ export const getQueryParamConfig = (queryString: ParsedUrlQuery, options: { font
     [QueryParamKey.roundingDecimalPlaces]: {
       id: QueryParamKey.roundingDecimalPlaces,
       value: parseNumericParam('roundingDecimalPlaces', initialFormState.roundingDecimalPlaces),
-      validate: (id, value, config) => {
+      validate: (id, value, _config) => {
         throwIf(!isNumber(value), `${id} must be a number.`);
-        const self = getQueryParam<QueryParamKey.roundingDecimalPlaces>(config, QueryParamKey.roundingDecimalPlaces);
-        const isInRange = value >= self.min && value <= self.max;
-        throwIf(!isInRange, `${id} must be at least ${self.min} and at most ${self.max}.`);
+        throwIf(!Number.isInteger(value), `${id} must be an integer.`);
+        throwIf(value < 0, `${id} cannot be negative.`);
       },
-      min: 0,
-      max: 5,
     },
     [QueryParamKey.fontFamily]: {
       id: QueryParamKey.fontFamily,
