@@ -2,7 +2,7 @@ import { QueryParamKey } from '../types';
 import { getQueryParamConfig, validateQueryParams } from './api.utils';
 
 describe('API utils', () => {
-  describe.only('validateQueryParams', () => {
+  describe('validateQueryParams', () => {
     it('does not throw for valid data', () => {
       const config = getQueryParamConfig(
         {
