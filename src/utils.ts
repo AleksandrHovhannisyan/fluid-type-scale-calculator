@@ -1,9 +1,10 @@
-import { DEFAULT_FONT_FAMILY, site } from './constants';
+import type { AtRule } from 'csstype';
+import { DEFAULT_FONT_FAMILY, GOOGLE_FONTS_BASE_URL, site } from './constants';
 
 /** Prefixes the given relative url string with the base site URL. */
-export const toAbsoluteUrl = (url: string) => {
+export const toAbsoluteUrl = (url: string, baseUrl: string = site.url) => {
   // Replace trailing slash, e.g., site.com/ => site.com
-  const siteUrl = site.url.replace(/\/$/, '');
+  const siteUrl = baseUrl.replace(/\/$/, '');
   // Replace starting slash, e.g., /path/ => path/
   const relativeUrl = url.replace(/^\//, '');
   return `${siteUrl}/${relativeUrl}`;
@@ -23,11 +24,13 @@ export const getGoogleFontFamilies = async (): Promise<string[]> => {
 };
 
 /** Given a font family, returns the properly formatted href that can be used to link to that font's @font-face CSS on Google's servers. */
-export const getGoogleFontLinkTagHref = (fontFamily: string) =>
-  `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/ /g, '+')}&display=swap`;
+export const getGoogleFontLinkTagHref = (options: { family: string; display: AtRule.FontDisplay }) => {
+  const queryParams = new URLSearchParams(options);
+  return `${GOOGLE_FONTS_BASE_URL}?${queryParams.toString()}`;
+};
 
 /** Returns `true` if the given number is a valid number. */
-export const isNumber = (value: number) => !Number.isNaN(value);
+export const isNumber = (value: string | number) => !Number.isNaN(+value);
 
 /** Throws an error if the condition evaluates to `true`.
  * @param {boolean} condition A boolean predicate condition to evaluate.

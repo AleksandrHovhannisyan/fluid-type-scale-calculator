@@ -39,7 +39,11 @@ const Preview = (props: Props) => {
       {/* Don't make a duplicate request for the default font since we're self-hosting that. */}
       {state.fontFamily !== DEFAULT_FONT_FAMILY && (
         // Don't render in Head to bypass Next.js font optimization (which breaks in a no-JS environment)
-        <link rel="stylesheet" type="text/css" href={getGoogleFontLinkTagHref(state.fontFamily)} />
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href={getGoogleFontLinkTagHref({ family: state.fontFamily, display: 'swap' })}
+        />
       )}
       <section className={styles.preview}>
         <h2>Preview your type scale</h2>
