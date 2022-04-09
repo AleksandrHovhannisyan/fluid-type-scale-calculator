@@ -1,4 +1,4 @@
-import { QueryParamKey } from '../types';
+import { QueryParamKey } from './api.constants';
 import { getQueryParamConfig, validateQueryParams } from './api.utils';
 
 describe('API utils', () => {

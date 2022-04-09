@@ -1,5 +1,5 @@
-import type { QueryParamKey } from '../types';
 import type { MapDiscriminatedUnion } from '../types.generics';
+import { QueryParamKey } from './api.constants';
 
 /** A query parameter with a value and a corresponding validator function to check the value. */
 export type ValidatedQueryParam<T> = {

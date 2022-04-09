@@ -1,7 +1,7 @@
 import { ParsedUrlQuery } from 'querystring';
+import { QueryParamKey } from '../api/api.constants';
 import { COMMA_SEPARATED_LIST_REGEX } from '../components/FluidTypeScaleCalculator/Form/GroupTypeScaleSteps/GroupTypeScaleSteps.constants.';
 import { DEFAULT_FONT_FAMILY, initialFormState } from '../constants';
-import { QueryParamKey } from '../types';
 import type { NarrowById } from '../types.generics';
 import { isNumber, throwIf } from '../utils';
 import type { QueryParam, QueryParamConfig, ValidatedQueryParam } from './api.types';

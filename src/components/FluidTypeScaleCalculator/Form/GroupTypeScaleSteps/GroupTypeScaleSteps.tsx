@@ -1,5 +1,5 @@
+import { QueryParamKey } from '../../../../api/api.constants';
 import { Delay } from '../../../../constants';
-import { QueryParamKey } from '../../../../types';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
 import LabelGroup from '../../../Label/LabelGroup/LabelGroup';

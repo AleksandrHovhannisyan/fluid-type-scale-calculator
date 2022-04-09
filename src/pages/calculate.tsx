@@ -1,6 +1,7 @@
 import { STATUS_CODES as REASON_PHRASES } from 'http';
 import { constants as HTTP_STATUS_CODES } from 'http2';
 import type { GetServerSidePropsContext, GetServerSidePropsResult, NextPage } from 'next';
+import { QueryParamKey } from '../api/api.constants';
 import { getQueryParam, getQueryParamConfig, validateQueryParams } from '../api/api.utils';
 import ErrorPage from '../components/ErrorPage/ErrorPage';
 import FluidTypeScaleCalculator from '../components/FluidTypeScaleCalculator/FluidTypeScaleCalculator';
@@ -8,7 +9,7 @@ import HeroBanner from '../components/HeroBanner/HeroBanner';
 import Info from '../components/Info/Info';
 import Layout from '../components/Layout/Layout';
 import { initialFormState, site } from '../constants';
-import { FormState, HTTPError, QueryParamKey, WithFonts } from '../types';
+import { FormState, HTTPError, WithFonts } from '../types';
 import { getGoogleFontFamilies } from '../utils';
 
 type CalculatePageProps = WithFonts & {
