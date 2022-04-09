@@ -1,9 +1,9 @@
 import { DEFAULT_FONT_FAMILY, site } from './constants';
 
 /** Prefixes the given relative url string with the base site URL. */
-export const toAbsoluteUrl = (url: string) => {
+export const toAbsoluteUrl = (url: string, baseUrl: string = site.url) => {
   // Replace trailing slash, e.g., site.com/ => site.com
-  const siteUrl = site.url.replace(/\/$/, '');
+  const siteUrl = baseUrl.replace(/\/$/, '');
   // Replace starting slash, e.g., /path/ => path/
   const relativeUrl = url.replace(/^\//, '');
   return `${siteUrl}/${relativeUrl}`;
