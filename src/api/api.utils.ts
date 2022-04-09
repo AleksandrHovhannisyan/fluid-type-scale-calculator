@@ -22,11 +22,17 @@ export const getQueryParamConfig = (queryString: ParsedUrlQuery, options: { font
   const parseRawParam = (key: keyof typeof QueryParamKey): string | undefined => query[QueryParamKey[key]];
 
   /** Helper that fetches the given key from query params, expecting to find a string that looks like a number. If the param does not exist,
-   * returns the fallback. If the param exists but is not of a numeric type, throws an error. Else, returns the parsed param as a number. */
+   * returns the fallback. Else, returns the parsed param as a number. */
   const parseNumericParam = (key: keyof typeof QueryParamKey, fallback: number): number => {
     const param = parseRawParam(key) ?? fallback;
     if (typeof param === 'string' && !param) return NaN;
     return Number(param);
+  };
+
+  /** Performs common validation logic for numeric query params (e.g., checking that it's a valid number and not negative). */
+  const validateNonNegativeNumericParam = (id: QueryParamKey, value: number) => {
+    throwIf(!isNumber(value), `${id} must be a number.`);
+    throwIf(value <= 0, `${id} must be non-negative.`);
   };
 
   const queryParamConfig: QueryParamConfig = {
@@ -34,7 +40,7 @@ export const getQueryParamConfig = (queryString: ParsedUrlQuery, options: { font
       id: QueryParamKey.minFontSize,
       value: parseNumericParam('minFontSize', initialFormState.min.fontSize),
       validate: (id, value, _config) => {
-        throwIf(!isNumber(value), `${id} must be a number.`);
+        validateNonNegativeNumericParam(id, value);
       },
     },
     [QueryParamKey.minScreenWidth]: {
@@ -42,19 +48,23 @@ export const getQueryParamConfig = (queryString: ParsedUrlQuery, options: { font
       value: parseNumericParam('minScreenWidth', initialFormState.min.screenWidth),
       validate: (id, value, config) => {
         const maxScreenWidth = getQueryParam<QueryParamKey.maxScreenWidth>(config, QueryParamKey.maxScreenWidth).value;
-        throwIf(!isNumber(value), `${id} must be a number.`);
+        validateNonNegativeNumericParam(id, value);
         throwIf(value >= maxScreenWidth, `${id} must be strictly less than ${QueryParamKey.maxScreenWidth}.`);
       },
     },
     [QueryParamKey.minRatio]: {
       id: QueryParamKey.minRatio,
       value: parseNumericParam('minRatio', initialFormState.min.ratio),
-      validate: (id, value, _config) => throwIf(!isNumber(value), `${id} must be a number.`),
+      validate: (id, value, _config) => {
+        validateNonNegativeNumericParam(id, value);
+      },
     },
     [QueryParamKey.maxFontSize]: {
       id: QueryParamKey.maxFontSize,
       value: parseNumericParam('maxFontSize', initialFormState.max.fontSize),
-      validate: (id, value, _config) => throwIf(!isNumber(value), `${id} must be a number`),
+      validate: (id, value, _config) => {
+        validateNonNegativeNumericParam(id, value);
+      },
     },
     [QueryParamKey.maxScreenWidth]: {
       id: QueryParamKey.maxScreenWidth,
@@ -62,13 +72,16 @@ export const getQueryParamConfig = (queryString: ParsedUrlQuery, options: { font
       validate: (id, value, config) => {
         const minScreenWidth = getQueryParam<QueryParamKey.minScreenWidth>(config, QueryParamKey.minScreenWidth).value;
         throwIf(!isNumber(value), `${id} must be a number.`);
+        throwIf(value < 0, `${id} cannot be negative.`);
         throwIf(value <= minScreenWidth, `${id} must be strictly greater than ${QueryParamKey.minScreenWidth}.`);
       },
     },
     [QueryParamKey.maxRatio]: {
       id: QueryParamKey.maxRatio,
       value: parseNumericParam('maxRatio', initialFormState.max.ratio),
-      validate: (id, value, _config) => throwIf(!isNumber(value), `${id} must be a number.`),
+      validate: (id, value, _config) => {
+        validateNonNegativeNumericParam(id, value);
+      },
     },
     [QueryParamKey.allSteps]: {
       id: QueryParamKey.allSteps,
@@ -103,9 +116,8 @@ export const getQueryParamConfig = (queryString: ParsedUrlQuery, options: { font
       id: QueryParamKey.roundingDecimalPlaces,
       value: parseNumericParam('roundingDecimalPlaces', initialFormState.roundingDecimalPlaces),
       validate: (id, value, _config) => {
-        throwIf(!isNumber(value), `${id} must be a number.`);
+        validateNonNegativeNumericParam(id, value);
         throwIf(!Number.isInteger(value), `${id} must be an integer.`);
-        throwIf(value < 0, `${id} cannot be negative.`);
       },
     },
     [QueryParamKey.fontFamily]: {
