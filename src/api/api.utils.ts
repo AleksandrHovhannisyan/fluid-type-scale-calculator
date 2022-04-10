@@ -18,7 +18,7 @@ export const getQueryParamConfig = (
   const query = queryString as Record<QueryParamKey, string>;
   const defaults = options.defaults ?? queryParamDefaults;
 
-  /** Helper to return a query param by key, if it exists, and an empty string otherwise. */
+  /** Helper to return a query param by key, if it exists. */
   const parseRawParam = (key: keyof typeof QueryParamKey): string | undefined => query[QueryParamKey[key]];
 
   /** Helper that fetches the given key from query params, expecting to find a string that looks like a number. If the param does not exist,
