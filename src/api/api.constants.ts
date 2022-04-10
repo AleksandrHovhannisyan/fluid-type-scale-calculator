@@ -32,3 +32,10 @@ export const queryParamDefaults: QueryParamValues = {
   [QueryParamKey.roundingDecimalPlaces]: initialFormState.roundingDecimalPlaces,
   [QueryParamKey.fontFamily]: initialFormState.fontFamily,
 };
+
+/** Constraints on the values allowed in certain query params. Not all params have explicit constraints; some are implicit. */
+export const queryParamConstraints: Partial<Record<QueryParamKey, { max?: number }>> = {
+  [QueryParamKey.roundingDecimalPlaces]: {
+    max: 10,
+  },
+};
