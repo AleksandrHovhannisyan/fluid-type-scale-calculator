@@ -1,6 +1,7 @@
 import type { ChangeEvent } from 'react';
 import { useEffect, useState } from 'react';
 import clsx from 'clsx';
+import Head from 'next/head';
 import { DEFAULT_FONT_FAMILY, initialFormState } from '../../../constants';
 import type { TypeScale, WithFonts } from '../../../types';
 import { getGoogleFontLinkTagHref } from '../../../utils';
@@ -45,9 +46,15 @@ const Preview = (props: Props) => {
           href={getGoogleFontLinkTagHref({ family: state.fontFamily, display: 'swap' })}
         />
       )}
+      <Head>
+        {/* Hide nonessential/JS-dependent inputs in noscript environment. They won't work anyway. */}
+        <noscript>
+          <style>{`.${styles['label-group']} { display: none !important; }`}</style>
+        </noscript>
+      </Head>
       <section className={styles.preview}>
         <h2>Preview your type scale</h2>
-        <div id="preview-inputs" className={styles['label-group']}>
+        <div className={styles['label-group']}>
           <Label title="Font family">
             <GoogleFontsPicker fonts={fonts} defaultValue={state.fontFamily} onChange={onFontSelected} />
           </Label>
