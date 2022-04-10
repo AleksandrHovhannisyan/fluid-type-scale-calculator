@@ -29,10 +29,10 @@ export const getQueryParamConfig = (
     return Number(param);
   };
 
-  /** Performs common validation logic for numeric query params (e.g., checking that it's a valid number and not negative). */
-  const validateNonNegativeNumericParam = (id: QueryParamKey, value: number) => {
+  /** Performs common validation logic for numeric query params (e.g., checking that it's a valid number and positive). */
+  const validatePositiveNumericParam = (id: QueryParamKey, value: number) => {
     throwIf(!isNumber(value), `${id} must be a number.`);
-    throwIf(value <= 0, `${id} must be non-negative.`);
+    throwIf(value <= 0, `${id} must be a positive number.`);
   };
 
   const queryParamConfig: QueryParamConfig = {
@@ -40,7 +40,7 @@ export const getQueryParamConfig = (
       id: QueryParamKey.minFontSize,
       value: parseNumericParam('minFontSize', defaults[QueryParamKey.minFontSize]),
       validate: (id, value, _config) => {
-        validateNonNegativeNumericParam(id, value);
+        validatePositiveNumericParam(id, value);
       },
     },
     [QueryParamKey.minScreenWidth]: {
@@ -48,7 +48,7 @@ export const getQueryParamConfig = (
       value: parseNumericParam('minScreenWidth', defaults[QueryParamKey.minScreenWidth]),
       validate: (id, value, config) => {
         const maxScreenWidth = config[QueryParamKey.maxScreenWidth].value;
-        validateNonNegativeNumericParam(id, value);
+        validatePositiveNumericParam(id, value);
         throwIf(value >= maxScreenWidth, `${id} must be strictly less than ${QueryParamKey.maxScreenWidth}.`);
       },
     },
@@ -56,14 +56,14 @@ export const getQueryParamConfig = (
       id: QueryParamKey.minRatio,
       value: parseNumericParam('minRatio', defaults[QueryParamKey.minRatio]),
       validate: (id, value, _config) => {
-        validateNonNegativeNumericParam(id, value);
+        validatePositiveNumericParam(id, value);
       },
     },
     [QueryParamKey.maxFontSize]: {
       id: QueryParamKey.maxFontSize,
       value: parseNumericParam('maxFontSize', defaults[QueryParamKey.maxFontSize]),
       validate: (id, value, _config) => {
-        validateNonNegativeNumericParam(id, value);
+        validatePositiveNumericParam(id, value);
       },
     },
     [QueryParamKey.maxScreenWidth]: {
@@ -80,7 +80,7 @@ export const getQueryParamConfig = (
       id: QueryParamKey.maxRatio,
       value: parseNumericParam('maxRatio', defaults[QueryParamKey.maxRatio]),
       validate: (id, value, _config) => {
-        validateNonNegativeNumericParam(id, value);
+        validatePositiveNumericParam(id, value);
       },
     },
     [QueryParamKey.allSteps]: {
@@ -116,7 +116,7 @@ export const getQueryParamConfig = (
       id: QueryParamKey.roundingDecimalPlaces,
       value: parseNumericParam('roundingDecimalPlaces', defaults[QueryParamKey.roundingDecimalPlaces]),
       validate: (id, value, _config) => {
-        validateNonNegativeNumericParam(id, value);
+        throwIf(value < 0, `${id} cannot be negative.`);
         throwIf(!Number.isInteger(value), `${id} must be an integer.`);
       },
     },
