@@ -2,7 +2,7 @@ import { STATUS_CODES as REASON_PHRASES } from 'http';
 import { constants as HTTP_STATUS_CODES } from 'http2';
 import type { GetServerSidePropsContext, GetServerSidePropsResult, NextPage } from 'next';
 import { QueryParamKey } from '../api/api.constants';
-import { getQueryParam, getQueryParamConfig, validateQueryParams } from '../api/api.utils';
+import { getQueryParamConfig, validateQueryParams } from '../api/api.utils';
 import ErrorPage from '../components/ErrorPage/ErrorPage';
 import FluidTypeScaleCalculator from '../components/FluidTypeScaleCalculator/FluidTypeScaleCalculator';
 import HeroBanner from '../components/HeroBanner/HeroBanner';
@@ -31,26 +31,23 @@ export const getServerSideProps = async (
 
     const initialState: FormState = {
       min: {
-        fontSize: getQueryParam<QueryParamKey.minFontSize>(params, QueryParamKey.minFontSize).value,
-        screenWidth: getQueryParam<QueryParamKey.minScreenWidth>(params, QueryParamKey.minScreenWidth).value,
-        ratio: getQueryParam<QueryParamKey.minRatio>(params, QueryParamKey.minRatio).value,
+        fontSize: params[QueryParamKey.minFontSize].value,
+        screenWidth: params[QueryParamKey.minScreenWidth].value,
+        ratio: params[QueryParamKey.minRatio].value,
       },
       max: {
-        fontSize: getQueryParam<QueryParamKey.maxFontSize>(params, QueryParamKey.maxFontSize).value,
-        screenWidth: getQueryParam<QueryParamKey.maxScreenWidth>(params, QueryParamKey.maxScreenWidth).value,
-        ratio: getQueryParam<QueryParamKey.maxRatio>(params, QueryParamKey.maxRatio).value,
+        fontSize: params[QueryParamKey.maxFontSize].value,
+        screenWidth: params[QueryParamKey.maxScreenWidth].value,
+        ratio: params[QueryParamKey.maxRatio].value,
       },
       typeScaleSteps: {
-        all: getQueryParam<QueryParamKey.allSteps>(params, QueryParamKey.allSteps).value,
-        base: getQueryParam<QueryParamKey.baseStep>(params, QueryParamKey.baseStep).value,
+        all: params[QueryParamKey.allSteps].value,
+        base: params[QueryParamKey.baseStep].value,
       },
-      namingConvention: getQueryParam<QueryParamKey.namingConvention>(params, QueryParamKey.namingConvention).value,
-      shouldUseRems: getQueryParam<QueryParamKey.shouldUseRems>(params, QueryParamKey.shouldUseRems).value,
-      roundingDecimalPlaces: getQueryParam<QueryParamKey.roundingDecimalPlaces>(
-        params,
-        QueryParamKey.roundingDecimalPlaces
-      ).value,
-      fontFamily: getQueryParam<QueryParamKey.fontFamily>(params, QueryParamKey.fontFamily).value,
+      namingConvention: params[QueryParamKey.namingConvention].value,
+      shouldUseRems: params[QueryParamKey.shouldUseRems].value,
+      roundingDecimalPlaces: params[QueryParamKey.roundingDecimalPlaces].value,
+      fontFamily: params[QueryParamKey.fontFamily].value,
     };
     return {
       props: {

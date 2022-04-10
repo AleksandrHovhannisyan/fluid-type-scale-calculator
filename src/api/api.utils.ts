@@ -2,15 +2,8 @@ import { ParsedUrlQuery } from 'querystring';
 import { queryParamDefaults, QueryParamKey } from '../api/api.constants';
 import { COMMA_SEPARATED_LIST_REGEX } from '../constants';
 import { WithFonts } from '../types';
-import type { NarrowById } from '../types.generics';
 import { isNumber, throwIf } from '../utils';
-import type { QueryParam, QueryParamConfig, QueryParamValues, ValidatedQueryParam } from './api.types';
-
-/** Returns the query parameter config entry corresponding to the param that has the specified ID/key. */
-export const getQueryParam = <K extends QueryParam['id']>(
-  queryParams: QueryParamConfig,
-  key: K
-): NarrowById<QueryParam, K> => queryParams[key];
+import type { QueryParamConfig, QueryParamValues, ValidatedQueryParam } from './api.types';
 
 /** Parses query parameters from the given query and returns a config describing each param and its constraints.
  * If a param is not present in the `ParsedUrlQuery`, it will default to the corresponding fallback specified in options.
@@ -54,7 +47,7 @@ export const getQueryParamConfig = (
       id: QueryParamKey.minScreenWidth,
       value: parseNumericParam('minScreenWidth', defaults[QueryParamKey.minScreenWidth]),
       validate: (id, value, config) => {
-        const maxScreenWidth = getQueryParam<QueryParamKey.maxScreenWidth>(config, QueryParamKey.maxScreenWidth).value;
+        const maxScreenWidth = config[QueryParamKey.maxScreenWidth].value;
         validateNonNegativeNumericParam(id, value);
         throwIf(value >= maxScreenWidth, `${id} must be strictly less than ${QueryParamKey.maxScreenWidth}.`);
       },
@@ -77,7 +70,7 @@ export const getQueryParamConfig = (
       id: QueryParamKey.maxScreenWidth,
       value: parseNumericParam('maxScreenWidth', defaults[QueryParamKey.maxScreenWidth]),
       validate: (id, value, config) => {
-        const minScreenWidth = getQueryParam<QueryParamKey.minScreenWidth>(config, QueryParamKey.minScreenWidth).value;
+        const minScreenWidth = config[QueryParamKey.minScreenWidth].value;
         throwIf(!isNumber(value), `${id} must be a number.`);
         throwIf(value < 0, `${id} cannot be negative.`);
         throwIf(value <= minScreenWidth, `${id} must be strictly greater than ${QueryParamKey.minScreenWidth}.`);
@@ -102,7 +95,7 @@ export const getQueryParamConfig = (
       id: QueryParamKey.baseStep,
       value: parseRawParam('baseStep') ?? defaults[QueryParamKey.baseStep],
       validate: (id, value, config) => {
-        const allSteps = getQueryParam<QueryParamKey.allSteps>(config, QueryParamKey.allSteps).value;
+        const allSteps = config[QueryParamKey.allSteps].value;
         throwIf(!allSteps.includes(value), `The base step '${value}' was not found in the list of all steps.`);
       },
     },
