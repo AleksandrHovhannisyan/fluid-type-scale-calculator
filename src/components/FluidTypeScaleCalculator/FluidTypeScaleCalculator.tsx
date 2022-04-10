@@ -100,7 +100,7 @@ const FluidTypeScaleCalculator = (props: Props) => {
   return (
     <FormStateContext.Provider value={{ state, dispatch }}>
       <div className={styles['type-scale-calculator']}>
-        <Stack>
+        <Stack className={styles['type-scale-stack']}>
           <Form />
           <Output typeScale={typeScale} />
         </Stack>
