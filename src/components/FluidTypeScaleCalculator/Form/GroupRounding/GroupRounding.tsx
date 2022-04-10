@@ -2,6 +2,7 @@ import { QueryParamKey } from '../../../../api/api.constants';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
 import { useFormState } from '../../FluidTypeScaleCalculator.context';
+import { MAX_ALLOWED_DECIMAL_PLACES } from './GroupRounding.constants';
 import styles from './GroupRounding.module.scss';
 
 const GroupRounding = () => {
@@ -15,10 +16,12 @@ const GroupRounding = () => {
       />
       <Input
         name={QueryParamKey.roundingDecimalPlaces}
+        className={styles['rounding-input']}
         id="group-rounding"
         type="number"
         step={1}
         min={0}
+        max={MAX_ALLOWED_DECIMAL_PLACES}
         required={true}
         defaultValue={state.roundingDecimalPlaces}
         onChange={(e) =>

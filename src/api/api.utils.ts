@@ -1,5 +1,6 @@
 import { ParsedUrlQuery } from 'querystring';
 import { queryParamDefaults, QueryParamKey } from '../api/api.constants';
+import { MAX_ALLOWED_DECIMAL_PLACES } from '../components/FluidTypeScaleCalculator/Form/GroupRounding/GroupRounding.constants';
 import { COMMA_SEPARATED_LIST_REGEX } from '../constants';
 import { WithFonts } from '../types';
 import { isNumber, throwIf } from '../utils';
@@ -118,6 +119,7 @@ export const getQueryParamConfig = (
       validate: (id, value, _config) => {
         throwIf(value < 0, `${id} cannot be negative.`);
         throwIf(!Number.isInteger(value), `${id} must be an integer.`);
+        throwIf(value > MAX_ALLOWED_DECIMAL_PLACES, `${id} cannot exceed ${MAX_ALLOWED_DECIMAL_PLACES}.`);
       },
     },
     [QueryParamKey.fontFamily]: {
