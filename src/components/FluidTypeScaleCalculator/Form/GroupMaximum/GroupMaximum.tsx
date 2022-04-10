@@ -1,4 +1,4 @@
-import { QueryParamKey } from '../../../../types';
+import { QueryParamKey } from '../../../../api/api.constants';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
 import LabelGroup from '../../../Label/LabelGroup/LabelGroup';
@@ -54,8 +54,8 @@ const GroupMaximum = () => {
         <TypeScalePicker
           name={QueryParamKey.maxRatio}
           id="type-scale-max"
-          ratio={state.max.modularRatio}
-          onChange={(e) => dispatch({ type: 'setMax', payload: { modularRatio: e.target.valueAsNumber } })}
+          ratio={state.max.ratio}
+          onChange={(e) => dispatch({ type: 'setMax', payload: { ratio: e.target.valueAsNumber } })}
         />
       </LabelGroup>
     </Label>

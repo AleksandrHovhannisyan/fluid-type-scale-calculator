@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
+import { QueryParamKey } from '../../api/api.constants';
 import { Delay } from '../../constants';
-import { QueryParamKey, WithFonts } from '../../types';
+import { WithFonts } from '../../types';
 import { TYPE_SCALE_FORM_ID } from '../FluidTypeScaleCalculator/Form/Form.constants';
 import Select, { SelectProps } from '../Select/Select';
 

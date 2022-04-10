@@ -1,5 +1,5 @@
-import type { QueryParamKey } from '../types';
 import type { MapDiscriminatedUnion } from '../types.generics';
+import { QueryParamKey } from './api.constants';
 
 /** A query parameter with a value and a corresponding validator function to check the value. */
 export type ValidatedQueryParam<T> = {
@@ -13,35 +13,27 @@ export type ValidatedQueryParam<T> = {
   validate: (id: QueryParam['id'], value: T, config: QueryParamConfig) => void;
 };
 
-/** A query parameter that, when parsed, is expected to be of type `number`. */
-type NumericQueryParam = ValidatedQueryParam<number> & {
-  /** The minimum value this query parameter is allowed to have. */
-  min?: number;
-  /** The maximum value this query parameter is allowed to have. */
-  max?: number;
-};
-
-export type ParamMinFontSize = NumericQueryParam & {
+export type ParamMinFontSize = ValidatedQueryParam<number> & {
   id: QueryParamKey.minFontSize;
 };
 
-export type ParamMinScreenWidth = NumericQueryParam & {
+export type ParamMinScreenWidth = ValidatedQueryParam<number> & {
   id: QueryParamKey.minScreenWidth;
 };
 
-export type ParamMinRatio = NumericQueryParam & {
+export type ParamMinRatio = ValidatedQueryParam<number> & {
   id: QueryParamKey.minRatio;
 };
 
-export type ParamMaxFontSize = NumericQueryParam & {
+export type ParamMaxFontSize = ValidatedQueryParam<number> & {
   id: QueryParamKey.maxFontSize;
 };
 
-export type ParamMaxScreenWidth = NumericQueryParam & {
+export type ParamMaxScreenWidth = ValidatedQueryParam<number> & {
   id: QueryParamKey.maxScreenWidth;
 };
 
-export type ParamMaxRatio = NumericQueryParam & {
+export type ParamMaxRatio = ValidatedQueryParam<number> & {
   id: QueryParamKey.maxRatio;
 };
 
@@ -61,10 +53,8 @@ export type ParamShouldUseRems = ValidatedQueryParam<boolean> & {
   id: QueryParamKey.shouldUseRems;
 };
 
-export type ParamRoundingDecimalPlaces = NumericQueryParam & {
+export type ParamRoundingDecimalPlaces = ValidatedQueryParam<number> & {
   id: QueryParamKey.roundingDecimalPlaces;
-  min: number;
-  max: number;
 };
 
 export type ParamFontFamily = ValidatedQueryParam<string> & {
@@ -87,3 +77,8 @@ export type QueryParam =
 
 /** Mapped type where they keys `K` correspond to shapes that extend `{ id: K }`. Defines a config for each query parameter. */
 export type QueryParamConfig = MapDiscriminatedUnion<QueryParam, 'id'>;
+
+/** Maps each query param name/ID to only its corresponding value. Essentially the same as QueryParamConfig, except the object values are the `value` properties of each member of the `QueryParam` union. */
+export type QueryParamValues = {
+  [K in keyof QueryParamConfig]: QueryParamConfig[K]['value'];
+};

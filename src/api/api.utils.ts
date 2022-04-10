@@ -1,79 +1,91 @@
 import { ParsedUrlQuery } from 'querystring';
-import { COMMA_SEPARATED_LIST_REGEX } from '../components/FluidTypeScaleCalculator/Form/GroupTypeScaleSteps/GroupTypeScaleSteps.constants.';
-import { DEFAULT_FONT_FAMILY, initialFormState } from '../constants';
-import { QueryParamKey } from '../types';
-import type { NarrowById } from '../types.generics';
+import { queryParamDefaults, QueryParamKey } from '../api/api.constants';
+import { COMMA_SEPARATED_LIST_REGEX } from '../constants';
+import { WithFonts } from '../types';
 import { isNumber, throwIf } from '../utils';
-import type { QueryParam, QueryParamConfig, ValidatedQueryParam } from './api.types';
+import type { QueryParamConfig, QueryParamValues, ValidatedQueryParam } from './api.types';
 
-/** Returns the query parameter config entry corresponding to the param that has the specified ID/key. */
-export const getQueryParam = <K extends QueryParam['id']>(
-  queryParams: QueryParamConfig,
-  key: K
-): NarrowById<QueryParam, K> => queryParams[key];
-
-// TODO: pass in fallbacks as an option to make this easier to test.
 /** Parses query parameters from the given query and returns a config describing each param and its constraints.
- * If a param is not present in the `ParsedUrlQuery`, it will default to a fallback.
+ * If a param is not present in the `ParsedUrlQuery`, it will default to the corresponding fallback specified in options.
  */
-export const getQueryParamConfig = (queryString: ParsedUrlQuery, options: { fonts: string[] }): QueryParamConfig => {
+export const getQueryParamConfig = (
+  queryString: ParsedUrlQuery,
+  options: WithFonts & {
+    /** An optional map specifying the default value for each query param. */
+    defaults?: QueryParamValues;
+  }
+): QueryParamConfig => {
   const query = queryString as Record<QueryParamKey, string>;
+  const defaults = options.defaults ?? queryParamDefaults;
 
   /** Helper to return a query param by key, if it exists, and an empty string otherwise. */
   const parseRawParam = (key: keyof typeof QueryParamKey): string | undefined => query[QueryParamKey[key]];
 
   /** Helper that fetches the given key from query params, expecting to find a string that looks like a number. If the param does not exist,
-   * returns the fallback. If the param exists but is not of a numeric type, throws an error. Else, returns the parsed param as a number. */
+   * returns the fallback. Else, returns the parsed param as a number. */
   const parseNumericParam = (key: keyof typeof QueryParamKey, fallback: number): number => {
     const param = parseRawParam(key) ?? fallback;
     if (typeof param === 'string' && !param) return NaN;
     return Number(param);
   };
 
+  /** Performs common validation logic for numeric query params (e.g., checking that it's a valid number and not negative). */
+  const validateNonNegativeNumericParam = (id: QueryParamKey, value: number) => {
+    throwIf(!isNumber(value), `${id} must be a number.`);
+    throwIf(value <= 0, `${id} must be non-negative.`);
+  };
+
   const queryParamConfig: QueryParamConfig = {
     [QueryParamKey.minFontSize]: {
       id: QueryParamKey.minFontSize,
-      value: parseNumericParam('minFontSize', initialFormState.min.fontSize),
+      value: parseNumericParam('minFontSize', defaults[QueryParamKey.minFontSize]),
       validate: (id, value, _config) => {
-        throwIf(!isNumber(value), `${id} must be a number.`);
+        validateNonNegativeNumericParam(id, value);
       },
     },
     [QueryParamKey.minScreenWidth]: {
       id: QueryParamKey.minScreenWidth,
-      value: parseNumericParam('minScreenWidth', initialFormState.min.screenWidth),
+      value: parseNumericParam('minScreenWidth', defaults[QueryParamKey.minScreenWidth]),
       validate: (id, value, config) => {
-        const maxScreenWidth = getQueryParam<QueryParamKey.maxScreenWidth>(config, QueryParamKey.maxScreenWidth).value;
-        throwIf(!isNumber(value), `${id} must be a number.`);
+        const maxScreenWidth = config[QueryParamKey.maxScreenWidth].value;
+        validateNonNegativeNumericParam(id, value);
         throwIf(value >= maxScreenWidth, `${id} must be strictly less than ${QueryParamKey.maxScreenWidth}.`);
       },
     },
     [QueryParamKey.minRatio]: {
       id: QueryParamKey.minRatio,
-      value: parseNumericParam('minRatio', initialFormState.min.modularRatio),
-      validate: (id, value, _config) => throwIf(!isNumber(value), `${id} must be a number.`),
+      value: parseNumericParam('minRatio', defaults[QueryParamKey.minRatio]),
+      validate: (id, value, _config) => {
+        validateNonNegativeNumericParam(id, value);
+      },
     },
     [QueryParamKey.maxFontSize]: {
       id: QueryParamKey.maxFontSize,
-      value: parseNumericParam('maxFontSize', initialFormState.max.fontSize),
-      validate: (id, value, _config) => throwIf(!isNumber(value), `${id} must be a number`),
+      value: parseNumericParam('maxFontSize', defaults[QueryParamKey.maxFontSize]),
+      validate: (id, value, _config) => {
+        validateNonNegativeNumericParam(id, value);
+      },
     },
     [QueryParamKey.maxScreenWidth]: {
       id: QueryParamKey.maxScreenWidth,
-      value: parseNumericParam('maxScreenWidth', initialFormState.max.screenWidth),
+      value: parseNumericParam('maxScreenWidth', defaults[QueryParamKey.maxScreenWidth]),
       validate: (id, value, config) => {
-        const minScreenWidth = getQueryParam<QueryParamKey.minScreenWidth>(config, QueryParamKey.minScreenWidth).value;
+        const minScreenWidth = config[QueryParamKey.minScreenWidth].value;
         throwIf(!isNumber(value), `${id} must be a number.`);
+        throwIf(value < 0, `${id} cannot be negative.`);
         throwIf(value <= minScreenWidth, `${id} must be strictly greater than ${QueryParamKey.minScreenWidth}.`);
       },
     },
     [QueryParamKey.maxRatio]: {
       id: QueryParamKey.maxRatio,
-      value: parseNumericParam('maxRatio', initialFormState.max.modularRatio),
-      validate: (id, value, _config) => throwIf(!isNumber(value), `${id} must be a number.`),
+      value: parseNumericParam('maxRatio', defaults[QueryParamKey.maxRatio]),
+      validate: (id, value, _config) => {
+        validateNonNegativeNumericParam(id, value);
+      },
     },
     [QueryParamKey.allSteps]: {
       id: QueryParamKey.allSteps,
-      value: parseRawParam('allSteps')?.split(',') ?? initialFormState.typeScaleSteps.all,
+      value: parseRawParam('allSteps')?.split(',') ?? defaults[QueryParamKey.allSteps],
       validate: (id, value, _config) => {
         const isValid = COMMA_SEPARATED_LIST_REGEX.test(value.join(','));
         throwIf(!isValid, `${id} must be a comma-separated list of step names.`);
@@ -81,15 +93,15 @@ export const getQueryParamConfig = (queryString: ParsedUrlQuery, options: { font
     },
     [QueryParamKey.baseStep]: {
       id: QueryParamKey.baseStep,
-      value: parseRawParam('baseStep') ?? initialFormState.typeScaleSteps.base,
+      value: parseRawParam('baseStep') ?? defaults[QueryParamKey.baseStep],
       validate: (id, value, config) => {
-        const allSteps = getQueryParam<QueryParamKey.allSteps>(config, QueryParamKey.allSteps).value;
+        const allSteps = config[QueryParamKey.allSteps].value;
         throwIf(!allSteps.includes(value), `The base step '${value}' was not found in the list of all steps.`);
       },
     },
     [QueryParamKey.namingConvention]: {
       id: QueryParamKey.namingConvention,
-      value: parseRawParam('namingConvention') ?? initialFormState.namingConvention,
+      value: parseRawParam('namingConvention') ?? defaults[QueryParamKey.namingConvention],
       validate: (id, value, _config) => {
         const isEmpty = !value.length;
         throwIf(isEmpty, `${id} must be a non-empty string`);
@@ -102,19 +114,15 @@ export const getQueryParamConfig = (queryString: ParsedUrlQuery, options: { font
     },
     [QueryParamKey.roundingDecimalPlaces]: {
       id: QueryParamKey.roundingDecimalPlaces,
-      value: parseNumericParam('roundingDecimalPlaces', initialFormState.roundingDecimalPlaces),
-      validate: (id, value, config) => {
-        throwIf(!isNumber(value), `${id} must be a number.`);
-        const self = getQueryParam<QueryParamKey.roundingDecimalPlaces>(config, QueryParamKey.roundingDecimalPlaces);
-        const isInRange = value >= self.min && value <= self.max;
-        throwIf(!isInRange, `${id} must be at least ${self.min} and at most ${self.max}.`);
+      value: parseNumericParam('roundingDecimalPlaces', defaults[QueryParamKey.roundingDecimalPlaces]),
+      validate: (id, value, _config) => {
+        validateNonNegativeNumericParam(id, value);
+        throwIf(!Number.isInteger(value), `${id} must be an integer.`);
       },
-      min: 0,
-      max: 5,
     },
     [QueryParamKey.fontFamily]: {
       id: QueryParamKey.fontFamily,
-      value: parseRawParam('fontFamily') ?? DEFAULT_FONT_FAMILY,
+      value: parseRawParam('fontFamily') ?? defaults[QueryParamKey.fontFamily],
       validate: (id, value, _config) =>
         throwIf(
           !options.fonts.includes(value),

@@ -67,6 +67,7 @@ const Preview = (props: Props) => {
             onChange={(e) => setScreenWidth(e.target.valueAsNumber)}
             min={0}
             max={MAX_ALLOWED_SCREEN_WIDTH_PX}
+            required={true}
           />
         </div>
         <div className="table-wrapper">

@@ -17,7 +17,3 @@ export type DiscriminateUnion<T, K extends keyof T, V extends T[K]> = Extract<T,
 export type MapDiscriminatedUnion<T extends Record<K, string>, K extends keyof T> = {
   [V in T[K]]: DiscriminateUnion<T, K, V>;
 };
-
-/** Given an ID, extracts the constituent from a discriminated union type `T` that has a property of `id` matching `N`.
- * Credit: https://stackoverflow.com/a/50499316/5323344 */
-export type NarrowById<T, N> = T extends { id: N } ? T : never;

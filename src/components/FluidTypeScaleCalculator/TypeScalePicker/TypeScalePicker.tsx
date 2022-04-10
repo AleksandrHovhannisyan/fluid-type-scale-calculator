@@ -1,4 +1,4 @@
-import { modularRatios } from '../../../constants';
+import { typeScaleRatios } from '../../../constants';
 import Input from '../../Input/Input';
 import { InputProps } from '../../Input/Input';
 import Label from '../../Label/Label';
@@ -28,7 +28,7 @@ const TypeScalePicker = (props: TypeScalePickerProps) => {
         delay={0}
       />
       <datalist id={id}>
-        {Object.entries(modularRatios).map(([key, { name, ratio }]) => {
+        {Object.entries(typeScaleRatios).map(([key, { name, ratio }]) => {
           return (
             <option key={key} value={ratio}>
               {name}

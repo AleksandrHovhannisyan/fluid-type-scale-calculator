@@ -1,4 +1,4 @@
-import { QueryParamKey } from '../../../../types';
+import { QueryParamKey } from '../../../../api/api.constants';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
 import { useFormState } from '../../FluidTypeScaleCalculator.context';

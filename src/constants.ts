@@ -7,7 +7,10 @@ export const GOOGLE_FONTS_BASE_URL = `https://fonts.googleapis.com/css2`;
 /** The default font family used by the app and shown in font pickers. */
 export const DEFAULT_FONT_FAMILY = 'Inter';
 
-export const modularRatios = {
+/** Regex to match a comma-separated of values, with only alphanumeric characters permitted between the commas. */
+export const COMMA_SEPARATED_LIST_REGEX = /^[a-zA-Z0-9-](?:(,\s*)?[a-zA-Z0-9-])*$/;
+
+export const typeScaleRatios = {
   minorSecond: {
     name: 'Minor second',
     ratio: 1.067,
@@ -47,12 +50,12 @@ export const initialFormState: FormState = {
   min: {
     fontSize: 16,
     screenWidth: 400,
-    modularRatio: modularRatios.majorThird.ratio,
+    ratio: typeScaleRatios.majorThird.ratio,
   },
   max: {
     fontSize: 19,
     screenWidth: 1280,
-    modularRatio: modularRatios.perfectFourth.ratio,
+    ratio: typeScaleRatios.perfectFourth.ratio,
   },
   typeScaleSteps: {
     all: ['sm', 'base', 'md', 'lg', 'xl', 'xxl', 'xxxl'],
@@ -70,15 +73,6 @@ export enum Delay {
   MEDIUM = 300,
   LONG = 400,
 }
-
-/** Global site data reused throughout templates. */
-export const site = {
-  title: `Fluid Type Scale Calculator`,
-  metaTitle: `Fluid Type Scale - Generate responsive font-size variables`,
-  description: `Generate font size variables for a fluid type scale with CSS clamp. Grab the output CSS and drop it into any existing design system.`,
-  keywords: ['fluid type scale', 'type scale', 'CSS clamp'],
-  url: `https://www.fluid-type-scale.com`,
-} as const;
 
 /** Social media profiles and links. */
 export const socials = {

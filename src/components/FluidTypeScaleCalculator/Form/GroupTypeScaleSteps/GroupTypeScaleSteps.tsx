@@ -1,11 +1,10 @@
-import { Delay } from '../../../../constants';
-import { QueryParamKey } from '../../../../types';
+import { QueryParamKey } from '../../../../api/api.constants';
+import { COMMA_SEPARATED_LIST_REGEX, Delay } from '../../../../constants';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
 import LabelGroup from '../../../Label/LabelGroup/LabelGroup';
 import Select from '../../../Select/Select';
 import { useFormState } from '../../FluidTypeScaleCalculator.context';
-import { COMMA_SEPARATED_LIST_REGEX } from './GroupTypeScaleSteps.constants.';
 
 const GroupTypeScaleSteps = () => {
   const { state, dispatch } = useFormState();

@@ -1,4 +1,4 @@
-import { QueryParamKey } from '../../../../types';
+import { QueryParamKey } from '../../../../api/api.constants';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
 import { useFormState } from '../../FluidTypeScaleCalculator.context';
@@ -19,7 +19,6 @@ const GroupRounding = () => {
         type="number"
         step={1}
         min={0}
-        max={5}
         required={true}
         defaultValue={state.roundingDecimalPlaces}
         onChange={(e) =>

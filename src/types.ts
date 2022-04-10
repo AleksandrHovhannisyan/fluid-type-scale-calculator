@@ -21,8 +21,8 @@ export type BreakpointConfig = {
   fontSize: number;
   /** The viewport width corresponding to this breakpoint. */
   screenWidth: number;
-  /** The type scale ratio to use at this target breakpoint. */
-  modularRatio: number;
+  /** The modular type scale ratio to use at this breakpoint to scale the base font size up/down. */
+  ratio: number;
 };
 
 export type FormState = {
@@ -77,22 +77,6 @@ export type FormAction =
       type: 'setFontFamily';
       payload: FormState['fontFamily'];
     };
-
-/** The name attributes for form inputs. Set on the individual form inputs but also used on the server side to read the data from query params. */
-export enum QueryParamKey {
-  minFontSize = 'minFontSize',
-  minScreenWidth = 'minWidth',
-  minRatio = 'minRatio',
-  maxFontSize = 'maxFontSize',
-  maxScreenWidth = 'maxWidth',
-  maxRatio = 'maxRatio',
-  allSteps = 'steps',
-  baseStep = 'base',
-  namingConvention = 'prefix',
-  shouldUseRems = 'useRems',
-  roundingDecimalPlaces = 'decimals',
-  fontFamily = 'font',
-}
 
 export type WithDispatch = {
   /** A dispatch function to update the app state. */
