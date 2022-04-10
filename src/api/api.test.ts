@@ -4,7 +4,7 @@ import { getQueryParamConfig, validateQueryParams } from './api.utils';
 
 describe('API utils', () => {
   describe('getQueryParamConfig', () => {
-    it.only('respects the defaults', () => {
+    it('respects the defaults', () => {
       const config = getQueryParamConfig(
         // No query params are provided, so everything should fall back to the default
         {},
