@@ -6,7 +6,7 @@
   @include desktop {
     align-self: flex-start;
     position: sticky;
-    top: var(--gap);
+    top: var(--sp-xl);
   }
 
   &-wrapper {

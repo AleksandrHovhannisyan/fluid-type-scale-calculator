@@ -5,6 +5,12 @@
   width: 100%;
   overflow: hidden;
   padding: 0 4px;
+  display: grid;
+  gap: var(--sp-xxl);
+
+  h2 {
+    margin: 0;
+  }
 
   table {
     --cell-padding: var(--sp-xs);
@@ -28,7 +34,6 @@
   grid-template-columns: minmax(0, 1fr);
   align-items: end;
   gap: var(--sp-base);
-  margin: var(--sp-xxl) 0;
   @include desktop {
     grid-template-columns: repeat(12, 1fr);
 

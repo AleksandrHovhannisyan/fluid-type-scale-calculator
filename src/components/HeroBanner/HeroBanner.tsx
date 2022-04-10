@@ -1,5 +1,4 @@
 import { HTMLProps } from 'react';
-import clsx from 'clsx';
 import styles from './HeroBanner.module.scss';
 
 export type HeroBannerProps = Pick<HTMLProps<HTMLDivElement>, 'className'> & {
@@ -12,7 +11,7 @@ export type HeroBannerProps = Pick<HTMLProps<HTMLDivElement>, 'className'> & {
 const HeroBanner = (props: HeroBannerProps) => {
   const { title, subtitle } = props;
   return (
-    <header className={clsx(styles['hero-banner'], props.className)}>
+    <header className={props.className}>
       <h1 className={styles.title}>{title}</h1>
       {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
     </header>
