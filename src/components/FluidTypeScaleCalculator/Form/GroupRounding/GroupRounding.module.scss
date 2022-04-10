@@ -2,5 +2,10 @@
   display: grid;
   align-items: end;
   grid-auto-flow: column;
+  justify-content: space-between;
   gap: var(--sp-xs);
+}
+
+.rounding-input {
+  max-width: 6rem;
 }
