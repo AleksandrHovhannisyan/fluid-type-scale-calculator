@@ -1,11 +1,10 @@
 import { useReducer } from 'react';
-import { initialFormState } from '../../constants';
 import type { FormAction, FormState, TypeScale, WithFonts } from '../../types';
 import Stack from '../Stack/Stack';
 import Form from './Form/Form';
 import Output from './Output/Output';
 import Preview from './Preview/Preview';
-import { FormStateContext } from './FluidTypeScaleCalculator.context';
+import { FormStateContext, initialFormState } from './FluidTypeScaleCalculator.context';
 import styles from './FluidTypeScaleCalculator.module.scss';
 
 /** Given the previous app state and a dispatched action, returns the newly transformed state.

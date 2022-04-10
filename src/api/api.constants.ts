@@ -1,4 +1,4 @@
-import { initialFormState } from '../constants';
+import { DEFAULT_FONT_FAMILY, typeScaleRatios } from '../constants';
 import { QueryParamValues } from './api.types';
 
 /** The name attributes for form inputs. Set on the individual form inputs but also used on the server side to read the data from query params. */
@@ -19,18 +19,18 @@ export enum QueryParamKey {
 
 /** A map specifying the default value for each query param. These are derived from the front-end's initial state. */
 export const queryParamDefaults: QueryParamValues = {
-  [QueryParamKey.minFontSize]: initialFormState.min.fontSize,
-  [QueryParamKey.minScreenWidth]: initialFormState.min.screenWidth,
-  [QueryParamKey.minRatio]: initialFormState.min.ratio,
-  [QueryParamKey.maxFontSize]: initialFormState.max.fontSize,
-  [QueryParamKey.maxScreenWidth]: initialFormState.max.screenWidth,
-  [QueryParamKey.maxRatio]: initialFormState.max.ratio,
-  [QueryParamKey.allSteps]: initialFormState.typeScaleSteps.all,
-  [QueryParamKey.baseStep]: initialFormState.typeScaleSteps.base,
-  [QueryParamKey.namingConvention]: initialFormState.namingConvention,
-  [QueryParamKey.shouldUseRems]: initialFormState.shouldUseRems,
-  [QueryParamKey.roundingDecimalPlaces]: initialFormState.roundingDecimalPlaces,
-  [QueryParamKey.fontFamily]: initialFormState.fontFamily,
+  [QueryParamKey.minFontSize]: 16,
+  [QueryParamKey.minScreenWidth]: 400,
+  [QueryParamKey.minRatio]: typeScaleRatios.majorThird.ratio,
+  [QueryParamKey.maxFontSize]: 19,
+  [QueryParamKey.maxScreenWidth]: 1280,
+  [QueryParamKey.maxRatio]: typeScaleRatios.perfectFourth.ratio,
+  [QueryParamKey.allSteps]: ['sm', 'base', 'md', 'lg', 'xl', 'xxl', 'xxxl'],
+  [QueryParamKey.baseStep]: 'base',
+  [QueryParamKey.namingConvention]: 'font-size',
+  [QueryParamKey.shouldUseRems]: true,
+  [QueryParamKey.roundingDecimalPlaces]: 2,
+  [QueryParamKey.fontFamily]: DEFAULT_FONT_FAMILY,
 };
 
 /** Constraints on the values allowed in certain query params. Not all params have explicit constraints; some are implicit. */

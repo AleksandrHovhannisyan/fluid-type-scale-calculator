@@ -1,5 +1,4 @@
 import { siBuymeacoffee, siGithub, siLinkedin, siStackexchange, siTwitter } from 'simple-icons/icons';
-import { FormState } from './types';
 
 /** The root API endpoint for requesting @font-face declarations from Google Fonts. */
 export const GOOGLE_FONTS_BASE_URL = `https://fonts.googleapis.com/css2`;
@@ -44,28 +43,6 @@ export const typeScaleRatios = {
     ratio: 1.618,
   },
 } as const;
-
-/** The initial values used to populate the app's form. */
-export const initialFormState: FormState = {
-  min: {
-    fontSize: 16,
-    screenWidth: 400,
-    ratio: typeScaleRatios.majorThird.ratio,
-  },
-  max: {
-    fontSize: 19,
-    screenWidth: 1280,
-    ratio: typeScaleRatios.perfectFourth.ratio,
-  },
-  typeScaleSteps: {
-    all: ['sm', 'base', 'md', 'lg', 'xl', 'xxl', 'xxxl'],
-    base: 'base',
-  },
-  namingConvention: 'font-size',
-  shouldUseRems: true,
-  roundingDecimalPlaces: 2,
-  fontFamily: DEFAULT_FONT_FAMILY,
-};
 
 /** Enum of delays in milliseconds, for consistency across event handlers. */
 export enum Delay {
