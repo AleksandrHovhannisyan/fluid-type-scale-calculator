@@ -1,7 +1,50 @@
 import { QueryParamKey } from './api.constants';
+import { QueryParamConfig, QueryParamValues } from './api.types';
 import { getQueryParamConfig, validateQueryParams } from './api.utils';
 
 describe('API utils', () => {
+  describe('getQueryParamConfig', () => {
+    it.only('respects the defaults', () => {
+      const config = getQueryParamConfig(
+        // No query params are provided, so everything should fall back to the default
+        {},
+        {
+          fonts: ['Family', 'x', 'y', 'z'],
+          defaults: {
+            [QueryParamKey.minFontSize]: 10,
+            [QueryParamKey.minScreenWidth]: 200,
+            [QueryParamKey.minRatio]: 1.2,
+            [QueryParamKey.maxFontSize]: 16,
+            [QueryParamKey.maxScreenWidth]: 600,
+            [QueryParamKey.maxRatio]: 1.4,
+            [QueryParamKey.allSteps]: ['a', 'b', 'c'],
+            [QueryParamKey.baseStep]: 'b',
+            [QueryParamKey.namingConvention]: 'fs',
+            [QueryParamKey.shouldUseRems]: false,
+            [QueryParamKey.roundingDecimalPlaces]: 4,
+            [QueryParamKey.fontFamily]: 'Family',
+          },
+        }
+      );
+      const expected: QueryParamValues = {
+        [QueryParamKey.minFontSize]: 10,
+        [QueryParamKey.minScreenWidth]: 200,
+        [QueryParamKey.minRatio]: 1.2,
+        [QueryParamKey.maxFontSize]: 16,
+        [QueryParamKey.maxScreenWidth]: 600,
+        [QueryParamKey.maxRatio]: 1.4,
+        [QueryParamKey.allSteps]: ['a', 'b', 'c'],
+        [QueryParamKey.baseStep]: 'b',
+        [QueryParamKey.namingConvention]: 'fs',
+        [QueryParamKey.shouldUseRems]: false,
+        [QueryParamKey.roundingDecimalPlaces]: 4,
+        [QueryParamKey.fontFamily]: 'Family',
+      };
+      Object.values(config).forEach((param) => {
+        expect(param.value).toStrictEqual(expected[param.id]);
+      });
+    });
+  });
   describe('validateQueryParams', () => {
     it('does not throw for valid data', () => {
       const config = getQueryParamConfig(

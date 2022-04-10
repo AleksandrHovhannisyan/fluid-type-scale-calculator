@@ -77,3 +77,8 @@ export type QueryParam =
 
 /** Mapped type where they keys `K` correspond to shapes that extend `{ id: K }`. Defines a config for each query parameter. */
 export type QueryParamConfig = MapDiscriminatedUnion<QueryParam, 'id'>;
+
+/** Maps each query param name/ID to only its corresponding value. Essentially the same as QueryParamConfig, except the object values are the `value` properties of each member of the `QueryParam` union. */
+export type QueryParamValues = {
+  [K in keyof QueryParamConfig]: QueryParamConfig[K]['value'];
+};
