@@ -109,7 +109,7 @@ export const getQueryParamConfig = (
     },
     [QueryParamKey.shouldUseRems]: {
       id: QueryParamKey.shouldUseRems,
-      value: parseRawParam('shouldUseRems') === 'on',
+      value: parseRawParam('shouldUseRems') === 'on' || parseRawParam('shouldUseRems') === 'true',
       validate: (_value, _config) => true,
     },
     [QueryParamKey.roundingDecimalPlaces]: {
