@@ -19,11 +19,11 @@ export const getQueryParamConfig = (
   const defaults = options.defaults ?? queryParamDefaults;
 
   /** Helper to return a query param by key, if it exists. */
-  const parseRawParam = (key: keyof typeof QueryParamKey): string | undefined => query[QueryParamKey[key]];
+  const parseRawParam = (key: QueryParamKey): string | undefined => query[key];
 
   /** Helper that fetches the given key from query params, expecting to find a string that looks like a number. If the param does not exist,
    * returns the fallback. Else, returns the parsed param as a number. */
-  const parseNumericParam = (key: keyof typeof QueryParamKey, fallback: number): number => {
+  const parseNumericParam = (key: QueryParamKey, fallback: number): number => {
     const param = parseRawParam(key) ?? fallback;
     if (typeof param === 'string' && !param) return NaN;
     return Number(param);
@@ -38,14 +38,14 @@ export const getQueryParamConfig = (
   const queryParamConfig: QueryParamConfig = {
     [QueryParamKey.minFontSize]: {
       id: QueryParamKey.minFontSize,
-      value: parseNumericParam('minFontSize', defaults[QueryParamKey.minFontSize]),
+      value: parseNumericParam(QueryParamKey.minFontSize, defaults[QueryParamKey.minFontSize]),
       validate: (id, value, _config) => {
         validatePositiveNumericParam(id, value);
       },
     },
     [QueryParamKey.minScreenWidth]: {
       id: QueryParamKey.minScreenWidth,
-      value: parseNumericParam('minScreenWidth', defaults[QueryParamKey.minScreenWidth]),
+      value: parseNumericParam(QueryParamKey.minScreenWidth, defaults[QueryParamKey.minScreenWidth]),
       validate: (id, value, config) => {
         const maxScreenWidth = config[QueryParamKey.maxScreenWidth].value;
         validatePositiveNumericParam(id, value);
@@ -54,21 +54,21 @@ export const getQueryParamConfig = (
     },
     [QueryParamKey.minRatio]: {
       id: QueryParamKey.minRatio,
-      value: parseNumericParam('minRatio', defaults[QueryParamKey.minRatio]),
+      value: parseNumericParam(QueryParamKey.minRatio, defaults[QueryParamKey.minRatio]),
       validate: (id, value, _config) => {
         validatePositiveNumericParam(id, value);
       },
     },
     [QueryParamKey.maxFontSize]: {
       id: QueryParamKey.maxFontSize,
-      value: parseNumericParam('maxFontSize', defaults[QueryParamKey.maxFontSize]),
+      value: parseNumericParam(QueryParamKey.maxFontSize, defaults[QueryParamKey.maxFontSize]),
       validate: (id, value, _config) => {
         validatePositiveNumericParam(id, value);
       },
     },
     [QueryParamKey.maxScreenWidth]: {
       id: QueryParamKey.maxScreenWidth,
-      value: parseNumericParam('maxScreenWidth', defaults[QueryParamKey.maxScreenWidth]),
+      value: parseNumericParam(QueryParamKey.maxScreenWidth, defaults[QueryParamKey.maxScreenWidth]),
       validate: (id, value, config) => {
         const minScreenWidth = config[QueryParamKey.minScreenWidth].value;
         throwIf(!isNumber(value), `${id} must be a number.`);
@@ -78,14 +78,14 @@ export const getQueryParamConfig = (
     },
     [QueryParamKey.maxRatio]: {
       id: QueryParamKey.maxRatio,
-      value: parseNumericParam('maxRatio', defaults[QueryParamKey.maxRatio]),
+      value: parseNumericParam(QueryParamKey.maxRatio, defaults[QueryParamKey.maxRatio]),
       validate: (id, value, _config) => {
         validatePositiveNumericParam(id, value);
       },
     },
     [QueryParamKey.allSteps]: {
       id: QueryParamKey.allSteps,
-      value: parseRawParam('allSteps')?.split(',') ?? defaults[QueryParamKey.allSteps],
+      value: parseRawParam(QueryParamKey.allSteps)?.split(',') ?? defaults[QueryParamKey.allSteps],
       validate: (id, value, _config) => {
         const isValid = COMMA_SEPARATED_LIST_REGEX.test(value.join(','));
         throwIf(!isValid, `${id} must be a comma-separated list of step names.`);
@@ -93,7 +93,7 @@ export const getQueryParamConfig = (
     },
     [QueryParamKey.baseStep]: {
       id: QueryParamKey.baseStep,
-      value: parseRawParam('baseStep') ?? defaults[QueryParamKey.baseStep],
+      value: parseRawParam(QueryParamKey.baseStep) ?? defaults[QueryParamKey.baseStep],
       validate: (id, value, config) => {
         const allSteps = config[QueryParamKey.allSteps].value;
         throwIf(!allSteps.includes(value), `The base step '${value}' was not found in the list of all steps.`);
@@ -101,7 +101,7 @@ export const getQueryParamConfig = (
     },
     [QueryParamKey.namingConvention]: {
       id: QueryParamKey.namingConvention,
-      value: parseRawParam('namingConvention') ?? defaults[QueryParamKey.namingConvention],
+      value: parseRawParam(QueryParamKey.namingConvention) ?? defaults[QueryParamKey.namingConvention],
       validate: (id, value, _config) => {
         const isEmpty = !value.length;
         throwIf(isEmpty, `${id} must be a non-empty string`);
@@ -109,12 +109,12 @@ export const getQueryParamConfig = (
     },
     [QueryParamKey.shouldUseRems]: {
       id: QueryParamKey.shouldUseRems,
-      value: parseRawParam('shouldUseRems') === 'on' || parseRawParam('shouldUseRems') === 'true',
+      value: ['on', 'true'].includes(parseRawParam(QueryParamKey.shouldUseRems) ?? 'false'),
       validate: (_value, _config) => true,
     },
     [QueryParamKey.roundingDecimalPlaces]: {
       id: QueryParamKey.roundingDecimalPlaces,
-      value: parseNumericParam('roundingDecimalPlaces', defaults[QueryParamKey.roundingDecimalPlaces]),
+      value: parseNumericParam(QueryParamKey.roundingDecimalPlaces, defaults[QueryParamKey.roundingDecimalPlaces]),
       validate: (id, value, _config) => {
         const max = queryParamConstraints[QueryParamKey.roundingDecimalPlaces]?.max;
         throwIf(value < 0, `${id} cannot be negative.`);
@@ -124,7 +124,7 @@ export const getQueryParamConfig = (
     },
     [QueryParamKey.fontFamily]: {
       id: QueryParamKey.fontFamily,
-      value: parseRawParam('fontFamily') ?? defaults[QueryParamKey.fontFamily],
+      value: parseRawParam(QueryParamKey.fontFamily) ?? defaults[QueryParamKey.fontFamily],
       validate: (id, value, _config) =>
         throwIf(
           !options.fonts.includes(value),
