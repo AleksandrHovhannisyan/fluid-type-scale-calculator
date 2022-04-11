@@ -8,7 +8,7 @@ import GroupNamingConvention from './GroupNamingConvention/GroupNamingConvention
 import GroupRounding from './GroupRounding/GroupRounding';
 import GroupTypeScaleSteps from './GroupTypeScaleSteps/GroupTypeScaleSteps';
 import GroupUseRems from './GroupUseRems/GroupUseRems';
-import { TYPE_SCALE_FORM_ID } from './Form.constants';
+import { TYPE_SCALE_FORM_ACTION, TYPE_SCALE_FORM_ID } from './Form.constants';
 import styles from './Form.module.scss';
 
 const Form = () => {
@@ -16,6 +16,10 @@ const Form = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const { state } = useFormState();
 
+  // Update on state change rather than form onChange for a few reasons:
+  // 1. onChange fires immediately even if the individual inputs are debounced.
+  // 2. we validate individual inputs based on their HTML constraints; onChange disregards those.
+  // 3. onChange doesn't fire when inputs outside the form change, even if they're associated with the form.
   useEffect(() => {
     if (!formRef.current) return;
     // Don't update the URL on mount. Only when the state actually changes.
@@ -23,15 +27,13 @@ const Form = () => {
       setIsFirstRender(false);
       return;
     }
-    // Why not just serialize the app state and feed it to URLSearchParams? Because some state keys contain object data for convenience (e.g., min/max),
-    // but the form itself has separate inputs for those aggregate data. In a no-JS environment, those inputs will be serialized individually per standard HTML behavior.
-    // So to keep the API consistent for those two experiences, it's better to serialize the form here rather than the state.
     const formData = new FormData(formRef.current) as unknown as Record<string, string>;
     const urlParams = new URLSearchParams(formData).toString();
-    const newUrl = `/calculate?${urlParams}`;
+    const newUrl = `${TYPE_SCALE_FORM_ACTION}?${urlParams}`;
     // We could also do this routing with Next.js's router, but that would trigger a page reload (even with shallow: true)
-    // because we're requesting a new page. Why two pages? Because I want the home page to be SSG for better TTFB but the calculate route to be SSR for link sharing via query params.
-    // See here for the solution: https://github.com/vercel/next.js/discussions/18072#discussioncomment-109059
+    // because we're requesting a new page. Why two pages? Because I want the home page to be SSG for better TTFB but the
+    // calculate route to be SSR for link sharing via query params.
+    // Solution: https://github.com/vercel/next.js/discussions/18072#discussioncomment-109059
     window.history.replaceState({ ...window.history.state, as: newUrl, url: newUrl }, '', newUrl);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state, formRef]);
@@ -45,10 +47,10 @@ const Form = () => {
       </Head>
       <form
         id={TYPE_SCALE_FORM_ID}
-        className={styles.form}
-        action="/calculate"
-        method="GET"
         ref={formRef}
+        className={styles.form}
+        action={TYPE_SCALE_FORM_ACTION}
+        method="GET"
         onSubmit={(e) => e.preventDefault()}
       >
         <GroupMinimum />
