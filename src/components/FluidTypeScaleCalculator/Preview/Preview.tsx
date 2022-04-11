@@ -61,7 +61,7 @@ const Preview = (props: Props) => {
           <Label title="Preview text" className={clsx('label', styles['preview-text-label'])}>
             <Input
               type="text"
-              required
+              required={true}
               defaultValue={previewText}
               delay={0}
               onChange={(e) => setPreviewText(e.target.value)}
