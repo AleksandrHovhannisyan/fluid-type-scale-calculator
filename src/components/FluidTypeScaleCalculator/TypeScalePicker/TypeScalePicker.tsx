@@ -1,4 +1,4 @@
-import { typeScaleRatios } from '../../../constants';
+import typeScaleRatios from '../../../data/typeScaleRatios.json';
 import Input from '../../Input/Input';
 import { InputProps } from '../../Input/Input';
 import Label from '../../Label/Label';

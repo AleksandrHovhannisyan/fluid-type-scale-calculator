@@ -1,4 +1,5 @@
-import { DEFAULT_FONT_FAMILY, typeScaleRatios } from '../constants';
+import { DEFAULT_FONT_FAMILY } from '../constants';
+import typeScaleRatios from '../data/typeScaleRatios.json';
 import { QueryParamValues } from './api.types';
 
 /** The name attributes for form inputs. Set on the individual form inputs but also used on the server side to read the data from query params. */
