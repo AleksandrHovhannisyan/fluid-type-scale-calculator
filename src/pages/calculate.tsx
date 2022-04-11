@@ -5,12 +5,13 @@ import { QueryParamKey } from '../api/api.constants';
 import { getQueryParamConfig, validateQueryParams } from '../api/api.utils';
 import ErrorPage from '../components/ErrorPage/ErrorPage';
 import FluidTypeScaleCalculator from '../components/FluidTypeScaleCalculator/FluidTypeScaleCalculator';
+import { initialFormState } from '../components/FluidTypeScaleCalculator/FluidTypeScaleCalculator.context';
+import { FormState } from '../components/FluidTypeScaleCalculator/FluidTypeScaleCalculator.types';
 import HeroBanner from '../components/HeroBanner/HeroBanner';
 import Info from '../components/Info/Info';
 import Layout from '../components/Layout/Layout';
-import { initialFormState } from '../constants';
 import site from '../data/site.json';
-import { FormState, HTTPError, WithFonts } from '../types';
+import { HTTPError, WithFonts } from '../types';
 import { getGoogleFontFamilies } from '../utils';
 
 type CalculatePageProps = WithFonts & {

@@ -4,7 +4,7 @@ import type { JsonLd } from 'jsonld/jsonld-spec';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import packageJson from '../../../package.json';
-import { socials } from '../../constants';
+import socials from '../../data/socials.json';
 import { toAbsoluteUrl } from '../../utils';
 import GithubCorner from '../GithubCorner/GithubCorner';
 import PageFooter from '../PageFooter/PageFooter';

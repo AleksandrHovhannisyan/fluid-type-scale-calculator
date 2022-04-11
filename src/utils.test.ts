@@ -37,8 +37,6 @@ describe('App-wide utilities', () => {
       expect(isNumber('42.5')).toStrictEqual(true);
       expect(isNumber('-12.0')).toStrictEqual(true);
       expect(isNumber('0xfff')).toStrictEqual(true);
-    });
-    it('returns true for scientific notation strings', () => {
       expect(isNumber('1e5')).toStrictEqual(true);
     });
     it('returns false for NaN', () => {

@@ -11,14 +11,14 @@ type RangeInputProps = Omit<InputProps, 'label' | 'type'> & {
  * Displays a range input slider along with a custom input box to allow for manual inputs.
  */
 const RangeInput = (props: RangeInputProps) => {
-  const { id, label, ...otherProps } = props;
+  const { id, label, required, ...otherProps } = props;
   return (
     <div className={styles.range}>
       <Label htmlFor={id} title={label} />
       <div className={styles['range-display']}>
         <Input type="range" id={id} step={1} {...otherProps} />
         <Label direction="horizontal" title="Custom">
-          <Input type="number" step={1} delay={0} {...otherProps} />
+          <Input type="number" step={1} delay={0} required={required} {...otherProps} />
         </Label>
       </div>
     </div>

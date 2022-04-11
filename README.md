@@ -36,11 +36,11 @@ The `/calculate` route accepts the following query parameters and types. All par
 | `steps`       | A comma-separated list of names for your type scale steps, in ascending order of font size | `string` | Comma-separated list. Step names must be alphanumeric, with no spaces.                                                    | `sm,base,md,lg,xl,xxl,xxxl` |
 | `base`        | The name of the base step                                                                  | `string` | Must exist in `steps`                                                                                                     | `base`                      |
 | `prefix`      | The naming convention to use for the output CSS variables                                  | `string` | Non-empty                                                                                                                 | `font-size`                 |
-| `useRems`     | Whether to use rems for font sizing.                                                       | `on`     | If specified, must be `on`. Omitting it implies that pixels will be used.                                                 | `on`                        |
+| `useRems`     | Whether to use rems for font sizing.                                                       | `on`     | If specified, must be `on` or `true`. Omitting it implies that pixels will be used.                                                 | `on`                        |
 | `decimals`    | The number of decimal places to round the output to.                                       | `number` | Non-negative integer. Max `10`.                                                                                           | `2`                         |
 | `font`        | The font family to render in the preview.                                                  | `string` | Spaces must be escaped (e.g., `Libre+Baskerville`). The font must be a valid Google Font. Custom fonts are not supported. | `Inter`                     |
 
-Example URL: https://www.fluid-type-scale.com/calculate?minFontSize=15&minWidth=400&minRatio=1.25&maxFontSize=17&maxWidth=1280&maxRatio=1.333&steps=sm%2Cbase%2Cmd%2Clg%2Cxl%2Cxxl%2Cxxxl&base=base&prefix=font-size&decimals=2&useRems=on&font=Libre+Baskerville
+Example URL: `https://www.fluid-type-scale.com/calculate?minFontSize=15&minWidth=400&minRatio=1.25&maxFontSize=17&maxWidth=1280&maxRatio=1.333&steps=sm%2Cbase%2Cmd%2Clg%2Cxl%2Cxxl%2Cxxxl&base=base&prefix=font-size&decimals=2&useRems=on&font=Libre+Baskerville`
 
 ### Tech Stack
 

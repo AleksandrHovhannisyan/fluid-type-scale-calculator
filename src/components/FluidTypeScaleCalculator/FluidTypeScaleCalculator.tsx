@@ -1,50 +1,12 @@
 import { useReducer } from 'react';
-import { initialFormState } from '../../constants';
-import type { FormAction, FormState, TypeScale, WithFonts } from '../../types';
+import type { TypeScale, WithFonts } from '../../types';
 import Stack from '../Stack/Stack';
 import Form from './Form/Form';
 import Output from './Output/Output';
 import Preview from './Preview/Preview';
-import { FormStateContext } from './FluidTypeScaleCalculator.context';
+import { FormStateContext, formStateReducer, initialFormState } from './FluidTypeScaleCalculator.context';
+import { FormState } from './FluidTypeScaleCalculator.types';
 import styles from './FluidTypeScaleCalculator.module.scss';
-
-/** Given the previous app state and a dispatched action, returns the newly transformed state.
- * https://www.aleksandrhovhannisyan.com/blog/managing-complex-state-react-usereducer/
- */
-const reducer = (state: FormState, action: FormAction): FormState => {
-  switch (action.type) {
-    case 'setMin': {
-      return { ...state, min: { ...state.min, ...action.payload } };
-    }
-    case 'setMax': {
-      return { ...state, max: { ...state.max, ...action.payload } };
-    }
-    case 'setTypeScaleSteps': {
-      const allSteps = action.payload.all ?? state.typeScaleSteps.all;
-      let baseStep = action.payload.base ?? state.typeScaleSteps.base;
-      // This might happen if a user changes the array of steps and the base step becomes stale, pointing to a now-invalid value.
-      // In that case, we reset the base step to the first item in the array of all steps. Users can change this later.
-      if (!allSteps.includes(baseStep)) {
-        baseStep = allSteps[0];
-      }
-      return { ...state, typeScaleSteps: { all: allSteps, base: baseStep } };
-    }
-    case 'setNamingConvention': {
-      return { ...state, namingConvention: action.payload };
-    }
-    case 'setShouldUseRems': {
-      return { ...state, shouldUseRems: action.payload };
-    }
-    case 'setRoundingDecimalPlaces': {
-      return { ...state, roundingDecimalPlaces: action.payload };
-    }
-    case 'setFontFamily': {
-      return { ...state, fontFamily: action.payload };
-    }
-    default:
-      return initialFormState;
-  }
-};
 
 type Props = WithFonts & {
   /** An optional initial state (e.g., from server-side query params). */
@@ -52,7 +14,7 @@ type Props = WithFonts & {
 };
 
 const FluidTypeScaleCalculator = (props: Props) => {
-  const [state, dispatch] = useReducer(reducer, props.initialState ?? initialFormState);
+  const [state, dispatch] = useReducer(formStateReducer, props.initialState ?? initialFormState);
 
   /** Appends the correct unit to a unitless value. */
   const withUnit = (unitlessValue: number) => `${unitlessValue}${state.shouldUseRems ? 'rem' : 'px'}`;

@@ -2,14 +2,14 @@ import type { ChangeEvent } from 'react';
 import { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import Head from 'next/head';
-import { DEFAULT_FONT_FAMILY, initialFormState } from '../../../constants';
+import { DEFAULT_FONT_FAMILY } from '../../../constants';
 import type { TypeScale, WithFonts } from '../../../types';
 import { getGoogleFontLinkTagHref } from '../../../utils';
 import GoogleFontsPicker from '../../GoogleFontsPicker/GoogleFontsPicker';
 import Input from '../../Input/Input';
 import Label from '../../Label/Label';
 import RangeInput from '../../RangeInput/RangeInput';
-import { useFormState } from '../FluidTypeScaleCalculator.context';
+import { initialFormState, useFormState } from '../FluidTypeScaleCalculator.context';
 import { MAX_ALLOWED_SCREEN_WIDTH_PX } from './Preview.constants';
 import styles from './Preview.module.scss';
 
@@ -61,7 +61,7 @@ const Preview = (props: Props) => {
           <Label title="Preview text" className={clsx('label', styles['preview-text-label'])}>
             <Input
               type="text"
-              required
+              required={true}
               defaultValue={previewText}
               delay={0}
               onChange={(e) => setPreviewText(e.target.value)}
