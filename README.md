@@ -40,7 +40,7 @@ The `/calculate` route accepts the following query parameters and types. All par
 | `decimals`    | The number of decimal places to round the output to.                                       | `number` | Non-negative integer. Max `10`.                                                                                           | `2`                         |
 | `font`        | The font family to render in the preview.                                                  | `string` | Spaces must be escaped (e.g., `Libre+Baskerville`). The font must be a valid Google Font. Custom fonts are not supported. | `Inter`                     |
 
-Example URL: https://www.fluid-type-scale.com/calculate?minFontSize=15&minWidth=400&minRatio=1.25&maxFontSize=17&maxWidth=1280&maxRatio=1.333&steps=sm%2Cbase%2Cmd%2Clg%2Cxl%2Cxxl%2Cxxxl&base=base&prefix=font-size&decimals=2&useRems=on&font=Libre+Baskerville
+Example URL: `https://www.fluid-type-scale.com/calculate?minFontSize=15&minWidth=400&minRatio=1.25&maxFontSize=17&maxWidth=1280&maxRatio=1.333&steps=sm%2Cbase%2Cmd%2Clg%2Cxl%2Cxxl%2Cxxxl&base=base&prefix=font-size&decimals=2&useRems=on&font=Libre+Baskerville`
 
 ### Tech Stack
 
