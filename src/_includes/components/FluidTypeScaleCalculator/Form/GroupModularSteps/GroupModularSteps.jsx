@@ -3,6 +3,7 @@ import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
 import LabelGroup from '../../../Label/LabelGroup/LabelGroup';
 import Select from '../../../Select/Select';
+import { COMMA_SEPARATED_LIST_REGEX } from './GroupModularSteps.constants';
 
 /**
  * @param {Pick<import("../../typedefs").AppState, 'modularSteps' | 'baseModularStep'> & { dispatch: import("../../typedefs").AppDispatcher } } props
@@ -22,7 +23,7 @@ const GroupModularSteps = (props) => {
             type="text"
             required
             spellCheck="false"
-            pattern="^[a-zA-Z0-9-](?:(,\s*)?[a-zA-Z0-9-])*$"
+            pattern={COMMA_SEPARATED_LIST_REGEX.source}
             defaultValue={modularSteps.join(',')}
             delay={Delay.MEDIUM}
             onChange={(e) =>
