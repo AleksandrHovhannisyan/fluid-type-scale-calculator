@@ -1,4 +1,8 @@
-.type-scale-generator {
+.type-scale-calculator {
   display: grid;
+  gap: var(--sp-xxxxl);
+}
+
+.type-scale-stack {
   gap: var(--sp-xl);
 }

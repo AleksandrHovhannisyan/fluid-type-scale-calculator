@@ -11,20 +11,18 @@
 }
 
 body {
-  padding: clamped(12px, 32px);
-  padding-top: clamped(48px, 100px);
-  padding-bottom: 0;
   font-size: var(--sp-base);
-  max-width: 1800px;
-  margin: 0 auto;
   font-family: var(--ff-body);
   accent-color: var(--color-surface-dark);
   -webkit-font-smoothing: antialiased;
 }
 
-#page {
+.layout {
   display: grid;
-  gap: var(--sp-xl);
+  gap: var(--sp-xxxxl);
+  padding-top: clamped(60px, 148px);
+  padding-inline: clamped(12px, 32px);
+  padding-bottom: var(--sp-xl);
 }
 
 h1,

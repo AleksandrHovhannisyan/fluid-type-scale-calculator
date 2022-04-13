@@ -87,16 +87,18 @@ const FluidTypeScaleCalculator = (props) => {
   }, new Map());
 
   return (
-    <div className={styles['type-scale-generator']}>
+    <>
       <noscript>
         <Banner>This app requires JavaScript. Please enable it if you can.</Banner>
       </noscript>
-      <Stack>
-        <Form {...state} dispatch={dispatch} />
-        <Output namingConvention={state.namingConvention} typeScale={typeScale} />
-      </Stack>
-      <Preview typeScale={typeScale} fonts={props.fonts} />
-    </div>
+      <div className={styles['type-scale-calculator']}>
+        <Stack className={styles['type-scale-stack']}>
+          <Form {...state} dispatch={dispatch} />
+          <Output namingConvention={state.namingConvention} typeScale={typeScale} />
+        </Stack>
+        <Preview typeScale={typeScale} fonts={props.fonts} />
+      </div>
+    </>
   );
 };
 

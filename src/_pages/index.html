@@ -4,13 +4,10 @@ eleventyComputed:
   thumbnail: "{{ '/assets/images/thumbnail.png' | toAbsoluteUrl }}"
 ---
 
-<main id="page">
-  {%- comment -%}Static content{%- endcomment -%}
-  {% react 'components/HeroBanner/HeroBanner' 'render' 'static' 'title' site.title 'subtitle' site.description %}
-  {%- comment -%}Interactive piece of the app{%- endcomment -%}
-  {% react 'components/FluidTypeScaleCalculator/FluidTypeScaleCalculator' 'fonts' googleFonts %}
-  {%- comment -%}Static content{%- endcomment -%}
-  {% react 'components/Info/Info' 'render' 'static' %}
-  {% react 'components/PageFooter/PageFooter' 'render' 'static' 'socials' socials %}
-  {% react 'components/GithubCorner/GithubCorner' 'render' 'static' %}
-</main>
+{%- comment -%}Static content{%- endcomment -%}
+{% react 'components/HeroBanner/HeroBanner' 'render' 'static' 'title' site.title 'subtitle' site.description %}
+{%- comment -%}Interactive piece of the app{%- endcomment -%}
+{% react 'components/FluidTypeScaleCalculator/FluidTypeScaleCalculator' 'fonts' googleFonts %}
+{%- comment -%}Static content{%- endcomment -%}
+{% react 'components/Info/Info' 'render' 'static' %}
+{% react 'components/PageFooter/PageFooter' 'render' 'static' 'socials' socials %}

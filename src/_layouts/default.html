@@ -54,7 +54,10 @@
 </head>
 <body>
   {%- comment -%}Add common layout components here (e.g., site nav/footer){%- endcomment -%}
-  {{ content }}
+  <main class="layout container">
+    {{ content }}
+  </main>
+  {% react 'components/GithubCorner/GithubCorner' 'render' 'static' %}
   <script type="application/ld+json">
     {
       "@context": "http://schema.org",

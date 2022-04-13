@@ -5,11 +5,11 @@ import styles from './PageFooter.module.scss';
 const PageFooter = ({ socials }) => {
   return (
     <footer className={styles['page-footer']}>
-      <span>
+      <p>
         <span aria-hidden="true">&copy;</span>Copyright{' '}
-        <Link href="https://www.aleksandrhovhannisyan.com/">Aleksandr Hovhannisyan</Link>, 2021. Made with{' '}
+        <Link href="https://www.aleksandrhovhannisyan.com/">Aleksandr Hovhannisyan</Link>, 2021–Present. Made with{' '}
         <Link href="https://www.11ty.dev/">11ty</Link> and <Link href="https://slinkity.dev/">Slinkity</Link>.
-      </span>
+      </p>
       <ul className={styles.socials} aria-label="Social media">
         {Object.entries(socials).map(([key, { name, url }]) => {
           return (

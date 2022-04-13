@@ -1,15 +1,20 @@
+@import "/@root/styles/mixins";
+
 .page-footer {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   gap: var(--sp-sm);
-  padding: var(--sp-xl) 0;
   text-align: center;
   font-size: var(--sp-sm);
 
   a {
     font-weight: var(--fw-body-bold);
+  }
+  @include tablet {
+    flex-direction: row;
+    justify-content: space-between;
   }
 }
 

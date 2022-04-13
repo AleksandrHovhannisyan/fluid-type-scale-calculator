@@ -13,6 +13,11 @@
   }
 }
 
+.container {
+  max-width: 1800px;
+  margin-inline: auto;
+}
+
 .list {
   padding-inline-start: 1em;
   display: grid;
