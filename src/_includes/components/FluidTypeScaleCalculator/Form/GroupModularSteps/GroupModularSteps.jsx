@@ -24,6 +24,7 @@ const GroupModularSteps = (props) => {
             required
             spellCheck="false"
             pattern={COMMA_SEPARATED_LIST_REGEX.source}
+            title="Comma-separated list"
             defaultValue={modularSteps.join(',')}
             delay={Delay.MEDIUM}
             onChange={(e) =>
