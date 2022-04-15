@@ -19,6 +19,7 @@ const GroupTypeScaleSteps = () => {
           <Input
             name="steps"
             type="text"
+            title="Comma-separated list"
             required
             spellCheck="false"
             pattern={COMMA_SEPARATED_LIST_REGEX.source}

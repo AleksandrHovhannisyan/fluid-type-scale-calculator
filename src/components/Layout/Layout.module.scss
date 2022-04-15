@@ -5,4 +5,6 @@
   display: grid;
   gap: var(--sp-xxxxl);
   padding-top: clamped(60px, 148px);
+  padding-inline: clamped(12px, 32px);
+  padding-bottom: var(--sp-xl);
 }
