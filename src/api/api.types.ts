@@ -1,16 +1,16 @@
 import type { MapDiscriminatedUnion } from '../types.generics';
 import { QueryParamKey } from './api.constants';
 
-/** A query parameter with a value and a corresponding validator function to check the value. */
+export type QueryParamList = Record<QueryParamKey, string>;
+
+/** A query parameter with a method to fetch its value and a corresponding validator method that checks the value. */
 export type ValidatedQueryParam<T> = {
-  /** The value parsed from the query string. */
-  value: T;
+  /** Parses and returns the value from the query string. */
+  getValue: () => T;
   /** Throws if this query param's value is invalid.
-   * @param {QueryParam['id']} id The unique ID of this query param.
-   * @param {T} value The value to check for this query param.
    * @param {QueryParamConfig} config The entire config that this query param is part of.
    */
-  validate: (id: QueryParam['id'], value: T, config: QueryParamConfig) => void;
+  validate?: (config: QueryParamConfig) => void;
 };
 
 export type ParamMinFontSize = ValidatedQueryParam<number> & {
@@ -78,7 +78,7 @@ export type QueryParam =
 /** Mapped type where they keys `K` correspond to shapes that extend `{ id: K }`. Defines a config for each query parameter. */
 export type QueryParamConfig = MapDiscriminatedUnion<QueryParam, 'id'>;
 
-/** Maps each query param name/ID to only its corresponding value. Essentially the same as QueryParamConfig, except the object values are the `value` properties of each member of the `QueryParam` union. */
+/** Maps each unique query param shape's ID to its corresponding value type. */
 export type QueryParamValues = {
-  [K in keyof QueryParamConfig]: QueryParamConfig[K]['value'];
+  [K in keyof QueryParamConfig]: ReturnType<QueryParamConfig[K]['getValue']>;
 };

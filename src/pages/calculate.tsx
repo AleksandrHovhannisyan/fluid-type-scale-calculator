@@ -32,23 +32,23 @@ export const getServerSideProps = async (
 
     const initialState: FormState = {
       min: {
-        fontSize: params[QueryParamKey.minFontSize].value,
-        screenWidth: params[QueryParamKey.minScreenWidth].value,
-        ratio: params[QueryParamKey.minRatio].value,
+        fontSize: params[QueryParamKey.minFontSize].getValue(),
+        screenWidth: params[QueryParamKey.minScreenWidth].getValue(),
+        ratio: params[QueryParamKey.minRatio].getValue(),
       },
       max: {
-        fontSize: params[QueryParamKey.maxFontSize].value,
-        screenWidth: params[QueryParamKey.maxScreenWidth].value,
-        ratio: params[QueryParamKey.maxRatio].value,
+        fontSize: params[QueryParamKey.maxFontSize].getValue(),
+        screenWidth: params[QueryParamKey.maxScreenWidth].getValue(),
+        ratio: params[QueryParamKey.maxRatio].getValue(),
       },
       typeScaleSteps: {
-        all: params[QueryParamKey.allSteps].value,
-        base: params[QueryParamKey.baseStep].value,
+        all: params[QueryParamKey.allSteps].getValue(),
+        base: params[QueryParamKey.baseStep].getValue(),
       },
-      namingConvention: params[QueryParamKey.namingConvention].value,
-      shouldUseRems: params[QueryParamKey.shouldUseRems].value,
-      roundingDecimalPlaces: params[QueryParamKey.roundingDecimalPlaces].value,
-      fontFamily: params[QueryParamKey.fontFamily].value,
+      namingConvention: params[QueryParamKey.namingConvention].getValue(),
+      shouldUseRems: params[QueryParamKey.shouldUseRems].getValue(),
+      roundingDecimalPlaces: params[QueryParamKey.roundingDecimalPlaces].getValue(),
+      fontFamily: params[QueryParamKey.fontFamily].getValue(),
     };
     return {
       props: {

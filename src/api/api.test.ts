@@ -41,7 +41,7 @@ describe('API utils', () => {
         [QueryParamKey.fontFamily]: 'Family',
       };
       Object.values(config).forEach((param) => {
-        expect(param.value).toStrictEqual(expected[param.id]);
+        expect(param.getValue()).toStrictEqual(expected[param.id]);
       });
     });
   });
