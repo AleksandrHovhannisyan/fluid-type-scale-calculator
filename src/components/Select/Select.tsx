@@ -1,11 +1,13 @@
 import type { DetailedHTMLProps, SelectHTMLAttributes } from 'react';
 import { forwardRef, useMemo } from 'react';
 import debounce from 'lodash/debounce';
+import { InputProps } from '../Input/Input';
 
-export type SelectProps = Omit<DetailedHTMLProps<SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>, 'ref'> & {
-  /** The delay (in milliseconds) for the change event. Defaults to `0` (no delay). */
-  delay?: number;
-};
+export type SelectProps = Pick<InputProps, 'name'> &
+  Omit<DetailedHTMLProps<SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>, 'ref' | 'name'> & {
+    /** The delay (in milliseconds) for the change event. Defaults to `0` (no delay). */
+    delay?: number;
+  };
 
 // eslint-disable-next-line react/display-name
 const Select = forwardRef<HTMLSelectElement, SelectProps>((props, ref) => {

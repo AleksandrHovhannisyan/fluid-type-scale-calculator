@@ -1,7 +1,6 @@
 import { STATUS_CODES as REASON_PHRASES } from 'http';
 import { constants as HTTP_STATUS_CODES } from 'http2';
 import type { GetServerSidePropsContext, GetServerSidePropsResult, NextPage } from 'next';
-import { QueryParamKey } from '../api/api.constants';
 import { UserSuppliedQueryParams } from '../api/api.types';
 import { QUERY_PARAM_CONFIG, validateQueryParams } from '../api/api.utils';
 import ErrorPage from '../components/ErrorPage/ErrorPage';
@@ -35,23 +34,23 @@ export const getServerSideProps = async (
     // Then transform the query params to state
     const initialState: FormState = {
       min: {
-        fontSize: QUERY_PARAM_CONFIG[QueryParamKey.minFontSize].getValue(query),
-        screenWidth: QUERY_PARAM_CONFIG[QueryParamKey.minScreenWidth].getValue(query),
-        ratio: QUERY_PARAM_CONFIG[QueryParamKey.minRatio].getValue(query),
+        fontSize: QUERY_PARAM_CONFIG.minFontSize.getValue(query),
+        screenWidth: QUERY_PARAM_CONFIG.minWidth.getValue(query),
+        ratio: QUERY_PARAM_CONFIG.minRatio.getValue(query),
       },
       max: {
-        fontSize: QUERY_PARAM_CONFIG[QueryParamKey.maxFontSize].getValue(query),
-        screenWidth: QUERY_PARAM_CONFIG[QueryParamKey.maxScreenWidth].getValue(query),
-        ratio: QUERY_PARAM_CONFIG[QueryParamKey.maxRatio].getValue(query),
+        fontSize: QUERY_PARAM_CONFIG.maxFontSize.getValue(query),
+        screenWidth: QUERY_PARAM_CONFIG.maxWidth.getValue(query),
+        ratio: QUERY_PARAM_CONFIG.maxRatio.getValue(query),
       },
       typeScaleSteps: {
-        all: QUERY_PARAM_CONFIG[QueryParamKey.allSteps].getValue(query),
-        base: QUERY_PARAM_CONFIG[QueryParamKey.baseStep].getValue(query),
+        all: QUERY_PARAM_CONFIG.steps.getValue(query),
+        base: QUERY_PARAM_CONFIG.baseStep.getValue(query),
       },
-      namingConvention: QUERY_PARAM_CONFIG[QueryParamKey.namingConvention].getValue(query),
-      shouldUseRems: QUERY_PARAM_CONFIG[QueryParamKey.shouldUseRems].getValue(query),
-      roundingDecimalPlaces: QUERY_PARAM_CONFIG[QueryParamKey.roundingDecimalPlaces].getValue(query),
-      fontFamily: QUERY_PARAM_CONFIG[QueryParamKey.fontFamily].getValue(query),
+      namingConvention: QUERY_PARAM_CONFIG.prefix.getValue(query),
+      shouldUseRems: QUERY_PARAM_CONFIG.useRems.getValue(query),
+      roundingDecimalPlaces: QUERY_PARAM_CONFIG.decimals.getValue(query),
+      fontFamily: QUERY_PARAM_CONFIG.previewFont.getValue(query),
     };
     return {
       props: {

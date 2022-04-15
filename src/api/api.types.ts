@@ -1,6 +1,5 @@
 import { WithFonts } from '../types';
 import type { MapDiscriminatedUnion } from '../types.generics';
-import { QueryParamKey } from './api.constants';
 
 /** A record of arbitrary query params supplied by users. */
 export type UserSuppliedQueryParams = Record<string, string>;
@@ -23,53 +22,53 @@ export type ValidatedQueryParam<T> = {
 };
 
 export type ParamMinFontSize = ValidatedQueryParam<number> & {
-  id: QueryParamKey.minFontSize;
+  id: 'minFontSize';
 };
 
 export type ParamMinScreenWidth = ValidatedQueryParam<number> & {
-  id: QueryParamKey.minScreenWidth;
+  id: 'minWidth';
 };
 
 export type ParamMinRatio = ValidatedQueryParam<number> & {
-  id: QueryParamKey.minRatio;
+  id: 'minRatio';
 };
 
 export type ParamMaxFontSize = ValidatedQueryParam<number> & {
-  id: QueryParamKey.maxFontSize;
+  id: 'maxFontSize';
 };
 
 export type ParamMaxScreenWidth = ValidatedQueryParam<number> & {
-  id: QueryParamKey.maxScreenWidth;
+  id: 'maxWidth';
 };
 
 export type ParamMaxRatio = ValidatedQueryParam<number> & {
-  id: QueryParamKey.maxRatio;
+  id: 'maxRatio';
 };
 
 export type ParamTypeScaleSteps = ValidatedQueryParam<string[]> & {
-  id: QueryParamKey.allSteps;
+  id: 'steps';
 };
 
 export type ParamBaseTypeScaleStep = ValidatedQueryParam<string> & {
-  id: QueryParamKey.baseStep;
+  id: 'baseStep';
 };
 
 export type ParamNamingConvention = ValidatedQueryParam<string> & {
-  id: QueryParamKey.namingConvention;
+  id: 'prefix';
 };
 
 export type ParamShouldUseRems = ValidatedQueryParam<boolean> & {
-  id: QueryParamKey.shouldUseRems;
+  id: 'useRems';
 };
 
 export type ParamRoundingDecimalPlaces = ValidatedQueryParam<number> & {
-  id: QueryParamKey.roundingDecimalPlaces;
+  id: 'decimals';
   /** The maximum number of decimal places to which a user can round their output. */
   max: number;
 };
 
 export type ParamFontFamily = ValidatedQueryParam<string> & {
-  id: QueryParamKey.fontFamily;
+  id: 'previewFont';
 };
 
 export type QueryParam =
@@ -85,6 +84,9 @@ export type QueryParam =
   | ParamShouldUseRems
   | ParamRoundingDecimalPlaces
   | ParamFontFamily;
+
+/** A valid query param ID. Also used on the front-end by form inputs. */
+export type QueryParamName = QueryParam['id'];
 
 /** Mapped type where they keys `K` correspond to shapes that extend `{ id: K }`. Defines a config for each query parameter. */
 export type QueryParamConfig = MapDiscriminatedUnion<QueryParam, 'id'>;

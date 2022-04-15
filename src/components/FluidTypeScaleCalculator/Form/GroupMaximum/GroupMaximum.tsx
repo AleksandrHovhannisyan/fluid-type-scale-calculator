@@ -1,4 +1,3 @@
-import { QueryParamKey } from '../../../../api/api.constants';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
 import LabelGroup from '../../../Label/LabelGroup/LabelGroup';
@@ -18,7 +17,7 @@ const GroupMaximum = () => {
         <Label>
           Base font size (pixels)
           <Input
-            name={QueryParamKey.maxFontSize}
+            name="maxFontSize"
             type="number"
             required={true}
             min={0}
@@ -36,7 +35,7 @@ const GroupMaximum = () => {
         <Label>
           Screen width (pixels)
           <Input
-            name={QueryParamKey.maxScreenWidth}
+            name="maxWidth"
             type="number"
             required={true}
             min={state.min.screenWidth + 1}
@@ -52,7 +51,7 @@ const GroupMaximum = () => {
           />
         </Label>
         <TypeScalePicker
-          name={QueryParamKey.maxRatio}
+          name="maxRatio"
           id="type-scale-max"
           ratio={state.max.ratio}
           onChange={(e) => dispatch({ type: 'setMax', payload: { ratio: e.target.valueAsNumber } })}

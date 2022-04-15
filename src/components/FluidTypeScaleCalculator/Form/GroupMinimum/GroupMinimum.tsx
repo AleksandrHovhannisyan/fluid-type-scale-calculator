@@ -1,4 +1,3 @@
-import { QueryParamKey } from '../../../../api/api.constants';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
 import LabelGroup from '../../../Label/LabelGroup/LabelGroup';
@@ -18,7 +17,7 @@ const GroupMinimum = () => {
           Base font size (pixels)
           <Input
             type="number"
-            name={QueryParamKey.minFontSize}
+            name="minFontSize"
             required={true}
             min={0}
             defaultValue={state.min.fontSize}
@@ -35,7 +34,7 @@ const GroupMinimum = () => {
         <Label>
           Screen width (pixels)
           <Input
-            name={QueryParamKey.minScreenWidth}
+            name="minWidth"
             type="number"
             required={true}
             min={0}
@@ -52,7 +51,7 @@ const GroupMinimum = () => {
           />
         </Label>
         <TypeScalePicker
-          name={QueryParamKey.minRatio}
+          name="minRatio"
           id="type-scale-min"
           ratio={state.min.ratio}
           onChange={(e) => dispatch({ type: 'setMin', payload: { ratio: e.target.valueAsNumber } })}

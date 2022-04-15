@@ -1,4 +1,3 @@
-import { QueryParamKey } from '../../../../api/api.constants';
 import { COMMA_SEPARATED_LIST_REGEX, Delay } from '../../../../constants';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
@@ -18,7 +17,7 @@ const GroupTypeScaleSteps = () => {
         <Label>
           All steps
           <Input
-            name={QueryParamKey.allSteps}
+            name="steps"
             type="text"
             required
             spellCheck="false"
@@ -36,7 +35,7 @@ const GroupTypeScaleSteps = () => {
         <Label>
           Baseline step
           <Select
-            name={QueryParamKey.baseStep}
+            name="baseStep"
             defaultValue={state.typeScaleSteps.base}
             onChange={(e) =>
               dispatch({

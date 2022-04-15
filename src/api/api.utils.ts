@@ -1,11 +1,15 @@
-import { QueryParamKey } from '../api/api.constants';
 import { COMMA_SEPARATED_LIST_REGEX, DEFAULT_FONT_FAMILY } from '../constants';
 import typeScaleRatios from '../data/typeScaleRatios.json';
 import { isNumber, throwIf } from '../utils';
-import type { QueryParamConfig, QueryParamValidatorOptions, UserSuppliedQueryParams } from './api.types';
+import type {
+  QueryParamConfig,
+  QueryParamName,
+  QueryParamValidatorOptions,
+  UserSuppliedQueryParams,
+} from './api.types';
 
 /** Performs common validation logic for numeric query params (e.g., checking that it's a valid number and positive). */
-export const validatePositiveNumericParam = (id: QueryParamKey, value: number) => {
+export const validatePositiveNumericParam = (id: QueryParamName, value: number) => {
   throwIf(!isNumber(value), `${id} must be a number.`);
   throwIf(value <= 0, `${id} must be a positive number.`);
 };
@@ -13,11 +17,11 @@ export const validatePositiveNumericParam = (id: QueryParamKey, value: number) =
 // TODO: single parser that accepts a type flag and runs a switch
 
 /** Helper to return a query param by key, if it exists. */
-export const parseRawParam = (query: UserSuppliedQueryParams, id: QueryParamKey): string | undefined => query[id];
+export const parseRawParam = (query: UserSuppliedQueryParams, id: QueryParamName): string | undefined => query[id];
 
 /** Helper that fetches the given key from query params, expecting to find a string that looks like a number. If the param does not exist,
  * returns the fallback. Else, returns the parsed param as a number. */
-export const parseNumericParam = (query: UserSuppliedQueryParams, id: QueryParamKey, fallback: number): number => {
+export const parseNumericParam = (query: UserSuppliedQueryParams, id: QueryParamName, fallback: number): number => {
   const param = parseRawParam(query, id) ?? fallback;
   if (typeof param === 'string' && !param) return NaN;
   return Number(param);
@@ -34,8 +38,8 @@ export const isValidCheckedValue = (value: string) => {
  * transforming the raw query param string to the desired value.
  */
 export const QUERY_PARAM_CONFIG: QueryParamConfig = {
-  [QueryParamKey.minFontSize]: {
-    id: QueryParamKey.minFontSize,
+  minFontSize: {
+    id: 'minFontSize',
     default: 16,
     getValue(query) {
       return parseNumericParam(query, this.id, this.default);
@@ -44,24 +48,24 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
       validatePositiveNumericParam(this.id, this.getValue(query));
     },
   },
-  [QueryParamKey.minScreenWidth]: {
-    id: QueryParamKey.minScreenWidth,
+  minWidth: {
+    id: 'minWidth',
     default: 400,
     getValue(query) {
       return parseNumericParam(query, this.id, this.default);
     },
     validate({ config, query }) {
       const minScreenWidth = this.getValue(query);
-      const maxScreenWidth = config[QueryParamKey.maxScreenWidth].getValue(query);
+      const maxScreenWidth = config.maxWidth.getValue(query);
       validatePositiveNumericParam(this.id, this.getValue(query));
       throwIf(
         minScreenWidth >= maxScreenWidth,
-        `${this.id} (${minScreenWidth}) must be less than ${QueryParamKey.maxScreenWidth} (${maxScreenWidth}).`
+        `${this.id} (${minScreenWidth}) must be less than ${config.maxWidth.id} (${maxScreenWidth}).`
       );
     },
   },
-  [QueryParamKey.minRatio]: {
-    id: QueryParamKey.minRatio,
+  minRatio: {
+    id: 'minRatio',
     default: typeScaleRatios.majorThird.ratio,
     getValue(query) {
       return parseNumericParam(query, this.id, this.default);
@@ -70,8 +74,8 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
       validatePositiveNumericParam(this.id, this.getValue(query));
     },
   },
-  [QueryParamKey.maxFontSize]: {
-    id: QueryParamKey.maxFontSize,
+  maxFontSize: {
+    id: 'maxFontSize',
     default: 19,
     getValue(query) {
       return parseNumericParam(query, this.id, this.default);
@@ -80,22 +84,22 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
       validatePositiveNumericParam(this.id, this.getValue(query));
     },
   },
-  [QueryParamKey.maxScreenWidth]: {
-    id: QueryParamKey.maxScreenWidth,
+  maxWidth: {
+    id: 'maxWidth',
     default: 1280,
     getValue(query) {
       return parseNumericParam(query, this.id, this.default);
     },
     validate({ query, config }) {
-      const minScreenWidth = config[QueryParamKey.minScreenWidth].getValue(query);
+      const minScreenWidth = config.minWidth.getValue(query);
       const maxScreenWidth = this.getValue(query);
       throwIf(!isNumber(maxScreenWidth), `${this.id} must be a number.`);
       throwIf(maxScreenWidth < 0, `${this.id} cannot be negative.`);
-      throwIf(maxScreenWidth <= minScreenWidth, `${this.id} must be greater than ${QueryParamKey.minScreenWidth}.`);
+      throwIf(maxScreenWidth <= minScreenWidth, `${this.id} must be greater than ${config.minWidth.id}.`);
     },
   },
-  [QueryParamKey.maxRatio]: {
-    id: QueryParamKey.maxRatio,
+  maxRatio: {
+    id: 'maxRatio',
     default: typeScaleRatios.perfectFourth.ratio,
     getValue(query) {
       return parseNumericParam(query, this.id, this.default);
@@ -104,37 +108,37 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
       validatePositiveNumericParam(this.id, this.getValue(query));
     },
   },
-  [QueryParamKey.allSteps]: {
-    id: QueryParamKey.allSteps,
+  steps: {
+    id: 'steps',
     default: ['sm', 'base', 'md', 'lg', 'xl', 'xxl', 'xxxl'],
     getValue(query) {
       return parseRawParam(query, this.id)?.split(',') ?? this.default;
     },
     validate({ query, config }) {
       const allSteps = this.getValue(query);
-      const baseStep = config[QueryParamKey.baseStep].getValue(query);
+      const baseStep = config.baseStep.getValue(query);
       const isCommaSeparatedList = COMMA_SEPARATED_LIST_REGEX.test(allSteps.join(','));
       throwIf(!allSteps.includes(baseStep), `${this.id} (${allSteps}) does not include the base step (${baseStep}).`);
       throwIf(!isCommaSeparatedList, `${this.id} must be a comma-separated list of step names.`);
     },
   },
-  [QueryParamKey.baseStep]: {
-    id: QueryParamKey.baseStep,
+  baseStep: {
+    id: 'baseStep',
     default: 'base',
     getValue(query) {
       return parseRawParam(query, this.id) ?? this.default;
     },
     validate({ config, query }) {
       const baseStep = this.getValue(query);
-      const allSteps = config[QueryParamKey.allSteps].getValue(query);
+      const allSteps = config.steps.getValue(query);
       throwIf(
         !allSteps.includes(baseStep),
         `The base step ${baseStep} was not found in the list of all steps (${allSteps}).`
       );
     },
   },
-  [QueryParamKey.namingConvention]: {
-    id: QueryParamKey.namingConvention,
+  prefix: {
+    id: 'prefix',
     default: 'font-size',
     getValue(query) {
       return parseRawParam(query, this.id) ?? this.default;
@@ -144,8 +148,8 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
       throwIf(!namingConvention.length, `${this.id} must be a non-empty string`);
     },
   },
-  [QueryParamKey.shouldUseRems]: {
-    id: QueryParamKey.shouldUseRems,
+  useRems: {
+    id: 'useRems',
     default: true,
     getValue(query) {
       const rawValue = parseRawParam(query, this.id) ?? 'false';
@@ -157,8 +161,8 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
       throwIf(!isValidCheckedValue(rawValue), `${this.id} must be 'on', 'true', or 'false' if specified.`);
     },
   },
-  [QueryParamKey.roundingDecimalPlaces]: {
-    id: QueryParamKey.roundingDecimalPlaces,
+  decimals: {
+    id: 'decimals',
     default: 2,
     max: 10,
     getValue(query) {
@@ -171,8 +175,8 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
       throwIf(decimalPlaces > this.max, `${this.id} cannot exceed ${this.max}.`);
     },
   },
-  [QueryParamKey.fontFamily]: {
-    id: QueryParamKey.fontFamily,
+  previewFont: {
+    id: 'previewFont',
     default: DEFAULT_FONT_FAMILY,
     getValue(query) {
       return parseRawParam(query, this.id) ?? this.default;
@@ -190,7 +194,7 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
  */
 export const validateQueryParams = (options: QueryParamValidatorOptions) => {
   Object.keys(options.query).forEach((id) => {
-    const param = options.config[id as QueryParamKey];
+    const param = options.config[id as QueryParamName];
     throwIf(!param, `${id} is not a recognized query parameter.`);
     param.validate(options);
   });

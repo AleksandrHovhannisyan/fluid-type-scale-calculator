@@ -1,4 +1,3 @@
-import { QueryParamKey } from '../../../../api/api.constants';
 import { QUERY_PARAM_CONFIG } from '../../../../api/api.utils';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
@@ -15,13 +14,13 @@ const GroupRounding = () => {
         htmlFor="group-rounding"
       />
       <Input
-        name={QueryParamKey.roundingDecimalPlaces}
+        name="decimals"
         className={styles['rounding-input']}
         id="group-rounding"
         type="number"
         step={1}
         min={0}
-        max={QUERY_PARAM_CONFIG[QueryParamKey.roundingDecimalPlaces].max}
+        max={QUERY_PARAM_CONFIG.decimals.max}
         required={true}
         defaultValue={state.roundingDecimalPlaces}
         onChange={(e) =>
