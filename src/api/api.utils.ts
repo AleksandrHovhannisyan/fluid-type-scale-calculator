@@ -1,18 +1,8 @@
-import { COMMA_SEPARATED_LIST_REGEX, DEFAULT_FONT_FAMILY } from '../constants';
+import { DEFAULT_FONT_FAMILY } from '../constants';
 import typeScaleRatios from '../data/typeScaleRatios.json';
 import { isNumber, throwIf } from '../utils';
-import type {
-  QueryParamConfig,
-  QueryParamName,
-  QueryParamValidatorOptions,
-  UserSuppliedQueryParams,
-} from './api.types';
-
-/** Performs common validation logic for numeric query params (e.g., checking that it's a valid number and positive). */
-export const validatePositiveNumericParam = (id: QueryParamName, value: number) => {
-  throwIf(!isNumber(value), `${id} must be a number.`);
-  throwIf(value <= 0, `${id} must be a positive number.`);
-};
+import type { QueryParamConfig, QueryParamName, UserSuppliedQueryParams } from './api.types';
+import { isCommaSeparatedList, isValidCheckedValue, validatePositiveNumericParam } from './api.validators';
 
 // TODO: single parser that accepts a type flag and runs a switch
 
@@ -25,12 +15,6 @@ export const parseNumericParam = (query: UserSuppliedQueryParams, id: QueryParam
   const param = parseRawParam(query, id) ?? fallback;
   if (typeof param === 'string' && !param) return NaN;
   return Number(param);
-};
-
-/** Returns `true` if the given value represents a valid checkbox state. */
-export const isValidCheckedValue = (value: string) => {
-  // 'on' is how checkboxes are serialized by default in HTML, but we also support true/false for semantics
-  return value === 'on' || value === 'true' || value === 'false';
 };
 
 /** A config describing all of the valid query parameters recognized by the app on both the server side and client side (as input names).
@@ -117,9 +101,10 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     validate({ query, config }) {
       const allSteps = this.getValue(query);
       const baseStep = config.baseStep.getValue(query);
-      const isCommaSeparatedList = COMMA_SEPARATED_LIST_REGEX.test(allSteps.join(','));
       throwIf(!allSteps.includes(baseStep), `${this.id} (${allSteps}) does not include the base step (${baseStep}).`);
-      throwIf(!isCommaSeparatedList, `${this.id} must be a comma-separated list of step names.`);
+      // While this may seem like it will never throw, imagine a scenario where a user enters x,y;z. Splitting it yields ['x', 'y;z'].
+      // And our regex strictly requires that each item in the list only use alphanumeric characters.
+      throwIf(!isCommaSeparatedList(allSteps.join(',')), `${this.id} must be a comma-separated list of step names.`);
     },
   },
   baseStep: {
@@ -157,7 +142,7 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     },
     validate({ query }) {
       const rawValue = parseRawParam(query, this.id);
-      if (!rawValue) return true;
+      if (!rawValue) return this.default;
       throwIf(!isValidCheckedValue(rawValue), `${this.id} must be 'on', 'true', or 'false' if specified.`);
     },
   },
@@ -187,15 +172,4 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
       throwIf(isUnrecognizedFont, `${font} is not a recognized Google Font.`);
     },
   },
-};
-
-/** Validates user-supplied query params based on a config of valid query params and other data supplied to the app (e.g., font family names).
- * Throws an error if any of the user-supplied query params are unrecognized or invalid.
- */
-export const validateQueryParams = (options: QueryParamValidatorOptions) => {
-  Object.keys(options.query).forEach((id) => {
-    const param = options.config[id as QueryParamName];
-    throwIf(!param, `${id} is not a recognized query parameter.`);
-    param.validate(options);
-  });
 };
