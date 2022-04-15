@@ -1,4 +1,3 @@
-import { QueryParamKey } from '../../../../api/api.constants';
 import Checkbox from '../../../Checkbox/Checkbox';
 import { useFormState } from '../../FluidTypeScaleCalculator.context';
 
@@ -6,7 +5,7 @@ const GroupUseRems = () => {
   const { state, dispatch } = useFormState();
   return (
     <Checkbox
-      name={QueryParamKey.shouldUseRems}
+      name="useRems"
       checked={state.shouldUseRems}
       onChange={(e) =>
         dispatch({

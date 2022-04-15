@@ -1,6 +1,7 @@
 import type { ChangeEvent, DetailedHTMLProps, HTMLInputTypeAttribute, HTMLProps, InputHTMLAttributes } from 'react';
 import { useMemo, useState } from 'react';
 import debounce from 'lodash/debounce';
+import { QueryParamName } from '../../api/api.types';
 import { Delay } from '../../constants';
 
 type InputType = NonNullable<HTMLInputTypeAttribute>;
@@ -12,11 +13,16 @@ const specializedPropsByType: Partial<Record<InputType, Partial<HTMLProps<HTMLIn
   },
 };
 
-export type InputProps = Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, 'type'> & {
+export type InputProps = Omit<
+  DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
+  'type' | 'name'
+> & {
   /** The delay (in milliseconds) for the change event. Defaults to a short delay if not specified and `0` for checkboxes, radio buttons, and range inputs. */
   delay?: Delay;
   /** The type of input. */
   type: InputType;
+  /** A unique name for inputs. */
+  name: QueryParamName;
 };
 
 const Input = (props: InputProps) => {

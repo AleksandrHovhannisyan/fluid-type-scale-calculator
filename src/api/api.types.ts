@@ -1,64 +1,74 @@
+import { WithFonts } from '../types';
 import type { MapDiscriminatedUnion } from '../types.generics';
-import { QueryParamKey } from './api.constants';
 
-/** A query parameter with a value and a corresponding validator function to check the value. */
+/** A record of arbitrary query params supplied by users. */
+export type UserSuppliedQueryParams = Record<string, string>;
+
+export type QueryParamValidatorOptions = WithFonts & {
+  /** The query params passed in by the user. */
+  query: UserSuppliedQueryParams;
+  /** A reference to the query param config itself. */
+  config: QueryParamConfig;
+};
+
+/** A query parameter with a method to fetch its value and a corresponding validator method that checks the value. */
 export type ValidatedQueryParam<T> = {
-  /** The value parsed from the query string. */
-  value: T;
-  /** Throws if this query param's value is invalid.
-   * @param {QueryParam['id']} id The unique ID of this query param.
-   * @param {T} value The value to check for this query param.
-   * @param {QueryParamConfig} config The entire config that this query param is part of.
-   */
-  validate: (id: QueryParam['id'], value: T, config: QueryParamConfig) => void;
+  /** The default value for this query parameter. */
+  default: T;
+  /** Parses and returns the value from the query string. */
+  getValue: (query: UserSuppliedQueryParams) => T;
+  /** Validator method to check the query param. Throws an error if the value is invalid. */
+  validate: (options: QueryParamValidatorOptions) => void;
 };
 
 export type ParamMinFontSize = ValidatedQueryParam<number> & {
-  id: QueryParamKey.minFontSize;
+  id: 'minFontSize';
 };
 
 export type ParamMinScreenWidth = ValidatedQueryParam<number> & {
-  id: QueryParamKey.minScreenWidth;
+  id: 'minWidth';
 };
 
 export type ParamMinRatio = ValidatedQueryParam<number> & {
-  id: QueryParamKey.minRatio;
+  id: 'minRatio';
 };
 
 export type ParamMaxFontSize = ValidatedQueryParam<number> & {
-  id: QueryParamKey.maxFontSize;
+  id: 'maxFontSize';
 };
 
 export type ParamMaxScreenWidth = ValidatedQueryParam<number> & {
-  id: QueryParamKey.maxScreenWidth;
+  id: 'maxWidth';
 };
 
 export type ParamMaxRatio = ValidatedQueryParam<number> & {
-  id: QueryParamKey.maxRatio;
+  id: 'maxRatio';
 };
 
 export type ParamTypeScaleSteps = ValidatedQueryParam<string[]> & {
-  id: QueryParamKey.allSteps;
+  id: 'steps';
 };
 
 export type ParamBaseTypeScaleStep = ValidatedQueryParam<string> & {
-  id: QueryParamKey.baseStep;
+  id: 'baseStep';
 };
 
 export type ParamNamingConvention = ValidatedQueryParam<string> & {
-  id: QueryParamKey.namingConvention;
+  id: 'prefix';
 };
 
 export type ParamShouldUseRems = ValidatedQueryParam<boolean> & {
-  id: QueryParamKey.shouldUseRems;
+  id: 'useRems';
 };
 
 export type ParamRoundingDecimalPlaces = ValidatedQueryParam<number> & {
-  id: QueryParamKey.roundingDecimalPlaces;
+  id: 'decimals';
+  /** The maximum number of decimal places to which a user can round their output. */
+  max: number;
 };
 
 export type ParamFontFamily = ValidatedQueryParam<string> & {
-  id: QueryParamKey.fontFamily;
+  id: 'previewFont';
 };
 
 export type QueryParam =
@@ -75,10 +85,13 @@ export type QueryParam =
   | ParamRoundingDecimalPlaces
   | ParamFontFamily;
 
+/** A valid query param ID. Also used on the front-end by form inputs. */
+export type QueryParamName = QueryParam['id'];
+
 /** Mapped type where they keys `K` correspond to shapes that extend `{ id: K }`. Defines a config for each query parameter. */
 export type QueryParamConfig = MapDiscriminatedUnion<QueryParam, 'id'>;
 
-/** Maps each query param name/ID to only its corresponding value. Essentially the same as QueryParamConfig, except the object values are the `value` properties of each member of the `QueryParam` union. */
+/** Maps each unique query param shape's ID to its corresponding value type. */
 export type QueryParamValues = {
-  [K in keyof QueryParamConfig]: QueryParamConfig[K]['value'];
+  [K in keyof QueryParamConfig]: ReturnType<QueryParamConfig[K]['getValue']>;
 };
