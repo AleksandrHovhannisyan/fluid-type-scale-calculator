@@ -142,7 +142,7 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     },
     validate({ query }) {
       const rawValue = parseRawParam(query, this.id);
-      if (!rawValue) return this.default;
+      if (!rawValue) return;
       throwIf(!isValidCheckedValue(rawValue), `${this.id} must be 'on', 'true', or 'false' if specified.`);
     },
   },
