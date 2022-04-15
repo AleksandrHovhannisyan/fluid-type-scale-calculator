@@ -1,16 +1,25 @@
+import { WithFonts } from '../types';
 import type { MapDiscriminatedUnion } from '../types.generics';
 import { QueryParamKey } from './api.constants';
 
-export type QueryParamList = Record<QueryParamKey, string>;
+/** A record of arbitrary query params supplied by users. */
+export type UserSuppliedQueryParams = Record<string, string>;
+
+export type QueryParamValidatorOptions = WithFonts & {
+  /** The query params passed in by the user. */
+  query: UserSuppliedQueryParams;
+  /** A reference to the query param config itself. */
+  config: QueryParamConfig;
+};
 
 /** A query parameter with a method to fetch its value and a corresponding validator method that checks the value. */
 export type ValidatedQueryParam<T> = {
+  /** The default value for this query parameter. */
+  default: T;
   /** Parses and returns the value from the query string. */
-  getValue: () => T;
-  /** Throws if this query param's value is invalid.
-   * @param {QueryParamConfig} config The entire config that this query param is part of.
-   */
-  validate?: (config: QueryParamConfig) => void;
+  getValue: (query: UserSuppliedQueryParams) => T;
+  /** Validator method to check the query param. Throws an error if the value is invalid. */
+  validate: (options: QueryParamValidatorOptions) => void;
 };
 
 export type ParamMinFontSize = ValidatedQueryParam<number> & {
@@ -55,6 +64,8 @@ export type ParamShouldUseRems = ValidatedQueryParam<boolean> & {
 
 export type ParamRoundingDecimalPlaces = ValidatedQueryParam<number> & {
   id: QueryParamKey.roundingDecimalPlaces;
+  /** The maximum number of decimal places to which a user can round their output. */
+  max: number;
 };
 
 export type ParamFontFamily = ValidatedQueryParam<string> & {
