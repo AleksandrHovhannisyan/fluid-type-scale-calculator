@@ -1,9 +1,6 @@
 import { COMMA_SEPARATED_LIST_REGEX } from '../constants';
-import { throwIf } from '../utils';
+import { isNumber, throwIf } from '../utils';
 import { QueryParamName, QueryParamValidatorOptions } from './api.types';
-
-/** Returns `true` if the given number is a valid number. */
-export const isNumber = (value: string | number) => !Number.isNaN(+value);
 
 /** Returns `true` if the given value represents a valid checkbox state. */
 export const isValidCheckedValue = (value: string) => {
