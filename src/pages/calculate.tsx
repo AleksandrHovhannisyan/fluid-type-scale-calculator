@@ -1,8 +1,8 @@
 import { STATUS_CODES as REASON_PHRASES } from 'http';
 import { constants as HTTP_STATUS_CODES } from 'http2';
 import type { GetServerSidePropsContext, GetServerSidePropsResult, NextPage } from 'next';
+import { QUERY_PARAM_CONFIG } from '../api/api.constants';
 import { UserSuppliedQueryParams } from '../api/api.types';
-import { QUERY_PARAM_CONFIG } from '../api/api.utils';
 import { validateQueryParams } from '../api/api.validators';
 import ErrorPage from '../components/ErrorPage/ErrorPage';
 import FluidTypeScaleCalculator from '../components/FluidTypeScaleCalculator/FluidTypeScaleCalculator';

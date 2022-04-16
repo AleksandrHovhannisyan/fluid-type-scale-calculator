@@ -16,8 +16,18 @@ export const isCommaSeparatedList = (value: string) => {
   return COMMA_SEPARATED_LIST_REGEX.test(value);
 };
 
+/** Validates a numeric param, expecting it to be an integer. */
+export const throwIfNotInteger = (id: QueryParamName, value: number) => {
+  throwIf(!Number.isInteger(value), `${id} must be an integer.`);
+};
+
+/** Validates a numeric param, expecting it to be non-negative (>= 0). */
+export const throwIfNegative = (id: QueryParamName, value: number) => {
+  throwIf(value < 0, `${id} cannot be negative.`);
+};
+
 /** Performs common validation logic for numeric query params (e.g., checking that it's a valid number and positive). */
-export const validatePositiveNumericParam = (id: QueryParamName, value: number) => {
+export const throwIfNotPositive = (id: QueryParamName, value: number) => {
   throwIf(!isNumber(value), `${id} must be a number.`);
   throwIf(value <= 0, `${id} must be a positive number.`);
 };

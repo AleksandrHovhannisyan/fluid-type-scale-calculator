@@ -1,4 +1,4 @@
-import { QUERY_PARAM_CONFIG } from '../../../../api/api.utils';
+import { QUERY_PARAM_CONFIG } from '../../../../api/api.constants';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
 import { useFormState } from '../../FluidTypeScaleCalculator.context';

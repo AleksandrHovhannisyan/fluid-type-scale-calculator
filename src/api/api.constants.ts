@@ -1,21 +1,15 @@
 import { DEFAULT_FONT_FAMILY } from '../constants';
 import typeScaleRatios from '../data/typeScaleRatios.json';
 import { isNumber, throwIf } from '../utils';
-import type { QueryParamConfig, QueryParamName, UserSuppliedQueryParams } from './api.types';
-import { isCommaSeparatedList, isValidCheckedValue, validatePositiveNumericParam } from './api.validators';
-
-// TODO: single parser that accepts a type flag and runs a switch
-
-/** Helper to return a query param by key, if it exists. */
-export const parseRawParam = (query: UserSuppliedQueryParams, id: QueryParamName): string | undefined => query[id];
-
-/** Helper that fetches the given key from query params, expecting to find a string that looks like a number. If the param does not exist,
- * returns the fallback. Else, returns the parsed param as a number. */
-export const parseNumericParam = (query: UserSuppliedQueryParams, id: QueryParamName, fallback: number): number => {
-  const param = parseRawParam(query, id) ?? fallback;
-  if (typeof param === 'string' && !param) return NaN;
-  return Number(param);
-};
+import { getRawParam, toCheckboxBoolean, toCommaSeparatedList, toNumber } from './api.transformers';
+import type { QueryParamConfig } from './api.types';
+import {
+  isCommaSeparatedList,
+  isValidCheckedValue,
+  throwIfNegative,
+  throwIfNotInteger,
+  throwIfNotPositive,
+} from './api.validators';
 
 /** A config describing all of the valid query parameters recognized by the app on both the server side and client side (as input names).
  * Each query param supplies functions for validating its own data, either on its own or in relation to other query params, as well as for
@@ -26,22 +20,25 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     id: 'minFontSize',
     default: 16,
     getValue(query) {
-      return parseNumericParam(query, this.id, this.default);
+      return toNumber(query, this.id, this.default);
     },
     validate({ query }) {
-      validatePositiveNumericParam(this.id, this.getValue(query));
+      throwIfNotPositive(this.id, this.getValue(query));
     },
   },
   minWidth: {
     id: 'minWidth',
     default: 400,
     getValue(query) {
-      return parseNumericParam(query, this.id, this.default);
+      return toNumber(query, this.id, this.default);
     },
+    // This is a good example of why the validator functions accept the raw query string and a reference to the entire config:
+    // Sometimes, validating one query param requires checking another query param. If the validator were to only accept the current value
+    // for this particular query param, that would not be possible.
     validate({ config, query }) {
       const minScreenWidth = this.getValue(query);
       const maxScreenWidth = config.maxWidth.getValue(query);
-      validatePositiveNumericParam(this.id, this.getValue(query));
+      throwIfNotPositive(this.id, this.getValue(query));
       throwIf(
         minScreenWidth >= maxScreenWidth,
         `${this.id} (${minScreenWidth}) must be less than ${config.maxWidth.id} (${maxScreenWidth}).`
@@ -52,33 +49,33 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     id: 'minRatio',
     default: typeScaleRatios.majorThird.ratio,
     getValue(query) {
-      return parseNumericParam(query, this.id, this.default);
+      return toNumber(query, this.id, this.default);
     },
     validate({ query }) {
-      validatePositiveNumericParam(this.id, this.getValue(query));
+      throwIfNotPositive(this.id, this.getValue(query));
     },
   },
   maxFontSize: {
     id: 'maxFontSize',
     default: 19,
     getValue(query) {
-      return parseNumericParam(query, this.id, this.default);
+      return toNumber(query, this.id, this.default);
     },
     validate({ query }) {
-      validatePositiveNumericParam(this.id, this.getValue(query));
+      throwIfNotPositive(this.id, this.getValue(query));
     },
   },
   maxWidth: {
     id: 'maxWidth',
     default: 1280,
     getValue(query) {
-      return parseNumericParam(query, this.id, this.default);
+      return toNumber(query, this.id, this.default);
     },
     validate({ query, config }) {
       const minScreenWidth = config.minWidth.getValue(query);
       const maxScreenWidth = this.getValue(query);
       throwIf(!isNumber(maxScreenWidth), `${this.id} must be a number.`);
-      throwIf(maxScreenWidth < 0, `${this.id} cannot be negative.`);
+      throwIfNegative(this.id, maxScreenWidth);
       throwIf(maxScreenWidth <= minScreenWidth, `${this.id} must be greater than ${config.minWidth.id}.`);
     },
   },
@@ -86,17 +83,17 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     id: 'maxRatio',
     default: typeScaleRatios.perfectFourth.ratio,
     getValue(query) {
-      return parseNumericParam(query, this.id, this.default);
+      return toNumber(query, this.id, this.default);
     },
     validate({ query }) {
-      validatePositiveNumericParam(this.id, this.getValue(query));
+      throwIfNotPositive(this.id, this.getValue(query));
     },
   },
   steps: {
     id: 'steps',
     default: ['sm', 'base', 'md', 'lg', 'xl', 'xxl', 'xxxl'],
     getValue(query) {
-      return parseRawParam(query, this.id)?.split(',') ?? this.default;
+      return toCommaSeparatedList(query, this.id) ?? this.default;
     },
     validate({ query, config }) {
       const allSteps = this.getValue(query);
@@ -111,7 +108,7 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     id: 'baseStep',
     default: 'base',
     getValue(query) {
-      return parseRawParam(query, this.id) ?? this.default;
+      return getRawParam(query, this.id) ?? this.default;
     },
     validate({ config, query }) {
       const baseStep = this.getValue(query);
@@ -126,24 +123,24 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     id: 'prefix',
     default: 'font-size',
     getValue(query) {
-      return parseRawParam(query, this.id) ?? this.default;
+      return getRawParam(query, this.id) ?? this.default;
     },
     validate({ query }) {
-      const namingConvention = this.getValue(query);
-      throwIf(!namingConvention.length, `${this.id} must be a non-empty string`);
+      throwIf(!this.getValue(query), `${this.id} must be a non-empty string`);
     },
   },
   useRems: {
     id: 'useRems',
     default: true,
     getValue(query) {
-      const rawValue = parseRawParam(query, this.id) ?? 'false';
-      return rawValue === 'true' || rawValue === 'on';
+      return toCheckboxBoolean(query, this.id);
     },
     validate({ query }) {
-      const rawValue = parseRawParam(query, this.id);
-      if (!rawValue) return;
-      throwIf(!isValidCheckedValue(rawValue), `${this.id} must be 'on', 'true', or 'false' if specified.`);
+      const rawValue = getRawParam(query, this.id);
+      throwIf(
+        !!rawValue && !isValidCheckedValue(rawValue),
+        `${this.id} must be 'on', 'true', or 'false' if specified.`
+      );
     },
   },
   decimals: {
@@ -151,12 +148,12 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     default: 2,
     max: 10,
     getValue(query) {
-      return parseNumericParam(query, this.id, this.default);
+      return toNumber(query, this.id, this.default);
     },
     validate({ query }) {
       const decimalPlaces = this.getValue(query);
-      throwIf(decimalPlaces < 0, `${this.id} cannot be negative.`);
-      throwIf(!Number.isInteger(decimalPlaces), `${this.id} must be an integer.`);
+      throwIfNegative(this.id, decimalPlaces);
+      throwIfNotInteger(this.id, decimalPlaces);
       throwIf(decimalPlaces > this.max, `${this.id} cannot exceed ${this.max}.`);
     },
   },
@@ -164,7 +161,7 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     id: 'previewFont',
     default: DEFAULT_FONT_FAMILY,
     getValue(query) {
-      return parseRawParam(query, this.id) ?? this.default;
+      return getRawParam(query, this.id) ?? this.default;
     },
     validate({ query, fonts }) {
       const font = this.getValue(query);

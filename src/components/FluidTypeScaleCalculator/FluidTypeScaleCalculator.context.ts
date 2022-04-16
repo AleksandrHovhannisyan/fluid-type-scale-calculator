@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import { QUERY_PARAM_CONFIG } from '../../api/api.utils';
+import { QUERY_PARAM_CONFIG } from '../../api/api.constants';
 import { FormAction, FormState, WithDispatch } from './FluidTypeScaleCalculator.types';
 
 /** The initial values used to populate the app's form. */
