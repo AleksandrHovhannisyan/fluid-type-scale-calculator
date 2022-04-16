@@ -1,6 +1,6 @@
 import type { AtRule } from 'csstype';
 import site from './data/site.json';
-import { DEFAULT_FONT_FAMILY, GOOGLE_FONTS_BASE_URL } from './constants';
+import { COMMA_SEPARATED_LIST_REGEX, DEFAULT_FONT_FAMILY, GOOGLE_FONTS_BASE_URL } from './constants';
 
 /** Prefixes the given relative url string with the base site URL. */
 export const toAbsoluteUrl = (url: string, baseUrl: string = site.url) => {
@@ -32,6 +32,11 @@ export const getGoogleFontLinkTagHref = (options: { family: string; display: AtR
 
 /** Returns `true` if the given number is a valid number. */
 export const isNumber = (value: string | number) => !Number.isNaN(+value);
+
+/** Returns `true` if the given string represents a valid comma-separated list. */
+export const isCommaSeparatedList = (value: string) => {
+  return COMMA_SEPARATED_LIST_REGEX.test(value);
+};
 
 /** Throws an error if the condition evaluates to `true`.
  * @param {boolean} condition A boolean predicate condition to evaluate.

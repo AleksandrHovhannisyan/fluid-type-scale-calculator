@@ -1,5 +1,5 @@
 import { GOOGLE_FONTS_BASE_URL } from './constants';
-import { getGoogleFontLinkTagHref, isNumber, throwIf, toAbsoluteUrl } from './utils';
+import { getGoogleFontLinkTagHref, isCommaSeparatedList, isNumber, throwIf, toAbsoluteUrl } from './utils';
 
 describe('App-wide utilities', () => {
   describe('toAbsoluteUrl', () => {
@@ -46,6 +46,24 @@ describe('App-wide utilities', () => {
       expect(isNumber('-12.f')).toStrictEqual(false);
       expect(isNumber('hello world')).toStrictEqual(false);
       expect(isNumber('0xzzz')).toStrictEqual(false);
+    });
+  });
+  describe('isCommaSeparatedList', () => {
+    it('returns true for single-element lists', () => {
+      expect(isCommaSeparatedList(`x`)).toStrictEqual(true);
+    });
+    it('returns true for comma-separated lists', () => {
+      expect(isCommaSeparatedList(`a,b,c`)).toStrictEqual(true);
+      expect(isCommaSeparatedList(`a,b,c`)).toStrictEqual(true);
+    });
+    it('returns true if the list contains numbers or hyphens', () => {
+      expect(isCommaSeparatedList(`a-b,c-d,e-f`)).toStrictEqual(true);
+      expect(isCommaSeparatedList(`n1,n2,n3`)).toStrictEqual(true);
+      expect(isCommaSeparatedList(`n-1,n-2,n-3`)).toStrictEqual(true);
+    });
+    it('returns true if the list contains whitespace', () => {
+      expect(isCommaSeparatedList(`a , b , c`)).toStrictEqual(true);
+      expect(isCommaSeparatedList(`a, b,   c`)).toStrictEqual(true);
     });
   });
   describe('throwIf', () => {

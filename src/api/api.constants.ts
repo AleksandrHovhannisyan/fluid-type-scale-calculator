@@ -1,15 +1,9 @@
 import { DEFAULT_FONT_FAMILY } from '../constants';
 import typeScaleRatios from '../data/typeScaleRatios.json';
-import { throwIf, toCommaSeparatedList } from '../utils';
+import { isCommaSeparatedList, throwIf, toCommaSeparatedList } from '../utils';
 import { getRawParam, parseCheckboxBoolean, parseNumber } from './api.transformers';
 import type { QueryParamConfig } from './api.types';
-import {
-  isCommaSeparatedList,
-  isValidCheckedValue,
-  throwIfNaN,
-  throwIfNotInteger,
-  throwIfOutOfBounds,
-} from './api.validators';
+import { isValidCheckedValue, throwIfNaN, throwIfNotInteger, throwIfOutOfBounds } from './api.validators';
 
 /** A config describing all of the valid query parameters recognized by the app on both the server side and client side (as input names).
  * Each query param supplies functions for validating its own data, either on its own or in relation to other query params, as well as for
