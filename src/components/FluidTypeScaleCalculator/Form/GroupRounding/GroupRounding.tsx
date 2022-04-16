@@ -19,7 +19,7 @@ const GroupRounding = () => {
         id="group-rounding"
         type="number"
         step={1}
-        min={0}
+        min={QUERY_PARAM_CONFIG.decimals.min}
         max={QUERY_PARAM_CONFIG.decimals.max}
         required={true}
         defaultValue={state.roundingDecimalPlaces}

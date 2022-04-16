@@ -1,3 +1,4 @@
+import { QUERY_PARAM_CONFIG } from '../../../../api/api.constants';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
 import LabelGroup from '../../../Label/LabelGroup/LabelGroup';
@@ -20,7 +21,8 @@ const GroupMaximum = () => {
             name="maxFontSize"
             type="number"
             required={true}
-            min={0}
+            min={QUERY_PARAM_CONFIG.maxFontSize.min}
+            max={QUERY_PARAM_CONFIG.maxFontSize.max}
             defaultValue={state.max.fontSize}
             onChange={(e) =>
               dispatch({
@@ -39,6 +41,7 @@ const GroupMaximum = () => {
             type="number"
             required={true}
             min={state.min.screenWidth + 1}
+            max={QUERY_PARAM_CONFIG.maxWidth.max}
             defaultValue={state.max.screenWidth}
             onChange={(e) =>
               dispatch({
@@ -54,6 +57,8 @@ const GroupMaximum = () => {
           name="maxRatio"
           id="type-scale-max"
           ratio={state.max.ratio}
+          min={QUERY_PARAM_CONFIG.maxRatio.min}
+          max={QUERY_PARAM_CONFIG.maxRatio.max}
           onChange={(e) => dispatch({ type: 'setMax', payload: { ratio: e.target.valueAsNumber } })}
         />
       </LabelGroup>

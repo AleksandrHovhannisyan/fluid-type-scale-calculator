@@ -12,7 +12,7 @@ type TypeScalePickerProps = Omit<InputProps, 'type'> & {
  * Dropdown menu for modular type scales
  */
 const TypeScalePicker = (props: TypeScalePickerProps) => {
-  const { onChange, ratio, name, id } = props;
+  const { onChange, ratio, name, id, min, max } = props;
   return (
     <Label>
       Type scale ratio
@@ -21,7 +21,8 @@ const TypeScalePicker = (props: TypeScalePickerProps) => {
         type="number"
         step="any"
         list={id}
-        min={0}
+        min={min}
+        max={max}
         defaultValue={ratio}
         onChange={onChange}
         required={true}

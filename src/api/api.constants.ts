@@ -1,14 +1,14 @@
 import { DEFAULT_FONT_FAMILY } from '../constants';
 import typeScaleRatios from '../data/typeScaleRatios.json';
-import { isNumber, throwIf } from '../utils';
+import { throwIf } from '../utils';
 import { getRawParam, toCheckboxBoolean, toCommaSeparatedList, toNumber } from './api.transformers';
 import type { QueryParamConfig } from './api.types';
 import {
   isCommaSeparatedList,
   isValidCheckedValue,
-  throwIfNegative,
+  throwIfNaN,
   throwIfNotInteger,
-  throwIfNotPositive,
+  throwIfOutOfBounds,
 } from './api.validators';
 
 /** A config describing all of the valid query parameters recognized by the app on both the server side and client side (as input names).
@@ -19,16 +19,20 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
   minFontSize: {
     id: 'minFontSize',
     default: 16,
+    min: 0,
     getValue(query) {
       return toNumber(query, this.id, this.default);
     },
     validate({ query }) {
-      throwIfNotPositive(this.id, this.getValue(query));
+      const minFontSize = this.getValue(query);
+      throwIfNaN(this.id, minFontSize);
+      throwIfOutOfBounds(this.id, minFontSize, { min: this.min, max: this.max });
     },
   },
   minWidth: {
     id: 'minWidth',
     default: 400,
+    min: 0,
     getValue(query) {
       return toNumber(query, this.id, this.default);
     },
@@ -38,31 +42,34 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     validate({ config, query }) {
       const minScreenWidth = this.getValue(query);
       const maxScreenWidth = config.maxWidth.getValue(query);
-      throwIfNotPositive(this.id, this.getValue(query));
-      throwIf(
-        minScreenWidth >= maxScreenWidth,
-        `${this.id} (${minScreenWidth}) must be less than ${config.maxWidth.id} (${maxScreenWidth}).`
-      );
+      throwIfNaN(this.id, minScreenWidth);
+      throwIfOutOfBounds(this.id, minScreenWidth, { min: this.min, max: maxScreenWidth - 1 });
     },
   },
   minRatio: {
     id: 'minRatio',
     default: typeScaleRatios.majorThird.ratio,
+    min: 0,
     getValue(query) {
       return toNumber(query, this.id, this.default);
     },
     validate({ query }) {
-      throwIfNotPositive(this.id, this.getValue(query));
+      const minRatio = this.getValue(query);
+      throwIfNaN(this.id, minRatio);
+      throwIfOutOfBounds(this.id, minRatio, { min: this.min, max: this.max });
     },
   },
   maxFontSize: {
     id: 'maxFontSize',
     default: 19,
+    min: 0,
     getValue(query) {
       return toNumber(query, this.id, this.default);
     },
     validate({ query }) {
-      throwIfNotPositive(this.id, this.getValue(query));
+      const maxFontSize = this.getValue(query);
+      throwIfNaN(this.id, maxFontSize);
+      throwIfOutOfBounds(this.id, maxFontSize, { min: this.min, max: this.max });
     },
   },
   maxWidth: {
@@ -74,19 +81,21 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     validate({ query, config }) {
       const minScreenWidth = config.minWidth.getValue(query);
       const maxScreenWidth = this.getValue(query);
-      throwIf(!isNumber(maxScreenWidth), `${this.id} must be a number.`);
-      throwIfNegative(this.id, maxScreenWidth);
-      throwIf(maxScreenWidth <= minScreenWidth, `${this.id} must be greater than ${config.minWidth.id}.`);
+      throwIfNaN(this.id, maxScreenWidth);
+      throwIfOutOfBounds(this.id, maxScreenWidth, { min: minScreenWidth + 1, max: this.max });
     },
   },
   maxRatio: {
     id: 'maxRatio',
     default: typeScaleRatios.perfectFourth.ratio,
+    min: 0,
     getValue(query) {
       return toNumber(query, this.id, this.default);
     },
     validate({ query }) {
-      throwIfNotPositive(this.id, this.getValue(query));
+      const maxRatio = this.getValue(query);
+      throwIfNaN(this.id, maxRatio);
+      throwIfOutOfBounds(this.id, maxRatio, { min: this.min, max: this.max });
     },
   },
   steps: {
@@ -146,15 +155,16 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
   decimals: {
     id: 'decimals',
     default: 2,
+    min: 0,
     max: 10,
     getValue(query) {
       return toNumber(query, this.id, this.default);
     },
     validate({ query }) {
       const decimalPlaces = this.getValue(query);
-      throwIfNegative(this.id, decimalPlaces);
+      throwIfNaN(this.id, decimalPlaces);
       throwIfNotInteger(this.id, decimalPlaces);
-      throwIf(decimalPlaces > this.max, `${this.id} cannot exceed ${this.max}.`);
+      throwIfOutOfBounds(this.id, decimalPlaces, { min: this.min, max: this.max });
     },
   },
   previewFont: {

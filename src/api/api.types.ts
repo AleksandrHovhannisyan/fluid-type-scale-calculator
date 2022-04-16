@@ -21,27 +21,34 @@ export type ValidatedQueryParam<T> = {
   validate: (options: QueryParamValidatorOptions) => void;
 };
 
-export type ParamMinFontSize = ValidatedQueryParam<number> & {
+export type NumericQueryParam = ValidatedQueryParam<number> & {
+  /** The minimum value for the query param. */
+  min?: number;
+  /** The maximum value for the query param. */
+  max?: number;
+};
+
+export type ParamMinFontSize = NumericQueryParam & {
   id: 'minFontSize';
 };
 
-export type ParamMinScreenWidth = ValidatedQueryParam<number> & {
+export type ParamMinScreenWidth = NumericQueryParam & {
   id: 'minWidth';
 };
 
-export type ParamMinRatio = ValidatedQueryParam<number> & {
+export type ParamMinRatio = NumericQueryParam & {
   id: 'minRatio';
 };
 
-export type ParamMaxFontSize = ValidatedQueryParam<number> & {
+export type ParamMaxFontSize = NumericQueryParam & {
   id: 'maxFontSize';
 };
 
-export type ParamMaxScreenWidth = ValidatedQueryParam<number> & {
+export type ParamMaxScreenWidth = NumericQueryParam & {
   id: 'maxWidth';
 };
 
-export type ParamMaxRatio = ValidatedQueryParam<number> & {
+export type ParamMaxRatio = NumericQueryParam & {
   id: 'maxRatio';
 };
 
@@ -61,10 +68,8 @@ export type ParamShouldUseRems = ValidatedQueryParam<boolean> & {
   id: 'useRems';
 };
 
-export type ParamRoundingDecimalPlaces = ValidatedQueryParam<number> & {
+export type ParamRoundingDecimalPlaces = NumericQueryParam & {
   id: 'decimals';
-  /** The maximum number of decimal places to which a user can round their output. */
-  max: number;
 };
 
 export type ParamFontFamily = ValidatedQueryParam<string> & {
