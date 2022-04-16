@@ -104,7 +104,7 @@ const Preview = (props: Props) => {
                     <td>{step}</td>
                     <td className="numeric">{min}</td>
                     <td className="numeric">{max}</td>
-                    <td className="numeric">{getFontSizeAtScreenWidth(screenWidth)}</td>
+                    <td className="numeric">{fontSize}</td>
                     <td className="nowrap" style={{ fontSize, fontFamily: state.fontFamily }}>
                       {previewText}
                     </td>
