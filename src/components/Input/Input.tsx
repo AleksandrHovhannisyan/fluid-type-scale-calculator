@@ -22,7 +22,7 @@ export type InputProps = Omit<
   /** The type of input. */
   type: InputType;
   /** A unique name for inputs. */
-  name: QueryParamName;
+  name?: QueryParamName;
 };
 
 const Input = (props: InputProps) => {
