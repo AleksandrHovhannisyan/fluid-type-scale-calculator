@@ -1,4 +1,5 @@
 import { COMMA_SEPARATED_LIST_REGEX, Delay } from '../../../../constants';
+import { toCommaSeparatedList } from '../../../../utils';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
 import LabelGroup from '../../../Label/LabelGroup/LabelGroup';
@@ -28,7 +29,7 @@ const GroupTypeScaleSteps = () => {
             onChange={(e) =>
               dispatch({
                 type: 'setTypeScaleSteps',
-                payload: { all: e.target.value.split(',').map((step) => step.trim()) },
+                payload: { all: toCommaSeparatedList(e.target.value) },
               })
             }
           />

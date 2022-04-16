@@ -42,3 +42,8 @@ export const throwIf = (condition: boolean, message?: string) => {
     throw new Error(message);
   }
 };
+
+/** Parses the given string to a comma-separated string array. */
+export const toCommaSeparatedList = (rawValue: string): string[] => {
+  return rawValue.split(',').map((el) => el.trim());
+};

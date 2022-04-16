@@ -1,7 +1,7 @@
 import { DEFAULT_FONT_FAMILY } from '../constants';
 import typeScaleRatios from '../data/typeScaleRatios.json';
-import { throwIf } from '../utils';
-import { getRawParam, toCheckboxBoolean, toCommaSeparatedList, toNumber } from './api.transformers';
+import { throwIf, toCommaSeparatedList } from '../utils';
+import { getRawParam, parseCheckboxBoolean, parseNumber } from './api.transformers';
 import type { QueryParamConfig } from './api.types';
 import {
   isCommaSeparatedList,
@@ -21,7 +21,7 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     default: 16,
     min: 0,
     getValue(query) {
-      return toNumber(query, this.id, this.default);
+      return parseNumber(query, this.id, this.default);
     },
     validate({ query }) {
       const minFontSize = this.getValue(query);
@@ -34,7 +34,7 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     default: 400,
     min: 0,
     getValue(query) {
-      return toNumber(query, this.id, this.default);
+      return parseNumber(query, this.id, this.default);
     },
     // This is a good example of why the validator functions accept the raw query string and a reference to the entire config:
     // Sometimes, validating one query param requires checking another query param. If the validator were to only accept the current value
@@ -51,7 +51,7 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     default: typeScaleRatios.majorThird.ratio,
     min: 0,
     getValue(query) {
-      return toNumber(query, this.id, this.default);
+      return parseNumber(query, this.id, this.default);
     },
     validate({ query }) {
       const minRatio = this.getValue(query);
@@ -64,7 +64,7 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     default: 19,
     min: 0,
     getValue(query) {
-      return toNumber(query, this.id, this.default);
+      return parseNumber(query, this.id, this.default);
     },
     validate({ query }) {
       const maxFontSize = this.getValue(query);
@@ -76,7 +76,7 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     id: 'maxWidth',
     default: 1280,
     getValue(query) {
-      return toNumber(query, this.id, this.default);
+      return parseNumber(query, this.id, this.default);
     },
     validate({ query, config }) {
       const minScreenWidth = config.minWidth.getValue(query);
@@ -90,7 +90,7 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     default: typeScaleRatios.perfectFourth.ratio,
     min: 0,
     getValue(query) {
-      return toNumber(query, this.id, this.default);
+      return parseNumber(query, this.id, this.default);
     },
     validate({ query }) {
       const maxRatio = this.getValue(query);
@@ -102,7 +102,9 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     id: 'steps',
     default: ['sm', 'base', 'md', 'lg', 'xl', 'xxl', 'xxxl'],
     getValue(query) {
-      return toCommaSeparatedList(query, this.id) ?? this.default;
+      const rawString = getRawParam(query, this.id);
+      if (!rawString) return this.default;
+      return toCommaSeparatedList(rawString);
     },
     validate({ query, config }) {
       const allSteps = this.getValue(query);
@@ -142,7 +144,7 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     id: 'useRems',
     default: true,
     getValue(query) {
-      return toCheckboxBoolean(query, this.id);
+      return parseCheckboxBoolean(query, this.id);
     },
     validate({ query }) {
       const rawValue = getRawParam(query, this.id);
@@ -158,7 +160,7 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     min: 0,
     max: 10,
     getValue(query) {
-      return toNumber(query, this.id, this.default);
+      return parseNumber(query, this.id, this.default);
     },
     validate({ query }) {
       const decimalPlaces = this.getValue(query);
