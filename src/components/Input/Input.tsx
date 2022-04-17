@@ -31,13 +31,6 @@ const Input = (props: InputProps) => {
   const finalDelay = ['checkbox', 'radio', 'range'].includes(type) ? 0 : delay;
   const [isValid, setIsValid] = useState(true);
 
-  // RegExp throws an error if the provided regex pattern is invalid. HTML doesn't perform any validation on the
-  // pattern attribute (or any attribute, really), so best to let the error go uncaught and force the SSR build to fail.
-  if (pattern) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const regexp = new RegExp(pattern);
-  }
-
   const debouncedHandleChange = useMemo(
     () => {
       const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
