@@ -34,6 +34,7 @@
   grid-template-columns: minmax(0, 1fr);
   align-items: end;
   gap: var(--sp-base);
+
   @include desktop {
     grid-template-columns: repeat(12, 1fr);
 

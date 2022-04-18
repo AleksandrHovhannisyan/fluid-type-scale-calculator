@@ -12,6 +12,7 @@
   a {
     font-weight: var(--fw-body-bold);
   }
+
   @include tablet {
     flex-direction: row;
     justify-content: space-between;

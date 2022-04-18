@@ -12,6 +12,7 @@
     display: grid;
     align-items: center;
     gap: var(--sp-xxs);
+
     @include mobile-lg {
       grid-template-columns: 1fr auto;
     }

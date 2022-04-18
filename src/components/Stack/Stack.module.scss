@@ -5,6 +5,7 @@
   gap: var(--sp-xxxxl);
   grid-template-columns: minmax(0, 1fr);
   grid-auto-flow: row;
+
   @include desktop {
     grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
   }
