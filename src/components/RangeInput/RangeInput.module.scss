@@ -1,0 +1,20 @@
+@import "../../../styles/mixins";
+
+.range {
+  display: grid;
+  gap: var(--sp-xxs);
+
+  input[type="range"] {
+    padding: 4px 0;
+  }
+
+  &-display {
+    display: grid;
+    align-items: center;
+    gap: var(--sp-xxs);
+
+    @include mobile-lg {
+      grid-template-columns: 1fr auto;
+    }
+  }
+}

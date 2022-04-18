@@ -16,6 +16,13 @@
   }
 }
 
+/* stylelint-disable-next-line selector-id-pattern */
+#__next,
+html,
+body {
+  height: 100%;
+}
+
 button,
 label,
 input,
@@ -74,18 +81,6 @@ input:where([type="number"], [type="text"]) {
 img {
   max-width: 100%;
   height: auto;
-}
-
-button {
-  cursor: pointer;
-  border: none;
-  background: var(--color-surface-dark);
-  color: var(--color-surface-light);
-
-  &:focus-visible {
-    outline: solid 4px var(--color-surface-dark);
-    outline-offset: 4px;
-  }
 }
 
 fieldset {

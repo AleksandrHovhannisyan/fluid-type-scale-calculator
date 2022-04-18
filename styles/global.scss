@@ -1,3 +1,4 @@
+@import "./fontFace";
 @import "./functions";
 @import "./mixins";
 @import "./reset";
@@ -13,6 +14,7 @@
 body {
   font-size: var(--sp-base);
   font-family: var(--ff-body);
+  font-weight: var(--fw-body-regular);
   accent-color: var(--color-surface-dark);
   -webkit-font-smoothing: antialiased;
 }

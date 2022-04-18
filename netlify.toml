@@ -1,11 +1,24 @@
 [[plugins]]
-  package = "netlify-plugin-checklinks"
+  package = "@netlify/plugin-lighthouse"
+
+  # Fail build when a category is below a threshold
+  [plugins.inputs.thresholds]
+    performance = 0.9
+    accessibility = 1.0
+    best-practices = 0.9
+    seo = 0.9
+    pwa = 0
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
 
 [dev]
   command = "npm run dev"
-  targetPort = 8080
-  publish = "_site/"
 
 [build]
-  publish = "_site/"
   command = "npm run build"
+  publish = ".next"
+
+# Disable asset optimization since Next.js already does this: https://github.com/netlify/netlify-plugin-nextjs#asset-optimization
+[build.processing]
+  skip_processing = true

@@ -1,0 +1,11 @@
+.error-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.error-banner {
+  display: grid;
+  place-content: center;
+  flex: 1 0 0;
+}

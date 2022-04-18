@@ -1,0 +1,22 @@
+@import "../../../styles/mixins";
+
+.label {
+  display: grid;
+  gap: var(--sp-xxs);
+  align-items: center;
+  grid-template-columns: minmax(0, 1fr);
+
+  &-text {
+    display: grid;
+    gap: var(--sp-xxs);
+  }
+
+  &-title {
+    font-weight: var(--fw-body-bold);
+  }
+
+  &[data-direction="horizontal"] {
+    grid-auto-flow: column;
+    grid-template-columns: auto 1fr;
+  }
+}

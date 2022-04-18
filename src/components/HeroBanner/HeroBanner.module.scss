@@ -1,0 +1,23 @@
+@import "../../../styles/functions";
+
+.hero-banner {
+  margin-bottom: var(--sp-xxs);
+}
+
+.title {
+  font-size: var(--sp-xxxxl);
+  font-weight: var(--fw-body-bold);
+}
+
+.subtitle {
+  font-size: var(--sp-lg);
+  max-width: 50ch;
+  margin: 0 auto;
+}
+
+.title,
+.subtitle {
+  text-align: center;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}

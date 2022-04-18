@@ -4,7 +4,7 @@
 
 ## Overview
 
-Customize everything, grab the output CSS, and drop it into any existing design system.
+Customize everything, grab the output CSS, and drop it into any existing design system. Share the URL with your team members or drop it into your CSS as an inline comment for docs.
 
 ![](./public/assets/images/thumbnail.png)
 
@@ -19,14 +19,36 @@ Customize everything, grab the output CSS, and drop it into any existing design 
   - Whether to show output in rems or pixels
 - Output CSS variables for fluid font sizing.
 - Live preview table. Pick a font and enter some sample text to fine-tune the results.
+- URL sharing.
+
+### API: URL Sharing
+
+The `/calculate` route accepts the following query parameters and types. All parameters are optional. If a parameter is not specified, it will fall back to the default for that value (this applies to all parameters except `useRems`; see table below). If a parameter is invalid, you will be shown an appropriate error message.
+
+| Param         | Description                                                                                | Type     | Constraints                                                                                                               | Default                     |
+| ------------- | ------------------------------------------------------------------------------------------ | -------- | ------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
+| `minFontSize` | The minimum font size for the base step                                                    | `number` | Non-negative                                                                                                              | `16`                        |
+| `minWidth`    | The screen width corresponding to the minimum font size                                    | `number` | Non-negative and `< maxScreenWidth`                                                                                       | `400`                       |
+| `minRatio`    | The type scale ratio for the minimum font size of each step                                | `number` | Non-negative                                                                                                              | `1.25`                      |
+| `maxFontSize` | The maximum font size for the base step                                                    | `number` | Non-negative                                                                                                              | `19`                        |
+| `maxWidth`    | The screen width corresponding to the maximum font size                                    | `number` | Non-negative and `> minScreenWidth`                                                                                       | `1280`                      |
+| `maxRatio`    | The type scale ratio for the maximum font size of each step                                | `number` | Non-negative                                                                                                              | `1.333`                     |
+| `steps`       | A comma-separated list of names for your type scale steps, in ascending order of font size | `string` | Comma-separated list. Step names must be alphanumeric, with no spaces.                                                    | `sm,base,md,lg,xl,xxl,xxxl` |
+| `baseStep`    | The name of the base step                                                                  | `string` | Must exist in `steps`                                                                                                     | `base`                      |
+| `prefix`      | The naming convention to use for the output CSS variables                                  | `string` | Non-empty                                                                                                                 | `font-size`                 |
+| `useRems`     | Whether to use rems for font sizing.                                                       | `on`     | If specified, must be `on` or `true`. Omitting it implies that pixels will be used.                                       | `on`                        |
+| `decimals`    | The number of decimal places to round the output to.                                       | `number` | Non-negative integer. Max `10`.                                                                                           | `2`                         |
+| `previewFont` | The font family to render in the preview.                                                  | `string` | Spaces must be escaped (e.g., `Libre+Baskerville`). The font must be a valid Google Font. Custom fonts are not supported. | `Inter`                     |
+
+Example URL: `https://www.fluid-type-scale.com/calculate?minFontSize=15&minWidth=400&minRatio=1.25&maxFontSize=17&maxWidth=1280&maxRatio=1.333&steps=sm%2Cbase%2Cmd%2Clg%2Cxl%2Cxxl%2Cxxxl&baseStep=base&prefix=font-size&decimals=2&useRems=on&font=Libre+Baskerville`
 
 ### Tech Stack
 
-This project was bootstrapped with my [11ty-sass-images-seo](https://github.com/AleksandrHovhannisyan/11ty-sass-images-seo) starter and uses the following technologies:
+Fluid Type Scale Calculator runs on [Next.js](https://nextjs.org/).
 
-- [11ty](https://github.com/11ty/eleventy/)
-- React for the interactive bits (à la [Slinkity](https://slinkity.dev/))
-- Sass
+- React
+- TypeScript
+- Sass + CSS Modules
 
 ### Running Locally
 
