@@ -1,11 +1,14 @@
+@import "../../../styles/mixins";
+
 .label {
+  display: grid;
+  gap: var(--sp-xxs);
   align-items: center;
   grid-template-columns: minmax(0, 1fr);
 
-  &,
-  legend {
-    display: inline-grid;
-    gap: var(--sp-xs);
+  &-text {
+    display: grid;
+    gap: var(--sp-xxs);
   }
 
   &-title {

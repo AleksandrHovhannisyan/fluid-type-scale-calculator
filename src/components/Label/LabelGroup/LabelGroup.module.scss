@@ -3,7 +3,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
   align-items: center;
-  gap: var(--sp-xs);
+  gap: var(--sp-sm);
 
   > * {
     display: inline-grid;
