@@ -4,10 +4,10 @@
   "version": "1.0.2",
   "license": "MIT",
   "author": {
-		"name": "Aleksandr Hovhannisyan",
-		"email": "aleksandrhovhannisyan@gmail.com",
-		"url": "https://www.aleksandrhovhannisyan.com/"
-	},
+    "name": "Aleksandr Hovhannisyan",
+    "email": "aleksandrhovhannisyan@gmail.com",
+    "url": "https://www.aleksandrhovhannisyan.com/"
+  },
   "scripts": {
     "dev": "next dev",
     "prod": "run-s build start",
@@ -34,6 +34,7 @@
     "@types/react-dom": "17.0.14",
     "@typescript-eslint/eslint-plugin": "^5.16.0",
     "@typescript-eslint/parser": "^5.16.0",
+    "autoprefixer": "^10.4.4",
     "babel-jest": "^27.5.1",
     "csstype": "^3.0.11",
     "eslint": "^8.12.0",
