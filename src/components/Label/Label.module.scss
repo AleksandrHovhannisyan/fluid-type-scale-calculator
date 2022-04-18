@@ -15,10 +15,6 @@
     font-weight: var(--fw-body-bold);
   }
 
-  &-description {
-    font-weight: var(--fw-body-light);
-  }
-
   &[data-direction="horizontal"] {
     grid-auto-flow: column;
     grid-template-columns: auto 1fr;
