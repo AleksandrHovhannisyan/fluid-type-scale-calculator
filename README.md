@@ -11,17 +11,18 @@ Customize everything, grab the output CSS, and drop it into any existing design 
 ### Features
 
 - Fully customizable parameters for everything:
-  - Baseline min font size, screen width, type scale
-  - Baseline max font size, screen width, type scale
-  - All of your modular steps
-  - Custom naming convention for CSS variables
-  - Rounding behavior
-  - Whether to show output in rems or pixels
+  - Baseline min/max font size, screen width, type scale.
+  - The names of the steps in your type scale.
+  - The prefix to use for the variable names.
+  - The max number of decimal places in the output.
+  - Whether to show output in rems or pixels.
 - Output CSS variables for fluid font sizing.
 - Live preview table. Pick a font and enter some sample text to fine-tune the results.
-- URL sharing.
+- Link sharing.
 
-### API: URL Sharing
+### Link Sharing
+
+> **Note**: This is NOT a developer API.
 
 The `/calculate` route accepts the following query parameters and types. All parameters are optional. If a parameter is not specified, it will fall back to the default for that value (this applies to all parameters except `useRems`; see table below). If a parameter is invalid, you will be shown an appropriate error message.
 
@@ -54,7 +55,7 @@ Fluid Type Scale Calculator runs on [Next.js](https://nextjs.org/).
 
 1. Clone the repo.
 2. Run `yarn` to install dependencies.
-3. Run `yarn dev` and visit `localhost:8080` to view the app.
+3. Run `yarn dev` and visit `localhost:3000` to view the app.
 
 ## Similar Tools
 
