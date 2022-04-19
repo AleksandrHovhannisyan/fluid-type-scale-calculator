@@ -1,14 +1,15 @@
+@import "../../../styles/functions";
 @import "../../../styles/mixins";
 
 .range {
   display: grid;
   gap: var(--sp-xxs);
 
-  input[type="range"] {
+  &-slider {
     padding: 4px 0;
   }
 
-  &-display {
+  &-inputs {
     display: grid;
     grid-template-columns: 1fr auto;
     align-items: center;

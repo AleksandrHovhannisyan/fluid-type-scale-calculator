@@ -1,3 +1,4 @@
+@import "../../../../styles/functions";
 @import "../../../../styles/mixins";
 
 .preview {
@@ -56,4 +57,8 @@
       grid-column: span 2;
     }
   }
+}
+
+.preview-width-input {
+  max-width: to-rems(100px);
 }

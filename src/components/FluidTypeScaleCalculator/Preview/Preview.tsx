@@ -75,6 +75,7 @@ const Preview = (props: Props) => {
             min={0}
             max={MAX_ALLOWED_SCREEN_WIDTH_PX}
             required={true}
+            numericInputClassName={styles['preview-width-input']}
           />
         </div>
         <div className="table-wrapper">
