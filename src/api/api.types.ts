@@ -95,8 +95,3 @@ export type QueryParamName = QueryParam['id'];
 
 /** Mapped type where they keys `K` correspond to shapes that extend `{ id: K }`. Defines a config for each query parameter. */
 export type QueryParamConfig = MapDiscriminatedUnion<QueryParam, 'id'>;
-
-/** Maps each unique query param shape's ID to its corresponding value type. */
-export type QueryParamValues = {
-  [K in keyof QueryParamConfig]: ReturnType<QueryParamConfig[K]['getValue']>;
-};
