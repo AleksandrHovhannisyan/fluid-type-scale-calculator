@@ -28,10 +28,7 @@ const Label: FC<LabelProps> = (props) => {
 
   return (
     <Tag
-      className={clsx(
-        { [styles.label]: isLabel, [styles['vertical-to-horizontal']]: isLabel && direction === 'horizontal' },
-        className
-      )}
+      className={clsx({ [styles.label]: isLabel, [styles.switcher]: isLabel && direction === 'horizontal' }, className)}
       {...otherProps}
     >
       {Tag === 'fieldset' ? <legend>{labelText}</legend> : labelText}
