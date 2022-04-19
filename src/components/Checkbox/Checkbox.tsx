@@ -1,5 +1,6 @@
 import Input, { InputProps } from '../Input/Input';
 import Label from '../Label/Label';
+import styles from './Checkbox.module.scss';
 
 type CheckboxProps = Omit<InputProps, 'type'> & {
   /** The label for the checkbox. */
@@ -8,7 +9,7 @@ type CheckboxProps = Omit<InputProps, 'type'> & {
 
 const Checkbox = ({ children, ...otherProps }: CheckboxProps) => {
   return (
-    <Label title={children} direction="horizontal">
+    <Label title={children} direction="horizontal" className={styles['checkbox-label']}>
       <Input type="checkbox" {...otherProps} />
     </Label>
   );

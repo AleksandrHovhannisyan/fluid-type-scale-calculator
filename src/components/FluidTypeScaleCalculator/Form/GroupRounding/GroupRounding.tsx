@@ -7,16 +7,10 @@ import styles from './GroupRounding.module.scss';
 const GroupRounding = () => {
   const { state, dispatch } = useFormState();
   return (
-    <div className={styles['group-rounding']}>
-      <Label
-        title="Rounding"
-        description="The maximum number of decimal places in the output."
-        htmlFor="group-rounding"
-      />
+    <Label title="Rounding" description="The maximum number of decimal places in the output." direction="horizontal">
       <Input
         name="decimals"
         className={styles['rounding-input']}
-        id="group-rounding"
         type="number"
         step={1}
         min={QUERY_PARAM_CONFIG.decimals.min}
@@ -30,7 +24,7 @@ const GroupRounding = () => {
           })
         }
       />
-    </div>
+    </Label>
   );
 };
 export default GroupRounding;

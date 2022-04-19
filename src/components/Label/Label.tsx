@@ -15,6 +15,8 @@ export type LabelProps = Omit<HTMLProps<HTMLLabelElement & HTMLFieldSetElement>,
 
 const Label: FC<LabelProps> = (props) => {
   const { as: Tag = 'label', className, children, title, description, direction = 'vertical', ...otherProps } = props;
+
+  const isLabel = Tag === 'label';
   const hasStylizedLabelText = !!title || !!description;
 
   const labelText = hasStylizedLabelText && (
@@ -25,7 +27,13 @@ const Label: FC<LabelProps> = (props) => {
   );
 
   return (
-    <Tag className={clsx({ [styles.label]: Tag === 'label' }, className)} data-direction={direction} {...otherProps}>
+    <Tag
+      className={clsx(
+        { [styles.label]: isLabel, [styles['vertical-to-horizontal']]: isLabel && direction === 'horizontal' },
+        className
+      )}
+      {...otherProps}
+    >
       {Tag === 'fieldset' ? <legend>{labelText}</legend> : labelText}
       {children}
     </Tag>

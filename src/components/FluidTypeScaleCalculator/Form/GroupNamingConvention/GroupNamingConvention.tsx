@@ -5,10 +5,11 @@ import { useFormState } from '../../FluidTypeScaleCalculator.context';
 const GroupNamingConvention = () => {
   const { state, dispatch } = useFormState();
   return (
-    <Label title="Variable prefix" description="Use whatever naming convention you prefer.">
+    <Label title="Variable prefix" description="Use whatever naming convention you prefer." direction="horizontal">
       <Input
         name="prefix"
         type="text"
+        size={10}
         required={true}
         defaultValue={state.namingConvention}
         delay={0}

@@ -14,9 +14,13 @@
   &-title {
     font-weight: var(--fw-body-bold);
   }
+}
 
-  &[data-direction="horizontal"] {
+@include mobile-lg {
+  .vertical-to-horizontal {
+    display: grid;
+    align-items: end;
     grid-auto-flow: column;
-    grid-template-columns: auto 1fr;
+    justify-content: space-between;
   }
 }

@@ -1,11 +1,7 @@
-.group-rounding {
-  display: grid;
-  align-items: end;
-  grid-auto-flow: column;
-  justify-content: space-between;
-  gap: var(--sp-xs);
-}
+@import "../../../../../styles/mixins";
 
-.rounding-input {
-  max-width: 6rem;
+@include mobile-lg {
+  .rounding-input {
+    max-width: 6rem;
+  }
 }
