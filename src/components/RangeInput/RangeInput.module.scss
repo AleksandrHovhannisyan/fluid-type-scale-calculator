@@ -10,11 +10,8 @@
 
   &-display {
     display: grid;
+    grid-template-columns: 1fr auto;
     align-items: center;
     gap: var(--sp-xxs);
-
-    @include mobile-lg {
-      grid-template-columns: 1fr auto;
-    }
   }
 }
