@@ -1,4 +1,4 @@
-import { QueryParamName, UserSuppliedQueryParams } from './api.types';
+import { QueryParamId, UserSuppliedQueryParams } from './api.types';
 
 export const getRawParam = (query: UserSuppliedQueryParams, id: string): string | undefined => query[id];
 

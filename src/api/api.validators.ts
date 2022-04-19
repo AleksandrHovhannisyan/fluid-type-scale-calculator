@@ -1,6 +1,6 @@
 import { COMMA_SEPARATED_LIST_REGEX } from '../constants';
 import { isNumber, throwIf } from '../utils';
-import { QueryParamName, QueryParamValidatorOptions } from './api.types';
+import { QueryParamId, QueryParamValidatorOptions } from './api.types';
 
 /** Returns `true` if the given value represents a valid checkbox state. */
 export const isValidCheckedValue = (value: string) => {
@@ -30,7 +30,7 @@ export const throwIfOutOfBounds = (id: string, value: number, bounds: { min?: nu
  */
 export const validateQueryParams = (options: QueryParamValidatorOptions) => {
   Object.keys(options.query).forEach((id) => {
-    const param = options.config[id as QueryParamName];
+    const param = options.config[id as QueryParamId];
     throwIf(!param, `${id} is not a recognized query parameter.`);
     param.validate(options);
   });

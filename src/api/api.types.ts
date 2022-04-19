@@ -91,7 +91,7 @@ export type QueryParam =
   | ParamFontFamily;
 
 /** A valid query param ID. Also used on the front-end by form inputs. */
-export type QueryParamName = QueryParam['id'];
+export type QueryParamId = QueryParam['id'];
 
 /** Mapped type where they keys `K` correspond to shapes that extend `{ id: K }`. Defines a config for each query parameter. */
 export type QueryParamConfig = MapDiscriminatedUnion<QueryParam, 'id'>;
