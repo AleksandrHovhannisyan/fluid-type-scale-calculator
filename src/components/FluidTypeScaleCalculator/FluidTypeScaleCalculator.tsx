@@ -1,6 +1,6 @@
 import { useReducer } from 'react';
-import type { TypeScale, WithFonts } from '../../types';
-import Stack from '../Stack/Stack';
+import type { WithFonts } from '../../types';
+import Switcher from '../Switcher/Switcher';
 import Form from './Form/Form';
 import Output from './Output/Output';
 import Preview from './Preview/Preview';
@@ -23,10 +23,10 @@ const FluidTypeScaleCalculator = (props: Props) => {
   return (
     <FormStateContext.Provider value={{ state, dispatch }}>
       <div className={styles['type-scale-calculator']}>
-        <Stack className={styles['type-scale-stack']}>
+        <Switcher className={styles['type-scale-stack']}>
           <Form />
           <Output typeScale={typeScale} />
-        </Stack>
+        </Switcher>
         <Preview typeScale={typeScale} fonts={props.fonts} />
       </div>
     </FormStateContext.Provider>
