@@ -1,10 +1,10 @@
 import Link from '../Link/Link';
 import Rhythm from '../Rhythm/Rhythm';
-import Stack from '../Stack/Stack';
+import Switcher from '../Switcher/Switcher';
 
 const Info = () => {
   return (
-    <Stack>
+    <Switcher>
       <Rhythm as="section">
         <h2>How it works</h2>
         <p>
@@ -60,7 +60,7 @@ const Info = () => {
           </li>
         </ul>
       </Rhythm>
-    </Stack>
+    </Switcher>
   );
 };
 

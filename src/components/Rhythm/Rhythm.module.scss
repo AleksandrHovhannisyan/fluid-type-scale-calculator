@@ -1,6 +1,4 @@
 .rhythm {
-  max-width: 64ch;
-
   > * + * {
     margin-top: var(--line-height);
   }

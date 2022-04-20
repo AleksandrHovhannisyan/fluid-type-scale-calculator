@@ -66,7 +66,6 @@ select {
 
 select,
 input:where([type="number"], [type="text"]) {
-  width: 100%;
   min-height: 46px;
 }
 

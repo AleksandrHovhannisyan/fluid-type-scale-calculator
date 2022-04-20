@@ -1,7 +1,7 @@
 import type { ChangeEvent, DetailedHTMLProps, HTMLInputTypeAttribute, HTMLProps, InputHTMLAttributes } from 'react';
 import { useMemo, useState } from 'react';
 import debounce from 'lodash/debounce';
-import { QueryParamName } from '../../api/api.types';
+import { QueryParamId } from '../../api/api.types';
 import { Delay } from '../../constants';
 
 type InputType = NonNullable<HTMLInputTypeAttribute>;
@@ -22,7 +22,7 @@ export type InputProps = Omit<
   /** The type of input. */
   type: InputType;
   /** A unique name for inputs. */
-  name?: QueryParamName;
+  name?: QueryParamId;
 };
 
 const Input = (props: InputProps) => {

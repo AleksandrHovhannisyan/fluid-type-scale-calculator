@@ -1,6 +1,6 @@
 @import "../../../styles/mixins";
 
-.stack {
+.switcher {
   display: grid;
   gap: var(--sp-xxxxl);
   grid-template-columns: minmax(0, 1fr);
