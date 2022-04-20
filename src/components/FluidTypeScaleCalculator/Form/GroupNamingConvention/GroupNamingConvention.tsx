@@ -5,7 +5,7 @@ import { useFormState } from '../../FluidTypeScaleCalculator.context';
 const GroupNamingConvention = () => {
   const { state, dispatch } = useFormState();
   return (
-    <Label title="Variable prefix" description="Use whatever naming convention you prefer." direction="horizontal">
+    <Label title="Variable prefix" description="Use whatever naming convention you prefer." layout="to-horizontal">
       <Input
         name="prefix"
         type="text"

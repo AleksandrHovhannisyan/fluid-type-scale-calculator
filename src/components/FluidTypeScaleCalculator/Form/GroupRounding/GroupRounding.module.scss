@@ -1,7 +1,8 @@
+@import "../../../../../styles/functions";
 @import "../../../../../styles/mixins";
 
 @include mobile-lg {
   .rounding-input {
-    max-width: 6rem;
+    max-width: to-rems(100px);
   }
 }

@@ -9,7 +9,7 @@ type CheckboxProps = Omit<InputProps, 'type'> & {
 
 const Checkbox = ({ children, ...otherProps }: CheckboxProps) => {
   return (
-    <Label title={children} direction="horizontal" className={styles['checkbox-label']}>
+    <Label title={children} className={styles['checkbox-label']} layout="horizontal">
       <Input type="checkbox" {...otherProps} />
     </Label>
   );

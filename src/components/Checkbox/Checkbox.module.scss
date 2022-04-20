@@ -1,5 +1,8 @@
 .checkbox-label {
-  display: grid;
-  grid-template-columns: auto 1fr;
   align-items: center;
+
+  /* Depending on the width of the parent layout, the entire label may end up being quite wide. Due to the nature of grid columns,
+  this would mean that the checkbox's actual clickable area would be much wider than the space it really occupies.
+  So we restrict the width of the label to prevent confusion, in case a user clicks on whitespace next to the checkbox. */
+  width: fit-content;
 }

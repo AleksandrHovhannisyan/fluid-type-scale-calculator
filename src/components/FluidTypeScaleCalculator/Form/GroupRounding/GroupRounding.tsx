@@ -7,7 +7,7 @@ import styles from './GroupRounding.module.scss';
 const GroupRounding = () => {
   const { state, dispatch } = useFormState();
   return (
-    <Label title="Rounding" description="The maximum number of decimal places in the output." direction="horizontal">
+    <Label title="Rounding" description="The maximum number of decimal places in the output." layout="to-horizontal">
       <Input
         name="decimals"
         className={styles['rounding-input']}

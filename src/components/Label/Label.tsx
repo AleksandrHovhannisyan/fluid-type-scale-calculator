@@ -9,12 +9,13 @@ export type LabelProps = Omit<HTMLProps<HTMLLabelElement & HTMLFieldSetElement>,
   title?: string;
   /** An optional extended description for the label. */
   description?: string;
-  /** The direction in which the label flows. Defaults to `'vertical'`. */
-  direction?: 'vertical' | 'horizontal';
+  /** Dictates the label's layout/content arrangement. If `'to-horizontal'` is specified, the label will
+   * automatically switch from a vertical arrangement to a horizontal one at a target breakpoint. Default: `'vertical'`. */
+  layout?: 'vertical' | 'horizontal' | 'to-horizontal';
 };
 
 const Label: FC<LabelProps> = (props) => {
-  const { as: Tag = 'label', className, children, title, description, direction = 'vertical', ...otherProps } = props;
+  const { as: Tag = 'label', className, children, title, description, layout = 'vertical', ...otherProps } = props;
 
   const isLabel = Tag === 'label';
   const hasStylizedLabelText = !!title || !!description;
@@ -26,11 +27,12 @@ const Label: FC<LabelProps> = (props) => {
     </span>
   );
 
+  // We don't want certain classes on fieldset variants since fieldset doesn't support flex/grid anyway,
+  // so enable those classes conditionally only if we're rendering a literal <label>.
+  const labelClassName = clsx({ [styles.label]: isLabel, [styles[layout]]: isLabel }, className);
+
   return (
-    <Tag
-      className={clsx({ [styles.label]: isLabel, [styles.switcher]: isLabel && direction === 'horizontal' }, className)}
-      {...otherProps}
-    >
+    <Tag className={labelClassName} {...otherProps}>
       {Tag === 'fieldset' ? <legend>{labelText}</legend> : labelText}
       {children}
     </Tag>
