@@ -6,7 +6,7 @@
     performance = 0.9
     accessibility = 1.0
     best-practices = 0.9
-    seo = 0.9
+    seo = 0.89
     pwa = 0
 
 [[plugins]]
