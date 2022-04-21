@@ -29,7 +29,10 @@ const Label: FC<LabelProps> = (props) => {
 
   // We don't want certain classes on fieldset variants since fieldset doesn't support flex/grid anyway,
   // so enable those classes conditionally only if we're rendering a literal <label>.
-  const labelClassName = clsx({ [styles.label]: isLabel, [styles[layout]]: isLabel }, className);
+  const labelClassName = clsx(
+    { [styles.label]: isLabel, [styles[layout]]: isLabel && layout !== 'vertical' },
+    className
+  );
 
   return (
     <Tag className={labelClassName} {...otherProps}>
