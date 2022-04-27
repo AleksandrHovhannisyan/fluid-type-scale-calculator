@@ -25,6 +25,7 @@ const CopyToClipboardButton = (props: CopyToClipboardButtonProps) => {
       <Button
         id={BUTTON_ID}
         type="button"
+        isFullWidth={true}
         onClick={(e) => {
           window.navigator.clipboard.writeText(text);
           setIsCopied(true);

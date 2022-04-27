@@ -2,13 +2,16 @@ import { ButtonHTMLAttributes, DetailedHTMLProps, FC } from 'react';
 import clsx from 'clsx';
 import styles from './Button.module.scss';
 
-const Button: FC<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>> = ({
-  children,
-  className,
-  ...otherProps
-}) => {
+type ButtonProps = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & {
+  /** Whether the button should occupy the full width of its containing block/formatting context. By default,
+   * buttons will only occupy as much space as their content.
+   */
+  isFullWidth?: boolean;
+};
+
+const Button: FC<ButtonProps> = ({ children, className, isFullWidth, ...otherProps }) => {
   return (
-    <button className={clsx(styles.button, className)} {...otherProps}>
+    <button className={clsx(styles.button, { [styles['full-width']]: isFullWidth }, className)} {...otherProps}>
       {children}
     </button>
   );
