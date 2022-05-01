@@ -1,10 +1,10 @@
 import type { ChangeEvent } from 'react';
 import { useEffect, useState } from 'react';
 import clsx from 'clsx';
-import Head from 'next/head';
 import { DEFAULT_FONT_FAMILY } from '../../../constants';
 import type { TypeScale, WithFonts } from '../../../types';
 import { getGoogleFontLinkTagHref } from '../../../utils';
+import Fieldset from '../../Fieldset/Fieldset';
 import GoogleFontsPicker from '../../GoogleFontsPicker/GoogleFontsPicker';
 import Input from '../../Input/Input';
 import Label from '../../Label/Label';
@@ -21,12 +21,15 @@ type Props = WithFonts & {
 const Preview = (props: Props) => {
   const { fonts, typeScale } = props;
   const { state, dispatch } = useFormState();
+  const [arePreviewControlsDisabled, setArePreviewControlsDisabled] = useState(true);
   const [previewText, setPreviewText] = useState('Almost before we knew it, we had left the ground');
   const [screenWidth, setScreenWidth] = useState(initialFormState.max.screenWidth);
 
   useEffect(() => {
     // Since we use SSR, this must be done on mount
     setScreenWidth(window.innerWidth);
+    // If JS is enabled, enable the preview controls; else, keep them disabled (since this won't run)
+    setArePreviewControlsDisabled(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -46,15 +49,14 @@ const Preview = (props: Props) => {
           href={getGoogleFontLinkTagHref({ family: state.fontFamily, display: 'swap' })}
         />
       )}
-      <Head>
-        {/* Hide nonessential/JS-dependent inputs in noscript environment. They won't work anyway. */}
-        <noscript>
-          <style>{`.${styles['label-group']} { display: none !important; }`}</style>
-        </noscript>
-      </Head>
       <section className={styles.preview}>
         <h2>Preview your type scale</h2>
-        <div className={styles['label-group']}>
+        <Fieldset
+          title="Preview controls"
+          isLegendVisuallyHidden={true}
+          disabled={arePreviewControlsDisabled}
+          labelGroupClassName={styles['label-group']}
+        >
           <Label title="Font family">
             <GoogleFontsPicker fonts={fonts} defaultValue={state.fontFamily} onChange={onFontSelected} />
           </Label>
@@ -77,7 +79,7 @@ const Preview = (props: Props) => {
             required={true}
             numericInputClassName={styles['preview-width-input']}
           />
-        </div>
+        </Fieldset>
         <div className="table-wrapper">
           <table>
             <thead>

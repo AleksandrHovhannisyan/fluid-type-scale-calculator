@@ -2,6 +2,10 @@
   display: grid;
   gap: var(--sp-xxs);
 
+  /* Ideally, we'd use a grid parent layout at the fieldset level, but fieldsets don't support flex/grid. The alternative
+  is to wrap all of the fieldset's children in a div, but this solution is lighter. */
+  margin-block-end: var(--sp-md);
+
   &-title {
     font-weight: var(--fw-body-bold);
   }
@@ -11,10 +15,6 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
   gap: var(--sp-sm);
-
-  /* Ideally, we'd use a grid parent layout at the fieldset level, but fieldsets don't support flex/grid. The alternative
-  is to wrap all of the fieldset's children in a div, but this solution is lighter. */
-  margin-block-start: var(--sp-md);
 
   > label {
     /* to emphasize proximity, enforce a fixed small gap on the label children */
