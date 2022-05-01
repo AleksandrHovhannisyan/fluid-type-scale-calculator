@@ -1,4 +1,11 @@
-import type { ChangeEvent, DetailedHTMLProps, HTMLInputTypeAttribute, HTMLProps, InputHTMLAttributes } from 'react';
+import type {
+  ChangeEvent,
+  DetailedHTMLProps,
+  FocusEvent,
+  HTMLInputTypeAttribute,
+  HTMLProps,
+  InputHTMLAttributes,
+} from 'react';
 import { useMemo, useState } from 'react';
 import debounce from 'lodash/debounce';
 import { QueryParamId } from '../../api/api.types';
@@ -34,13 +41,7 @@ const Input = (props: InputProps) => {
   const debouncedHandleChange = useMemo(
     () => {
       const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const isValid = e.target.checkValidity();
-        setIsValid(isValid);
-        if (isValid) {
-          onChange?.(e);
-        } else {
-          e.target.reportValidity();
-        }
+        onChange?.(e);
       };
       // Sub-optimization: don't debounce if no delay
       if (finalDelay === 0) {
@@ -52,6 +53,17 @@ const Input = (props: InputProps) => {
     [finalDelay]
   );
 
+  // On blur, we want to validate user input on the client side (server-side validation done separately).
+  // If the input's value is invalid, the browser will auto-focus the input and show a tooltip clarifying the mistake.
+  // This creates a better UX than validating on every keystroke (even though our change handler is usually debounced).
+  const validateInput = (e: FocusEvent<HTMLInputElement>) => {
+    const isValid = e.target.checkValidity();
+    setIsValid(isValid);
+    if (!isValid) {
+      e.target.reportValidity();
+    }
+  };
+
   return (
     <input
       {...otherProps}
@@ -61,6 +73,7 @@ const Input = (props: InputProps) => {
       aria-invalid={!isValid}
       pattern={pattern}
       onChange={debouncedHandleChange}
+      onBlur={validateInput}
     />
   );
 };
