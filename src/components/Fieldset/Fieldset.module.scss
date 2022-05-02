@@ -2,10 +2,6 @@
   display: grid;
   gap: var(--sp-xxs);
 
-  /* Ideally, we'd use a grid parent layout at the fieldset level, but fieldsets don't support flex/grid. The alternative
-  is to wrap all of the fieldset's children in a div, but this solution is lighter. */
-  margin-block-end: var(--sp-md);
-
   &-title {
     font-weight: var(--fw-body-bold);
   }
@@ -28,4 +24,11 @@
     so it's as close to its corresponding input as possible */
     align-items: end;
   }
+}
+
+/* stylelint-disable-next-line selector-pseudo-class-no-unknown */
+:global(:not(legend.sr-only)) + .label-group {
+  /* Ideally, we'd use a grid parent layout at the fieldset level, but fieldsets don't support flex/grid. The alternative
+  is to wrap all of the fieldset's children in a div, but that clobbers the legend in the accessibility tree. Plus this solution is lighter. */
+  margin-block-start: var(--sp-md);
 }
