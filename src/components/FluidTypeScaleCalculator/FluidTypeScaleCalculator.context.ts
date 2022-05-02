@@ -1,27 +1,28 @@
 import { createContext, useContext } from 'react';
 import { QUERY_PARAM_CONFIG } from '../../api/api.constants';
+import { QueryParamId } from '../../api/api.types';
 import { FormAction, FormState, WithDispatch } from './FluidTypeScaleCalculator.types';
 
 /** The initial values used to populate the app's form. */
 export const initialFormState: FormState = {
   min: {
-    fontSize: QUERY_PARAM_CONFIG.minFontSize.default,
-    screenWidth: QUERY_PARAM_CONFIG.minWidth.default,
-    ratio: QUERY_PARAM_CONFIG.minRatio.default,
+    fontSize: QUERY_PARAM_CONFIG[QueryParamId.minFontSize].default,
+    screenWidth: QUERY_PARAM_CONFIG[QueryParamId.minWidth].default,
+    ratio: QUERY_PARAM_CONFIG[QueryParamId.minRatio].default,
   },
   max: {
-    fontSize: QUERY_PARAM_CONFIG.maxFontSize.default,
-    screenWidth: QUERY_PARAM_CONFIG.maxWidth.default,
-    ratio: QUERY_PARAM_CONFIG.maxRatio.default,
+    fontSize: QUERY_PARAM_CONFIG[QueryParamId.maxFontSize].default,
+    screenWidth: QUERY_PARAM_CONFIG[QueryParamId.maxWidth].default,
+    ratio: QUERY_PARAM_CONFIG[QueryParamId.maxRatio].default,
   },
   typeScaleSteps: {
-    all: QUERY_PARAM_CONFIG.steps.default,
-    base: QUERY_PARAM_CONFIG.baseStep.default,
+    all: QUERY_PARAM_CONFIG[QueryParamId.allSteps].default,
+    base: QUERY_PARAM_CONFIG[QueryParamId.baseStep].default,
   },
-  namingConvention: QUERY_PARAM_CONFIG.prefix.default,
-  shouldUseRems: QUERY_PARAM_CONFIG.useRems.default,
-  roundingDecimalPlaces: QUERY_PARAM_CONFIG.decimals.default,
-  fontFamily: QUERY_PARAM_CONFIG.previewFont.default,
+  namingConvention: QUERY_PARAM_CONFIG[QueryParamId.namingConvention].default,
+  shouldUseRems: QUERY_PARAM_CONFIG[QueryParamId.shouldUseRems].default,
+  roundingDecimalPlaces: QUERY_PARAM_CONFIG[QueryParamId.roundingDecimalPlaces].default,
+  fontFamily: QUERY_PARAM_CONFIG[QueryParamId.previewFont].default,
 };
 
 /** Given the previous app state and a dispatched action, returns the newly transformed state.

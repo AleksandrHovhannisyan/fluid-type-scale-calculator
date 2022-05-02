@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
+import { QueryParamId } from '../../api/api.types';
 import { Delay } from '../../constants';
 import { WithFonts } from '../../types';
 import Select, { SelectProps } from '../Select/Select';
 
 export type GoogleFontsPickerProps = WithFonts &
-  Omit<SelectProps, 'defaultValue'> & {
+  Omit<SelectProps, 'defaultValue' | 'name'> & {
     /** The default selected font. */
     defaultValue?: string;
   };
@@ -36,7 +37,13 @@ const GoogleFontsPicker = (props: GoogleFontsPickerProps) => {
   }, []);
 
   return (
-    <Select name="previewFont" ref={pickerRef} defaultValue={defaultValue} onChange={onChange} delay={Delay.LONG}>
+    <Select
+      name={QueryParamId.previewFont}
+      ref={pickerRef}
+      defaultValue={defaultValue}
+      onChange={onChange}
+      delay={Delay.LONG}
+    >
       {fonts.map((fontFamily) => (
         <option key={fontFamily} value={fontFamily}>
           {fontFamily}

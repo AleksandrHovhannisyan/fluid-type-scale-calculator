@@ -1,3 +1,4 @@
+import { QueryParamId } from '../../../../api/api.types';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
 import { useFormState } from '../../FluidTypeScaleCalculator.context';
@@ -7,7 +8,7 @@ const GroupNamingConvention = () => {
   return (
     <Label title="Variable prefix" description="Use whatever naming convention you prefer." layout="to-horizontal">
       <Input
-        name="prefix"
+        name={QueryParamId.namingConvention}
         type="text"
         size={10}
         required={true}

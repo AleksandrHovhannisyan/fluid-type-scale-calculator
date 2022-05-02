@@ -1,3 +1,4 @@
+import { QueryParamId } from '../../../../api/api.types';
 import { COMMA_SEPARATED_LIST_REGEX, Delay } from '../../../../constants';
 import { toCommaSeparatedList } from '../../../../utils';
 import Fieldset from '../../../Fieldset/Fieldset';
@@ -16,7 +17,7 @@ const GroupTypeScaleSteps = () => {
       <Label>
         All steps
         <Input
-          name="steps"
+          name={QueryParamId.allSteps}
           type="text"
           title="Comma-separated list"
           required
@@ -35,7 +36,7 @@ const GroupTypeScaleSteps = () => {
       <Label>
         Baseline step
         <Select
-          name="baseStep"
+          name={QueryParamId.baseStep}
           defaultValue={state.typeScaleSteps.base}
           onChange={(e) =>
             dispatch({
