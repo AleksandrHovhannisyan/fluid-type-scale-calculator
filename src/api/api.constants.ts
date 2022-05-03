@@ -2,7 +2,7 @@ import { DEFAULT_FONT_FAMILY } from '../constants';
 import typeScaleRatios from '../data/typeScaleRatios.json';
 import { isCommaSeparatedList, throwIf, toCommaSeparatedList } from '../utils';
 import { getRawParam, parseCheckboxBoolean, parseNumber } from './api.transformers';
-import type { QueryParamConfig } from './api.types';
+import { QueryParamConfig, QueryParamId } from './api.types';
 import { isValidCheckedValue, throwIfNaN, throwIfNotInteger, throwIfOutOfBounds } from './api.validators';
 
 /** A config describing all of the valid query parameters recognized by the app on both the server side and client side (as input names).
@@ -10,8 +10,8 @@ import { isValidCheckedValue, throwIfNaN, throwIfNotInteger, throwIfOutOfBounds 
  * transforming the raw query param string to the desired value.
  */
 export const QUERY_PARAM_CONFIG: QueryParamConfig = {
-  minFontSize: {
-    id: 'minFontSize',
+  [QueryParamId.minFontSize]: {
+    id: QueryParamId.minFontSize,
     default: 16,
     min: 0,
     getValue(query) {
@@ -23,8 +23,8 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
       throwIfOutOfBounds(this.id, minFontSize, { min: this.min, max: this.max });
     },
   },
-  minWidth: {
-    id: 'minWidth',
+  [QueryParamId.minWidth]: {
+    id: QueryParamId.minWidth,
     default: 400,
     min: 0,
     getValue(query) {
@@ -35,13 +35,13 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     // for this particular query param, that would not be possible.
     validate({ config, query }) {
       const minScreenWidth = this.getValue(query);
-      const maxScreenWidth = config.maxWidth.getValue(query);
+      const maxScreenWidth = config[QueryParamId.maxWidth].getValue(query);
       throwIfNaN(this.id, minScreenWidth);
       throwIfOutOfBounds(this.id, minScreenWidth, { min: this.min, max: maxScreenWidth - 1 });
     },
   },
-  minRatio: {
-    id: 'minRatio',
+  [QueryParamId.minRatio]: {
+    id: QueryParamId.minRatio,
     default: typeScaleRatios.majorThird.ratio,
     min: 0,
     getValue(query) {
@@ -53,8 +53,8 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
       throwIfOutOfBounds(this.id, minRatio, { min: this.min, max: this.max });
     },
   },
-  maxFontSize: {
-    id: 'maxFontSize',
+  [QueryParamId.maxFontSize]: {
+    id: QueryParamId.maxFontSize,
     default: 19,
     min: 0,
     getValue(query) {
@@ -66,21 +66,21 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
       throwIfOutOfBounds(this.id, maxFontSize, { min: this.min, max: this.max });
     },
   },
-  maxWidth: {
-    id: 'maxWidth',
+  [QueryParamId.maxWidth]: {
+    id: QueryParamId.maxWidth,
     default: 1280,
     getValue(query) {
       return parseNumber(query, this.id, this.default);
     },
     validate({ query, config }) {
-      const minScreenWidth = config.minWidth.getValue(query);
+      const minScreenWidth = config[QueryParamId.minWidth].getValue(query);
       const maxScreenWidth = this.getValue(query);
       throwIfNaN(this.id, maxScreenWidth);
       throwIfOutOfBounds(this.id, maxScreenWidth, { min: minScreenWidth + 1, max: this.max });
     },
   },
-  maxRatio: {
-    id: 'maxRatio',
+  [QueryParamId.maxRatio]: {
+    id: QueryParamId.maxRatio,
     default: typeScaleRatios.perfectFourth.ratio,
     min: 0,
     getValue(query) {
@@ -92,8 +92,8 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
       throwIfOutOfBounds(this.id, maxRatio, { min: this.min, max: this.max });
     },
   },
-  steps: {
-    id: 'steps',
+  [QueryParamId.allSteps]: {
+    id: QueryParamId.allSteps,
     default: ['sm', 'base', 'md', 'lg', 'xl', 'xxl', 'xxxl'],
     getValue(query) {
       const rawString = getRawParam(query, this.id);
@@ -102,30 +102,30 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     },
     validate({ query, config }) {
       const allSteps = this.getValue(query);
-      const baseStep = config.baseStep.getValue(query);
+      const baseStep = config[QueryParamId.baseStep].getValue(query);
       throwIf(!allSteps.includes(baseStep), `${this.id} (${allSteps}) does not include the base step (${baseStep}).`);
       // While this may seem like it will never throw, imagine a scenario where a user enters x,y;z. Splitting it yields ['x', 'y;z'].
       // And our regex strictly requires that each item in the list only use alphanumeric characters.
       throwIf(!isCommaSeparatedList(allSteps.join(',')), `${this.id} must be a comma-separated list of step names.`);
     },
   },
-  baseStep: {
-    id: 'baseStep',
+  [QueryParamId.baseStep]: {
+    id: QueryParamId.baseStep,
     default: 'base',
     getValue(query) {
       return getRawParam(query, this.id) ?? this.default;
     },
     validate({ config, query }) {
       const baseStep = this.getValue(query);
-      const allSteps = config.steps.getValue(query);
+      const allSteps = config[QueryParamId.allSteps].getValue(query);
       throwIf(
         !allSteps.includes(baseStep),
         `The base step ${baseStep} was not found in the list of all steps (${allSteps}).`
       );
     },
   },
-  prefix: {
-    id: 'prefix',
+  [QueryParamId.namingConvention]: {
+    id: QueryParamId.namingConvention,
     default: 'font-size',
     getValue(query) {
       return getRawParam(query, this.id) ?? this.default;
@@ -134,8 +134,8 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
       throwIf(!this.getValue(query), `${this.id} must be a non-empty string`);
     },
   },
-  useRems: {
-    id: 'useRems',
+  [QueryParamId.shouldUseRems]: {
+    id: QueryParamId.shouldUseRems,
     default: true,
     getValue(query) {
       return parseCheckboxBoolean(query, this.id);
@@ -148,8 +148,8 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
       );
     },
   },
-  decimals: {
-    id: 'decimals',
+  [QueryParamId.roundingDecimalPlaces]: {
+    id: QueryParamId.roundingDecimalPlaces,
     default: 2,
     min: 0,
     max: 10,
@@ -163,8 +163,8 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
       throwIfOutOfBounds(this.id, decimalPlaces, { min: this.min, max: this.max });
     },
   },
-  previewFont: {
-    id: 'previewFont',
+  [QueryParamId.previewFont]: {
+    id: QueryParamId.previewFont,
     default: DEFAULT_FONT_FAMILY,
     getValue(query) {
       return getRawParam(query, this.id) ?? this.default;

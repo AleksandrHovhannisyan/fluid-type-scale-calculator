@@ -1,6 +1,26 @@
 import { WithFonts } from '../types';
 import type { MapDiscriminatedUnion } from '../types.generics';
 
+// Technically a constant, but exporting it from here makes more sense.
+// Why an enum instead of a type? So we can reuse this for input name attributes without
+// having to type them as QueryParamId in props.
+
+/** A recognized query param ID. Also used on the front end by form inputs to set their `name` attribute to the corresponding query param. */
+export enum QueryParamId {
+  minFontSize = 'minFontSize',
+  minWidth = 'minWidth',
+  minRatio = 'minRatio',
+  maxFontSize = 'maxFontSize',
+  maxWidth = 'maxWidth',
+  maxRatio = 'maxRatio',
+  allSteps = 'steps',
+  baseStep = 'baseStep',
+  namingConvention = 'prefix',
+  shouldUseRems = 'useRems',
+  roundingDecimalPlaces = 'decimals',
+  previewFont = 'previewFont',
+}
+
 /** A record of arbitrary query params supplied by users. */
 export type UserSuppliedQueryParams = Record<string, string>;
 
@@ -29,51 +49,51 @@ export type NumericQueryParam = ValidatedQueryParam<number> & {
 };
 
 export type ParamMinFontSize = NumericQueryParam & {
-  id: 'minFontSize';
+  id: QueryParamId.minFontSize;
 };
 
 export type ParamMinScreenWidth = NumericQueryParam & {
-  id: 'minWidth';
+  id: QueryParamId.minWidth;
 };
 
 export type ParamMinRatio = NumericQueryParam & {
-  id: 'minRatio';
+  id: QueryParamId.minRatio;
 };
 
 export type ParamMaxFontSize = NumericQueryParam & {
-  id: 'maxFontSize';
+  id: QueryParamId.maxFontSize;
 };
 
 export type ParamMaxScreenWidth = NumericQueryParam & {
-  id: 'maxWidth';
+  id: QueryParamId.maxWidth;
 };
 
 export type ParamMaxRatio = NumericQueryParam & {
-  id: 'maxRatio';
+  id: QueryParamId.maxRatio;
 };
 
 export type ParamTypeScaleSteps = ValidatedQueryParam<string[]> & {
-  id: 'steps';
+  id: QueryParamId.allSteps;
 };
 
 export type ParamBaseTypeScaleStep = ValidatedQueryParam<string> & {
-  id: 'baseStep';
+  id: QueryParamId.baseStep;
 };
 
 export type ParamNamingConvention = ValidatedQueryParam<string> & {
-  id: 'prefix';
+  id: QueryParamId.namingConvention;
 };
 
 export type ParamShouldUseRems = ValidatedQueryParam<boolean> & {
-  id: 'useRems';
+  id: QueryParamId.shouldUseRems;
 };
 
 export type ParamRoundingDecimalPlaces = NumericQueryParam & {
-  id: 'decimals';
+  id: QueryParamId.roundingDecimalPlaces;
 };
 
 export type ParamFontFamily = ValidatedQueryParam<string> & {
-  id: 'previewFont';
+  id: QueryParamId.previewFont;
 };
 
 export type QueryParam =
@@ -89,9 +109,6 @@ export type QueryParam =
   | ParamShouldUseRems
   | ParamRoundingDecimalPlaces
   | ParamFontFamily;
-
-/** A valid query param ID. Also used on the front-end by form inputs. */
-export type QueryParamId = QueryParam['id'];
 
 /** Mapped type where they keys `K` correspond to shapes that extend `{ id: K }`. Defines a config for each query parameter. */
 export type QueryParamConfig = MapDiscriminatedUnion<QueryParam, 'id'>;

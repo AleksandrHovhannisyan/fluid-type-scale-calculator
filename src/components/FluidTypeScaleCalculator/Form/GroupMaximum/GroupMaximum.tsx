@@ -1,4 +1,5 @@
 import { QUERY_PARAM_CONFIG } from '../../../../api/api.constants';
+import { QueryParamId } from '../../../../api/api.types';
 import Fieldset from '../../../Fieldset/Fieldset';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
@@ -16,11 +17,11 @@ const GroupMaximum = () => {
       <Label>
         Base font size (pixels)
         <Input
-          name="maxFontSize"
+          name={QueryParamId.maxFontSize}
           type="number"
           required={true}
-          min={QUERY_PARAM_CONFIG.maxFontSize.min}
-          max={QUERY_PARAM_CONFIG.maxFontSize.max}
+          min={QUERY_PARAM_CONFIG[QueryParamId.maxFontSize].min}
+          max={QUERY_PARAM_CONFIG[QueryParamId.maxFontSize].max}
           defaultValue={state.max.fontSize}
           onChange={(e) =>
             dispatch({
@@ -35,11 +36,11 @@ const GroupMaximum = () => {
       <Label>
         Screen width (pixels)
         <Input
-          name="maxWidth"
+          name={QueryParamId.maxWidth}
           type="number"
           required={true}
           min={state.min.screenWidth + 1}
-          max={QUERY_PARAM_CONFIG.maxWidth.max}
+          max={QUERY_PARAM_CONFIG[QueryParamId.maxWidth].max}
           defaultValue={state.max.screenWidth}
           onChange={(e) =>
             dispatch({
@@ -52,11 +53,11 @@ const GroupMaximum = () => {
         />
       </Label>
       <TypeScalePicker
-        name="maxRatio"
+        name={QueryParamId.maxRatio}
         id="type-scale-max"
         ratio={state.max.ratio}
-        min={QUERY_PARAM_CONFIG.maxRatio.min}
-        max={QUERY_PARAM_CONFIG.maxRatio.max}
+        min={QUERY_PARAM_CONFIG[QueryParamId.maxRatio].min}
+        max={QUERY_PARAM_CONFIG[QueryParamId.maxRatio].max}
         onChange={(e) => dispatch({ type: 'setMax', payload: { ratio: e.target.valueAsNumber } })}
       />
     </Fieldset>

@@ -1,4 +1,5 @@
 import { QUERY_PARAM_CONFIG } from '../../../../api/api.constants';
+import { QueryParamId } from '../../../../api/api.types';
 import Fieldset from '../../../Fieldset/Fieldset';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
@@ -15,11 +16,11 @@ const GroupMinimum = () => {
       <Label>
         Base font size (pixels)
         <Input
+          name={QueryParamId.minFontSize}
           type="number"
-          name="minFontSize"
           required={true}
-          min={QUERY_PARAM_CONFIG.minFontSize.min}
-          max={QUERY_PARAM_CONFIG.minFontSize.max}
+          min={QUERY_PARAM_CONFIG[QueryParamId.minFontSize].min}
+          max={QUERY_PARAM_CONFIG[QueryParamId.minFontSize].max}
           defaultValue={state.min.fontSize}
           onChange={(e) =>
             dispatch({
@@ -34,10 +35,10 @@ const GroupMinimum = () => {
       <Label>
         Screen width (pixels)
         <Input
-          name="minWidth"
+          name={QueryParamId.minWidth}
           type="number"
           required={true}
-          min={QUERY_PARAM_CONFIG.minWidth.min}
+          min={QUERY_PARAM_CONFIG[QueryParamId.minWidth].min}
           max={state.max.screenWidth - 1}
           defaultValue={state.min.screenWidth}
           onChange={(e) =>
@@ -51,11 +52,11 @@ const GroupMinimum = () => {
         />
       </Label>
       <TypeScalePicker
-        name="minRatio"
+        name={QueryParamId.minRatio}
         id="type-scale-min"
         ratio={state.min.ratio}
-        min={QUERY_PARAM_CONFIG.minRatio.min}
-        max={QUERY_PARAM_CONFIG.minRatio.max}
+        min={QUERY_PARAM_CONFIG[QueryParamId.minRatio].min}
+        max={QUERY_PARAM_CONFIG[QueryParamId.minRatio].max}
         onChange={(e) => dispatch({ type: 'setMin', payload: { ratio: e.target.valueAsNumber } })}
       />
     </Fieldset>

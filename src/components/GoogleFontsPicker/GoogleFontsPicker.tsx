@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
+import { QueryParamId } from '../../api/api.types';
 import { Delay } from '../../constants';
 import { WithFonts } from '../../types';
-import { TYPE_SCALE_FORM_ID } from '../FluidTypeScaleCalculator/Form/Form.constants';
 import Select, { SelectProps } from '../Select/Select';
 
 export type GoogleFontsPickerProps = WithFonts &
-  Omit<SelectProps, 'defaultValue'> & {
+  Omit<SelectProps, 'defaultValue' | 'name'> & {
     /** The default selected font. */
     defaultValue?: string;
   };
@@ -38,8 +38,7 @@ const GoogleFontsPicker = (props: GoogleFontsPickerProps) => {
 
   return (
     <Select
-      form={TYPE_SCALE_FORM_ID}
-      name="previewFont"
+      name={QueryParamId.previewFont}
       ref={pickerRef}
       defaultValue={defaultValue}
       onChange={onChange}

@@ -3,6 +3,15 @@
   gap: var(--sp-xxxxl);
 }
 
+.form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--sp-xl);
+  margin: 0;
+  padding: var(--sp-lg);
+  border: solid var(--sp-xxs) var(--color-surface-dark);
+}
+
 .type-scale-stack {
   gap: var(--sp-xl);
 }
