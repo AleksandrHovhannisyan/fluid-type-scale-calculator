@@ -1,5 +1,6 @@
 import type { SimpleIcon } from 'simple-icons';
 import { siBuymeacoffee, siGithub, siLinkedin, siStackexchange, siTwitter } from 'simple-icons/icons';
+import packageJson from '../../../package.json';
 import socials from '../../data/socials.json';
 import Link from '../Link/Link';
 import styles from './PageFooter.module.scss';
@@ -17,10 +18,11 @@ const socialIcons: Record<SocialId, SimpleIcon> = {
 const PageFooter = () => {
   return (
     <footer className={styles['page-footer']}>
-      <span>
+      <div>
         <span aria-hidden="true">&copy;</span>Copyright{' '}
-        <Link href="https://www.aleksandrhovhannisyan.com/">Aleksandr Hovhannisyan</Link>, 2021–Present.
-      </span>
+        <Link href="https://www.aleksandrhovhannisyan.com/">Aleksandr Hovhannisyan</Link>, 2021–Present. v
+        {packageJson.version}.
+      </div>
       <ul className={styles.socials} aria-label="Social media">
         {Object.entries(socials).map(([key, social]) => {
           return (
