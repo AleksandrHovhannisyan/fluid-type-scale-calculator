@@ -21,6 +21,7 @@ export const initialFormState: FormState = {
   },
   namingConvention: QUERY_PARAM_CONFIG[QueryParamId.namingConvention].default,
   shouldUseRems: QUERY_PARAM_CONFIG[QueryParamId.shouldUseRems].default,
+  remValueInPx: QUERY_PARAM_CONFIG[QueryParamId.remValueInPx].default,
   roundingDecimalPlaces: QUERY_PARAM_CONFIG[QueryParamId.roundingDecimalPlaces].default,
   fontFamily: QUERY_PARAM_CONFIG[QueryParamId.previewFont].default,
 };
@@ -50,7 +51,12 @@ export const formStateReducer = (state: FormState, action: FormAction): FormStat
       return { ...state, namingConvention: action.payload };
     }
     case 'setShouldUseRems': {
-      return { ...state, shouldUseRems: action.payload };
+      const shouldUseRems = action.payload;
+      const remValueInPx = shouldUseRems ? state.remValueInPx : initialFormState.remValueInPx;
+      return { ...state, shouldUseRems, remValueInPx };
+    }
+    case 'setRemValueInPx': {
+      return { ...state, remValueInPx: action.payload };
     }
     case 'setRoundingDecimalPlaces': {
       return { ...state, roundingDecimalPlaces: action.payload };

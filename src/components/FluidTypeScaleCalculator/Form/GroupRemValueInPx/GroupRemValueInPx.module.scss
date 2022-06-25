@@ -1,0 +1,9 @@
+@import "../../../../../styles/functions";
+@import "../../../../../styles/mixins";
+
+/* TODO: consolidate duplicate styling here with the one for the should-use-rems input */
+@include mobile-lg {
+  .rem-input {
+    max-width: to-rems(100px);
+  }
+}

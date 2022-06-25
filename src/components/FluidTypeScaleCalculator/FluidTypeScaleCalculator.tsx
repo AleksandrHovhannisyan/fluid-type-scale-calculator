@@ -11,6 +11,7 @@ import {
   GroupMaximum,
   GroupMinimum,
   GroupNamingConvention,
+  GroupRemValueInPx,
   GroupRounding,
   GroupTypeScaleSteps,
   GroupUseRems,
@@ -59,6 +60,7 @@ const FluidTypeScaleCalculator = (props: Props) => {
             <GroupNamingConvention />
             <GroupRounding />
             <GroupUseRems />
+            {state.shouldUseRems && <GroupRemValueInPx />}
             <noscript>
               <Button type="submit" isFullWidth={true}>
                 Generate type scale variables

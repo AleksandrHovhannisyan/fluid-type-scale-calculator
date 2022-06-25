@@ -50,6 +50,7 @@ export const getServerSideProps = async (
       },
       namingConvention: QUERY_PARAM_CONFIG[QueryParamId.namingConvention].getValue(query),
       shouldUseRems: QUERY_PARAM_CONFIG[QueryParamId.shouldUseRems].getValue(query),
+      remValueInPx: QUERY_PARAM_CONFIG[QueryParamId.remValueInPx].getValue(query),
       roundingDecimalPlaces: QUERY_PARAM_CONFIG[QueryParamId.roundingDecimalPlaces].getValue(query),
       fontFamily: QUERY_PARAM_CONFIG[QueryParamId.previewFont].getValue(query),
     };

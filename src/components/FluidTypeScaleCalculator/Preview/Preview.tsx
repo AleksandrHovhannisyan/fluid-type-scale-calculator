@@ -102,13 +102,20 @@ const Preview = (props: Props) => {
             <tbody>
               {Array.from(typeScale.entries()).map(([step, { min, max, getFontSizeAtScreenWidth }]) => {
                 const fontSize = getFontSizeAtScreenWidth(screenWidth);
+                const remValue = state.shouldUseRems ? state.remValueInPx : initialFormState.remValueInPx;
                 return (
                   <tr key={step}>
                     <td>{step}</td>
                     <td className="numeric">{min}</td>
                     <td className="numeric">{max}</td>
                     <td className="numeric">{fontSize}</td>
-                    <td className="nowrap" style={{ fontSize, fontFamily: state.fontFamily }}>
+                    <td
+                      className="nowrap"
+                      style={{
+                        fontSize: `calc(${fontSize} * ${remValue}/${initialFormState.remValueInPx})`,
+                        fontFamily: state.fontFamily,
+                      }}
+                    >
                       {previewText}
                     </td>
                   </tr>

@@ -19,6 +19,8 @@ export type FormState = {
   shouldUseRems: boolean;
   /** The number of decimal places to round the output to. */
   roundingDecimalPlaces: number;
+  /** The pixel value of 1rem. */
+  remValueInPx: number;
   /** The font family in which to preview the type scale. */
   fontFamily: string;
 };
@@ -44,6 +46,10 @@ export type FormAction =
   | {
       type: 'setShouldUseRems';
       payload: FormState['shouldUseRems'];
+    }
+  | {
+      type: 'setRemValueInPx';
+      payload: FormState['remValueInPx'];
     }
   | {
       type: 'setRoundingDecimalPlaces';

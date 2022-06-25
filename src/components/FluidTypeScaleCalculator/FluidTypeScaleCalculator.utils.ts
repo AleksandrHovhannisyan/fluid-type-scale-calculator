@@ -12,7 +12,7 @@ export const getTypeScale = (state: FormState): TypeScale => {
   const round = (val: number) => Number(val.toFixed(state.roundingDecimalPlaces));
 
   /** If we're using rems, converts the pixel arg to rems. Else, keeps it in pixels. */
-  const convertToDesiredUnit = (px: number) => (state.shouldUseRems ? px / 16 : px);
+  const convertToDesiredUnit = (px: number) => (state.shouldUseRems ? px / state.remValueInPx : px);
 
   // Get the index of the base modular step to compute exponents relative to the base index (up/down)
   const baseStepIndex = state.typeScaleSteps.all.indexOf(state.typeScaleSteps.base);

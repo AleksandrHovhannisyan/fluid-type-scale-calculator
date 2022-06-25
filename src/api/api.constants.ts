@@ -148,6 +148,20 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
       );
     },
   },
+  [QueryParamId.remValueInPx]: {
+    id: QueryParamId.remValueInPx,
+    default: 16,
+    min: 1,
+    getValue(query) {
+      return parseNumber(query, this.id, this.default);
+    },
+    validate({ query }) {
+      const remValueInPx = this.getValue(query);
+      throwIfNaN(this.id, remValueInPx);
+      throwIfNotInteger(this.id, remValueInPx);
+      throwIfOutOfBounds(this.id, remValueInPx, { min: this.min });
+    },
+  },
   [QueryParamId.roundingDecimalPlaces]: {
     id: QueryParamId.roundingDecimalPlaces,
     default: 2,

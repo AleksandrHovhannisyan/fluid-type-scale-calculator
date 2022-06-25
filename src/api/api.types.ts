@@ -17,6 +17,7 @@ export enum QueryParamId {
   baseStep = 'baseStep',
   namingConvention = 'prefix',
   shouldUseRems = 'useRems',
+  remValueInPx = 'remValue',
   roundingDecimalPlaces = 'decimals',
   previewFont = 'previewFont',
 }
@@ -88,6 +89,10 @@ export type ParamShouldUseRems = ValidatedQueryParam<boolean> & {
   id: QueryParamId.shouldUseRems;
 };
 
+export type ParamRemValueInPx = NumericQueryParam & {
+  id: QueryParamId.remValueInPx;
+};
+
 export type ParamRoundingDecimalPlaces = NumericQueryParam & {
   id: QueryParamId.roundingDecimalPlaces;
 };
@@ -107,6 +112,7 @@ export type QueryParam =
   | ParamBaseTypeScaleStep
   | ParamNamingConvention
   | ParamShouldUseRems
+  | ParamRemValueInPx
   | ParamRoundingDecimalPlaces
   | ParamFontFamily;
 
