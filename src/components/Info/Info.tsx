@@ -52,12 +52,6 @@ const Info = () => {
             </Link>{' '}
             by Andy Bell.
           </li>
-          <li>
-            <Link href="https://kittygiraudel.com/2020/05/18/using-calc-to-figure-out-optimal-line-height/">
-              Using calc to figure out optimal line-height
-            </Link>{' '}
-            by Jesús Ricarte. You&apos;ll need this if you want your line heights to look readable on any font size.
-          </li>
         </ul>
       </Rhythm>
     </Switcher>
