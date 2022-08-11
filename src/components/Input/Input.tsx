@@ -9,6 +9,7 @@ import type {
 import { useMemo, useState } from 'react';
 import debounce from 'lodash/debounce';
 import { Delay } from '../../constants';
+import styles from './Input.module.scss';
 
 type InputType = NonNullable<HTMLInputTypeAttribute>;
 
@@ -30,7 +31,7 @@ const Input = (props: InputProps) => {
   const { onChange, type, step, pattern, delay = Delay.SHORT, ...otherProps } = props;
   const htmlStep = type === 'number' ? step ?? 'any' : undefined;
   const finalDelay = ['checkbox', 'radio', 'range'].includes(type) ? 0 : delay;
-  const [isValid, setIsValid] = useState(true);
+  const [validationMessage, setValidationMessage] = useState('');
 
   const debouncedHandleChange = useMemo(
     () => {
@@ -47,28 +48,59 @@ const Input = (props: InputProps) => {
     [finalDelay]
   );
 
-  // On blur, we want to validate user input on the client side (server-side validation done separately).
-  // If the input's value is invalid, the browser will auto-focus the input and show a tooltip clarifying the mistake.
-  // This creates a better UX than validating on every keystroke (even though our change handler is usually debounced).
-  const validateInput = (e: FocusEvent<HTMLInputElement>) => {
-    const isValid = e.target.checkValidity();
-    setIsValid(isValid);
-    if (!isValid) {
-      e.target.reportValidity();
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    // Clear the previous validation message immediately
+    if (validationMessage) {
+      setValidationMessage('');
+    }
+    // Handle the actual change debounced
+    debouncedHandleChange(e);
+  };
+
+  const handleBlur = (e: FocusEvent<HTMLInputElement>) => {
+    const input = e.target;
+    // If we already validated this input and the user hasn't typed anything since then, abort
+    if (validationMessage) {
+      return;
+    }
+    // Update validation message
+    const newValidationMessage = input.validationMessage;
+    if (newValidationMessage !== validationMessage) {
+      setValidationMessage(newValidationMessage);
+    }
+    // If invalid, focus the input so the message gets narrated
+    if (newValidationMessage) {
+      e.preventDefault();
+      input.focus();
     }
   };
 
+  // Memoize to avoid recomputing on every render
+  const errorId = useMemo(() => {
+    if (validationMessage) {
+      return `error-${otherProps.id ?? crypto.randomUUID().substring(0, 8)}`;
+    }
+  }, [otherProps.id, validationMessage]);
+
   return (
-    <input
-      {...otherProps}
-      {...specializedPropsByType[type]}
-      type={type}
-      step={htmlStep}
-      aria-invalid={!isValid}
-      pattern={pattern}
-      onChange={debouncedHandleChange}
-      onBlur={validateInput}
-    />
+    <>
+      {validationMessage && (
+        <span className={styles.error} id={errorId}>
+          {validationMessage}
+        </span>
+      )}
+      <input
+        {...otherProps}
+        {...specializedPropsByType[type]}
+        type={type}
+        step={htmlStep}
+        aria-invalid={!!validationMessage}
+        pattern={pattern}
+        aria-describedby={errorId}
+        onChange={handleChange}
+        onBlur={handleBlur}
+      />
+    </>
   );
 };
 
