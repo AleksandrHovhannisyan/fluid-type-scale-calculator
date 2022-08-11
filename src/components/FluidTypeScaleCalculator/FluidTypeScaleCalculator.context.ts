@@ -59,7 +59,11 @@ export const formStateReducer = (state: FormState, action: FormAction): FormStat
       return { ...state, remValueInPx: action.payload };
     }
     case 'setRoundingDecimalPlaces': {
-      return { ...state, roundingDecimalPlaces: action.payload };
+      const min = QUERY_PARAM_CONFIG[QueryParamId.roundingDecimalPlaces].min;
+      const max = QUERY_PARAM_CONFIG[QueryParamId.roundingDecimalPlaces].max;
+      // To prevent client-side errors (e.g., because we can't rounding to negative decimal places or it'll throw an error)
+      const roundingDecimalPlaces = Math.max(Math.min(action.payload, max), min);
+      return { ...state, roundingDecimalPlaces };
     }
     case 'setFontFamily': {
       return { ...state, fontFamily: action.payload };

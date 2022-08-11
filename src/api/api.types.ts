@@ -93,7 +93,7 @@ export type ParamRemValueInPx = NumericQueryParam & {
   id: QueryParamId.remValueInPx;
 };
 
-export type ParamRoundingDecimalPlaces = NumericQueryParam & {
+export type ParamRoundingDecimalPlaces = Required<NumericQueryParam> & {
   id: QueryParamId.roundingDecimalPlaces;
 };
 
