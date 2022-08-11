@@ -21,6 +21,7 @@ const GroupRemValueInPx = () => {
         min={QUERY_PARAM_CONFIG[QueryParamId.remValueInPx].min}
         max={QUERY_PARAM_CONFIG[QueryParamId.remValueInPx].max}
         defaultValue={state.remValueInPx}
+        required={true}
         onChange={(e) =>
           dispatch({
             type: 'setRemValueInPx',
