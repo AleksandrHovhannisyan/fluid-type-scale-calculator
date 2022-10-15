@@ -26,8 +26,9 @@ export const getGoogleFontFamilies = async (): Promise<string[]> => {
 
 /** Given a font family, returns the properly formatted href that can be used to link to that font's @font-face CSS on Google's servers. */
 export const getGoogleFontLinkTagHref = (options: { family: string; display: AtRule.FontDisplay }) => {
-  const queryParams = new URLSearchParams(options);
-  return `${GOOGLE_FONTS_BASE_URL}?${queryParams.toString()}`;
+  const url = new URL(GOOGLE_FONTS_BASE_URL);
+  url.search = new URLSearchParams(options).toString();
+  return url.toString();
 };
 
 /** Returns `true` if the given number is a valid number. */
