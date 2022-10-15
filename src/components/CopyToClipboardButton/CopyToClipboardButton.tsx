@@ -45,8 +45,8 @@ const CopyToClipboardButton = (props: CopyToClipboardButtonProps) => {
             Copy to clipboard <span aria-hidden="true">📋</span>
           </>
         )}
+        <Alert className="sr-only">{isCopied && 'Copied'}</Alert>
       </Button>
-      {isCopied && <Alert className="sr-only">Copied</Alert>}
     </>
   );
 };

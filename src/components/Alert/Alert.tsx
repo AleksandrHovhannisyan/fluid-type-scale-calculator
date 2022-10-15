@@ -3,9 +3,9 @@ import type { FC, HTMLProps } from 'react';
 const Alert: FC<HTMLProps<HTMLDivElement>> = (props) => {
   const { children, ...otherProps } = props;
   return (
-    <div role="alert" {...otherProps}>
+    <span role="alert" {...otherProps}>
       {children}
-    </div>
+    </span>
   );
 };
 
