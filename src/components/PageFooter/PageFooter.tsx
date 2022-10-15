@@ -1,5 +1,5 @@
 import type { SimpleIcon } from 'simple-icons';
-import { siBuymeacoffee, siGithub, siLinkedin, siStackexchange, siTwitter } from 'simple-icons/icons';
+import { siGithub, siLinkedin, siStackexchange, siTwitter } from 'simple-icons/icons';
 import packageJson from '../../../package.json';
 import socials from '../../data/socials.json';
 import Link from '../Link/Link';
@@ -12,7 +12,6 @@ const socialIcons: Record<SocialId, SimpleIcon> = {
   github: siGithub,
   twitter: siTwitter,
   stackexchange: siStackexchange,
-  buymeacoffee: siBuymeacoffee,
 };
 
 const PageFooter = () => {
