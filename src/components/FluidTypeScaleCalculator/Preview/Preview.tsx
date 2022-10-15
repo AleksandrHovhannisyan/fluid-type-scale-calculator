@@ -80,7 +80,7 @@ const Preview = (props: Props) => {
             numericInputClassName={styles['preview-width-input']}
           />
         </Fieldset>
-        <div className="table-wrapper" tabIndex={0} role="region">
+        <div className="table-wrapper" tabIndex={0} role="region" aria-label="Size previews">
           <table>
             <thead>
               <tr>
