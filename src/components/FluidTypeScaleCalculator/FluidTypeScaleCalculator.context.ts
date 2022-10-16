@@ -20,6 +20,7 @@ export const initialFormState: FormState = {
     base: QUERY_PARAM_CONFIG[QueryParamId.baseStep].default,
   },
   namingConvention: QUERY_PARAM_CONFIG[QueryParamId.namingConvention].default,
+  shouldIncludeFallbacks: QUERY_PARAM_CONFIG[QueryParamId.shouldIncludeFallbacks].default,
   shouldUseRems: QUERY_PARAM_CONFIG[QueryParamId.shouldUseRems].default,
   remValueInPx: QUERY_PARAM_CONFIG[QueryParamId.remValueInPx].default,
   roundingDecimalPlaces: QUERY_PARAM_CONFIG[QueryParamId.roundingDecimalPlaces].default,
@@ -49,6 +50,9 @@ export const formStateReducer = (state: FormState, action: FormAction): FormStat
     }
     case 'setNamingConvention': {
       return { ...state, namingConvention: action.payload };
+    }
+    case 'setShouldIncludeFallbacks': {
+      return { ...state, shouldIncludeFallbacks: action.payload };
     }
     case 'setShouldUseRems': {
       const shouldUseRems = action.payload;

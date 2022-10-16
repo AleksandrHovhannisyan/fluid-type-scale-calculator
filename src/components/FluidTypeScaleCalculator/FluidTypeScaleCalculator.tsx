@@ -8,6 +8,7 @@ import { FormStateContext, formStateReducer, initialFormState } from './FluidTyp
 import { FormState } from './FluidTypeScaleCalculator.types';
 import { getTypeScale } from './FluidTypeScaleCalculator.utils';
 import {
+  GroupIncludeFallbacks,
   GroupMaximum,
   GroupMinimum,
   GroupNamingConvention,
@@ -59,6 +60,7 @@ const FluidTypeScaleCalculator = (props: Props) => {
             <GroupTypeScaleSteps />
             <GroupNamingConvention />
             <GroupRounding />
+            <GroupIncludeFallbacks />
             <GroupUseRems />
             {state.shouldUseRems && <GroupRemValueInPx />}
             <noscript>

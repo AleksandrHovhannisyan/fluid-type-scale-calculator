@@ -15,6 +15,8 @@ export type FormState = {
   };
   /** The string prefix to use when creating the output CSS custom property variables. Example: `fs` with steps of `base`, `md`, and `lg` implies that you get three variables: `--fs-base`, `--fs-md`, and `--fs-lg`. */
   namingConvention: string;
+  /** Whether to include fallback output for browsers that don't yet support CSS `clamp`. */
+  shouldIncludeFallbacks: boolean;
   /** Whether to use rems for font sizing in the output. */
   shouldUseRems: boolean;
   /** The number of decimal places to round the output to. */
@@ -42,6 +44,10 @@ export type FormAction =
   | {
       type: 'setNamingConvention';
       payload: FormState['namingConvention'];
+    }
+  | {
+      type: 'setShouldIncludeFallbacks';
+      payload: FormState['shouldIncludeFallbacks'];
     }
   | {
       type: 'setShouldUseRems';

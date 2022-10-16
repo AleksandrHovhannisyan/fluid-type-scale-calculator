@@ -3,7 +3,13 @@ import typeScaleRatios from '../data/typeScaleRatios.json';
 import { isCommaSeparatedList, throwIf, toCommaSeparatedList } from '../utils';
 import { getRawParam, parseCheckboxBoolean, parseNumber } from './api.transformers';
 import { QueryParamConfig, QueryParamId } from './api.types';
-import { isValidCheckedValue, throwIfNaN, throwIfNotInteger, throwIfOutOfBounds } from './api.validators';
+import {
+  isValidCheckedValue,
+  throwIfInvalidCheckboxBoolean,
+  throwIfNaN,
+  throwIfNotInteger,
+  throwIfOutOfBounds,
+} from './api.validators';
 
 /** A config describing all of the valid query parameters recognized by the app on both the server side and client side (as input names).
  * Each query param supplies functions for validating its own data, either on its own or in relation to other query params, as well as for
@@ -134,6 +140,17 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
       throwIf(!this.getValue(query), `${this.id} must be a non-empty string`);
     },
   },
+  [QueryParamId.shouldIncludeFallbacks]: {
+    id: QueryParamId.shouldIncludeFallbacks,
+    default: false,
+    getValue(query) {
+      return parseCheckboxBoolean(query, this.id);
+    },
+    validate({ query }) {
+      const rawValue = getRawParam(query, this.id);
+      throwIfInvalidCheckboxBoolean(this.id, rawValue);
+    },
+  },
   [QueryParamId.shouldUseRems]: {
     id: QueryParamId.shouldUseRems,
     default: true,
@@ -142,10 +159,7 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     },
     validate({ query }) {
       const rawValue = getRawParam(query, this.id);
-      throwIf(
-        !!rawValue && !isValidCheckedValue(rawValue),
-        `${this.id} must be 'on', 'true', or 'false' if specified.`
-      );
+      throwIfInvalidCheckboxBoolean(this.id, rawValue);
     },
   },
   [QueryParamId.remValueInPx]: {

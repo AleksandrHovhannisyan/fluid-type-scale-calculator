@@ -49,6 +49,7 @@ export const getServerSideProps = async (
         base: QUERY_PARAM_CONFIG[QueryParamId.baseStep].getValue(query),
       },
       namingConvention: QUERY_PARAM_CONFIG[QueryParamId.namingConvention].getValue(query),
+      shouldIncludeFallbacks: QUERY_PARAM_CONFIG[QueryParamId.shouldIncludeFallbacks].getValue(query),
       shouldUseRems: QUERY_PARAM_CONFIG[QueryParamId.shouldUseRems].getValue(query),
       remValueInPx: QUERY_PARAM_CONFIG[QueryParamId.remValueInPx].getValue(query),
       roundingDecimalPlaces: QUERY_PARAM_CONFIG[QueryParamId.roundingDecimalPlaces].getValue(query),
