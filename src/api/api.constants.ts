@@ -21,7 +21,7 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     default: 16,
     min: 0,
     getValue(query) {
-      return parseNumber(query, this.id, this.default);
+      return parseNumber({ query, id: this.id, fallback: this.default });
     },
     validate({ query }) {
       const minFontSize = this.getValue(query);
@@ -34,7 +34,7 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     default: 400,
     min: 0,
     getValue(query) {
-      return parseNumber(query, this.id, this.default);
+      return parseNumber({ query, id: this.id, fallback: this.default });
     },
     // This is a good example of why the validator functions accept the raw query string and a reference to the entire config:
     // Sometimes, validating one query param requires checking another query param. If the validator were to only accept the current value
@@ -51,7 +51,7 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     default: typeScaleRatios.majorThird.ratio,
     min: 0,
     getValue(query) {
-      return parseNumber(query, this.id, this.default);
+      return parseNumber({ query, id: this.id, fallback: this.default });
     },
     validate({ query }) {
       const minRatio = this.getValue(query);
@@ -64,7 +64,7 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     default: 19,
     min: 0,
     getValue(query) {
-      return parseNumber(query, this.id, this.default);
+      return parseNumber({ query, id: this.id, fallback: this.default });
     },
     validate({ query }) {
       const maxFontSize = this.getValue(query);
@@ -76,7 +76,7 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     id: QueryParamId.maxWidth,
     default: 1280,
     getValue(query) {
-      return parseNumber(query, this.id, this.default);
+      return parseNumber({ query, id: this.id, fallback: this.default });
     },
     validate({ query, config }) {
       const minScreenWidth = config[QueryParamId.minWidth].getValue(query);
@@ -90,7 +90,7 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     default: typeScaleRatios.perfectFourth.ratio,
     min: 0,
     getValue(query) {
-      return parseNumber(query, this.id, this.default);
+      return parseNumber({ query, id: this.id, fallback: this.default });
     },
     validate({ query }) {
       const maxRatio = this.getValue(query);
@@ -144,7 +144,7 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     id: QueryParamId.shouldIncludeFallbacks,
     default: false,
     getValue(query) {
-      return parseCheckboxBoolean(query, this.id, this.default);
+      return parseCheckboxBoolean({ query, id: this.id });
     },
     validate({ query }) {
       const rawValue = getRawParam(query, this.id);
@@ -155,7 +155,7 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     id: QueryParamId.shouldUseRems,
     default: true,
     getValue(query) {
-      return parseCheckboxBoolean(query, this.id, this.default);
+      return parseCheckboxBoolean({ query, id: this.id });
     },
     validate({ query }) {
       const rawValue = getRawParam(query, this.id);
@@ -167,7 +167,7 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     default: 16,
     min: 1,
     getValue(query) {
-      return parseNumber(query, this.id, this.default);
+      return parseNumber({ query, id: this.id, fallback: this.default });
     },
     validate({ query }) {
       const remValueInPx = this.getValue(query);
@@ -182,7 +182,7 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     min: 0,
     max: 10,
     getValue(query) {
-      return parseNumber(query, this.id, this.default);
+      return parseNumber({ query, id: this.id, fallback: this.default });
     },
     validate({ query }) {
       const decimalPlaces = this.getValue(query);

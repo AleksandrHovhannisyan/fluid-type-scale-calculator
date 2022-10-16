@@ -3,26 +3,23 @@ import { parseCheckboxBoolean, parseNumber } from './api.transformers';
 describe('API transformation functions', () => {
   describe('parseNumber', () => {
     it('returns the fallback if the param is unspecified', () => {
-      expect(parseNumber({ foo: '42' }, 'unspecified', 0xfa11bac)).toStrictEqual(0xfa11bac);
+      expect(parseNumber({ query: { foo: '42' }, id: 'unspecified', fallback: 0xfa11bac })).toStrictEqual(0xfa11bac);
     });
     it('returns the param if it exists', () => {
-      expect(parseNumber({ foo: '42' }, 'foo', 0xfa11bac)).toStrictEqual(42);
+      expect(parseNumber({ query: { foo: '42' }, id: 'foo', fallback: 0xfa11bac })).toStrictEqual(42);
     });
     it('returns NaN if the param is not a valid number', () => {
-      expect(parseNumber({ foo: 'asd' }, 'foo', 0xfa11bac)).toStrictEqual(NaN);
+      expect(parseNumber({ query: { foo: 'asd' }, id: 'foo', fallback: 0xfa11bac })).toStrictEqual(NaN);
     });
   });
   describe('parseCheckboxBoolean', () => {
     it('returns false if the param is unspecified', () => {
-      expect(parseCheckboxBoolean({ foo: 'bar' }, 'unspecified', false)).toStrictEqual(false);
+      expect(parseCheckboxBoolean({ query: { foo: 'bar' }, id: 'unspecified' })).toStrictEqual(false);
     });
-    it('returns the fallback if the param exists but has no value', () => {
-      expect(parseCheckboxBoolean({ foo: '' }, 'foo', false)).toStrictEqual(false);
-      expect(parseCheckboxBoolean({ foo: '' }, 'foo', true)).toStrictEqual(true);
-    });
-    it(`returns true if the param is 'on' or 'true'`, () => {
-      expect(parseCheckboxBoolean({ checked: 'on' }, 'checked')).toStrictEqual(true);
-      expect(parseCheckboxBoolean({ checked: 'true' }, 'checked')).toStrictEqual(true);
+    it(`returns true if the param is 'on', 'true', or an empty string`, () => {
+      expect(parseCheckboxBoolean({ query: { checked: 'on' }, id: 'checked' })).toStrictEqual(true);
+      expect(parseCheckboxBoolean({ query: { checked: 'true' }, id: 'checked' })).toStrictEqual(true);
+      expect(parseCheckboxBoolean({ query: { checked: '' }, id: 'checked' })).toStrictEqual(true);
     });
   });
 });
