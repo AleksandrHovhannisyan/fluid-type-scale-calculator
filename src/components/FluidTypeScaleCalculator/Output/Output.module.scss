@@ -11,12 +11,13 @@
   }
 
   &-wrapper {
+    border: solid 1px var(--color-border);
     max-height: 50vh;
     overflow: auto;
+    overscroll-behavior: contain;
   }
 
   &-code {
-    border: solid 1px var(--color-border);
     background-color: var(--color-surface-medium);
     white-space: pre;
     display: flex;
@@ -28,4 +29,5 @@
 
 .code {
   --line-height: 1.8;
+  tab-size: 2;
 }

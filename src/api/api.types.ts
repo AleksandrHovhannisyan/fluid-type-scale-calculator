@@ -17,6 +17,7 @@ export enum QueryParamId {
   baseStep = 'baseStep',
   namingConvention = 'prefix',
   shouldUseRems = 'useRems',
+  shouldIncludeFallbacks = 'includeFallbacks',
   remValueInPx = 'remValue',
   roundingDecimalPlaces = 'decimals',
   previewFont = 'previewFont',
@@ -97,6 +98,10 @@ export type ParamRoundingDecimalPlaces = Required<NumericQueryParam> & {
   id: QueryParamId.roundingDecimalPlaces;
 };
 
+export type ParamFallback = ValidatedQueryParam<boolean> & {
+  id: QueryParamId.shouldIncludeFallbacks;
+};
+
 export type ParamFontFamily = ValidatedQueryParam<string> & {
   id: QueryParamId.previewFont;
 };
@@ -111,6 +116,7 @@ export type QueryParam =
   | ParamTypeScaleSteps
   | ParamBaseTypeScaleStep
   | ParamNamingConvention
+  | ParamFallback
   | ParamShouldUseRems
   | ParamRemValueInPx
   | ParamRoundingDecimalPlaces

@@ -3,21 +3,21 @@ import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
 import { useFormState } from '../../FluidTypeScaleCalculator.context';
 
-const GroupUseRems = () => {
+const GroupIncludeFallbacks = () => {
   const { state, dispatch } = useFormState();
   return (
     <Label
-      title="Show output in rems"
-      description="It's recommended that you use rems for font size to respect user preferences in browser settings."
+      title="Include fallback CSS"
+      description="Some older browsers don't support CSS clamp. If enabled, this option tests for clamp support and outputs fallback variables."
       layout="horizontal"
     >
       <Input
         type="checkbox"
-        name={QueryParamId.shouldUseRems}
-        checked={state.shouldUseRems}
+        name={QueryParamId.shouldIncludeFallbacks}
+        checked={state.shouldIncludeFallbacks}
         onChange={(e) =>
           dispatch({
-            type: 'setShouldUseRems',
+            type: 'setShouldIncludeFallbacks',
             payload: e.target.checked,
           })
         }
@@ -26,4 +26,4 @@ const GroupUseRems = () => {
   );
 };
 
-export default GroupUseRems;
+export default GroupIncludeFallbacks;

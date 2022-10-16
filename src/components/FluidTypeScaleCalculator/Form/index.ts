@@ -1,3 +1,4 @@
+export { default as GroupIncludeFallbacks } from './GroupIncludeFallbacks/GroupIncludeFallbacks';
 export { default as GroupMaximum } from './GroupMaximum/GroupMaximum';
 export { default as GroupMinimum } from './GroupMinimum/GroupMinimum';
 export { default as GroupNamingConvention } from './GroupNamingConvention/GroupNamingConvention';

@@ -3,7 +3,13 @@ import typeScaleRatios from '../data/typeScaleRatios.json';
 import { isCommaSeparatedList, throwIf, toCommaSeparatedList } from '../utils';
 import { getRawParam, parseCheckboxBoolean, parseNumber } from './api.transformers';
 import { QueryParamConfig, QueryParamId } from './api.types';
-import { isValidCheckedValue, throwIfNaN, throwIfNotInteger, throwIfOutOfBounds } from './api.validators';
+import {
+  isValidCheckedValue,
+  throwIfInvalidCheckboxBoolean,
+  throwIfNaN,
+  throwIfNotInteger,
+  throwIfOutOfBounds,
+} from './api.validators';
 
 /** A config describing all of the valid query parameters recognized by the app on both the server side and client side (as input names).
  * Each query param supplies functions for validating its own data, either on its own or in relation to other query params, as well as for
@@ -15,7 +21,7 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     default: 16,
     min: 0,
     getValue(query) {
-      return parseNumber(query, this.id, this.default);
+      return parseNumber({ query, id: this.id, fallback: this.default });
     },
     validate({ query }) {
       const minFontSize = this.getValue(query);
@@ -28,7 +34,7 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     default: 400,
     min: 0,
     getValue(query) {
-      return parseNumber(query, this.id, this.default);
+      return parseNumber({ query, id: this.id, fallback: this.default });
     },
     // This is a good example of why the validator functions accept the raw query string and a reference to the entire config:
     // Sometimes, validating one query param requires checking another query param. If the validator were to only accept the current value
@@ -45,7 +51,7 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     default: typeScaleRatios.majorThird.ratio,
     min: 0,
     getValue(query) {
-      return parseNumber(query, this.id, this.default);
+      return parseNumber({ query, id: this.id, fallback: this.default });
     },
     validate({ query }) {
       const minRatio = this.getValue(query);
@@ -58,7 +64,7 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     default: 19,
     min: 0,
     getValue(query) {
-      return parseNumber(query, this.id, this.default);
+      return parseNumber({ query, id: this.id, fallback: this.default });
     },
     validate({ query }) {
       const maxFontSize = this.getValue(query);
@@ -70,7 +76,7 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     id: QueryParamId.maxWidth,
     default: 1280,
     getValue(query) {
-      return parseNumber(query, this.id, this.default);
+      return parseNumber({ query, id: this.id, fallback: this.default });
     },
     validate({ query, config }) {
       const minScreenWidth = config[QueryParamId.minWidth].getValue(query);
@@ -84,7 +90,7 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     default: typeScaleRatios.perfectFourth.ratio,
     min: 0,
     getValue(query) {
-      return parseNumber(query, this.id, this.default);
+      return parseNumber({ query, id: this.id, fallback: this.default });
     },
     validate({ query }) {
       const maxRatio = this.getValue(query);
@@ -134,18 +140,26 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
       throwIf(!this.getValue(query), `${this.id} must be a non-empty string`);
     },
   },
+  [QueryParamId.shouldIncludeFallbacks]: {
+    id: QueryParamId.shouldIncludeFallbacks,
+    default: false,
+    getValue(query) {
+      return parseCheckboxBoolean({ query, id: this.id });
+    },
+    validate({ query }) {
+      const rawValue = getRawParam(query, this.id);
+      throwIfInvalidCheckboxBoolean(this.id, rawValue);
+    },
+  },
   [QueryParamId.shouldUseRems]: {
     id: QueryParamId.shouldUseRems,
     default: true,
     getValue(query) {
-      return parseCheckboxBoolean(query, this.id);
+      return parseCheckboxBoolean({ query, id: this.id });
     },
     validate({ query }) {
       const rawValue = getRawParam(query, this.id);
-      throwIf(
-        !!rawValue && !isValidCheckedValue(rawValue),
-        `${this.id} must be 'on', 'true', or 'false' if specified.`
-      );
+      throwIfInvalidCheckboxBoolean(this.id, rawValue);
     },
   },
   [QueryParamId.remValueInPx]: {
@@ -153,7 +167,7 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     default: 16,
     min: 1,
     getValue(query) {
-      return parseNumber(query, this.id, this.default);
+      return parseNumber({ query, id: this.id, fallback: this.default });
     },
     validate({ query }) {
       const remValueInPx = this.getValue(query);
@@ -168,7 +182,7 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     min: 0,
     max: 10,
     getValue(query) {
-      return parseNumber(query, this.id, this.default);
+      return parseNumber({ query, id: this.id, fallback: this.default });
     },
     validate({ query }) {
       const decimalPlaces = this.getValue(query);

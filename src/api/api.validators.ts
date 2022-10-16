@@ -25,13 +25,20 @@ export const throwIfOutOfBounds = (id: string, value: number, bounds: { min?: nu
   throwIf(typeof max !== 'undefined' && value > max, `${id} must be less than or equal to ${max}.`);
 };
 
+/** Validates a boolean query parameters. By default, forms serialize checkboxes to `'on'` if specified and omit it otherwise.
+ * We also support `'true'` and `'false'` internally for semantics. */
+export const throwIfInvalidCheckboxBoolean = (id: string, rawValue?: string) => {
+  throwIf(!!rawValue && !isValidCheckedValue(rawValue), `${id} must be 'on', 'true', or 'false' if specified.`);
+};
+
 /** Validates user-supplied query params based on a config of valid query params and other data supplied to the app (e.g., font family names).
  * Throws an error if any of the user-supplied query params are unrecognized or invalid.
  */
 export const validateQueryParams = (options: QueryParamValidatorOptions) => {
   Object.keys(options.query).forEach((id) => {
-    const param = options.config[id as QueryParamId];
-    throwIf(!param, `${id} is not a recognized query parameter.`);
-    param.validate(options);
+    const isRecognizedParam = id in options.config;
+    throwIf(!isRecognizedParam, `${id} is not a recognized query parameter.`);
+    const queryParam = options.config[id as QueryParamId];
+    queryParam.validate(options);
   });
 };

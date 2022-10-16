@@ -4,11 +4,11 @@
   /* By default, all labels are vertically stacked, with the label above its associated input. */
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: var(--sp-xxs);
+  gap: var(--sp-2xs);
 
   &-text {
     display: grid;
-    gap: var(--sp-xxs);
+    gap: 0.2em;
   }
 
   &-title {
@@ -17,9 +17,7 @@
 }
 
 .horizontal {
-  /* Sometimes a label's text is much taller than the input. Rather than centering the input
-  or aligning it to the top, it feels more natural to align it to the bottom. */
-  align-items: end;
+  align-items: center;
 
   /* We don't care about the particular column sizes or number—just that they flow horizontally. */
   grid-auto-flow: column;
@@ -27,7 +25,7 @@
 
 @include mobile-lg {
   .to-horizontal {
-    align-items: end;
+    align-items: center;
     grid-auto-flow: column;
   }
 }
