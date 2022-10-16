@@ -36,8 +36,9 @@ export const throwIfInvalidCheckboxBoolean = (id: string, rawValue?: string) => 
  */
 export const validateQueryParams = (options: QueryParamValidatorOptions) => {
   Object.keys(options.query).forEach((id) => {
-    const param = options.config[id as QueryParamId];
-    throwIf(!param, `${id} is not a recognized query parameter.`);
-    param.validate(options);
+    const isRecognizedParam = id in options.config;
+    throwIf(!isRecognizedParam, `${id} is not a recognized query parameter.`);
+    const queryParam = options.config[id as QueryParamId];
+    queryParam.validate(options);
   });
 };
