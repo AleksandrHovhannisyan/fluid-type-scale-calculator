@@ -144,7 +144,7 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     id: QueryParamId.shouldIncludeFallbacks,
     default: false,
     getValue(query) {
-      return parseCheckboxBoolean(query, this.id);
+      return parseCheckboxBoolean(query, this.id, this.default);
     },
     validate({ query }) {
       const rawValue = getRawParam(query, this.id);
@@ -155,7 +155,7 @@ export const QUERY_PARAM_CONFIG: QueryParamConfig = {
     id: QueryParamId.shouldUseRems,
     default: true,
     getValue(query) {
-      return parseCheckboxBoolean(query, this.id);
+      return parseCheckboxBoolean(query, this.id, this.default);
     },
     validate({ query }) {
       const rawValue = getRawParam(query, this.id);

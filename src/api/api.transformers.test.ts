@@ -14,9 +14,13 @@ describe('API transformation functions', () => {
   });
   describe('parseCheckboxBoolean', () => {
     it('returns false if the param is unspecified', () => {
-      expect(parseCheckboxBoolean({ foo: 'bar' }, 'unspecified')).toStrictEqual(false);
+      expect(parseCheckboxBoolean({ foo: 'bar' }, 'unspecified', false)).toStrictEqual(false);
     });
-    it('returns true if the param is on or true', () => {
+    it('returns the fallback if the param exists but has no value', () => {
+      expect(parseCheckboxBoolean({ foo: '' }, 'foo', false)).toStrictEqual(false);
+      expect(parseCheckboxBoolean({ foo: '' }, 'foo', true)).toStrictEqual(true);
+    });
+    it(`returns true if the param is 'on' or 'true'`, () => {
       expect(parseCheckboxBoolean({ checked: 'on' }, 'checked')).toStrictEqual(true);
       expect(parseCheckboxBoolean({ checked: 'true' }, 'checked')).toStrictEqual(true);
     });
