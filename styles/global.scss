@@ -21,7 +21,7 @@ body {
 
 .layout {
   display: grid;
-  gap: var(--sp-xxxxl);
+  gap: var(--sp-4xl);
   padding-top: clamped(60px, 148px);
   padding-inline: clamped(12px, 32px);
   padding-bottom: var(--sp-xl);
@@ -37,11 +37,11 @@ h6 {
 }
 
 h1 {
-  font-size: var(--sp-xxxl);
+  font-size: var(--sp-3xl);
 }
 
 h2 {
-  font-size: var(--sp-xxl);
+  font-size: var(--sp-2xl);
 }
 
 h3 {

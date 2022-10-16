@@ -1,6 +1,6 @@
 .type-scale-calculator {
   display: grid;
-  gap: var(--sp-xxxxl);
+  gap: var(--sp-4xl);
 }
 
 .form {
@@ -9,7 +9,7 @@
   gap: var(--sp-xl);
   margin: 0;
   padding: var(--sp-lg);
-  border: solid var(--sp-xxs) var(--color-surface-dark);
+  border: solid var(--sp-2xs) var(--color-surface-dark);
 }
 
 .type-scale-stack {

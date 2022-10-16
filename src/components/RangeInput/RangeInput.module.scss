@@ -3,7 +3,7 @@
 
 .range {
   display: grid;
-  gap: var(--sp-xxs);
+  gap: var(--sp-2xs);
 
   &-slider {
     padding: 4px 0;
@@ -13,6 +13,6 @@
     display: grid;
     grid-template-columns: 1fr auto;
     align-items: center;
-    gap: var(--sp-xxs);
+    gap: var(--sp-2xs);
   }
 }

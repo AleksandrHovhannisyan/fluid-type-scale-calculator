@@ -4,11 +4,11 @@
   /* By default, all labels are vertically stacked, with the label above its associated input. */
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: var(--sp-xxs);
+  gap: var(--sp-2xs);
 
   &-text {
     display: grid;
-    gap: var(--sp-xxs);
+    gap: 0.2em;
   }
 
   &-title {

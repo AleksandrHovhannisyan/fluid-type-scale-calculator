@@ -21,14 +21,14 @@
 
 .socials {
   display: flex;
-  gap: var(--sp-xxs);
+  gap: var(--sp-2xs);
   list-style: none;
 
   a {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: var(--sp-xxs);
+    padding: var(--sp-2xs);
   }
 
   svg {

@@ -1,15 +1,17 @@
 /* stylelint-disable value-keyword-case */
 html {
-  --sp-xxs: clamp(0.58rem, 0.08vw + 0.56rem, 0.61rem);
+  /* https://www.fluid-type-scale.com/calculate?minFontSize=16&minWidth=400&minRatio=1.2&maxFontSize=19&maxWidth=1000&maxRatio=1.25&steps=3xs%2C2xs%2Cxs%2Csm%2Cbase%2Cmd%2Clg%2Cxl%2C2xl%2C3xl%2C4xl&baseStep=base&prefix=sp&decimals=2&useRems=on&remValue=16&previewFont=Inter */
+  --sp-3xs: clamp(0.48rem, 0.01vw + 0.48rem, 0.49rem);
+  --sp-2xs: clamp(0.58rem, 0.08vw + 0.56rem, 0.61rem);
   --sp-xs: clamp(0.69rem, 0.17vw + 0.65rem, 0.76rem);
   --sp-sm: clamp(0.83rem, 0.31vw + 0.76rem, 0.95rem);
   --sp-base: clamp(1rem, 0.5vw + 0.88rem, 1.19rem);
   --sp-md: clamp(1.2rem, 0.76vw + 1.01rem, 1.48rem);
   --sp-lg: clamp(1.44rem, 1.11vw + 1.16rem, 1.86rem);
   --sp-xl: clamp(1.73rem, 1.58vw + 1.33rem, 2.32rem);
-  --sp-xxl: clamp(2.07rem, 2.2vw + 1.52rem, 2.9rem);
-  --sp-xxxl: clamp(2.49rem, 3.03vw + 1.73rem, 3.62rem);
-  --sp-xxxxl: clamp(2.99rem, 4.12vw + 1.96rem, 4.53rem);
+  --sp-2xl: clamp(2.07rem, 2.2vw + 1.52rem, 2.9rem);
+  --sp-3xl: clamp(2.49rem, 3.03vw + 1.73rem, 3.62rem);
+  --sp-4xl: clamp(2.99rem, 4.12vw + 1.96rem, 4.53rem);
   --ff-body: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Arial, sans-serif;
   --ff-code: IBM Plex Mono, monospace;
   --fw-body-regular: 400;
