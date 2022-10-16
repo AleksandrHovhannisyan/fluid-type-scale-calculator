@@ -1,12 +1,14 @@
+@import "../../../styles/mixins";
 @import "../../../styles/functions";
 
-.hero-banner {
-  margin-bottom: var(--sp-2xs);
-}
-
 .title {
-  font-size: var(--sp-4xl);
+  font-size: var(--sp-3xl);
   font-weight: var(--fw-body-bold);
+  letter-spacing: var(--ls-sm);
+
+  @include mobile-lg {
+    font-size: var(--sp-4xl);
+  }
 }
 
 .subtitle {

@@ -32,7 +32,7 @@ const Layout: FC<LayoutProps> = (props) => {
   const ogImageUrl = toAbsoluteUrl('/assets/images/thumbnail.png');
 
   return (
-    <main className={clsx(styles.layout, 'container', props.className)}>
+    <main className={clsx(styles.layout, props.className)}>
       <Head>
         <title>{seoProps.title}</title>
         <meta name="description" content={seoProps.description} />
