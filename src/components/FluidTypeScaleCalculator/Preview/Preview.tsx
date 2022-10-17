@@ -1,4 +1,4 @@
-import type { ChangeEvent } from 'react';
+import { ChangeEvent } from 'react';
 import { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { DEFAULT_FONT_FAMILY } from '../../../constants';

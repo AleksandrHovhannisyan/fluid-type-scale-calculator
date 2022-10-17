@@ -1,4 +1,6 @@
-import { ChangeEvent, useReducer } from 'react';
+import { useCallback, useMemo, useReducer } from 'react';
+import debounce from 'lodash/debounce';
+import { Delay } from '../../constants';
 import type { WithFonts } from '../../types';
 import Button from '../Button/Button';
 import Switcher from '../Switcher/Switcher';
@@ -30,20 +32,30 @@ const FluidTypeScaleCalculator = (props: Props) => {
   // Derived state. Could also store this in the state itself, but this also works.
   const typeScale = getTypeScale(state);
 
-  // Whenever a form value changes, serialize the form data and update the URL shallowly.
-  // Nice way to expose the link sharing functionality natively without having to do a dedicated copy button.
-  const handleChange = (e: ChangeEvent<HTMLFormElement>) => {
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-    const urlParams = new URLSearchParams(formData as unknown as Record<string, string>).toString();
-    const newUrl = `${form.action}?${urlParams}`;
-    // We could also do this routing with Next.js's router, but that would trigger a page reload (even with shallow: true)
-    // because we're requesting a new page. Why two pages? Because I want the home page to be SSG for better TTFB but the
-    // calculate route to be SSR for link sharing via query params.
-    // Solution: https://github.com/vercel/next.js/discussions/18072#discussioncomment-109059
-    window.history.replaceState({ ...window.history.state, as: newUrl, url: newUrl }, '', newUrl);
-  };
+  // Whenever a form value changes, serialize the form data and update the URL shallowly. Nice way to expose the link sharing functionality natively without having to do a dedicated copy button.
+  const handleFormChange = useMemo(() => {
+    const handleChange = (form: HTMLFormElement) => {
+      const formData = new FormData(form);
+      const urlParams = new URLSearchParams(formData as unknown as Record<string, string>).toString();
+      const newUrl = `${form.action}?${urlParams}`;
+      // We could also do this routing with Next.js's router, but that would trigger a page reload (even with shallow: true) because we're requesting a new page. Why two pages? Because I want the home page to be SSG for better TTFB but the /calculate route to be SSR for link sharing via query params. Solution: https://github.com/vercel/next.js/discussions/18072#discussioncomment-109059
+      window.history.replaceState({ ...window.history.state, as: newUrl, url: newUrl }, '', newUrl);
+    };
+    // Debounce to prevent updating window.history too frequently. We don't care about the intermediate calls either, so don't *throttle*.
+    return debounce(handleChange, Delay.LONG);
+  }, []);
 
+  // Prefer defining these memoized event handlers here as opposed to consuming the dispatch function in each sub-component (which could allow a component to accidentally change slices of state that it should not be concerned with, and would defeat the purpose of using React.memo)
+  const handleMinChange = useCallback((payload) => dispatch({ type: 'setMin', payload }), []);
+  const handleMaxChange = useCallback((payload) => dispatch({ type: 'setMax', payload }), []);
+  const handleStepsChange = useCallback((payload) => dispatch({ type: 'setTypeScaleSteps', payload }), []);
+  const handleNamingConventionChange = useCallback((payload) => dispatch({ type: 'setNamingConvention', payload }), []);
+  const handleRoundingChange = useCallback((payload) => dispatch({ type: 'setRoundingDecimalPlaces', payload }), []);
+  const handleFallbacksChange = useCallback((payload) => dispatch({ type: 'setShouldIncludeFallbacks', payload }), []);
+  const handleShouldUseRemsChange = useCallback((payload) => dispatch({ type: 'setShouldUseRems', payload }), []);
+  const handleRemValueInPxChange = useCallback((payload) => dispatch({ type: 'setRemValueInPx', payload }), []);
+
+  // NOTE: No use memoizing the context value since state changes on every render anyway
   return (
     <FormStateContext.Provider value={{ state, dispatch }}>
       <form
@@ -51,18 +63,24 @@ const FluidTypeScaleCalculator = (props: Props) => {
         action="/calculate"
         method="GET"
         onSubmit={(e) => e.preventDefault()}
-        onChange={handleChange}
+        onChange={(e) => handleFormChange(e.currentTarget)}
       >
         <Switcher className={styles['type-scale-stack']}>
           <div className={styles['form']}>
-            <GroupMinimum />
-            <GroupMaximum />
-            <GroupTypeScaleSteps />
-            <GroupNamingConvention />
-            <GroupRounding />
-            <GroupIncludeFallbacks />
-            <GroupUseRems />
-            {state.shouldUseRems && <GroupRemValueInPx />}
+            {/* Pass in props explicitly to each of these sub-components so we can memoize them. Otherwise, if we consume the context in each component, they will all re-render whenever some unrelated piece of state updates. */}
+            <GroupMinimum min={state.min} maxScreenWidth={state.max.screenWidth - 1} onChange={handleMinChange} />
+            <GroupMaximum max={state.max} minScreenWidth={state.min.screenWidth + 1} onChange={handleMaxChange} />
+            <GroupTypeScaleSteps typeScaleSteps={state.typeScaleSteps} onChange={handleStepsChange} />
+            <GroupNamingConvention namingConvention={state.namingConvention} onChange={handleNamingConventionChange} />
+            <GroupRounding roundingDecimalPlaces={state.roundingDecimalPlaces} onChange={handleRoundingChange} />
+            <GroupIncludeFallbacks
+              shouldIncludeFallbacks={state.shouldIncludeFallbacks}
+              onChange={handleFallbacksChange}
+            />
+            <GroupUseRems shouldUseRems={state.shouldUseRems} onChange={handleShouldUseRemsChange} />
+            {state.shouldUseRems && (
+              <GroupRemValueInPx remValueInPx={state.remValueInPx} onChange={handleRemValueInPxChange} />
+            )}
             <noscript>
               <Button type="submit" isFullWidth={true}>
                 Generate type scale variables

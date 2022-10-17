@@ -1,13 +1,22 @@
+import { memo } from 'react';
 import { QUERY_PARAM_CONFIG } from '../../../../api/api.constants';
 import { QueryParamId } from '../../../../api/api.types';
 import Fieldset from '../../../Fieldset/Fieldset';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
-import { useFormState } from '../../FluidTypeScaleCalculator.context';
+import type { ActionSetMin, FormState } from '../../FluidTypeScaleCalculator.types';
 import TypeScalePicker from '../../TypeScalePicker/TypeScalePicker';
 
-const GroupMinimum = () => {
-  const { state, dispatch } = useFormState();
+type Props = Pick<FormState, 'min'> & {
+  /** Function to update the value for this input. */
+  onChange: (payload: ActionSetMin['payload']) => void;
+  /** The maximum allowed value for the screen width input. */
+  maxScreenWidth: FormState['max']['screenWidth'];
+};
+
+const GroupMinimum = (props: Props) => {
+  const { min, maxScreenWidth, onChange } = props;
+
   return (
     <Fieldset
       title="Minimum (Mobile)"
@@ -21,13 +30,10 @@ const GroupMinimum = () => {
           required={true}
           min={QUERY_PARAM_CONFIG[QueryParamId.minFontSize].min}
           max={QUERY_PARAM_CONFIG[QueryParamId.minFontSize].max}
-          defaultValue={state.min.fontSize}
+          defaultValue={min.fontSize}
           onChange={(e) =>
-            dispatch({
-              type: 'setMin',
-              payload: {
-                fontSize: e.target.valueAsNumber,
-              },
+            onChange({
+              fontSize: e.target.valueAsNumber,
             })
           }
         />
@@ -39,14 +45,11 @@ const GroupMinimum = () => {
           type="number"
           required={true}
           min={QUERY_PARAM_CONFIG[QueryParamId.minWidth].min}
-          max={state.max.screenWidth - 1}
-          defaultValue={state.min.screenWidth}
+          max={maxScreenWidth}
+          defaultValue={min.screenWidth}
           onChange={(e) =>
-            dispatch({
-              type: 'setMin',
-              payload: {
-                screenWidth: e.target.valueAsNumber,
-              },
+            onChange({
+              screenWidth: e.target.valueAsNumber,
             })
           }
         />
@@ -54,13 +57,13 @@ const GroupMinimum = () => {
       <TypeScalePicker
         name={QueryParamId.minRatio}
         id="type-scale-min"
-        ratio={state.min.ratio}
+        ratio={min.ratio}
         min={QUERY_PARAM_CONFIG[QueryParamId.minRatio].min}
         max={QUERY_PARAM_CONFIG[QueryParamId.minRatio].max}
-        onChange={(e) => dispatch({ type: 'setMin', payload: { ratio: e.target.valueAsNumber } })}
+        onChange={(e) => onChange({ ratio: e.target.valueAsNumber })}
       />
     </Fieldset>
   );
 };
 
-export default GroupMinimum;
+export default memo(GroupMinimum);

@@ -1,10 +1,17 @@
+import { memo } from 'react';
 import { QueryParamId } from '../../../../api/api.types';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
-import { useFormState } from '../../FluidTypeScaleCalculator.context';
+import type { ActionSetShouldIncludeFallbacks, FormState } from '../../FluidTypeScaleCalculator.types';
 
-const GroupIncludeFallbacks = () => {
-  const { state, dispatch } = useFormState();
+type Props = Pick<FormState, 'shouldIncludeFallbacks'> & {
+  /** Function to update the value for this input. */
+  onChange: (payload: ActionSetShouldIncludeFallbacks['payload']) => void;
+};
+
+const GroupIncludeFallbacks = (props: Props) => {
+  const { shouldIncludeFallbacks, onChange } = props;
+
   return (
     <Label
       title="Include fallback CSS"
@@ -14,16 +21,11 @@ const GroupIncludeFallbacks = () => {
       <Input
         type="checkbox"
         name={QueryParamId.shouldIncludeFallbacks}
-        checked={state.shouldIncludeFallbacks}
-        onChange={(e) =>
-          dispatch({
-            type: 'setShouldIncludeFallbacks',
-            payload: e.target.checked,
-          })
-        }
+        checked={shouldIncludeFallbacks}
+        onChange={(e) => onChange(e.target.checked)}
       />
     </Label>
   );
 };
 
-export default GroupIncludeFallbacks;
+export default memo(GroupIncludeFallbacks);

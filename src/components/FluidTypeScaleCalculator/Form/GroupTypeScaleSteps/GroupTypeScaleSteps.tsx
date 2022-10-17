@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { QueryParamId } from '../../../../api/api.types';
 import { COMMA_SEPARATED_LIST_REGEX, Delay } from '../../../../constants';
 import { toCommaSeparatedList } from '../../../../utils';
@@ -5,10 +6,16 @@ import Fieldset from '../../../Fieldset/Fieldset';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
 import Select from '../../../Select/Select';
-import { useFormState } from '../../FluidTypeScaleCalculator.context';
+import type { ActionSetTypeScaleSteps, FormState } from '../../FluidTypeScaleCalculator.types';
 
-const GroupTypeScaleSteps = () => {
-  const { state, dispatch } = useFormState();
+type Props = Pick<FormState, 'typeScaleSteps'> & {
+  /** Function to update the value for this input. */
+  onChange: (payload: ActionSetTypeScaleSteps['payload']) => void;
+};
+
+const GroupTypeScaleSteps = (props: Props) => {
+  const { typeScaleSteps, onChange } = props;
+
   return (
     <Fieldset
       title="Type scale"
@@ -23,12 +30,11 @@ const GroupTypeScaleSteps = () => {
           required
           spellCheck="false"
           pattern={COMMA_SEPARATED_LIST_REGEX.source}
-          defaultValue={state.typeScaleSteps.all.join(',')}
+          defaultValue={typeScaleSteps.all.join(',')}
           delay={Delay.MEDIUM}
           onChange={(e) =>
-            dispatch({
-              type: 'setTypeScaleSteps',
-              payload: { all: toCommaSeparatedList(e.target.value) },
+            onChange({
+              all: toCommaSeparatedList(e.target.value),
             })
           }
         />
@@ -37,15 +43,10 @@ const GroupTypeScaleSteps = () => {
         Baseline step
         <Select
           name={QueryParamId.baseStep}
-          defaultValue={state.typeScaleSteps.base}
-          onChange={(e) =>
-            dispatch({
-              type: 'setTypeScaleSteps',
-              payload: { base: e.target.value },
-            })
-          }
+          defaultValue={typeScaleSteps.base}
+          onChange={(e) => onChange({ base: e.target.value })}
         >
-          {state.typeScaleSteps.all.map((step) => (
+          {typeScaleSteps.all.map((step) => (
             <option key={step} value={step}>
               {step}
             </option>
@@ -56,4 +57,4 @@ const GroupTypeScaleSteps = () => {
   );
 };
 
-export default GroupTypeScaleSteps;
+export default memo(GroupTypeScaleSteps);
