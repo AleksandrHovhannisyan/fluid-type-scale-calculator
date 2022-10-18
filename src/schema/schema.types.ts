@@ -26,11 +26,9 @@ export enum QueryParamId {
 /** A record of arbitrary query params supplied by users. */
 export type UserSuppliedQueryParams = Record<string, string>;
 
-export type QueryParamValidatorOptions = WithFonts & {
+export type QueryValidatorOptions = WithFonts & {
   /** The query params passed in by the user. */
   query: UserSuppliedQueryParams;
-  /** A reference to the query param config itself. */
-  config: QueryParamSchema;
 };
 
 /** A query parameter with a method to fetch its value and a corresponding validator method that checks the value. */
@@ -40,7 +38,7 @@ export type ValidatedQueryParam<T> = {
   /** Parses and returns the value from the query string. */
   parse: (query: UserSuppliedQueryParams) => T;
   /** Validator method to check the query param. Throws an error if the value is invalid. */
-  validate: (options: QueryParamValidatorOptions) => void;
+  validate: (query: QueryValidatorOptions) => void;
 };
 
 export type NumericQueryParam = ValidatedQueryParam<number> & {
@@ -104,6 +102,7 @@ export type ParamFallback = ValidatedQueryParam<boolean> & {
 
 export type ParamFontFamily = ValidatedQueryParam<string> & {
   id: QueryParamId.previewFont;
+  validate: (options: QueryValidatorOptions) => void;
 };
 
 export type QueryParam =

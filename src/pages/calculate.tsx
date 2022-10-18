@@ -30,7 +30,7 @@ export const getServerSideProps = async (
 
   try {
     // Validate the query params first
-    validateQueryParams({ query, config: schema, fonts });
+    validateQueryParams({ query, fonts });
 
     // Then transform the query params to state
     const initialState: FormState = {

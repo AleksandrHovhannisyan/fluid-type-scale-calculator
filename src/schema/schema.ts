@@ -30,12 +30,9 @@ export const schema: QueryParamSchema = {
     parse(query) {
       return parseNumber({ query, id: this.id, fallback: this.default });
     },
-    // This is a good example of why the validator functions accept the raw query string and a reference to the entire config:
-    // Sometimes, validating one query param requires checking another query param. If the validator were to only accept the current value
-    // for this particular query param, that would not be possible.
-    validate({ config, query }) {
+    validate({ query }) {
       const minScreenWidth = this.parse(query);
-      const maxScreenWidth = config[QueryParamId.maxWidth].parse(query);
+      const maxScreenWidth = schema[QueryParamId.maxWidth].parse(query);
       throwIfNaN(this.id, minScreenWidth);
       throwIfOutOfBounds(this.id, minScreenWidth, { min: this.min, max: maxScreenWidth - 1 });
     },
@@ -72,8 +69,8 @@ export const schema: QueryParamSchema = {
     parse(query) {
       return parseNumber({ query, id: this.id, fallback: this.default });
     },
-    validate({ query, config }) {
-      const minScreenWidth = config[QueryParamId.minWidth].parse(query);
+    validate({ query }) {
+      const minScreenWidth = schema[QueryParamId.minWidth].parse(query);
       const maxScreenWidth = this.parse(query);
       throwIfNaN(this.id, maxScreenWidth);
       throwIfOutOfBounds(this.id, maxScreenWidth, { min: minScreenWidth + 1, max: this.max });
@@ -100,9 +97,9 @@ export const schema: QueryParamSchema = {
       if (!rawString) return this.default;
       return toCommaSeparatedList(rawString);
     },
-    validate({ query, config }) {
+    validate({ query }) {
       const allSteps = this.parse(query);
-      const baseStep = config[QueryParamId.baseStep].parse(query);
+      const baseStep = schema[QueryParamId.baseStep].parse(query);
       throwIf(!allSteps.includes(baseStep), `${this.id} (${allSteps}) does not include the base step (${baseStep}).`);
       // While this may seem like it will never throw, imagine a scenario where a user enters x,y;z. Splitting it yields ['x', 'y;z'].
       // And our regex strictly requires that each item in the list only use alphanumeric characters.
@@ -115,9 +112,9 @@ export const schema: QueryParamSchema = {
     parse(query) {
       return parseRawValue(query, this.id) ?? this.default;
     },
-    validate({ config, query }) {
+    validate({ query }) {
       const baseStep = this.parse(query);
-      const allSteps = config[QueryParamId.allSteps].parse(query);
+      const allSteps = schema[QueryParamId.allSteps].parse(query);
       throwIf(
         !allSteps.includes(baseStep),
         `The base step ${baseStep} was not found in the list of all steps (${allSteps}).`
@@ -192,9 +189,9 @@ export const schema: QueryParamSchema = {
       return parseRawValue(query, this.id) ?? this.default;
     },
     validate({ query, fonts }) {
-      const font = this.parse(query);
-      const isUnrecognizedFont = !fonts.includes(font);
-      throwIf(isUnrecognizedFont, `${font} is not a recognized Google Font.`);
+      const fontFamily = this.parse(query);
+      const isUnrecognizedFont = !fonts.includes(fontFamily);
+      throwIf(isUnrecognizedFont, `${fontFamily} is not a recognized Google Font.`);
     },
   },
 };
