@@ -1,6 +1,5 @@
-import { COMMA_SEPARATED_LIST_REGEX } from '../constants';
 import { isNumber, throwIf } from '../utils';
-import { QueryParamId, QueryParamValidatorOptions } from './api.types';
+import { QueryParamId, QueryParamValidatorOptions } from './schema.types';
 
 /** Returns `true` if the given value represents a valid checkbox state. */
 export const isValidCheckedValue = (value: string) => {

@@ -1,6 +1,6 @@
 import { memo } from 'react';
-import { QueryParamId } from '../../../../api/api.types';
 import { COMMA_SEPARATED_LIST_REGEX, Delay } from '../../../../constants';
+import { QueryParamId } from '../../../../schema/schema.types';
 import { toCommaSeparatedList } from '../../../../utils';
 import Fieldset from '../../../Fieldset/Fieldset';
 import Input from '../../../Input/Input';

@@ -1,9 +1,6 @@
 import { STATUS_CODES as REASON_PHRASES } from 'http';
 import { constants as HTTP_STATUS_CODES } from 'http2';
 import type { GetServerSidePropsContext, GetServerSidePropsResult, NextPage } from 'next';
-import { QUERY_PARAM_CONFIG } from '../api/api.constants';
-import { QueryParamId, UserSuppliedQueryParams } from '../api/api.types';
-import { validateQueryParams } from '../api/api.validators';
 import ErrorPage from '../components/ErrorPage/ErrorPage';
 import FluidTypeScaleCalculator from '../components/FluidTypeScaleCalculator/FluidTypeScaleCalculator';
 import { initialFormState } from '../components/FluidTypeScaleCalculator/FluidTypeScaleCalculator.context';
@@ -12,8 +9,11 @@ import HeroBanner from '../components/HeroBanner/HeroBanner';
 import Info from '../components/Info/Info';
 import Layout from '../components/Layout/Layout';
 import site from '../data/site.json';
+import { schema } from '../schema/schema';
+import { QueryParamId, UserSuppliedQueryParams } from '../schema/schema.types';
+import { validateQueryParams } from '../schema/schema.validators';
 import { HTTPError, WithFonts } from '../types';
-import { getGoogleFontFamilies, throwIf } from '../utils';
+import { getGoogleFontFamilies } from '../utils';
 
 type CalculatePageProps = WithFonts & {
   /** The initial state with which to populate the app from query params. */
@@ -30,30 +30,30 @@ export const getServerSideProps = async (
 
   try {
     // Validate the query params first
-    validateQueryParams({ query, config: QUERY_PARAM_CONFIG, fonts });
+    validateQueryParams({ query, config: schema, fonts });
 
     // Then transform the query params to state
     const initialState: FormState = {
       min: {
-        fontSize: QUERY_PARAM_CONFIG[QueryParamId.minFontSize].getValue(query),
-        screenWidth: QUERY_PARAM_CONFIG[QueryParamId.minWidth].getValue(query),
-        ratio: QUERY_PARAM_CONFIG[QueryParamId.minRatio].getValue(query),
+        fontSize: schema[QueryParamId.minFontSize].parse(query),
+        screenWidth: schema[QueryParamId.minWidth].parse(query),
+        ratio: schema[QueryParamId.minRatio].parse(query),
       },
       max: {
-        fontSize: QUERY_PARAM_CONFIG[QueryParamId.maxFontSize].getValue(query),
-        screenWidth: QUERY_PARAM_CONFIG[QueryParamId.maxWidth].getValue(query),
-        ratio: QUERY_PARAM_CONFIG[QueryParamId.maxRatio].getValue(query),
+        fontSize: schema[QueryParamId.maxFontSize].parse(query),
+        screenWidth: schema[QueryParamId.maxWidth].parse(query),
+        ratio: schema[QueryParamId.maxRatio].parse(query),
       },
       typeScaleSteps: {
-        all: QUERY_PARAM_CONFIG[QueryParamId.allSteps].getValue(query),
-        base: QUERY_PARAM_CONFIG[QueryParamId.baseStep].getValue(query),
+        all: schema[QueryParamId.allSteps].parse(query),
+        base: schema[QueryParamId.baseStep].parse(query),
       },
-      namingConvention: QUERY_PARAM_CONFIG[QueryParamId.namingConvention].getValue(query),
-      shouldIncludeFallbacks: QUERY_PARAM_CONFIG[QueryParamId.shouldIncludeFallbacks].getValue(query),
-      shouldUseRems: QUERY_PARAM_CONFIG[QueryParamId.shouldUseRems].getValue(query),
-      remValueInPx: QUERY_PARAM_CONFIG[QueryParamId.remValueInPx].getValue(query),
-      roundingDecimalPlaces: QUERY_PARAM_CONFIG[QueryParamId.roundingDecimalPlaces].getValue(query),
-      fontFamily: QUERY_PARAM_CONFIG[QueryParamId.previewFont].getValue(query),
+      namingConvention: schema[QueryParamId.namingConvention].parse(query),
+      shouldIncludeFallbacks: schema[QueryParamId.shouldIncludeFallbacks].parse(query),
+      shouldUseRems: schema[QueryParamId.shouldUseRems].parse(query),
+      remValueInPx: schema[QueryParamId.remValueInPx].parse(query),
+      roundingDecimalPlaces: schema[QueryParamId.roundingDecimalPlaces].parse(query),
+      fontFamily: schema[QueryParamId.previewFont].parse(query),
     };
     return {
       props: {

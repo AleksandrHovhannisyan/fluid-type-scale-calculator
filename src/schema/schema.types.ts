@@ -30,7 +30,7 @@ export type QueryParamValidatorOptions = WithFonts & {
   /** The query params passed in by the user. */
   query: UserSuppliedQueryParams;
   /** A reference to the query param config itself. */
-  config: QueryParamConfig;
+  config: QueryParamSchema;
 };
 
 /** A query parameter with a method to fetch its value and a corresponding validator method that checks the value. */
@@ -38,7 +38,7 @@ export type ValidatedQueryParam<T> = {
   /** The default value for this query parameter. */
   default: T;
   /** Parses and returns the value from the query string. */
-  getValue: (query: UserSuppliedQueryParams) => T;
+  parse: (query: UserSuppliedQueryParams) => T;
   /** Validator method to check the query param. Throws an error if the value is invalid. */
   validate: (options: QueryParamValidatorOptions) => void;
 };
@@ -123,4 +123,4 @@ export type QueryParam =
   | ParamFontFamily;
 
 /** Mapped type where they keys `K` correspond to shapes that extend `{ id: K }`. Defines a config for each query parameter. */
-export type QueryParamConfig = MapDiscriminatedUnion<QueryParam, 'id'>;
+export type QueryParamSchema = MapDiscriminatedUnion<QueryParam, 'id'>;

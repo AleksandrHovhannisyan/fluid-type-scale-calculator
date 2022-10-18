@@ -1,6 +1,6 @@
 import { memo } from 'react';
-import { QUERY_PARAM_CONFIG } from '../../../../api/api.constants';
-import { QueryParamId } from '../../../../api/api.types';
+import { schema } from '../../../../schema/schema';
+import { QueryParamId } from '../../../../schema/schema.types';
 import Fieldset from '../../../Fieldset/Fieldset';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
@@ -28,8 +28,8 @@ const GroupMaximum = (props: Props) => {
           name={QueryParamId.maxFontSize}
           type="number"
           required={true}
-          min={QUERY_PARAM_CONFIG[QueryParamId.maxFontSize].min}
-          max={QUERY_PARAM_CONFIG[QueryParamId.maxFontSize].max}
+          min={schema[QueryParamId.maxFontSize].min}
+          max={schema[QueryParamId.maxFontSize].max}
           defaultValue={max.fontSize}
           onChange={(e) =>
             onChange({
@@ -45,7 +45,7 @@ const GroupMaximum = (props: Props) => {
           type="number"
           required={true}
           min={minScreenWidth}
-          max={QUERY_PARAM_CONFIG[QueryParamId.maxWidth].max}
+          max={schema[QueryParamId.maxWidth].max}
           defaultValue={max.screenWidth}
           onChange={(e) =>
             onChange({
@@ -58,8 +58,8 @@ const GroupMaximum = (props: Props) => {
         name={QueryParamId.maxRatio}
         id="type-scale-max"
         ratio={max.ratio}
-        min={QUERY_PARAM_CONFIG[QueryParamId.maxRatio].min}
-        max={QUERY_PARAM_CONFIG[QueryParamId.maxRatio].max}
+        min={schema[QueryParamId.maxRatio].min}
+        max={schema[QueryParamId.maxRatio].max}
         onChange={(e) => onChange({ ratio: e.target.valueAsNumber })}
       />
     </Fieldset>

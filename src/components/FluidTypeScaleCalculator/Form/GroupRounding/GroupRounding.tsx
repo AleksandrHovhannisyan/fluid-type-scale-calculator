@@ -1,6 +1,6 @@
 import { memo } from 'react';
-import { QUERY_PARAM_CONFIG } from '../../../../api/api.constants';
-import { QueryParamId } from '../../../../api/api.types';
+import { schema } from '../../../../schema/schema';
+import { QueryParamId } from '../../../../schema/schema.types';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
 import type { ActionSetRoundingDecimalPlaces, FormState } from '../../FluidTypeScaleCalculator.types';
@@ -20,8 +20,8 @@ const GroupRounding = (props: Props) => {
         className={styles['rounding-input']}
         type="number"
         step={1}
-        min={QUERY_PARAM_CONFIG[QueryParamId.roundingDecimalPlaces].min}
-        max={QUERY_PARAM_CONFIG[QueryParamId.roundingDecimalPlaces].max}
+        min={schema[QueryParamId.roundingDecimalPlaces].min}
+        max={schema[QueryParamId.roundingDecimalPlaces].max}
         required={true}
         defaultValue={roundingDecimalPlaces}
         onChange={(e) => onChange(e.target.valueAsNumber)}

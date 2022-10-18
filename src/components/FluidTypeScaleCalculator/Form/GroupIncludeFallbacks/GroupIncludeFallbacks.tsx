@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { QueryParamId } from '../../../../api/api.types';
+import { QueryParamId } from '../../../../schema/schema.types';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
 import type { ActionSetShouldIncludeFallbacks, FormState } from '../../FluidTypeScaleCalculator.types';

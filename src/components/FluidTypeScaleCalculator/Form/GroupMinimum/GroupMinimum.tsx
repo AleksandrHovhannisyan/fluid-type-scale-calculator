@@ -1,6 +1,6 @@
 import { memo } from 'react';
-import { QUERY_PARAM_CONFIG } from '../../../../api/api.constants';
-import { QueryParamId } from '../../../../api/api.types';
+import { schema } from '../../../../schema/schema';
+import { QueryParamId } from '../../../../schema/schema.types';
 import Fieldset from '../../../Fieldset/Fieldset';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
@@ -28,8 +28,8 @@ const GroupMinimum = (props: Props) => {
           name={QueryParamId.minFontSize}
           type="number"
           required={true}
-          min={QUERY_PARAM_CONFIG[QueryParamId.minFontSize].min}
-          max={QUERY_PARAM_CONFIG[QueryParamId.minFontSize].max}
+          min={schema[QueryParamId.minFontSize].min}
+          max={schema[QueryParamId.minFontSize].max}
           defaultValue={min.fontSize}
           onChange={(e) =>
             onChange({
@@ -44,7 +44,7 @@ const GroupMinimum = (props: Props) => {
           name={QueryParamId.minWidth}
           type="number"
           required={true}
-          min={QUERY_PARAM_CONFIG[QueryParamId.minWidth].min}
+          min={schema[QueryParamId.minWidth].min}
           max={maxScreenWidth}
           defaultValue={min.screenWidth}
           onChange={(e) =>
@@ -58,8 +58,8 @@ const GroupMinimum = (props: Props) => {
         name={QueryParamId.minRatio}
         id="type-scale-min"
         ratio={min.ratio}
-        min={QUERY_PARAM_CONFIG[QueryParamId.minRatio].min}
-        max={QUERY_PARAM_CONFIG[QueryParamId.minRatio].max}
+        min={schema[QueryParamId.minRatio].min}
+        max={schema[QueryParamId.minRatio].max}
         onChange={(e) => onChange({ ratio: e.target.valueAsNumber })}
       />
     </Fieldset>

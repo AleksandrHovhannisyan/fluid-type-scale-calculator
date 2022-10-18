@@ -1,6 +1,6 @@
 import { memo } from 'react';
-import { QUERY_PARAM_CONFIG } from '../../../../api/api.constants';
-import { QueryParamId } from '../../../../api/api.types';
+import { schema } from '../../../../schema/schema';
+import { QueryParamId } from '../../../../schema/schema.types';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
 import type { ActionSetRemValueInPx, FormState } from '../../FluidTypeScaleCalculator.types';
@@ -25,8 +25,8 @@ const GroupRemValueInPx = (props: Props) => {
         className={styles['rem-input']}
         type="number"
         step={1}
-        min={QUERY_PARAM_CONFIG[QueryParamId.remValueInPx].min}
-        max={QUERY_PARAM_CONFIG[QueryParamId.remValueInPx].max}
+        min={schema[QueryParamId.remValueInPx].min}
+        max={schema[QueryParamId.remValueInPx].max}
         defaultValue={remValueInPx}
         required={true}
         onChange={(e) => onChange(e.target.valueAsNumber)}
