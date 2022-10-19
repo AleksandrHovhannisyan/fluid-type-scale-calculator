@@ -1,12 +1,19 @@
-import { QUERY_PARAM_CONFIG } from '../../../../api/api.constants';
-import { QueryParamId } from '../../../../api/api.types';
+import { memo } from 'react';
+import { schema } from '../../../../schema/schema';
+import { QueryParamId } from '../../../../schema/schema.types';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
-import { useFormState } from '../../FluidTypeScaleCalculator.context';
+import type { ActionSetRemValueInPx, FormState } from '../../FluidTypeScaleCalculator.types';
 import styles from './GroupRemValueInPx.module.scss';
 
-const GroupRemValueInPx = () => {
-  const { state, dispatch } = useFormState();
+type Props = Pick<FormState, 'remValueInPx'> & {
+  /** Function to update the value for this input. */
+  onChange: (payload: ActionSetRemValueInPx['payload']) => void;
+};
+
+const GroupRemValueInPx = (props: Props) => {
+  const { remValueInPx, onChange } = props;
+
   return (
     <Label
       title="Rem value (pixels)"
@@ -18,18 +25,13 @@ const GroupRemValueInPx = () => {
         className={styles['rem-input']}
         type="number"
         step={1}
-        min={QUERY_PARAM_CONFIG[QueryParamId.remValueInPx].min}
-        max={QUERY_PARAM_CONFIG[QueryParamId.remValueInPx].max}
-        defaultValue={state.remValueInPx}
+        min={schema[QueryParamId.remValueInPx].min}
+        max={schema[QueryParamId.remValueInPx].max}
+        defaultValue={remValueInPx}
         required={true}
-        onChange={(e) =>
-          dispatch({
-            type: 'setRemValueInPx',
-            payload: e.target.valueAsNumber,
-          })
-        }
+        onChange={(e) => onChange(e.target.valueAsNumber)}
       />
     </Label>
   );
 };
-export default GroupRemValueInPx;
+export default memo(GroupRemValueInPx);

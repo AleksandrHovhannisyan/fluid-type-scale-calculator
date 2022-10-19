@@ -1,30 +1,30 @@
 import { createContext, useContext } from 'react';
-import { QUERY_PARAM_CONFIG } from '../../api/api.constants';
-import { QueryParamId } from '../../api/api.types';
+import { schema } from '../../schema/schema';
+import { QueryParamId } from '../../schema/schema.types';
 import { FormAction, FormState, WithDispatch } from './FluidTypeScaleCalculator.types';
 
 /** The initial values used to populate the app's form. */
 export const initialFormState: FormState = {
   min: {
-    fontSize: QUERY_PARAM_CONFIG[QueryParamId.minFontSize].default,
-    screenWidth: QUERY_PARAM_CONFIG[QueryParamId.minWidth].default,
-    ratio: QUERY_PARAM_CONFIG[QueryParamId.minRatio].default,
+    fontSize: schema[QueryParamId.minFontSize].default,
+    screenWidth: schema[QueryParamId.minWidth].default,
+    ratio: schema[QueryParamId.minRatio].default,
   },
   max: {
-    fontSize: QUERY_PARAM_CONFIG[QueryParamId.maxFontSize].default,
-    screenWidth: QUERY_PARAM_CONFIG[QueryParamId.maxWidth].default,
-    ratio: QUERY_PARAM_CONFIG[QueryParamId.maxRatio].default,
+    fontSize: schema[QueryParamId.maxFontSize].default,
+    screenWidth: schema[QueryParamId.maxWidth].default,
+    ratio: schema[QueryParamId.maxRatio].default,
   },
   typeScaleSteps: {
-    all: QUERY_PARAM_CONFIG[QueryParamId.allSteps].default,
-    base: QUERY_PARAM_CONFIG[QueryParamId.baseStep].default,
+    all: schema[QueryParamId.allSteps].default,
+    base: schema[QueryParamId.baseStep].default,
   },
-  namingConvention: QUERY_PARAM_CONFIG[QueryParamId.namingConvention].default,
-  shouldIncludeFallbacks: QUERY_PARAM_CONFIG[QueryParamId.shouldIncludeFallbacks].default,
-  shouldUseRems: QUERY_PARAM_CONFIG[QueryParamId.shouldUseRems].default,
-  remValueInPx: QUERY_PARAM_CONFIG[QueryParamId.remValueInPx].default,
-  roundingDecimalPlaces: QUERY_PARAM_CONFIG[QueryParamId.roundingDecimalPlaces].default,
-  fontFamily: QUERY_PARAM_CONFIG[QueryParamId.previewFont].default,
+  namingConvention: schema[QueryParamId.namingConvention].default,
+  shouldIncludeFallbacks: schema[QueryParamId.shouldIncludeFallbacks].default,
+  shouldUseRems: schema[QueryParamId.shouldUseRems].default,
+  remValueInPx: schema[QueryParamId.remValueInPx].default,
+  roundingDecimalPlaces: schema[QueryParamId.roundingDecimalPlaces].default,
+  fontFamily: schema[QueryParamId.previewFont].default,
 };
 
 /** Given the previous app state and a dispatched action, returns the newly transformed state.
@@ -63,8 +63,8 @@ export const formStateReducer = (state: FormState, action: FormAction): FormStat
       return { ...state, remValueInPx: action.payload };
     }
     case 'setRoundingDecimalPlaces': {
-      const min = QUERY_PARAM_CONFIG[QueryParamId.roundingDecimalPlaces].min;
-      const max = QUERY_PARAM_CONFIG[QueryParamId.roundingDecimalPlaces].max;
+      const min = schema[QueryParamId.roundingDecimalPlaces].min;
+      const max = schema[QueryParamId.roundingDecimalPlaces].max;
       // To prevent client-side errors (e.g., because we can't rounding to negative decimal places or it'll throw an error)
       const roundingDecimalPlaces = Math.max(Math.min(action.payload, max), min);
       return { ...state, roundingDecimalPlaces };

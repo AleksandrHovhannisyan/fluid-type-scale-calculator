@@ -27,44 +27,62 @@ export type FormState = {
   fontFamily: string;
 };
 
+export type ActionSetMin = {
+  type: 'setMin';
+  payload: Partial<FormState['min']>;
+};
+
+export type ActionSetMax = {
+  type: 'setMax';
+  payload: Partial<FormState['max']>;
+};
+
+export type ActionSetTypeScaleSteps = {
+  type: 'setTypeScaleSteps';
+  payload: Partial<FormState['typeScaleSteps']>;
+};
+
+export type ActionSetNamingConvention = {
+  type: 'setNamingConvention';
+  payload: FormState['namingConvention'];
+};
+
+export type ActionSetShouldIncludeFallbacks = {
+  type: 'setShouldIncludeFallbacks';
+  payload: FormState['shouldIncludeFallbacks'];
+};
+
+export type ActionSetShouldUseRems = {
+  type: 'setShouldUseRems';
+  payload: FormState['shouldUseRems'];
+};
+
+export type ActionSetRemValueInPx = {
+  type: 'setRemValueInPx';
+  payload: FormState['remValueInPx'];
+};
+
+export type ActionSetRoundingDecimalPlaces = {
+  type: 'setRoundingDecimalPlaces';
+  payload: FormState['roundingDecimalPlaces'];
+};
+
+export type ActionSetFontFamily = {
+  type: 'setFontFamily';
+  payload: FormState['fontFamily'];
+};
+
 /** An action that can be dispatched to update the app state. */
 export type FormAction =
-  | {
-      type: 'setMin';
-      payload: Partial<FormState['min']>;
-    }
-  | {
-      type: 'setMax';
-      payload: Partial<FormState['max']>;
-    }
-  | {
-      type: 'setTypeScaleSteps';
-      payload: Partial<FormState['typeScaleSteps']>;
-    }
-  | {
-      type: 'setNamingConvention';
-      payload: FormState['namingConvention'];
-    }
-  | {
-      type: 'setShouldIncludeFallbacks';
-      payload: FormState['shouldIncludeFallbacks'];
-    }
-  | {
-      type: 'setShouldUseRems';
-      payload: FormState['shouldUseRems'];
-    }
-  | {
-      type: 'setRemValueInPx';
-      payload: FormState['remValueInPx'];
-    }
-  | {
-      type: 'setRoundingDecimalPlaces';
-      payload: FormState['roundingDecimalPlaces'];
-    }
-  | {
-      type: 'setFontFamily';
-      payload: FormState['fontFamily'];
-    };
+  | ActionSetMin
+  | ActionSetMax
+  | ActionSetTypeScaleSteps
+  | ActionSetNamingConvention
+  | ActionSetShouldIncludeFallbacks
+  | ActionSetShouldUseRems
+  | ActionSetRemValueInPx
+  | ActionSetRoundingDecimalPlaces
+  | ActionSetFontFamily;
 
 export type WithDispatch = {
   /** A dispatch function to update the app state. */

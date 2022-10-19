@@ -1,6 +1,6 @@
-import { parseCheckboxBoolean, parseNumber } from './api.transformers';
+import { parseCheckboxBoolean, parseNumber } from './schema.parsers';
 
-describe('API transformation functions', () => {
+describe('schema parser functions', () => {
   describe('parseNumber', () => {
     it('returns the fallback if the param is unspecified', () => {
       expect(parseNumber({ query: { foo: '42' }, id: 'unspecified', fallback: 0xfa11bac })).toStrictEqual(0xfa11bac);

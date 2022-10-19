@@ -1,10 +1,17 @@
-import { QueryParamId } from '../../../../api/api.types';
+import { memo } from 'react';
+import { QueryParamId } from '../../../../schema/schema.types';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
-import { useFormState } from '../../FluidTypeScaleCalculator.context';
+import type { ActionSetShouldUseRems, FormState } from '../../FluidTypeScaleCalculator.types';
 
-const GroupUseRems = () => {
-  const { state, dispatch } = useFormState();
+type Props = Pick<FormState, 'shouldUseRems'> & {
+  /** Function to update the value for this input. */
+  onChange: (payload: ActionSetShouldUseRems['payload']) => void;
+};
+
+const GroupUseRems = (props: Props) => {
+  const { shouldUseRems, onChange } = props;
+
   return (
     <Label
       title="Show output in rems"
@@ -14,16 +21,11 @@ const GroupUseRems = () => {
       <Input
         type="checkbox"
         name={QueryParamId.shouldUseRems}
-        checked={state.shouldUseRems}
-        onChange={(e) =>
-          dispatch({
-            type: 'setShouldUseRems',
-            payload: e.target.checked,
-          })
-        }
+        checked={shouldUseRems}
+        onChange={(e) => onChange(e.target.checked)}
       />
     </Label>
   );
 };
 
-export default GroupUseRems;
+export default memo(GroupUseRems);

@@ -1,10 +1,16 @@
-import { QueryParamId } from '../../../../api/api.types';
+import { memo } from 'react';
+import { QueryParamId } from '../../../../schema/schema.types';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
-import { useFormState } from '../../FluidTypeScaleCalculator.context';
+import type { ActionSetNamingConvention, FormState } from '../../FluidTypeScaleCalculator.types';
 
-const GroupNamingConvention = () => {
-  const { state, dispatch } = useFormState();
+type Props = Pick<FormState, 'namingConvention'> & {
+  /** Function to update the value for this input. */
+  onChange: (action: ActionSetNamingConvention['payload']) => void;
+};
+
+const GroupNamingConvention = (props: Props) => {
+  const { namingConvention, onChange } = props;
   return (
     <Label title="Variable prefix" description="Use whatever naming convention you prefer." layout="to-horizontal">
       <Input
@@ -12,17 +18,12 @@ const GroupNamingConvention = () => {
         type="text"
         size={10}
         required={true}
-        defaultValue={state.namingConvention}
+        defaultValue={namingConvention}
         delay={0}
-        onChange={(e) =>
-          dispatch({
-            type: 'setNamingConvention',
-            payload: e.target.value,
-          })
-        }
+        onChange={(e) => onChange(e.target.value)}
       />
     </Label>
   );
 };
 
-export default GroupNamingConvention;
+export default memo(GroupNamingConvention);

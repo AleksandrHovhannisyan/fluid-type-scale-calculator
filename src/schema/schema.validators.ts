@@ -1,6 +1,6 @@
-import { COMMA_SEPARATED_LIST_REGEX } from '../constants';
 import { isNumber, throwIf } from '../utils';
-import { QueryParamId, QueryParamValidatorOptions } from './api.types';
+import { schema } from './schema';
+import { QueryParamId, QueryValidatorOptions } from './schema.types';
 
 /** Returns `true` if the given value represents a valid checkbox state. */
 export const isValidCheckedValue = (value: string) => {
@@ -34,11 +34,11 @@ export const throwIfInvalidCheckboxBoolean = (id: string, rawValue?: string) => 
 /** Validates user-supplied query params based on a config of valid query params and other data supplied to the app (e.g., font family names).
  * Throws an error if any of the user-supplied query params are unrecognized or invalid.
  */
-export const validateQueryParams = (options: QueryParamValidatorOptions) => {
+export const validateQueryParams = (options: QueryValidatorOptions) => {
   Object.keys(options.query).forEach((id) => {
-    const isRecognizedParam = id in options.config;
+    const isRecognizedParam = id in schema;
     throwIf(!isRecognizedParam, `${id} is not a recognized query parameter.`);
-    const queryParam = options.config[id as QueryParamId];
+    const queryParam = schema[id as QueryParamId];
     queryParam.validate(options);
   });
 };

@@ -1,4 +1,4 @@
-import { throwIfNaN, throwIfNotInteger, throwIfOutOfBounds } from './api.validators';
+import { throwIfNaN, throwIfNotInteger, throwIfOutOfBounds } from './schema.validators';
 
 describe('API validator functions', () => {
   describe('throwIfNaN', () => {

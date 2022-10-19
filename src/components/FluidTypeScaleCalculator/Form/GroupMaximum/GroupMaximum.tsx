@@ -1,13 +1,21 @@
-import { QUERY_PARAM_CONFIG } from '../../../../api/api.constants';
-import { QueryParamId } from '../../../../api/api.types';
+import { memo } from 'react';
+import { schema } from '../../../../schema/schema';
+import { QueryParamId } from '../../../../schema/schema.types';
 import Fieldset from '../../../Fieldset/Fieldset';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
-import { useFormState } from '../../FluidTypeScaleCalculator.context';
+import type { ActionSetMax, FormState } from '../../FluidTypeScaleCalculator.types';
 import TypeScalePicker from '../../TypeScalePicker/TypeScalePicker';
 
-const GroupMaximum = () => {
-  const { state, dispatch } = useFormState();
+type Props = Pick<FormState, 'max'> & {
+  /** Function to update the value for this input. */
+  onChange: (payload: ActionSetMax['payload']) => void;
+  /** The minimum allowed value for the screen width input. */
+  minScreenWidth: FormState['min']['screenWidth'];
+};
+
+const GroupMaximum = (props: Props) => {
+  const { max, minScreenWidth, onChange } = props;
 
   return (
     <Fieldset
@@ -20,15 +28,12 @@ const GroupMaximum = () => {
           name={QueryParamId.maxFontSize}
           type="number"
           required={true}
-          min={QUERY_PARAM_CONFIG[QueryParamId.maxFontSize].min}
-          max={QUERY_PARAM_CONFIG[QueryParamId.maxFontSize].max}
-          defaultValue={state.max.fontSize}
+          min={schema[QueryParamId.maxFontSize].min}
+          max={schema[QueryParamId.maxFontSize].max}
+          defaultValue={max.fontSize}
           onChange={(e) =>
-            dispatch({
-              type: 'setMax',
-              payload: {
-                fontSize: e.target.valueAsNumber,
-              },
+            onChange({
+              fontSize: e.target.valueAsNumber,
             })
           }
         />
@@ -39,15 +44,12 @@ const GroupMaximum = () => {
           name={QueryParamId.maxWidth}
           type="number"
           required={true}
-          min={state.min.screenWidth + 1}
-          max={QUERY_PARAM_CONFIG[QueryParamId.maxWidth].max}
-          defaultValue={state.max.screenWidth}
+          min={minScreenWidth}
+          max={schema[QueryParamId.maxWidth].max}
+          defaultValue={max.screenWidth}
           onChange={(e) =>
-            dispatch({
-              type: 'setMax',
-              payload: {
-                screenWidth: e.target.valueAsNumber,
-              },
+            onChange({
+              screenWidth: e.target.valueAsNumber,
             })
           }
         />
@@ -55,13 +57,13 @@ const GroupMaximum = () => {
       <TypeScalePicker
         name={QueryParamId.maxRatio}
         id="type-scale-max"
-        ratio={state.max.ratio}
-        min={QUERY_PARAM_CONFIG[QueryParamId.maxRatio].min}
-        max={QUERY_PARAM_CONFIG[QueryParamId.maxRatio].max}
-        onChange={(e) => dispatch({ type: 'setMax', payload: { ratio: e.target.valueAsNumber } })}
+        ratio={max.ratio}
+        min={schema[QueryParamId.maxRatio].min}
+        max={schema[QueryParamId.maxRatio].max}
+        onChange={(e) => onChange({ ratio: e.target.valueAsNumber })}
       />
     </Fieldset>
   );
 };
 
-export default GroupMaximum;
+export default memo(GroupMaximum);
