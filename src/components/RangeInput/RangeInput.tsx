@@ -30,7 +30,7 @@ const RangeInput = (props: RangeInputProps) => {
           {...otherProps}
         />
         {/* Hide this label in an accessible manner since sighted users don't need to see it (the range label is sufficient). */}
-        <Label title="Custom screen width" className="sr-only" htmlFor={numericInputId} />
+        <Label title={`${label}, manual override`} className="sr-only" htmlFor={numericInputId} />
         <Input
           id={numericInputId}
           type="number"

@@ -72,7 +72,7 @@ const Preview = (props: Props) => {
           <RangeInput
             id="screen-width-range"
             label="Screen width (pixels)"
-            defaultValue={screenWidth}
+            value={screenWidth}
             onChange={(e) => setScreenWidth(e.target.valueAsNumber)}
             min={0}
             max={MAX_ALLOWED_SCREEN_WIDTH_PX}
