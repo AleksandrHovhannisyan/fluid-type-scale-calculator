@@ -35,8 +35,10 @@ const FluidTypeScaleCalculator = (props: Props) => {
   const handleFormChange = useMemo(() => {
     return (form: HTMLFormElement) => {
       const formData = new FormData(form);
-      const urlParams = new URLSearchParams(formData as unknown as Record<string, string>).toString();
-      const newUrl = `${form.action}?${urlParams}`;
+      const searchParams = new URLSearchParams(formData as unknown as Record<string, string>);
+      const url = new URL(form.action);
+      url.search = searchParams.toString();
+      const newUrl = url.toString();
       // We could also do this routing with Next.js's router, but that would trigger a page reload (even with shallow: true) because we're requesting a new page. Why two pages? Because I want the home page to be SSG for better TTFB but the /calculate route to be SSR for link sharing via query params. Solution: https://github.com/vercel/next.js/discussions/18072#discussioncomment-109059
       window.history.replaceState({ ...window.history.state, as: newUrl, url: newUrl }, '', newUrl);
     };
