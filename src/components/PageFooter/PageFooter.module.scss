@@ -9,30 +9,22 @@
   text-align: center;
   font-size: var(--sp-sm);
 
-  a {
-    font-weight: var(--fw-body-bold);
-  }
-
   @include tablet {
     flex-direction: row;
     justify-content: space-between;
   }
 }
 
+.site-link {
+  font-weight: var(--fw-body-bold);
+}
+
 .socials {
   display: flex;
-  gap: var(--sp-2xs);
+  gap: var(--sp-3xs);
   list-style: none;
 
   a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: var(--sp-2xs);
-  }
-
-  svg {
-    width: var(--sp-md);
-    height: var(--sp-md);
+    padding: var(--sp-3xs);
   }
 }

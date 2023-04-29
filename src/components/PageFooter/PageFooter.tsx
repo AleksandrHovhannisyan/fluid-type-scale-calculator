@@ -1,36 +1,24 @@
-import type { SimpleIcon } from 'simple-icons';
-import { siGithub, siLinkedin, siStackexchange, siTwitter } from 'simple-icons/icons';
 import packageJson from '../../../package.json';
 import socials from '../../data/socials.json';
 import Link from '../Link/Link';
 import styles from './PageFooter.module.scss';
-
-type SocialId = keyof typeof socials;
-
-const socialIcons: Record<SocialId, SimpleIcon> = {
-  linkedin: siLinkedin,
-  github: siGithub,
-  twitter: siTwitter,
-  stackexchange: siStackexchange,
-};
 
 const PageFooter = () => {
   return (
     <footer className={styles['page-footer']}>
       <div>
         <span aria-hidden="true">&copy;</span>Copyright{' '}
-        <Link href="https://www.aleksandrhovhannisyan.com/">Aleksandr Hovhannisyan</Link>, 2021–Present. v
-        {packageJson.version}.
+        <Link href="https://www.aleksandrhovhannisyan.com/" className={styles['site-link']}>
+          Aleksandr Hovhannisyan
+        </Link>
+        , 2021–Present. v{packageJson.version}.
       </div>
-      <ul className={styles.socials} aria-label="Social media">
+      <p className="sr-only">Social media links</p>
+      <ul className={styles.socials}>
         {Object.entries(socials).map(([key, social]) => {
           return (
             <li key={key}>
-              <Link
-                href={social.url}
-                aria-label={social.name}
-                dangerouslySetInnerHTML={{ __html: socialIcons[key as SocialId].svg }}
-              />
+              <Link href={social.url}>{social.name}</Link>
             </li>
           );
         })}
