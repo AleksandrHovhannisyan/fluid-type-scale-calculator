@@ -3,13 +3,7 @@ import site from './data/site.json';
 import { COMMA_SEPARATED_LIST_REGEX, DEFAULT_FONT_FAMILY, GOOGLE_FONTS_BASE_URL } from './constants';
 
 /** Prefixes the given relative url string with the base site URL. */
-export const toAbsoluteUrl = (url: string, baseUrl: string = site.url) => {
-  // Replace trailing slash, e.g., site.com/ => site.com
-  const siteUrl = baseUrl.replace(/\/$/, '');
-  // Replace starting slash, e.g., /path/ => path/
-  const relativeUrl = url.replace(/^\//, '');
-  return `${siteUrl}/${relativeUrl}`;
-};
+export const toAbsoluteUrl = (url: string, baseUrl: string = site.url) => new URL(url, baseUrl).toString();
 
 /** Returns an array of Google Font family names from the Google Fonts API. */
 export const getGoogleFontFamilies = async (): Promise<string[]> => {
