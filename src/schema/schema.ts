@@ -1,9 +1,11 @@
 import { DEFAULT_FONT_FAMILY } from '../constants';
 import typeScaleRatios from '../data/typeScaleRatios.json';
 import { isCommaSeparatedList, throwIf, toCommaSeparatedList } from '../utils';
+import { DEFAULT_MAX_SCREEN_WIDTH } from './schema.constants';
 import { parseCheckboxBoolean, parseNumber, parseRawValue } from './schema.parsers';
 import { QueryParamId, QueryParamSchema } from './schema.types';
 import {
+  throwIfEmpty,
   throwIfInvalidCheckboxBoolean,
   throwIfNaN,
   throwIfNotInteger,
@@ -70,7 +72,7 @@ export const schema: QueryParamSchema = {
   },
   [QueryParamId.maxWidth]: {
     id: QueryParamId.maxWidth,
-    default: 1280,
+    default: DEFAULT_MAX_SCREEN_WIDTH,
     parse(query) {
       return parseNumber({ query, id: this.id, fallback: this.default });
     },
@@ -139,7 +141,7 @@ export const schema: QueryParamSchema = {
       return parseRawValue(query, this.id) ?? this.default;
     },
     validate({ query }) {
-      throwIf(!this.parse(query), `${this.id} must be a non-empty string`);
+      throwIfEmpty(this.id, this.parse(query));
     },
   },
   [QueryParamId.shouldIncludeFallbacks]: {
@@ -203,6 +205,31 @@ export const schema: QueryParamSchema = {
       const fontFamily = this.parse(query);
       const isUnrecognizedFont = !fonts.includes(fontFamily);
       throwIf(isUnrecognizedFont, `${fontFamily} is not a recognized Google Font.`);
+    },
+  },
+  [QueryParamId.previewText]: {
+    id: QueryParamId.previewText,
+    default: 'Almost before we knew it, we had left the ground',
+    parse(query) {
+      return parseRawValue(query, this.id) ?? this.default;
+    },
+    validate({ query }) {
+      const previewText = this.parse(query);
+      throwIfEmpty(this.id, previewText);
+    },
+  },
+  [QueryParamId.previewWidth]: {
+    id: QueryParamId.previewWidth,
+    min: 0,
+    max: 1920,
+    default: DEFAULT_MAX_SCREEN_WIDTH,
+    parse(query) {
+      return parseNumber({ query, id: this.id, fallback: this.default });
+    },
+    validate({ query }) {
+      const previewWidth = this.parse(query);
+      throwIfNaN(this.id, previewWidth);
+      throwIfOutOfBounds(this.id, previewWidth, { min: this.min, max: this.max });
     },
   },
 };

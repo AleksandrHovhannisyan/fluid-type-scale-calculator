@@ -4,21 +4,30 @@ import Input, { InputProps } from '../Input/Input';
 import Label from '../Label/Label';
 import styles from './RangeInput.module.scss';
 
-type RangeInputProps = Omit<InputProps, 'label' | 'type'> & {
-  /** A string to label the range input. */
-  label?: string;
-  /** Optional styles for the range input slider. */
-  sliderClassName?: string;
-  /** Optional styles for the numeric input. */
-  numericInputClassName?: string;
-};
+type RangeInputProps = Omit<InputProps, 'label' | 'type' | 'id'> &
+  Required<Pick<InputProps, 'id'>> & {
+    /** A string to label the range input. */
+    label?: string;
+    /** Optional styles for the range input slider. */
+    sliderClassName?: string;
+    /** Optional styles for the numeric input. */
+    numericInputClassName?: string;
+  };
 
 /**
  * Displays a range input slider along with a custom input box to allow for manual inputs.
  */
 const RangeInput = (props: RangeInputProps) => {
-  const { id, label, required, sliderClassName, numericInputClassName, className, ...otherProps } =
-    props;
+  const {
+    id,
+    name,
+    label,
+    required,
+    sliderClassName,
+    numericInputClassName,
+    className,
+    ...otherProps
+  } = props;
   const numericInputId = useId();
 
   return (
@@ -36,6 +45,7 @@ const RangeInput = (props: RangeInputProps) => {
         <Label title={`${label}, manual override`} className="sr-only" htmlFor={numericInputId} />
         <Input
           id={numericInputId}
+          name={name}
           type="number"
           step={1}
           delay={0}

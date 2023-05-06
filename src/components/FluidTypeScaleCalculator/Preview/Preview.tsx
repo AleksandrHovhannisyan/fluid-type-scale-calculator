@@ -1,16 +1,18 @@
 import { ChangeEvent } from 'react';
-import { useEffect, useState } from 'react';
+import { useCallback } from 'react';
 import clsx from 'clsx';
 import { DEFAULT_FONT_FAMILY } from '../../../constants';
+import { schema } from '../../../schema/schema';
+import { QueryParamId } from '../../../schema/schema.types';
 import type { TypeScale, WithFonts } from '../../../types';
 import { getGoogleFontLinkTagHref } from '../../../utils';
+import Button from '../../Button/Button';
 import Fieldset from '../../Fieldset/Fieldset';
 import GoogleFontsPicker from '../../GoogleFontsPicker/GoogleFontsPicker';
 import Input from '../../Input/Input';
 import Label from '../../Label/Label';
 import RangeInput from '../../RangeInput/RangeInput';
 import { initialFormState, useFormState } from '../FluidTypeScaleCalculator.context';
-import { MAX_ALLOWED_SCREEN_WIDTH_PX } from './Preview.constants';
 import styles from './Preview.module.scss';
 
 type Props = WithFonts & {
@@ -21,34 +23,34 @@ type Props = WithFonts & {
 const Preview = (props: Props) => {
   const { fonts, typeScale } = props;
   const { state, dispatch } = useFormState();
-  const [arePreviewControlsDisabled, setArePreviewControlsDisabled] = useState(true);
-  const [previewText, setPreviewText] = useState(
-    'Almost before we knew it, we had left the ground'
-  );
-  const [screenWidth, setScreenWidth] = useState(initialFormState.max.screenWidth);
 
-  useEffect(() => {
-    // Since we use SSR, this must be done on mount
-    setScreenWidth(window.innerWidth);
-    // If JS is enabled, enable the preview controls; else, keep them disabled (since this won't run)
-    setArePreviewControlsDisabled(false);
+  const handlePreviewFontChange = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
+    const fontFamily = e.target.value;
+    dispatch({ type: 'setPreview', payload: { fontFamily } });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const onFontSelected = (e: ChangeEvent<HTMLSelectElement>) => {
-    const fontFamily = e.target.value;
-    dispatch({ type: 'setFontFamily', payload: fontFamily });
-  };
+  const handlePreviewTextChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    const previewText = e.target.value;
+    dispatch({ type: 'setPreview', payload: { text: previewText } });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handlePreviewWidthChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    const previewWidth = e.target.valueAsNumber;
+    dispatch({ type: 'setPreview', payload: { width: previewWidth } });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
       {/* Don't make a duplicate request for the default font since we're self-hosting that. */}
-      {state.fontFamily !== DEFAULT_FONT_FAMILY && (
+      {state.preview.fontFamily !== DEFAULT_FONT_FAMILY && (
         // Don't render in Head to bypass Next.js font optimization (which breaks in a no-JS environment)
         <link
           rel="stylesheet"
           type="text/css"
-          href={getGoogleFontLinkTagHref({ family: state.fontFamily, display: 'swap' })}
+          href={getGoogleFontLinkTagHref({ family: state.preview.fontFamily, display: 'swap' })}
         />
       )}
       <section className={styles.preview}>
@@ -56,36 +58,43 @@ const Preview = (props: Props) => {
         <Fieldset
           title="Preview controls"
           isLegendVisuallyHidden={true}
-          disabled={arePreviewControlsDisabled}
           labelGroupClassName={styles['label-group']}
         >
           <Label title="Font family">
             <GoogleFontsPicker
+              name={QueryParamId.previewFont}
               fonts={fonts}
-              defaultValue={state.fontFamily}
-              onChange={onFontSelected}
+              defaultValue={state.preview.fontFamily}
+              onChange={handlePreviewFontChange}
             />
           </Label>
           <Label title="Preview text" className={clsx('label', styles['preview-text-label'])}>
             <Input
+              name={QueryParamId.previewText}
               type="text"
               required={true}
-              defaultValue={previewText}
+              defaultValue={state.preview.text}
               delay={0}
-              onChange={(e) => setPreviewText(e.target.value)}
+              onChange={handlePreviewTextChange}
             />
           </Label>
           <RangeInput
             id="screen-width-range"
+            name={QueryParamId.previewWidth}
+            min={schema[QueryParamId.previewWidth].min}
+            max={schema[QueryParamId.previewWidth].max}
             label="Screen width (pixels)"
-            value={screenWidth}
-            onChange={(e) => setScreenWidth(e.target.valueAsNumber)}
-            min={0}
-            max={MAX_ALLOWED_SCREEN_WIDTH_PX}
+            value={state.preview.width}
+            onChange={handlePreviewWidthChange}
             required={true}
             numericInputClassName={styles['preview-width-input']}
           />
         </Fieldset>
+        <noscript>
+          <Button type="submit" className={styles['submit-button']}>
+            Update table
+          </Button>
+        </noscript>
         <div className="table-wrapper" tabIndex={0} role="region" aria-label="Size previews">
           <table>
             <thead>
@@ -108,7 +117,7 @@ const Preview = (props: Props) => {
             <tbody>
               {Array.from(typeScale.entries()).map(
                 ([step, { min, max, getFontSizeAtScreenWidth }]) => {
-                  const fontSize = getFontSizeAtScreenWidth(screenWidth);
+                  const fontSize = getFontSizeAtScreenWidth(state.preview.width);
                   const remValue = state.shouldUseRems
                     ? state.remValueInPx
                     : initialFormState.remValueInPx;
@@ -122,10 +131,10 @@ const Preview = (props: Props) => {
                         className="nowrap"
                         style={{
                           fontSize: `calc(${fontSize} * ${remValue}/${initialFormState.remValueInPx})`,
-                          fontFamily: state.fontFamily,
+                          fontFamily: state.preview.fontFamily,
                         }}
                       >
-                        {previewText}
+                        {state.preview.text}
                       </td>
                     </tr>
                   );

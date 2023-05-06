@@ -41,6 +41,11 @@ export const throwIfInvalidCheckboxBoolean = (id: string, rawValue?: string) => 
   );
 };
 
+/** Throws an error if the given raw string is empty. */
+export const throwIfEmpty = (id: string, rawValue?: string) => {
+  throwIf(!rawValue, `${id} must be a non-empty string.`);
+};
+
 /** Validates user-supplied query params based on a config of valid query params and other data supplied to the app (e.g., font family names).
  * Throws an error if any of the user-supplied query params are unrecognized or invalid.
  */

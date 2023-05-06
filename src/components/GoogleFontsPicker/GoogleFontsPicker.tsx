@@ -5,13 +5,13 @@ import { WithFonts } from '../../types';
 import Select, { SelectProps } from '../Select/Select';
 
 export type GoogleFontsPickerProps = WithFonts &
-  Omit<SelectProps, 'defaultValue' | 'name'> & {
+  Omit<SelectProps, 'defaultValue'> & {
     /** The default selected font. */
     defaultValue?: string;
   };
 
 const GoogleFontsPicker = (props: GoogleFontsPickerProps) => {
-  const { defaultValue, fonts: allFonts, onChange } = props;
+  const { defaultValue, fonts: allFonts, onChange, ...otherSelectProps } = props;
   const [fonts, setFonts] = useState([defaultValue]);
   const pickerRef = useRef<HTMLSelectElement>(null);
 
@@ -38,11 +38,11 @@ const GoogleFontsPicker = (props: GoogleFontsPickerProps) => {
 
   return (
     <Select
-      name={QueryParamId.previewFont}
       ref={pickerRef}
       defaultValue={defaultValue}
       onChange={onChange}
       delay={Delay.LONG}
+      {...otherSelectProps}
     >
       {fonts.map((fontFamily) => (
         <option key={fontFamily} value={fontFamily}>

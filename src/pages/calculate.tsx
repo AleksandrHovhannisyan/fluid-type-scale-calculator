@@ -53,7 +53,11 @@ export const getServerSideProps = async (
       shouldUseRems: schema[QueryParamId.shouldUseRems].parse(query),
       remValueInPx: schema[QueryParamId.remValueInPx].parse(query),
       roundingDecimalPlaces: schema[QueryParamId.roundingDecimalPlaces].parse(query),
-      fontFamily: schema[QueryParamId.previewFont].parse(query),
+      preview: {
+        fontFamily: schema[QueryParamId.previewFont].parse(query),
+        text: schema[QueryParamId.previewText].parse(query),
+        width: schema[QueryParamId.previewWidth].parse(query),
+      },
     };
     return {
       props: {

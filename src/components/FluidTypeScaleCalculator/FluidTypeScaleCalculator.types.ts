@@ -23,8 +23,14 @@ export type FormState = {
   roundingDecimalPlaces: number;
   /** The pixel value of 1rem. */
   remValueInPx: number;
-  /** The font family in which to preview the type scale. */
-  fontFamily: string;
+  preview: {
+    /** The Google font family in which to preview the type scale. */
+    fontFamily: string;
+    /** The preview text itself to display in the table. */
+    text: string;
+    /** The preview width to simulate. */
+    width: number;
+  };
 };
 
 export type ActionSetMin = {
@@ -67,9 +73,9 @@ export type ActionSetRoundingDecimalPlaces = {
   payload: FormState['roundingDecimalPlaces'];
 };
 
-export type ActionSetFontFamily = {
-  type: 'setFontFamily';
-  payload: FormState['fontFamily'];
+export type ActionSetPreview = {
+  type: 'setPreview';
+  payload: Partial<FormState['preview']>;
 };
 
 /** An action that can be dispatched to update the app state. */
@@ -82,7 +88,7 @@ export type FormAction =
   | ActionSetShouldUseRems
   | ActionSetRemValueInPx
   | ActionSetRoundingDecimalPlaces
-  | ActionSetFontFamily;
+  | ActionSetPreview;
 
 export type WithDispatch = {
   /** A dispatch function to update the app state. */

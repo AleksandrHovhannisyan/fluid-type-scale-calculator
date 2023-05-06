@@ -1,0 +1,1 @@
+export const DEFAULT_MAX_SCREEN_WIDTH = 1280;

@@ -1,10 +1,6 @@
 import { WithFonts } from '../types';
 import type { MapDiscriminatedUnion } from '../types.generics';
 
-// Technically a constant, but exporting it from here makes more sense.
-// Why an enum instead of a type? So we can reuse this for input name attributes without
-// having to type them as QueryParamId in props.
-
 /** A recognized query param ID. Also used on the front end by form inputs to set their `name` attribute to the corresponding query param. */
 export enum QueryParamId {
   minFontSize = 'minFontSize',
@@ -21,6 +17,8 @@ export enum QueryParamId {
   remValueInPx = 'remValue',
   roundingDecimalPlaces = 'decimals',
   previewFont = 'previewFont',
+  previewText = 'previewText',
+  previewWidth = 'previewWidth',
 }
 
 /** A record of arbitrary query params supplied by users. */
@@ -100,9 +98,17 @@ export type ParamFallback = ValidatedQueryParam<boolean> & {
   id: QueryParamId.shouldIncludeFallbacks;
 };
 
-export type ParamFontFamily = ValidatedQueryParam<string> & {
+export type ParamPreviewFontFamily = ValidatedQueryParam<string> & {
   id: QueryParamId.previewFont;
   validate: (options: QueryValidatorOptions) => void;
+};
+
+export type ParamPreviewText = ValidatedQueryParam<string> & {
+  id: QueryParamId.previewText;
+};
+
+export type ParamPreviewWidth = NumericQueryParam & {
+  id: QueryParamId.previewWidth;
 };
 
 export type QueryParam =
@@ -119,7 +125,9 @@ export type QueryParam =
   | ParamShouldUseRems
   | ParamRemValueInPx
   | ParamRoundingDecimalPlaces
-  | ParamFontFamily;
+  | ParamPreviewFontFamily
+  | ParamPreviewText
+  | ParamPreviewWidth;
 
 /** Mapped type where they keys `K` correspond to shapes that extend `{ id: K }`. Defines a config for each query parameter. */
 export type QueryParamSchema = MapDiscriminatedUnion<QueryParam, 'id'>;

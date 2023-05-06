@@ -24,7 +24,11 @@ export const initialFormState: FormState = {
   shouldUseRems: schema[QueryParamId.shouldUseRems].default,
   remValueInPx: schema[QueryParamId.remValueInPx].default,
   roundingDecimalPlaces: schema[QueryParamId.roundingDecimalPlaces].default,
-  fontFamily: schema[QueryParamId.previewFont].default,
+  preview: {
+    fontFamily: schema[QueryParamId.previewFont].default,
+    text: schema[QueryParamId.previewText].default,
+    width: schema[QueryParamId.previewWidth].default,
+  },
 };
 
 /** Given the previous app state and a dispatched action, returns the newly transformed state.
@@ -69,8 +73,8 @@ export const formStateReducer = (state: FormState, action: FormAction): FormStat
       const roundingDecimalPlaces = Math.max(Math.min(action.payload, max), min);
       return { ...state, roundingDecimalPlaces };
     }
-    case 'setFontFamily': {
-      return { ...state, fontFamily: action.payload };
+    case 'setPreview': {
+      return { ...state, preview: { ...state.preview, ...action.payload } };
     }
     default:
       return initialFormState;
