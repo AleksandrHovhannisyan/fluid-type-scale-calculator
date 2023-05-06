@@ -1,4 +1,4 @@
-import type { FC, HTMLProps } from 'react';
+import type { FC, HTMLProps, PropsWithChildren } from 'react';
 import clsx from 'clsx';
 import NextLink, { LinkProps } from 'next/link';
 import styles from './Link.module.scss';
@@ -9,7 +9,7 @@ type Props = Pick<LinkProps, 'href'> &
     className?: string;
   };
 
-const Link: FC<Props> = ({ href, className, children, ...otherProps }) => {
+const Link: FC<PropsWithChildren<Props>> = ({ href, className, children, ...otherProps }) => {
   const isExternalLink = /https?:\/\//.test(href.toString());
   const hrefDependentProps = isExternalLink
     ? {
@@ -19,7 +19,12 @@ const Link: FC<Props> = ({ href, className, children, ...otherProps }) => {
     : {};
 
   const link = (
-    <a href={href.toString()} className={clsx(styles.link, className)} {...otherProps} {...hrefDependentProps}>
+    <a
+      href={href.toString()}
+      className={clsx(styles.link, className)}
+      {...otherProps}
+      {...hrefDependentProps}
+    >
       {children}
     </a>
   );

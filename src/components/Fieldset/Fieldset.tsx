@@ -1,4 +1,4 @@
-import type { FC, HTMLProps } from 'react';
+import type { FC, HTMLProps, PropsWithChildren } from 'react';
 import clsx from 'clsx';
 import styles from './Fieldset.module.scss';
 
@@ -13,8 +13,16 @@ type FieldsetProps = Omit<HTMLProps<HTMLFieldSetElement>, 'title'> & {
   labelGroupClassName?: string;
 };
 
-const Fieldset: FC<FieldsetProps> = (props) => {
-  const { className, children, title, description, isLegendVisuallyHidden, labelGroupClassName, ...otherProps } = props;
+const Fieldset: FC<PropsWithChildren<FieldsetProps>> = (props) => {
+  const {
+    className,
+    children,
+    title,
+    description,
+    isLegendVisuallyHidden,
+    labelGroupClassName,
+    ...otherProps
+  } = props;
   return (
     <fieldset {...otherProps}>
       <legend className={clsx({ 'sr-only': isLegendVisuallyHidden })}>

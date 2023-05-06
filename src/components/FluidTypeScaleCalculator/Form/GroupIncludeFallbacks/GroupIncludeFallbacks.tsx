@@ -2,7 +2,10 @@ import { memo } from 'react';
 import { QueryParamId } from '../../../../schema/schema.types';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
-import type { ActionSetShouldIncludeFallbacks, FormState } from '../../FluidTypeScaleCalculator.types';
+import type {
+  ActionSetShouldIncludeFallbacks,
+  FormState,
+} from '../../FluidTypeScaleCalculator.types';
 
 type Props = Pick<FormState, 'shouldIncludeFallbacks'> & {
   /** Function to update the value for this input. */

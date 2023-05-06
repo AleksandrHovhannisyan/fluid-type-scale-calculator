@@ -1,6 +1,6 @@
-import type { FC, HTMLProps } from 'react';
+import type { FC, HTMLProps, PropsWithChildren } from 'react';
 
-const Alert: FC<HTMLProps<HTMLDivElement>> = (props) => {
+const Alert: FC<PropsWithChildren<HTMLProps<HTMLDivElement>>> = (props) => {
   const { children, ...otherProps } = props;
   return (
     <span role="alert" {...otherProps}>

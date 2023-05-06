@@ -22,7 +22,9 @@ const Preview = (props: Props) => {
   const { fonts, typeScale } = props;
   const { state, dispatch } = useFormState();
   const [arePreviewControlsDisabled, setArePreviewControlsDisabled] = useState(true);
-  const [previewText, setPreviewText] = useState('Almost before we knew it, we had left the ground');
+  const [previewText, setPreviewText] = useState(
+    'Almost before we knew it, we had left the ground'
+  );
   const [screenWidth, setScreenWidth] = useState(initialFormState.max.screenWidth);
 
   useEffect(() => {
@@ -58,7 +60,11 @@ const Preview = (props: Props) => {
           labelGroupClassName={styles['label-group']}
         >
           <Label title="Font family">
-            <GoogleFontsPicker fonts={fonts} defaultValue={state.fontFamily} onChange={onFontSelected} />
+            <GoogleFontsPicker
+              fonts={fonts}
+              defaultValue={state.fontFamily}
+              onChange={onFontSelected}
+            />
           </Label>
           <Label title="Preview text" className={clsx('label', styles['preview-text-label'])}>
             <Input
@@ -100,27 +106,31 @@ const Preview = (props: Props) => {
               </tr>
             </thead>
             <tbody>
-              {Array.from(typeScale.entries()).map(([step, { min, max, getFontSizeAtScreenWidth }]) => {
-                const fontSize = getFontSizeAtScreenWidth(screenWidth);
-                const remValue = state.shouldUseRems ? state.remValueInPx : initialFormState.remValueInPx;
-                return (
-                  <tr key={step}>
-                    <td>{step}</td>
-                    <td className="numeric">{min}</td>
-                    <td className="numeric">{max}</td>
-                    <td className="numeric">{fontSize}</td>
-                    <td
-                      className="nowrap"
-                      style={{
-                        fontSize: `calc(${fontSize} * ${remValue}/${initialFormState.remValueInPx})`,
-                        fontFamily: state.fontFamily,
-                      }}
-                    >
-                      {previewText}
-                    </td>
-                  </tr>
-                );
-              })}
+              {Array.from(typeScale.entries()).map(
+                ([step, { min, max, getFontSizeAtScreenWidth }]) => {
+                  const fontSize = getFontSizeAtScreenWidth(screenWidth);
+                  const remValue = state.shouldUseRems
+                    ? state.remValueInPx
+                    : initialFormState.remValueInPx;
+                  return (
+                    <tr key={step}>
+                      <td>{step}</td>
+                      <td className="numeric">{min}</td>
+                      <td className="numeric">{max}</td>
+                      <td className="numeric">{fontSize}</td>
+                      <td
+                        className="nowrap"
+                        style={{
+                          fontSize: `calc(${fontSize} * ${remValue}/${initialFormState.remValueInPx})`,
+                          fontFamily: state.fontFamily,
+                        }}
+                      >
+                        {previewText}
+                      </td>
+                    </tr>
+                  );
+                }
+              )}
             </tbody>
           </table>
         </div>

@@ -3,7 +3,12 @@ import typeScaleRatios from '../data/typeScaleRatios.json';
 import { isCommaSeparatedList, throwIf, toCommaSeparatedList } from '../utils';
 import { parseCheckboxBoolean, parseNumber, parseRawValue } from './schema.parsers';
 import { QueryParamId, QueryParamSchema } from './schema.types';
-import { throwIfInvalidCheckboxBoolean, throwIfNaN, throwIfNotInteger, throwIfOutOfBounds } from './schema.validators';
+import {
+  throwIfInvalidCheckboxBoolean,
+  throwIfNaN,
+  throwIfNotInteger,
+  throwIfOutOfBounds,
+} from './schema.validators';
 
 /** A schema describing all of the valid query parameters recognized by the app on both the server side and client side (as input names).
  * Each query param supplies functions for validating its own data, either on its own or in relation to other query params, as well as for
@@ -100,10 +105,16 @@ export const schema: QueryParamSchema = {
     validate({ query }) {
       const allSteps = this.parse(query);
       const baseStep = schema[QueryParamId.baseStep].parse(query);
-      throwIf(!allSteps.includes(baseStep), `${this.id} (${allSteps}) does not include the base step (${baseStep}).`);
+      throwIf(
+        !allSteps.includes(baseStep),
+        `${this.id} (${allSteps}) does not include the base step (${baseStep}).`
+      );
       // While this may seem like it will never throw, imagine a scenario where a user enters x,y;z. Splitting it yields ['x', 'y;z'].
       // And our regex strictly requires that each item in the list only use alphanumeric characters.
-      throwIf(!isCommaSeparatedList(allSteps.join(',')), `${this.id} must be a comma-separated list of step names.`);
+      throwIf(
+        !isCommaSeparatedList(allSteps.join(',')),
+        `${this.id} must be a comma-separated list of step names.`
+      );
     },
   },
   [QueryParamId.baseStep]: {

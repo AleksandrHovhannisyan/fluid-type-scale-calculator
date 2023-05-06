@@ -6,7 +6,8 @@ import { FormState } from './FluidTypeScaleCalculator.types';
  */
 export const getTypeScale = (state: FormState): TypeScale => {
   /** Appends the correct unit to a unitless value. */
-  const withUnit = (unitlessValue: number) => `${unitlessValue}${state.shouldUseRems ? 'rem' : 'px'}`;
+  const withUnit = (unitlessValue: number) =>
+    `${unitlessValue}${state.shouldUseRems ? 'rem' : 'px'}`;
 
   /** Rounds the given value to a fixed number of decimal places, according to the user's specified value. */
   const round = (val: number) => Number(val.toFixed(state.roundingDecimalPlaces));

@@ -1,12 +1,25 @@
 import { useCallback, useMemo, useReducer } from 'react';
-import { Delay } from '../../constants';
 import type { WithFonts } from '../../types';
 import Button from '../Button/Button';
 import Switcher from '../Switcher/Switcher';
 import Output from './Output/Output';
 import Preview from './Preview/Preview';
-import { FormStateContext, formStateReducer, initialFormState } from './FluidTypeScaleCalculator.context';
-import { FormState } from './FluidTypeScaleCalculator.types';
+import {
+  FormStateContext,
+  formStateReducer,
+  initialFormState,
+} from './FluidTypeScaleCalculator.context';
+import {
+  ActionSetMax,
+  ActionSetMin,
+  ActionSetNamingConvention,
+  ActionSetRemValueInPx,
+  ActionSetRoundingDecimalPlaces,
+  ActionSetShouldIncludeFallbacks,
+  ActionSetShouldUseRems,
+  ActionSetTypeScaleSteps,
+  FormState,
+} from './FluidTypeScaleCalculator.types';
 import { getTypeScale } from './FluidTypeScaleCalculator.utils';
 import {
   GroupIncludeFallbacks,
@@ -45,14 +58,42 @@ const FluidTypeScaleCalculator = (props: Props) => {
   }, []);
 
   // Prefer defining these memoized event handlers here as opposed to consuming the dispatch function in each sub-component (which could allow a component to accidentally change slices of state that it should not be concerned with, and would defeat the purpose of using React.memo)
-  const handleMinChange = useCallback((payload) => dispatch({ type: 'setMin', payload }), []);
-  const handleMaxChange = useCallback((payload) => dispatch({ type: 'setMax', payload }), []);
-  const handleStepsChange = useCallback((payload) => dispatch({ type: 'setTypeScaleSteps', payload }), []);
-  const handleNamingConventionChange = useCallback((payload) => dispatch({ type: 'setNamingConvention', payload }), []);
-  const handleRoundingChange = useCallback((payload) => dispatch({ type: 'setRoundingDecimalPlaces', payload }), []);
-  const handleFallbacksChange = useCallback((payload) => dispatch({ type: 'setShouldIncludeFallbacks', payload }), []);
-  const handleShouldUseRemsChange = useCallback((payload) => dispatch({ type: 'setShouldUseRems', payload }), []);
-  const handleRemValueInPxChange = useCallback((payload) => dispatch({ type: 'setRemValueInPx', payload }), []);
+  const handleMinChange = useCallback(
+    (payload: ActionSetMin['payload']) => dispatch({ type: 'setMin', payload }),
+    []
+  );
+  const handleMaxChange = useCallback(
+    (payload: ActionSetMax['payload']) => dispatch({ type: 'setMax', payload }),
+    []
+  );
+  const handleStepsChange = useCallback(
+    (payload: ActionSetTypeScaleSteps['payload']) =>
+      dispatch({ type: 'setTypeScaleSteps', payload }),
+    []
+  );
+  const handleNamingConventionChange = useCallback(
+    (payload: ActionSetNamingConvention['payload']) =>
+      dispatch({ type: 'setNamingConvention', payload }),
+    []
+  );
+  const handleRoundingChange = useCallback(
+    (payload: ActionSetRoundingDecimalPlaces['payload']) =>
+      dispatch({ type: 'setRoundingDecimalPlaces', payload }),
+    []
+  );
+  const handleFallbacksChange = useCallback(
+    (payload: ActionSetShouldIncludeFallbacks['payload']) =>
+      dispatch({ type: 'setShouldIncludeFallbacks', payload }),
+    []
+  );
+  const handleShouldUseRemsChange = useCallback(
+    (payload: ActionSetShouldUseRems['payload']) => dispatch({ type: 'setShouldUseRems', payload }),
+    []
+  );
+  const handleRemValueInPxChange = useCallback(
+    (payload: ActionSetRemValueInPx['payload']) => dispatch({ type: 'setRemValueInPx', payload }),
+    []
+  );
 
   // NOTE: No use memoizing the context value since state changes on every render anyway
   return (
@@ -67,18 +108,41 @@ const FluidTypeScaleCalculator = (props: Props) => {
         <Switcher className={styles['type-scale-stack']}>
           <div className={styles['form']}>
             {/* Pass in props explicitly to each of these sub-components so we can memoize them. Otherwise, if we consume the context in each component, they will all re-render whenever some unrelated piece of state updates. */}
-            <GroupMinimum min={state.min} maxScreenWidth={state.max.screenWidth - 1} onChange={handleMinChange} />
-            <GroupMaximum max={state.max} minScreenWidth={state.min.screenWidth + 1} onChange={handleMaxChange} />
-            <GroupTypeScaleSteps typeScaleSteps={state.typeScaleSteps} onChange={handleStepsChange} />
-            <GroupNamingConvention namingConvention={state.namingConvention} onChange={handleNamingConventionChange} />
-            <GroupRounding roundingDecimalPlaces={state.roundingDecimalPlaces} onChange={handleRoundingChange} />
+            <GroupMinimum
+              min={state.min}
+              maxScreenWidth={state.max.screenWidth - 1}
+              onChange={handleMinChange}
+            />
+            <GroupMaximum
+              max={state.max}
+              minScreenWidth={state.min.screenWidth + 1}
+              onChange={handleMaxChange}
+            />
+            <GroupTypeScaleSteps
+              typeScaleSteps={state.typeScaleSteps}
+              onChange={handleStepsChange}
+            />
+            <GroupNamingConvention
+              namingConvention={state.namingConvention}
+              onChange={handleNamingConventionChange}
+            />
+            <GroupRounding
+              roundingDecimalPlaces={state.roundingDecimalPlaces}
+              onChange={handleRoundingChange}
+            />
             <GroupIncludeFallbacks
               shouldIncludeFallbacks={state.shouldIncludeFallbacks}
               onChange={handleFallbacksChange}
             />
-            <GroupUseRems shouldUseRems={state.shouldUseRems} onChange={handleShouldUseRemsChange} />
+            <GroupUseRems
+              shouldUseRems={state.shouldUseRems}
+              onChange={handleShouldUseRemsChange}
+            />
             {state.shouldUseRems && (
-              <GroupRemValueInPx remValueInPx={state.remValueInPx} onChange={handleRemValueInPxChange} />
+              <GroupRemValueInPx
+                remValueInPx={state.remValueInPx}
+                onChange={handleRemValueInPxChange}
+              />
             )}
             <noscript>
               <Button type="submit" isFullWidth={true}>

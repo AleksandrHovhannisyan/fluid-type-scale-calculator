@@ -4,7 +4,10 @@ import debounce from 'lodash/debounce';
 import { InputProps } from '../Input/Input';
 
 export type SelectProps = Pick<InputProps, 'name'> &
-  Omit<DetailedHTMLProps<SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>, 'ref' | 'name'> & {
+  Omit<
+    DetailedHTMLProps<SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>,
+    'ref' | 'name'
+  > & {
     /** The delay (in milliseconds) for the change event. Defaults to `0` (no delay). */
     delay?: number;
   };

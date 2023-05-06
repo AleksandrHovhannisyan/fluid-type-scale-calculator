@@ -1,4 +1,4 @@
-import type { ElementType, FC, HTMLProps } from 'react';
+import type { ElementType, FC, HTMLProps, PropsWithChildren } from 'react';
 import clsx from 'clsx';
 import styles from './Rhythm.module.scss';
 
@@ -10,7 +10,12 @@ type RhythmProps = HTMLProps<HTMLDivElement> & {
 /**
  * Defines a vertical rhythm layout, spacing children according to their line height.
  */
-const Rhythm: FC<RhythmProps> = ({ className, children, as: Tag = 'div', ...otherProps }) => {
+const Rhythm: FC<PropsWithChildren<RhythmProps>> = ({
+  className,
+  children,
+  as: Tag = 'div',
+  ...otherProps
+}) => {
   return (
     <Tag {...otherProps} className={clsx(styles.rhythm, className)}>
       {children}

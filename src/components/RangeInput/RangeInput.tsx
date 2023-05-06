@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import clsx from 'clsx';
 import Input, { InputProps } from '../Input/Input';
 import Label from '../Label/Label';
@@ -16,8 +17,10 @@ type RangeInputProps = Omit<InputProps, 'label' | 'type'> & {
  * Displays a range input slider along with a custom input box to allow for manual inputs.
  */
 const RangeInput = (props: RangeInputProps) => {
-  const { id, label, required, sliderClassName, numericInputClassName, className, ...otherProps } = props;
-  const numericInputId = `${id}-numeric`;
+  const { id, label, required, sliderClassName, numericInputClassName, className, ...otherProps } =
+    props;
+  const numericInputId = useId();
+
   return (
     <div className={clsx(styles.range, className)}>
       <Label htmlFor={id} title={label} />

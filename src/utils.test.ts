@@ -1,5 +1,11 @@
 import { GOOGLE_FONTS_BASE_URL } from './constants';
-import { getGoogleFontLinkTagHref, isCommaSeparatedList, isNumber, throwIf, toAbsoluteUrl } from './utils';
+import {
+  getGoogleFontLinkTagHref,
+  isCommaSeparatedList,
+  isNumber,
+  throwIf,
+  toAbsoluteUrl,
+} from './utils';
 
 describe('App-wide utilities', () => {
   describe('toAbsoluteUrl', () => {
@@ -21,14 +27,14 @@ describe('App-wide utilities', () => {
   });
   describe('getGoogleFontLinkTagHref', () => {
     it('properly escapes spaces in font family names', () => {
-      expect(getGoogleFontLinkTagHref({ family: 'Libre Baskerville', display: 'swap' })).toStrictEqual(
-        `${GOOGLE_FONTS_BASE_URL}?family=Libre+Baskerville&display=swap`
-      );
+      expect(
+        getGoogleFontLinkTagHref({ family: 'Libre Baskerville', display: 'swap' })
+      ).toStrictEqual(`${GOOGLE_FONTS_BASE_URL}?family=Libre+Baskerville&display=swap`);
     });
     it('respects the display property', () => {
-      expect(getGoogleFontLinkTagHref({ family: 'Libre Baskerville', display: 'fallback' })).toStrictEqual(
-        `${GOOGLE_FONTS_BASE_URL}?family=Libre+Baskerville&display=fallback`
-      );
+      expect(
+        getGoogleFontLinkTagHref({ family: 'Libre Baskerville', display: 'fallback' })
+      ).toStrictEqual(`${GOOGLE_FONTS_BASE_URL}?family=Libre+Baskerville&display=fallback`);
     });
   });
   describe('isNumber', () => {
@@ -74,7 +80,10 @@ describe('App-wide utilities', () => {
       expect(() => throwIf(true)).toThrow();
     });
     it('throws the given error message', () => {
-      expect(() => throwIf(true, 'error message')).toThrowError({ name: 'Error', message: 'error message' });
+      expect(() => throwIf(true, 'error message')).toThrowError({
+        name: 'Error',
+        message: 'error message',
+      });
     });
   });
 });

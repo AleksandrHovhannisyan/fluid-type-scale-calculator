@@ -12,7 +12,11 @@ type Props = Pick<FormState, 'namingConvention'> & {
 const GroupNamingConvention = (props: Props) => {
   const { namingConvention, onChange } = props;
   return (
-    <Label title="Variable prefix" description="Use whatever naming convention you prefer." layout="to-horizontal">
+    <Label
+      title="Variable prefix"
+      description="Use whatever naming convention you prefer."
+      layout="to-horizontal"
+    >
       <Input
         name={QueryParamId.namingConvention}
         type="text"

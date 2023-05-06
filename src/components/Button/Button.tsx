@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, DetailedHTMLProps, FC } from 'react';
+import type { ButtonHTMLAttributes, DetailedHTMLProps, FC, PropsWithChildren } from 'react';
 import clsx from 'clsx';
 import styles from './Button.module.scss';
 
@@ -9,9 +9,17 @@ type ButtonProps = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HT
   isFullWidth?: boolean;
 };
 
-const Button: FC<ButtonProps> = ({ children, className, isFullWidth, ...otherProps }) => {
+const Button: FC<PropsWithChildren<ButtonProps>> = ({
+  children,
+  className,
+  isFullWidth,
+  ...otherProps
+}) => {
   return (
-    <button className={clsx(styles.button, { [styles['full-width']]: isFullWidth }, className)} {...otherProps}>
+    <button
+      className={clsx(styles.button, { [styles['full-width']]: isFullWidth }, className)}
+      {...otherProps}
+    >
       {children}
     </button>
   );

@@ -1,4 +1,4 @@
-import type { FC, HTMLProps } from 'react';
+import type { FC, HTMLProps, PropsWithChildren } from 'react';
 import clsx from 'clsx';
 import styles from './Label.module.scss';
 
@@ -12,7 +12,7 @@ export type LabelProps = Omit<HTMLProps<HTMLLabelElement & HTMLFieldSetElement>,
   layout?: 'vertical' | 'horizontal' | 'to-horizontal';
 };
 
-const Label: FC<LabelProps> = (props) => {
+const Label: FC<PropsWithChildren<LabelProps>> = (props) => {
   const { className, children, title, description, layout = 'vertical', ...otherProps } = props;
 
   const hasStylizedLabelText = !!title || !!description;

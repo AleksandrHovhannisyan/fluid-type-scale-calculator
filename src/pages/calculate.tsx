@@ -65,7 +65,9 @@ export const getServerSideProps = async (
     // TypeScript doesn't support type annotations on catch
     const error = e as Error;
     const statusCode = HTTP_STATUS_CODES.HTTP_STATUS_BAD_REQUEST;
-    const description = error.message ?? 'One or more query parameters are invalid. Please check the URL you entered.';
+    const description =
+      error.message ??
+      'One or more query parameters are invalid. Please check the URL you entered.';
     return {
       props: {
         fonts,

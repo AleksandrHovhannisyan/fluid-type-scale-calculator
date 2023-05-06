@@ -1,10 +1,11 @@
-import type {
+import {
   ChangeEvent,
   DetailedHTMLProps,
   FocusEvent,
   HTMLInputTypeAttribute,
   HTMLProps,
   InputHTMLAttributes,
+  useId,
 } from 'react';
 import { useMemo, useState } from 'react';
 import debounce from 'lodash/debounce';
@@ -20,9 +21,12 @@ const specializedPropsByType: Partial<Record<InputType, Partial<HTMLProps<HTMLIn
   },
 };
 
-export type InputProps = Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, 'type'> & {
+export type InputProps = Omit<
+  DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
+  'type'
+> & {
   /** The delay (in milliseconds) for the change event. Defaults to a short delay if not specified and `0` for checkboxes, radio buttons, and range inputs. */
-  delay?: Delay;
+  delay?: 0 | Delay;
   /** The type of input. */
   type: InputType;
 };
@@ -31,7 +35,8 @@ const Input = (props: InputProps) => {
   const { onChange, type, step, pattern, delay = Delay.SHORT, ...otherProps } = props;
   const htmlStep = type === 'number' ? step ?? 'any' : undefined;
   const finalDelay = ['checkbox', 'radio', 'range'].includes(type) ? 0 : delay;
-  const [validationMessage, setValidationMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const errorMessageId = useId();
 
   const debouncedHandleChange = useMemo(
     () => {
@@ -50,8 +55,8 @@ const Input = (props: InputProps) => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     // Clear the previous validation message immediately
-    if (validationMessage) {
-      setValidationMessage('');
+    if (errorMessage) {
+      setErrorMessage('');
     }
     // Handle the actual change debounced
     debouncedHandleChange(e);
@@ -60,13 +65,13 @@ const Input = (props: InputProps) => {
   const handleBlur = (e: FocusEvent<HTMLInputElement>) => {
     const input = e.target;
     // If we already validated this input and the user hasn't typed anything since then, abort
-    if (validationMessage) {
+    if (errorMessage) {
       return;
     }
     // Update validation message
     const newValidationMessage = input.validationMessage;
-    if (newValidationMessage !== validationMessage) {
-      setValidationMessage(newValidationMessage);
+    if (newValidationMessage !== errorMessage) {
+      setErrorMessage(newValidationMessage);
     }
     // If invalid, focus the input so the message gets narrated
     if (newValidationMessage) {
@@ -75,18 +80,11 @@ const Input = (props: InputProps) => {
     }
   };
 
-  // Memoize to avoid recomputing on every render
-  const errorId = useMemo(() => {
-    if (validationMessage) {
-      return `error-${otherProps.id ?? crypto.randomUUID().substring(0, 8)}`;
-    }
-  }, [otherProps.id, validationMessage]);
-
   return (
     <>
-      {validationMessage && (
-        <span className={styles.error} id={errorId}>
-          {validationMessage}
+      {errorMessage && (
+        <span className={styles.error} id={errorMessageId}>
+          {errorMessage}
         </span>
       )}
       <input
@@ -94,9 +92,9 @@ const Input = (props: InputProps) => {
         {...specializedPropsByType[type]}
         type={type}
         step={htmlStep}
-        aria-invalid={!!validationMessage}
+        aria-invalid={!!errorMessage}
         pattern={pattern}
-        aria-describedby={errorId}
+        aria-describedby={errorMessage ? errorMessageId : undefined}
         onChange={handleChange}
         onBlur={handleBlur}
       />

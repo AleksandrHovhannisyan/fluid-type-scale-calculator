@@ -1,6 +1,7 @@
 import { UserSuppliedQueryParams } from './schema.types';
 
-export const parseRawValue = (query: UserSuppliedQueryParams, id: string): string | undefined => query[id];
+export const parseRawValue = (query: UserSuppliedQueryParams, id: string): string | undefined =>
+  query[id];
 
 /** Parses the query parameter with the given ID as a number. Returns the default value if the param is not specified. */
 export const parseNumber = (options: {

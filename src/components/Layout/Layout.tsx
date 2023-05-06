@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import type { FC, PropsWithChildren } from 'react';
 import clsx from 'clsx';
 import type { JsonLd } from 'jsonld/jsonld-spec';
 import Head from 'next/head';
@@ -12,7 +12,7 @@ import { defaultSeoProps, faviconSizes } from './Layout.constants';
 import type { LayoutProps } from './Layout.types';
 import styles from './Layout.module.scss';
 
-const Layout: FC<LayoutProps> = (props) => {
+const Layout: FC<PropsWithChildren<LayoutProps>> = (props) => {
   const { seoProps = defaultSeoProps } = props;
   const { pathname } = useRouter();
   const pageUrl = toAbsoluteUrl(pathname);
@@ -50,9 +50,17 @@ const Layout: FC<LayoutProps> = (props) => {
         <meta name="twitter:description" content={seoProps.description} />
         <meta name="twitter:image" content={ogImageUrl} />
         {props.isBlockedFromIndexing && <meta name="robots" content="noindex" />}
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
         {faviconSizes.map((width) => (
-          <link key={width} rel="icon" href={`/assets/images/favicon-${width}.png`} sizes={`${width}x${width}`}></link>
+          <link
+            key={width}
+            rel="icon"
+            href={`/assets/images/favicon-${width}.png`}
+            sizes={`${width}x${width}`}
+          ></link>
         ))}
       </Head>
       {props.children}
