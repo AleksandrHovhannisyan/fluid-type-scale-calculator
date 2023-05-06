@@ -4,12 +4,12 @@ import NextLink, { LinkProps } from 'next/link';
 import styles from './Link.module.scss';
 
 type Props = Pick<LinkProps, 'href'> &
-  Pick<HTMLProps<HTMLAnchorElement>, 'dangerouslySetInnerHTML' | 'aria-label'> & {
+  Pick<HTMLProps<HTMLAnchorElement>, 'aria-label'> & {
     /** Optional styling for the link. */
     className?: string;
   };
 
-const Link: FC<Props> = ({ href, className, children, dangerouslySetInnerHTML, ...otherProps }) => {
+const Link: FC<Props> = ({ href, className, children, ...otherProps }) => {
   const isExternalLink = /https?:\/\//.test(href.toString());
   const hrefDependentProps = isExternalLink
     ? {
@@ -19,13 +19,7 @@ const Link: FC<Props> = ({ href, className, children, dangerouslySetInnerHTML, .
     : {};
 
   const link = (
-    <a
-      href={href.toString()}
-      className={clsx(styles.link, className)}
-      dangerouslySetInnerHTML={dangerouslySetInnerHTML}
-      {...otherProps}
-      {...hrefDependentProps}
-    >
+    <a href={href.toString()} className={clsx(styles.link, className)} {...otherProps} {...hrefDependentProps}>
       {children}
     </a>
   );
