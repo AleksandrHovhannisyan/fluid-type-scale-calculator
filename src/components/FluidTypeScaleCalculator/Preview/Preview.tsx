@@ -1,6 +1,7 @@
 import { ChangeEvent } from 'react';
 import { useCallback } from 'react';
 import clsx from 'clsx';
+import Head from 'next/head';
 import { DEFAULT_FONT_FAMILY } from '../../../constants';
 import { schema } from '../../../schema/schema';
 import { QueryParamId } from '../../../schema/schema.types';
@@ -46,12 +47,13 @@ const Preview = (props: Props) => {
     <>
       {/* Don't make a duplicate request for the default font since we're self-hosting that. */}
       {state.preview.fontFamily !== DEFAULT_FONT_FAMILY && (
-        // Don't render in Head to bypass Next.js font optimization (which breaks in a no-JS environment)
-        <link
-          rel="stylesheet"
-          type="text/css"
-          href={getGoogleFontLinkTagHref({ family: state.preview.fontFamily, display: 'swap' })}
-        />
+        <Head>
+          <link
+            rel="stylesheet"
+            type="text/css"
+            href={getGoogleFontLinkTagHref({ family: state.preview.fontFamily, display: 'swap' })}
+          />
+        </Head>
       )}
       <section className={styles.preview}>
         <h2>Preview your type scale</h2>
