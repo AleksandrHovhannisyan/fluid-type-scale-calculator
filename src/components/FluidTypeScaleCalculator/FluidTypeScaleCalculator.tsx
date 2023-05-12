@@ -1,4 +1,6 @@
 import { useCallback, useMemo, useReducer } from 'react';
+import debounce from 'lodash/debounce';
+import { Delay } from '../../constants';
 import type { WithFonts } from '../../types';
 import Button from '../Button/Button';
 import Switcher from '../Switcher/Switcher';
@@ -46,7 +48,7 @@ const FluidTypeScaleCalculator = (props: Props) => {
 
   // Whenever a form value changes, serialize the form data and update the URL shallowly. Nice way to expose the link sharing functionality natively without having to do a dedicated copy button.
   const handleFormChange = useMemo(() => {
-    return (form: HTMLFormElement) => {
+    return debounce((form: HTMLFormElement) => {
       const formData = new FormData(form);
       const searchParams = new URLSearchParams(formData as unknown as Record<string, string>);
       const url = new URL(form.action);
@@ -54,7 +56,7 @@ const FluidTypeScaleCalculator = (props: Props) => {
       const newUrl = url.toString();
       // We could also do this routing with Next.js's router, but that would trigger a page reload (even with shallow: true) because we're requesting a new page. Why two pages? Because I want the home page to be SSG for better TTFB but the /calculate route to be SSR for link sharing via query params. Solution: https://github.com/vercel/next.js/discussions/18072#discussioncomment-109059
       window.history.replaceState({ ...window.history.state, as: newUrl, url: newUrl }, '', newUrl);
-    };
+    }, Delay.LONG);
   }, []);
 
   // Prefer defining these memoized event handlers here as opposed to consuming the dispatch function in each sub-component (which could allow a component to accidentally change slices of state that it should not be concerned with, and would defeat the purpose of using React.memo)
