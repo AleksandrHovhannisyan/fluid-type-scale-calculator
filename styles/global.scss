@@ -1,4 +1,3 @@
-@import "./fontFace";
 @import "./functions";
 @import "./mixins";
 @import "./reset";
@@ -13,8 +12,6 @@
 
 body {
   font-size: var(--sp-base);
-  font-family: var(--ff-body);
-  font-weight: var(--fw-body-regular);
   accent-color: var(--color-surface-dark);
   -webkit-font-smoothing: antialiased;
 }
@@ -53,8 +50,6 @@ h6 {
 }
 
 code {
-  font-family: var(--ff-code);
-  font-weight: var(--fw-code-regular);
   font-size: var(--sp-sm);
   background-color: var(--color-surface-medium);
   padding: 4px;

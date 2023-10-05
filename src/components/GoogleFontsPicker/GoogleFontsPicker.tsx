@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { Delay } from '../../constants';
-import { QueryParamId } from '../../schema/schema.types';
 import { WithFonts } from '../../types';
 import Select, { SelectProps } from '../Select/Select';
 

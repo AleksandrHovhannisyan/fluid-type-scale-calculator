@@ -2,7 +2,7 @@ import { ChangeEvent } from 'react';
 import { useCallback } from 'react';
 import clsx from 'clsx';
 import Head from 'next/head';
-import { DEFAULT_FONT_FAMILY } from '../../../constants';
+import { DEFAULT_FONT_FAMILY, Fonts } from '../../../constants';
 import { schema } from '../../../schema/schema';
 import { QueryParamId } from '../../../schema/schema.types';
 import type { TypeScale, WithFonts } from '../../../types';
@@ -24,6 +24,7 @@ type Props = WithFonts & {
 const Preview = (props: Props) => {
   const { fonts, typeScale } = props;
   const { state, dispatch } = useFormState();
+  const isDefaultFontFamily = state.preview.fontFamily === DEFAULT_FONT_FAMILY;
 
   const handlePreviewFontChange = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
     const fontFamily = e.target.value;
@@ -46,7 +47,7 @@ const Preview = (props: Props) => {
   return (
     <>
       {/* Don't make a duplicate request for the default font since we're self-hosting that. */}
-      {state.preview.fontFamily !== DEFAULT_FONT_FAMILY && (
+      {!isDefaultFontFamily && (
         <Head>
           <link
             rel="stylesheet"
@@ -133,7 +134,9 @@ const Preview = (props: Props) => {
                         className="nowrap"
                         style={{
                           fontSize: `calc(${fontSize} * ${remValue}/${initialFormState.remValueInPx})`,
-                          fontFamily: state.preview.fontFamily,
+                          fontFamily: isDefaultFontFamily
+                            ? Fonts.BODY.style.fontFamily
+                            : state.preview.fontFamily,
                         }}
                       >
                         {state.preview.text}
