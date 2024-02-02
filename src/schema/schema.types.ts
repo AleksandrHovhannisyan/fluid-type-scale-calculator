@@ -1,5 +1,4 @@
 import { WithFonts } from '../types';
-import type { MapDiscriminatedUnion } from '../types.generics';
 
 /** A recognized query param ID. Also used on the front end by form inputs to set their `name` attribute to the corresponding query param. */
 export enum QueryParamId {
@@ -129,5 +128,5 @@ export type QueryParam =
   | ParamPreviewText
   | ParamPreviewWidth;
 
-/** Mapped type where they keys `K` correspond to shapes that extend `{ id: K }`. Defines a config for each query parameter. */
-export type QueryParamSchema = MapDiscriminatedUnion<QueryParam, 'id'>;
+/** Schema for query params recognized and validated by the app. */
+export type QueryParamSchema = Record<QueryParamId, QueryParam>;

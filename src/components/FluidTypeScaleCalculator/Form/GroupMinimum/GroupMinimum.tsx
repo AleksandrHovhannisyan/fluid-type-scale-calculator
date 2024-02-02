@@ -29,7 +29,6 @@ const GroupMinimum = (props: Props) => {
           type="number"
           required={true}
           min={schema[QueryParamId.minFontSize].min}
-          max={schema[QueryParamId.minFontSize].max}
           defaultValue={min.fontSize}
           onChange={(e) =>
             onChange({
@@ -59,7 +58,6 @@ const GroupMinimum = (props: Props) => {
         id="type-scale-min"
         ratio={min.ratio}
         min={schema[QueryParamId.minRatio].min}
-        max={schema[QueryParamId.minRatio].max}
         onChange={(e) => onChange({ ratio: e.target.valueAsNumber })}
       />
     </Fieldset>

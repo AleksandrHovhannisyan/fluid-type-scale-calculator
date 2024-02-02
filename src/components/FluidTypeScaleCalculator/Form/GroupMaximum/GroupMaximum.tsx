@@ -29,7 +29,6 @@ const GroupMaximum = (props: Props) => {
           type="number"
           required={true}
           min={schema[QueryParamId.maxFontSize].min}
-          max={schema[QueryParamId.maxFontSize].max}
           defaultValue={max.fontSize}
           onChange={(e) =>
             onChange({
@@ -45,7 +44,6 @@ const GroupMaximum = (props: Props) => {
           type="number"
           required={true}
           min={minScreenWidth}
-          max={schema[QueryParamId.maxWidth].max}
           defaultValue={max.screenWidth}
           onChange={(e) =>
             onChange({
@@ -59,7 +57,6 @@ const GroupMaximum = (props: Props) => {
         id="type-scale-max"
         ratio={max.ratio}
         min={schema[QueryParamId.maxRatio].min}
-        max={schema[QueryParamId.maxRatio].max}
         onChange={(e) => onChange({ ratio: e.target.valueAsNumber })}
       />
     </Fieldset>

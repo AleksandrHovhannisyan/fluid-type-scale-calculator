@@ -16,7 +16,7 @@ import {
  * Each query param supplies functions for validating its own data, either on its own or in relation to other query params, as well as for
  * transforming the raw query param string to the desired value.
  */
-export const schema: QueryParamSchema = {
+export const schema = {
   [QueryParamId.minFontSize]: {
     id: QueryParamId.minFontSize,
     default: 16,
@@ -232,4 +232,4 @@ export const schema: QueryParamSchema = {
       throwIfOutOfBounds(this.id, previewWidth, { min: this.min, max: this.max });
     },
   },
-};
+} satisfies QueryParamSchema; // use satisfies to avoid widening the type while still typechecking the object
