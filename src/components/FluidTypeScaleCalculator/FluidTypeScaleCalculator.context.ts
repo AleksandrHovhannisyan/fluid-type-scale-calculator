@@ -2,34 +2,12 @@ import { createContext, useContext } from 'react';
 import { schema } from '../../schema/schema';
 import { QueryParamId } from '../../schema/schema.types';
 import { FormAction, FormState, WithDispatch } from './FluidTypeScaleCalculator.types';
+import { getStateFromSchema } from './FluidTypeScaleCalculator.utils';
 
-/** The initial values used to populate the app's form. */
-export const initialFormState: FormState = {
-  min: {
-    fontSize: schema[QueryParamId.minFontSize].default,
-    screenWidth: schema[QueryParamId.minWidth].default,
-    ratio: schema[QueryParamId.minRatio].default,
-  },
-  max: {
-    fontSize: schema[QueryParamId.maxFontSize].default,
-    screenWidth: schema[QueryParamId.maxWidth].default,
-    ratio: schema[QueryParamId.maxRatio].default,
-  },
-  typeScaleSteps: {
-    all: schema[QueryParamId.allSteps].default,
-    base: schema[QueryParamId.baseStep].default,
-  },
-  namingConvention: schema[QueryParamId.namingConvention].default,
-  shouldIncludeFallbacks: schema[QueryParamId.shouldIncludeFallbacks].default,
-  shouldUseRems: schema[QueryParamId.shouldUseRems].default,
-  remValueInPx: schema[QueryParamId.remValueInPx].default,
-  roundingDecimalPlaces: schema[QueryParamId.roundingDecimalPlaces].default,
-  preview: {
-    fontFamily: schema[QueryParamId.previewFont].default,
-    text: schema[QueryParamId.previewText].default,
-    width: schema[QueryParamId.previewWidth].default,
-  },
-};
+export const initialFormState = getStateFromSchema(schema, {
+  // HACK: HTML forms do not serialize unchecked checkbox inputs, so they don't appear in the URL query params. The .preprocess() logic for this param checks if it's undefined and, if so, returns false. Otherwise, it checks if the value is 'on' (what HTML serializes checked checkboxes to) or 'true' (custom alias). For the initial state, we need to pass this override to force useRems=true. Otherwise, we'll fall back to false and that's not the desired default.
+  [QueryParamId.shouldUseRems]: 'true',
+});
 
 /** Given the previous app state and a dispatched action, returns the newly transformed state.
  * https://www.aleksandrhovhannisyan.com/blog/managing-complex-state-react-usereducer/
@@ -60,15 +38,16 @@ export const formStateReducer = (state: FormState, action: FormAction): FormStat
     }
     case 'setShouldUseRems': {
       const shouldUseRems = action.payload;
-      const remValueInPx = shouldUseRems ? state.remValueInPx : initialFormState.remValueInPx;
+      const remValueInPx = shouldUseRems ? state.remValueInPx : 16;
       return { ...state, shouldUseRems, remValueInPx };
     }
     case 'setRemValueInPx': {
       return { ...state, remValueInPx: action.payload };
     }
     case 'setRoundingDecimalPlaces': {
-      const min = schema[QueryParamId.roundingDecimalPlaces].min;
-      const max = schema[QueryParamId.roundingDecimalPlaces].max;
+      // TODO: read from zod schema
+      const min = 0;
+      const max = 10;
       // To prevent client-side errors (e.g., because we can't rounding to negative decimal places or it'll throw an error)
       const roundingDecimalPlaces = Math.max(Math.min(action.payload, max), min);
       return { ...state, roundingDecimalPlaces };

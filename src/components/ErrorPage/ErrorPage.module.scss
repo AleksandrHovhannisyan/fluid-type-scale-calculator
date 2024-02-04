@@ -8,4 +8,8 @@
   display: grid;
   place-content: center;
   flex: 1 0 0;
+
+  p {
+    max-width: 40ch;
+  }
 }

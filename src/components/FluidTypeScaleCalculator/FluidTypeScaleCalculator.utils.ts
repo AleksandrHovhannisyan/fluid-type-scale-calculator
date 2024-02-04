@@ -1,5 +1,41 @@
+import { ZodSchema } from 'zod';
+import { UserSuppliedQueryParams } from '../../schema/schema.types';
 import { TypeScale } from '../../types';
 import { FormState } from './FluidTypeScaleCalculator.types';
+
+/** Given a schema and query params, returns the corresponding runtime app state. */
+export const getStateFromSchema = (
+  schema: ZodSchema,
+  query: UserSuppliedQueryParams
+): FormState => {
+  const params = schema.parse(query);
+  return {
+    min: {
+      fontSize: params.minFontSize,
+      screenWidth: params.minWidth,
+      ratio: params.minRatio,
+    },
+    max: {
+      fontSize: params.maxFontSize,
+      screenWidth: params.maxWidth,
+      ratio: params.maxRatio,
+    },
+    typeScaleSteps: {
+      all: params.steps,
+      base: params.baseStep,
+    },
+    namingConvention: params.prefix,
+    shouldIncludeFallbacks: params.includeFallbacks,
+    shouldUseRems: params.useRems,
+    remValueInPx: params.remValue,
+    roundingDecimalPlaces: params.decimals,
+    preview: {
+      fontFamily: params.previewFont,
+      text: params.previewText,
+      width: params.previewWidth,
+    },
+  };
+};
 
 /** Given a form state representing user input for the various parameters, returns
  * the corresponding type scale mapping each step to its min/max/preferred font sizes.

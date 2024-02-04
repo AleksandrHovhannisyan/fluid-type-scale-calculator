@@ -1,235 +1,60 @@
-import { DEFAULT_FONT_FAMILY } from '../constants';
+import { z } from 'zod';
 import typeScaleRatios from '../data/typeScaleRatios.json';
-import { isCommaSeparatedList, throwIf, toCommaSeparatedList } from '../utils';
-import { DEFAULT_MAX_SCREEN_WIDTH } from './schema.constants';
-import { parseCheckboxBoolean, parseNumber, parseRawValue } from './schema.parsers';
-import { QueryParamId, QueryParamSchema } from './schema.types';
-import {
-  throwIfEmpty,
-  throwIfInvalidCheckboxBoolean,
-  throwIfNaN,
-  throwIfNotInteger,
-  throwIfOutOfBounds,
-} from './schema.validators';
+import { WithFonts } from '../types';
+import { QueryParamId } from './schema.types';
 
-/** A schema describing all of the valid query parameters recognized by the app on both the server side and client side (as input names).
- * Each query param supplies functions for validating its own data, either on its own or in relation to other query params, as well as for
- * transforming the raw query param string to the desired value.
- */
-export const schema = {
-  [QueryParamId.minFontSize]: {
-    id: QueryParamId.minFontSize,
-    default: 16,
-    min: 0,
-    parse(query) {
-      return parseNumber({ query, id: this.id, fallback: this.default });
-    },
-    validate({ query }) {
-      const minFontSize = this.parse(query);
-      throwIfNaN(this.id, minFontSize);
-      throwIfOutOfBounds(this.id, minFontSize, { min: this.min, max: this.max });
-    },
-  },
-  [QueryParamId.minWidth]: {
-    id: QueryParamId.minWidth,
-    default: 400,
-    min: 0,
-    parse(query) {
-      return parseNumber({ query, id: this.id, fallback: this.default });
-    },
-    validate({ query }) {
-      const minScreenWidth = this.parse(query);
-      const maxScreenWidth = schema[QueryParamId.maxWidth].parse(query);
-      throwIfNaN(this.id, minScreenWidth);
-      throwIfOutOfBounds(this.id, minScreenWidth, { min: this.min, max: maxScreenWidth - 1 });
-    },
-  },
-  [QueryParamId.minRatio]: {
-    id: QueryParamId.minRatio,
-    default: typeScaleRatios.majorThird.ratio,
-    min: 0,
-    parse(query) {
-      return parseNumber({ query, id: this.id, fallback: this.default });
-    },
-    validate({ query }) {
-      const minRatio = this.parse(query);
-      throwIfNaN(this.id, minRatio);
-      throwIfOutOfBounds(this.id, minRatio, { min: this.min, max: this.max });
-    },
-  },
-  [QueryParamId.maxFontSize]: {
-    id: QueryParamId.maxFontSize,
-    default: 19,
-    min: 0,
-    parse(query) {
-      return parseNumber({ query, id: this.id, fallback: this.default });
-    },
-    validate({ query }) {
-      const maxFontSize = this.parse(query);
-      throwIfNaN(this.id, maxFontSize);
-      throwIfOutOfBounds(this.id, maxFontSize, { min: this.min, max: this.max });
-    },
-  },
-  [QueryParamId.maxWidth]: {
-    id: QueryParamId.maxWidth,
-    default: DEFAULT_MAX_SCREEN_WIDTH,
-    parse(query) {
-      return parseNumber({ query, id: this.id, fallback: this.default });
-    },
-    validate({ query }) {
-      const minScreenWidth = schema[QueryParamId.minWidth].parse(query);
-      const maxScreenWidth = this.parse(query);
-      throwIfNaN(this.id, maxScreenWidth);
-      throwIfOutOfBounds(this.id, maxScreenWidth, { min: minScreenWidth + 1, max: this.max });
-    },
-  },
-  [QueryParamId.maxRatio]: {
-    id: QueryParamId.maxRatio,
-    default: typeScaleRatios.perfectFourth.ratio,
-    min: 0,
-    parse(query) {
-      return parseNumber({ query, id: this.id, fallback: this.default });
-    },
-    validate({ query }) {
-      const maxRatio = this.parse(query);
-      throwIfNaN(this.id, maxRatio);
-      throwIfOutOfBounds(this.id, maxRatio, { min: this.min, max: this.max });
-    },
-  },
-  [QueryParamId.allSteps]: {
-    id: QueryParamId.allSteps,
-    default: ['sm', 'base', 'md', 'lg', 'xl', 'xxl', 'xxxl'],
-    parse(query) {
-      const rawString = parseRawValue(query, this.id);
-      if (!rawString) return this.default;
-      return toCommaSeparatedList(rawString);
-    },
-    validate({ query }) {
-      const allSteps = this.parse(query);
-      const baseStep = schema[QueryParamId.baseStep].parse(query);
-      throwIf(
-        !allSteps.includes(baseStep),
-        `${this.id} (${allSteps}) does not include the base step (${baseStep}).`
-      );
-      // While this may seem like it will never throw, imagine a scenario where a user enters x,y;z. Splitting it yields ['x', 'y;z'].
-      // And our regex strictly requires that each item in the list only use alphanumeric characters.
-      throwIf(
-        !isCommaSeparatedList(allSteps.join(',')),
-        `${this.id} must be a comma-separated list of step names.`
-      );
-    },
-  },
-  [QueryParamId.baseStep]: {
-    id: QueryParamId.baseStep,
-    default: 'base',
-    parse(query) {
-      return parseRawValue(query, this.id) ?? this.default;
-    },
-    validate({ query }) {
-      const baseStep = this.parse(query);
-      const allSteps = schema[QueryParamId.allSteps].parse(query);
-      throwIf(
-        !allSteps.includes(baseStep),
-        `The base step ${baseStep} was not found in the list of all steps (${allSteps}).`
-      );
-    },
-  },
-  [QueryParamId.namingConvention]: {
-    id: QueryParamId.namingConvention,
-    default: 'font-size',
-    parse(query) {
-      return parseRawValue(query, this.id) ?? this.default;
-    },
-    validate({ query }) {
-      throwIfEmpty(this.id, this.parse(query));
-    },
-  },
-  [QueryParamId.shouldIncludeFallbacks]: {
-    id: QueryParamId.shouldIncludeFallbacks,
-    default: false,
-    parse(query) {
-      return parseCheckboxBoolean({ query, id: this.id });
-    },
-    validate({ query }) {
-      const rawValue = parseRawValue(query, this.id);
-      throwIfInvalidCheckboxBoolean(this.id, rawValue);
-    },
-  },
-  [QueryParamId.shouldUseRems]: {
-    id: QueryParamId.shouldUseRems,
-    default: true,
-    parse(query) {
-      return parseCheckboxBoolean({ query, id: this.id });
-    },
-    validate({ query }) {
-      const rawValue = parseRawValue(query, this.id);
-      throwIfInvalidCheckboxBoolean(this.id, rawValue);
-    },
-  },
-  [QueryParamId.remValueInPx]: {
-    id: QueryParamId.remValueInPx,
-    default: 16,
-    min: 1,
-    parse(query) {
-      return parseNumber({ query, id: this.id, fallback: this.default });
-    },
-    validate({ query }) {
-      const remValueInPx = this.parse(query);
-      throwIfNaN(this.id, remValueInPx);
-      throwIfNotInteger(this.id, remValueInPx);
-      throwIfOutOfBounds(this.id, remValueInPx, { min: this.min });
-    },
-  },
-  [QueryParamId.roundingDecimalPlaces]: {
-    id: QueryParamId.roundingDecimalPlaces,
-    default: 2,
-    min: 0,
-    max: 10,
-    parse(query) {
-      return parseNumber({ query, id: this.id, fallback: this.default });
-    },
-    validate({ query }) {
-      const decimalPlaces = this.parse(query);
-      throwIfNaN(this.id, decimalPlaces);
-      throwIfNotInteger(this.id, decimalPlaces);
-      throwIfOutOfBounds(this.id, decimalPlaces, { min: this.min, max: this.max });
-    },
-  },
-  [QueryParamId.previewFont]: {
-    id: QueryParamId.previewFont,
-    default: DEFAULT_FONT_FAMILY,
-    parse(query) {
-      return parseRawValue(query, this.id) ?? this.default;
-    },
-    validate({ query, fonts }) {
-      const fontFamily = this.parse(query);
-      const isUnrecognizedFont = !fonts.includes(fontFamily);
-      throwIf(isUnrecognizedFont, `${fontFamily} is not a recognized Google Font.`);
-    },
-  },
-  [QueryParamId.previewText]: {
-    id: QueryParamId.previewText,
-    default: 'Almost before we knew it, we had left the ground',
-    parse(query) {
-      return parseRawValue(query, this.id) ?? this.default;
-    },
-    validate({ query }) {
-      const previewText = this.parse(query);
-      throwIfEmpty(this.id, previewText);
-    },
-  },
-  [QueryParamId.previewWidth]: {
-    id: QueryParamId.previewWidth,
-    min: 0,
-    max: 1920,
-    default: DEFAULT_MAX_SCREEN_WIDTH,
-    parse(query) {
-      return parseNumber({ query, id: this.id, fallback: this.default });
-    },
-    validate({ query }) {
-      const previewWidth = this.parse(query);
-      throwIfNaN(this.id, previewWidth);
-      throwIfOutOfBounds(this.id, previewWidth, { min: this.min, max: this.max });
-    },
-  },
-} satisfies QueryParamSchema; // use satisfies to avoid widening the type while still typechecking the object
+/** Schema for validating and parsing all query parameters recognized by the app. Used on the server side to read query params on the /calculate route. */
+export const schema = z
+  .object({
+    [QueryParamId.minFontSize]: z.coerce.number().min(0).default(16),
+    [QueryParamId.minWidth]: z.coerce.number().min(0).default(400),
+    [QueryParamId.minRatio]: z.coerce.number().min(0).default(typeScaleRatios.majorThird.ratio),
+    [QueryParamId.maxFontSize]: z.coerce.number().min(0).default(19),
+    [QueryParamId.maxWidth]: z.coerce.number().min(0).default(1280),
+    [QueryParamId.maxRatio]: z.coerce.number().min(0).default(typeScaleRatios.perfectFourth.ratio),
+    [QueryParamId.allSteps]: z.preprocess(
+      // Array query params come in as strings, but we need them as runtime arrays, so preprocess split if not undefined
+      (value) => (typeof value === 'undefined' ? undefined : String(value).split(',')),
+      z.string().array().min(1).default(['sm', 'base', 'md', 'lg', 'xl', 'xxl', 'xxxl'])
+    ),
+    [QueryParamId.baseStep]: z.coerce.string().min(1).default('base'),
+    [QueryParamId.namingConvention]: z.coerce.string().min(1).default('fs'),
+    [QueryParamId.shouldIncludeFallbacks]: z.coerce.boolean().default(false),
+    [QueryParamId.shouldUseRems]: z.preprocess(
+      (value) =>
+        // Boolean query params are 'on' if checked and omitted otherwise. App also supports true/false aliases. Anything else is false.
+        typeof value === 'undefined' ? false : ['on', 'true'].includes(String(value)),
+      z.boolean().default(true)
+    ),
+    [QueryParamId.remValueInPx]: z.coerce.number().min(1).default(16),
+    [QueryParamId.roundingDecimalPlaces]: z.coerce.number().min(0).max(10).default(2),
+    [QueryParamId.previewFont]: z.coerce.string().min(1).default('Inter'),
+    [QueryParamId.previewText]: z.coerce
+      .string()
+      .min(1)
+      .default('Almost before we knew it, we had left the ground'),
+    [QueryParamId.previewWidth]: z.coerce.number().min(1).default(1280),
+  })
+  .refine((schema) => schema[QueryParamId.minFontSize] < schema[QueryParamId.maxFontSize], {
+    message: 'Min font size must be less than max font size',
+    path: [QueryParamId.minFontSize],
+  })
+  .refine((schema) => schema[QueryParamId.minWidth] < schema[QueryParamId.maxWidth], {
+    message: 'Min screen width must be less than max screen width',
+    path: [QueryParamId.minWidth],
+  })
+  .refine((schema) => schema[QueryParamId.allSteps].includes(schema[QueryParamId.baseStep]), {
+    message: 'Base font size step must appear in the list of all steps',
+    path: [QueryParamId.baseStep],
+  });
+
+/** Returns all the default values for the schema. NOTE: Only works if every param has a default value. */
+export const SCHEMA_DEFAULTS = schema.parse({});
+
+/** Returns a fully refined schema, once we have additional information that is not statically available. */
+export const getSchema = (data: WithFonts) => {
+  return schema.refine((schema) => data.fonts.includes(schema[QueryParamId.previewFont]), {
+    message: 'Unrecognized Google Font',
+    path: [QueryParamId.previewFont],
+  });
+};

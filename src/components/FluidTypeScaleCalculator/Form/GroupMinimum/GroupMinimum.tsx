@@ -1,5 +1,4 @@
 import { memo } from 'react';
-import { schema } from '../../../../schema/schema';
 import { QueryParamId } from '../../../../schema/schema.types';
 import Fieldset from '../../../Fieldset/Fieldset';
 import Input from '../../../Input/Input';
@@ -28,7 +27,7 @@ const GroupMinimum = (props: Props) => {
           name={QueryParamId.minFontSize}
           type="number"
           required={true}
-          min={schema[QueryParamId.minFontSize].min}
+          min={0}
           defaultValue={min.fontSize}
           onChange={(e) =>
             onChange({
@@ -43,7 +42,7 @@ const GroupMinimum = (props: Props) => {
           name={QueryParamId.minWidth}
           type="number"
           required={true}
-          min={schema[QueryParamId.minWidth].min}
+          min={0}
           max={maxScreenWidth}
           defaultValue={min.screenWidth}
           onChange={(e) =>
@@ -57,7 +56,7 @@ const GroupMinimum = (props: Props) => {
         name={QueryParamId.minRatio}
         id="type-scale-min"
         ratio={min.ratio}
-        min={schema[QueryParamId.minRatio].min}
+        min={0}
         onChange={(e) => onChange({ ratio: e.target.valueAsNumber })}
       />
     </Fieldset>
