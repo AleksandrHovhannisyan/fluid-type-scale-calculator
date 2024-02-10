@@ -1,5 +1,4 @@
 import { memo } from 'react';
-import { schema } from '../../../../schema/schema';
 import { QueryParamId } from '../../../../schema/schema.types';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
@@ -27,8 +26,9 @@ const GroupRounding = (props: Props) => {
         className={styles['rounding-input']}
         type="number"
         step={1}
-        min={schema[QueryParamId.roundingDecimalPlaces].min}
-        max={schema[QueryParamId.roundingDecimalPlaces].max}
+        // TODO: read from zod schema
+        min={0}
+        max={10}
         required={true}
         defaultValue={roundingDecimalPlaces}
         onChange={(e) => onChange(e.target.valueAsNumber)}

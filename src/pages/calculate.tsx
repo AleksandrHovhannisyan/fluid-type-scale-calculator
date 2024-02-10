@@ -1,17 +1,18 @@
 import { STATUS_CODES as REASON_PHRASES } from 'http';
 import { constants as HTTP_STATUS_CODES } from 'http2';
 import type { GetServerSidePropsContext, GetServerSidePropsResult, NextPage } from 'next';
+import { ZodError } from 'zod';
 import ErrorPage from '../components/ErrorPage/ErrorPage';
 import FluidTypeScaleCalculator from '../components/FluidTypeScaleCalculator/FluidTypeScaleCalculator';
 import { initialFormState } from '../components/FluidTypeScaleCalculator/FluidTypeScaleCalculator.context';
 import { FormState } from '../components/FluidTypeScaleCalculator/FluidTypeScaleCalculator.types';
+import { getStateFromSchema } from '../components/FluidTypeScaleCalculator/FluidTypeScaleCalculator.utils';
 import HeroBanner from '../components/HeroBanner/HeroBanner';
 import Info from '../components/Info/Info';
 import Layout from '../components/Layout/Layout';
 import site from '../data/site.json';
-import { schema } from '../schema/schema';
-import { QueryParamId, UserSuppliedQueryParams } from '../schema/schema.types';
-import { validateQueryParams } from '../schema/schema.validators';
+import { getSchema } from '../schema/schema';
+import { UserSuppliedQueryParams } from '../schema/schema.types';
 import { HTTPError, WithFonts } from '../types';
 import { getGoogleFontFamilies } from '../utils';
 
@@ -27,38 +28,10 @@ export const getServerSideProps = async (
 ): Promise<GetServerSidePropsResult<CalculatePageProps>> => {
   const query = context.query as UserSuppliedQueryParams;
   const fonts = await getGoogleFontFamilies();
+  const schema = getSchema({ fonts });
 
   try {
-    // Validate the query params first
-    validateQueryParams({ query, fonts });
-
-    // Then transform the query params to state
-    const initialState: FormState = {
-      min: {
-        fontSize: schema[QueryParamId.minFontSize].parse(query),
-        screenWidth: schema[QueryParamId.minWidth].parse(query),
-        ratio: schema[QueryParamId.minRatio].parse(query),
-      },
-      max: {
-        fontSize: schema[QueryParamId.maxFontSize].parse(query),
-        screenWidth: schema[QueryParamId.maxWidth].parse(query),
-        ratio: schema[QueryParamId.maxRatio].parse(query),
-      },
-      typeScaleSteps: {
-        all: schema[QueryParamId.allSteps].parse(query),
-        base: schema[QueryParamId.baseStep].parse(query),
-      },
-      namingConvention: schema[QueryParamId.namingConvention].parse(query),
-      shouldIncludeFallbacks: schema[QueryParamId.shouldIncludeFallbacks].parse(query),
-      shouldUseRems: schema[QueryParamId.shouldUseRems].parse(query),
-      remValueInPx: schema[QueryParamId.remValueInPx].parse(query),
-      roundingDecimalPlaces: schema[QueryParamId.roundingDecimalPlaces].parse(query),
-      preview: {
-        fontFamily: schema[QueryParamId.previewFont].parse(query),
-        text: schema[QueryParamId.previewText].parse(query),
-        width: schema[QueryParamId.previewWidth].parse(query),
-      },
-    };
+    const initialState: FormState = getStateFromSchema(schema, query);
     return {
       props: {
         initialState,
@@ -66,12 +39,11 @@ export const getServerSideProps = async (
       },
     };
   } catch (e) {
+    console.log(e);
     // TypeScript doesn't support type annotations on catch
-    const error = e as Error;
+    const error = e as ZodError;
     const statusCode = HTTP_STATUS_CODES.HTTP_STATUS_BAD_REQUEST;
-    const description =
-      error.message ??
-      'One or more query parameters are invalid. Please check the URL you entered.';
+    const description = `Bad value for query parameter ${error.errors[0].path[0]}. ${error.errors[0].message}.`;
     return {
       props: {
         fonts,

@@ -3,7 +3,6 @@ import { useCallback } from 'react';
 import clsx from 'clsx';
 import Head from 'next/head';
 import { DEFAULT_FONT_FAMILY, Fonts } from '../../../constants';
-import { schema } from '../../../schema/schema';
 import { QueryParamId } from '../../../schema/schema.types';
 import type { TypeScale, WithFonts } from '../../../types';
 import { getGoogleFontLinkTagHref } from '../../../utils';
@@ -84,8 +83,7 @@ const Preview = (props: Props) => {
           <RangeInput
             id="screen-width-range"
             name={QueryParamId.previewWidth}
-            min={schema[QueryParamId.previewWidth].min}
-            max={schema[QueryParamId.previewWidth].max}
+            min={0}
             label="Screen width (pixels)"
             value={state.preview.width}
             onChange={handlePreviewWidthChange}

@@ -1,5 +1,4 @@
 import { memo } from 'react';
-import { schema } from '../../../../schema/schema';
 import { QueryParamId } from '../../../../schema/schema.types';
 import Input from '../../../Input/Input';
 import Label from '../../../Label/Label';
@@ -25,8 +24,8 @@ const GroupRemValueInPx = (props: Props) => {
         className={styles['rem-input']}
         type="number"
         step={1}
-        min={schema[QueryParamId.remValueInPx].min}
-        max={schema[QueryParamId.remValueInPx].max}
+        // TODO: read from zod schema
+        min={1}
         defaultValue={remValueInPx}
         required={true}
         onChange={(e) => onChange(e.target.valueAsNumber)}
