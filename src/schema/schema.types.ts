@@ -22,8 +22,3 @@ export enum QueryParamId {
 
 /** A record of arbitrary query params supplied by users. */
 export type UserSuppliedQueryParams = Record<string, string>;
-
-export type QueryValidatorOptions = WithFonts & {
-  /** The query params passed in by the user. */
-  query: UserSuppliedQueryParams;
-};
