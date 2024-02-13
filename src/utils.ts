@@ -1,10 +1,6 @@
 import type { AtRule } from 'csstype';
 import site from './data/site.json';
-import {
-  COMMA_SEPARATED_LIST_REGEX,
-  DEFAULT_FONT_FAMILY,
-  GOOGLE_FONTS_BASE_URL,
-} from './constants';
+import { DEFAULT_FONT_FAMILY, GOOGLE_FONTS_BASE_URL } from './constants';
 
 /** Returns a value clamped between a min and a max value, inclusive. */
 export const clamp = ({
@@ -47,24 +43,6 @@ export const getGoogleFontLinkTagHref = (options: {
   const url = new URL(GOOGLE_FONTS_BASE_URL);
   url.search = new URLSearchParams(options).toString();
   return url.toString();
-};
-
-/** Returns `true` if the given number is a valid number. */
-export const isNumber = (value: string | number) => !Number.isNaN(+value);
-
-/** Returns `true` if the given string represents a valid comma-separated list. */
-export const isCommaSeparatedList = (value: string) => {
-  return COMMA_SEPARATED_LIST_REGEX.test(value);
-};
-
-/** Throws an error if the condition evaluates to `true`.
- * @param {boolean} condition A boolean predicate condition to evaluate.
- * @param {string} message An optional message to throw if the condition evaluates to `false`.
- */
-export const throwIf = (condition: boolean, message?: string) => {
-  if (condition) {
-    throw new Error(message);
-  }
 };
 
 /** Parses the given string to a comma-separated string array. */

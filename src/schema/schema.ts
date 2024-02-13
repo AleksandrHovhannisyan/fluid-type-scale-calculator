@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import typeScaleRatios from '../data/typeScaleRatios.json';
 import { WithFonts } from '../types';
+import { toCommaSeparatedList } from '../utils';
 import { QueryParamId } from './schema.types';
 
 /** Schema for validating and parsing all query parameters recognized by the app. Used on the server side to read query params on the /calculate route. */
@@ -14,7 +15,7 @@ export const schema = z
     [QueryParamId.maxRatio]: z.coerce.number().min(0).default(typeScaleRatios.perfectFourth.ratio),
     [QueryParamId.allSteps]: z.preprocess(
       // Array query params come in as strings, but we need them as runtime arrays, so preprocess split if not undefined
-      (value) => (typeof value === 'undefined' ? undefined : String(value).split(',')),
+      (value) => typeof value === 'undefined' ? undefined : toCommaSeparatedList(String(value)),
       z.string().array().min(1).default(['sm', 'base', 'md', 'lg', 'xl', 'xxl', 'xxxl'])
     ),
     [QueryParamId.baseStep]: z.coerce.string().min(1).default('base'),
