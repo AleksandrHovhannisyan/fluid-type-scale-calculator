@@ -1,6 +1,7 @@
 import { ZodSchema } from 'zod';
 import { UserSuppliedQueryParams } from '../../schema/schema.types';
 import { TypeScale } from '../../types';
+import { clamp } from '../../utils';
 import { FormState } from './FluidTypeScaleCalculator.types';
 
 /** Given a schema and query params, returns the corresponding runtime app state. */
@@ -76,8 +77,11 @@ export const getTypeScale = (state: FormState): TypeScale => {
       preferred: `${slopeVw} + ${withUnit(round(convertToDesiredUnit(intercept)))}`,
       getFontSizeAtScreenWidth: (width: number) => {
         let preferredFontSize = width * slope + intercept;
-        preferredFontSize = Math.min(max.fontSize, preferredFontSize);
-        preferredFontSize = Math.max(min.fontSize, preferredFontSize);
+        preferredFontSize = clamp({
+          value: preferredFontSize,
+          min: min.fontSize,
+          max: max.fontSize,
+        });
         return withUnit(round(convertToDesiredUnit(preferredFontSize)));
       },
     });

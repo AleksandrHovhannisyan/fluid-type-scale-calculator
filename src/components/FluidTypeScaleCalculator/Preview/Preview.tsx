@@ -5,7 +5,7 @@ import Head from 'next/head';
 import { DEFAULT_FONT_FAMILY, Fonts } from '../../../constants';
 import { QueryParamId } from '../../../schema/schema.types';
 import type { TypeScale, WithFonts } from '../../../types';
-import { getGoogleFontLinkTagHref } from '../../../utils';
+import { clamp, getGoogleFontLinkTagHref } from '../../../utils';
 import Button from '../../Button/Button';
 import Fieldset from '../../Fieldset/Fieldset';
 import GoogleFontsPicker from '../../GoogleFontsPicker/GoogleFontsPicker';
@@ -86,7 +86,11 @@ const Preview = (props: Props) => {
             min={state.min.screenWidth}
             max={state.max.screenWidth}
             label="Screen width (pixels)"
-            value={state.preview.width}
+            value={clamp({
+              value: state.preview.width,
+              min: state.min.screenWidth,
+              max: state.max.screenWidth,
+            })}
             onChange={handlePreviewWidthChange}
             required={true}
             numericInputClassName={styles['preview-width-input']}

@@ -1,6 +1,7 @@
 import { createContext, useContext } from 'react';
 import { schema } from '../../schema/schema';
 import { QueryParamId } from '../../schema/schema.types';
+import { clamp } from '../../utils';
 import { FormAction, FormState, WithDispatch } from './FluidTypeScaleCalculator.types';
 import { getStateFromSchema } from './FluidTypeScaleCalculator.utils';
 
@@ -45,11 +46,9 @@ export const formStateReducer = (state: FormState, action: FormAction): FormStat
       return { ...state, remValueInPx: action.payload };
     }
     case 'setRoundingDecimalPlaces': {
-      // TODO: read from zod schema
-      const min = 0;
-      const max = 10;
+      // TODO: read min/max from zod schema
       // To prevent client-side errors (e.g., because we can't rounding to negative decimal places or it'll throw an error)
-      const roundingDecimalPlaces = Math.max(Math.min(action.payload, max), min);
+      const roundingDecimalPlaces = clamp({ value: action.payload, min: 0, max: 10 });
       return { ...state, roundingDecimalPlaces };
     }
     case 'setPreview': {

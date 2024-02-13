@@ -6,6 +6,20 @@ import {
   GOOGLE_FONTS_BASE_URL,
 } from './constants';
 
+/** Returns a value clamped between a min and a max value, inclusive. */
+export const clamp = ({
+  value,
+  min,
+  max,
+}: {
+  /** The value to clamp. */
+  value: number;
+  /** The minimum (inclusive) allowed value. */
+  min: number;
+  /** The maximum (inclusive) allowed value. */
+  max: number;
+}) => Math.max(Math.min(value, max), min);
+
 /** Prefixes the given relative url string with the base site URL. */
 export const toAbsoluteUrl = (url: string, baseUrl: string = site.url) =>
   new URL(url, baseUrl).toString();
