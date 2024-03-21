@@ -49,7 +49,9 @@ const Output = (props: Props) => {
     ${indent(fluidFontSizeVariables, 2)}
       }
     }
-    /* For browsers that don't support clamp${state.shouldUseContainerWidth ? ' or container queries' : ''} */
+    /* For browsers that don't support clamp${
+      state.shouldUseContainerWidth ? ' or container queries' : ''
+    } */
     @supports not (font-size: clamp(1rem, 1${state.shouldUseContainerWidth ? 'cqi' : 'vi'}, 1rem)) {
       :root {
     ${indent(minFallbackVariables, 2)}

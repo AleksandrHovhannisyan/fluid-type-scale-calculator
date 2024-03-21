@@ -19,7 +19,7 @@ const GroupMaximum = (props: Props) => {
   return (
     <Fieldset
       title="Maximum (Desktop)"
-description={`At this maximum ${
+      description={`At this maximum ${
         shouldUseContainerWidth ? 'container' : 'viewport'
       } width, all font sizes in your type scale are computed as the base font size times a power of your chosen ratio.`}
     >
