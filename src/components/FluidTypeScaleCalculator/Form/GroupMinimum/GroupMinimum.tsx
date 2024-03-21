@@ -19,9 +19,9 @@ const GroupMinimum = (props: Props) => {
   return (
     <Fieldset
       title="Minimum (Mobile)"
-      description={`Define the minimum font size and ${
-        shouldUseContainerWidth ? 'container' : 'screen'
-      } width for your type scale's baseline step. The minimum font size for all other steps is this baseline font size scaled up/down by your chosen type scale ratio.`}
+      description={`At this minimum ${
+        shouldUseContainerWidth ? 'container' : 'viewport'
+      } width, all font sizes in your type scale are computed as the base font size times a power of your chosen ratio.`}
     >
       <Label>
         Base font size (px)

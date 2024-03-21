@@ -41,14 +41,16 @@ const Output = (props: Props) => {
 
     // Outdent to prevent the static code indentation from influencing the output string indentation
     code = outdent`
-    /* Fluid font size variables, for browsers that support clamp */
-    @supports (font-size: clamp(1rem, 1vw, 1rem)) {
+    /* For browsers that support clamp ${
+      state.shouldUseContainerWidth ? 'and container queries' : ''
+    } */
+    @supports (font-size: clamp(1rem, 1${state.shouldUseContainerWidth ? 'cqi' : 'vi'}, 1rem)) {
       :root {
     ${indent(fluidFontSizeVariables, 2)}
       }
     }
-    /* Fallback variables for browsers that don't support clamp */
-    @supports not (font-size: clamp(1rem, 1vw, 1rem)) {
+    /* For browsers that don't support clamp${state.shouldUseContainerWidth ? ' or container queries' : ''} */
+    @supports not (font-size: clamp(1rem, 1${state.shouldUseContainerWidth ? 'cqi' : 'vi'}, 1rem)) {
       :root {
     ${indent(minFallbackVariables, 2)}
       }

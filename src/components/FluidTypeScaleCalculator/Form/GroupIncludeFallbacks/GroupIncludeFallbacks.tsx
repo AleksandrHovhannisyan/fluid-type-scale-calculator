@@ -18,7 +18,7 @@ const GroupIncludeFallbacks = (props: Props) => {
   return (
     <Label
       title="Include fallback CSS"
-      description="Some older browsers don't support CSS clamp. If enabled, this option tests for clamp support and outputs fallback variables."
+      description="Fall back to media queries if the browser doesn't support clamp."
       layout="horizontal"
     >
       <Input

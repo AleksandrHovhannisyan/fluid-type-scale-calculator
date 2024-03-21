@@ -14,7 +14,7 @@ const GroupUseRems = (props: Props) => {
 
   return (
     <Label
-      title="Show output in rems"
+      title="Use rems instead of pixels for font size"
       description="It's recommended that you use rems for font size to respect user preferences in browser settings."
       layout="horizontal"
     >
