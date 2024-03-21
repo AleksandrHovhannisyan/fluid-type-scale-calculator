@@ -1,7 +1,7 @@
 {
   "name": "fluid-type-scale-calculator",
   "description": "Generate fluid typography variables with a modular type scale.",
-  "version": "1.3.2",
+  "version": "1.4.0",
   "license": "MIT",
   "author": {
     "name": "Aleksandr Hovhannisyan",

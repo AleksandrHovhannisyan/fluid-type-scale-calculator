@@ -83,13 +83,13 @@ const Preview = (props: Props) => {
           <RangeInput
             id="screen-width-range"
             name={QueryParamId.previewWidth}
-            min={state.min.screenWidth}
-            max={state.max.screenWidth}
-            label="Screen width (pixels)"
+            min={state.min.width}
+            max={state.max.width}
+            label={`${state.shouldUseContainerWidth ? 'Container' : 'Screen'} width (px)`}
             value={clamp({
               value: state.preview.width,
-              min: state.min.screenWidth,
-              max: state.max.screenWidth,
+              min: state.min.width,
+              max: state.max.width,
             })}
             onChange={handlePreviewWidthChange}
             required={true}

@@ -3,6 +3,7 @@ import typeScaleRatios from '../data/typeScaleRatios.json';
 import { WithFonts } from '../types';
 import { toCommaSeparatedList } from '../utils';
 import { QueryParamId } from './schema.types';
+import { preprocessBoolean } from './schema.utils';
 
 /** Schema for validating and parsing all query parameters recognized by the app. Used on the server side to read query params on the /calculate route. */
 export const schema = z
@@ -15,18 +16,20 @@ export const schema = z
     [QueryParamId.maxRatio]: z.coerce.number().min(0).default(typeScaleRatios.perfectFourth.ratio),
     [QueryParamId.allSteps]: z.preprocess(
       // Array query params come in as strings, but we need them as runtime arrays, so preprocess split if not undefined
-      (value) => typeof value === 'undefined' ? undefined : toCommaSeparatedList(String(value)),
+      (value) => (typeof value === 'undefined' ? undefined : toCommaSeparatedList(String(value))),
       z.string().array().min(1).default(['sm', 'base', 'md', 'lg', 'xl', 'xxl', 'xxxl'])
     ),
     [QueryParamId.baseStep]: z.coerce.string().min(1).default('base'),
     [QueryParamId.namingConvention]: z.coerce.string().min(1).default('fs'),
-    [QueryParamId.shouldIncludeFallbacks]: z.coerce.boolean().default(false),
-    [QueryParamId.shouldUseRems]: z.preprocess(
-      (value) =>
-        // Boolean query params are 'on' if checked and omitted otherwise. App also supports true/false aliases. Anything else is false.
-        typeof value === 'undefined' ? false : ['on', 'true'].includes(String(value)),
-      z.boolean().default(true)
+    [QueryParamId.shouldUseContainerWidth]: z.preprocess(
+      preprocessBoolean,
+      z.boolean().default(false)
     ),
+    [QueryParamId.shouldIncludeFallbacks]: z.preprocess(
+      preprocessBoolean,
+      z.boolean().default(false)
+    ),
+    [QueryParamId.shouldUseRems]: z.preprocess(preprocessBoolean, z.boolean().default(false)),
     [QueryParamId.remValueInPx]: z.coerce.number().min(1).default(16),
     [QueryParamId.roundingDecimalPlaces]: z.coerce.number().min(0).max(10).default(2),
     [QueryParamId.previewFont]: z.coerce.string().min(1).default('Inter'),

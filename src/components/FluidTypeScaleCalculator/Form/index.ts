@@ -5,4 +5,5 @@ export { default as GroupNamingConvention } from './GroupNamingConvention/GroupN
 export { default as GroupRemValueInPx } from './GroupRemValueInPx/GroupRemValueInPx';
 export { default as GroupRounding } from './GroupRounding/GroupRounding';
 export { default as GroupTypeScaleSteps } from './GroupTypeScaleSteps/GroupTypeScaleSteps';
+export { default as GroupUseContainerWidth } from './GroupUseContainerWidth/GroupUseContainerWidth';
 export { default as GroupUseRems } from './GroupUseRems/GroupUseRems';

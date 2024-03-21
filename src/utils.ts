@@ -49,3 +49,17 @@ export const getGoogleFontLinkTagHref = (options: {
 export const toCommaSeparatedList = (rawValue: string): string[] => {
   return rawValue.split(',').map((el) => el.trim());
 };
+
+/** Indents the given text by a certain level. If the text is already indented, each line will be indented by the specified level.
+ * Uses tabs by default, but you can also indent by spaces.
+ */
+export const indent = (text: string, indentLevel: number, indentChar: ' ' | '\t' = '\t') => {
+  if (indentLevel <= 0) {
+    throw new Error(`Invalid indentation level: ${indentLevel}`);
+  }
+  const tabIndent = Array.from({ length: indentLevel }, () => indentChar).join('');
+  return text
+    .split('\n')
+    .map((line) => `${tabIndent}${line}`)
+    .join('\n');
+};

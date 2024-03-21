@@ -17,8 +17,8 @@ export type TypeScale = Map<string, TypeScaleEntry>;
 export type BreakpointConfig = {
   /** The font size (in pixels) at this breakpoint */
   fontSize: number;
-  /** The viewport width corresponding to this breakpoint. */
-  screenWidth: number;
+  /** The viewport or container width corresponding to this breakpoint. */
+  width: number;
   /** The modular type scale ratio to use at this breakpoint to scale the base font size up/down. */
   ratio: number;
 };

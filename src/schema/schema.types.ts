@@ -1,5 +1,3 @@
-import { WithFonts } from '../types';
-
 /** A recognized query param ID. Also used on the front end by form inputs to set their `name` attribute to the corresponding query param. */
 export enum QueryParamId {
   minFontSize = 'minFontSize',
@@ -12,6 +10,7 @@ export enum QueryParamId {
   baseStep = 'baseStep',
   namingConvention = 'prefix',
   shouldUseRems = 'useRems',
+  shouldUseContainerWidth = 'useContainerWidth',
   shouldIncludeFallbacks = 'includeFallbacks',
   remValueInPx = 'remValue',
   roundingDecimalPlaces = 'decimals',

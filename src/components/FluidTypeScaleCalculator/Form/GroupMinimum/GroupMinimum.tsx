@@ -6,23 +6,25 @@ import Label from '../../../Label/Label';
 import type { ActionSetMin, FormState } from '../../FluidTypeScaleCalculator.types';
 import TypeScalePicker from '../../TypeScalePicker/TypeScalePicker';
 
-type Props = Pick<FormState, 'min'> & {
+type Props = Pick<FormState, 'min' | 'shouldUseContainerWidth'> & {
   /** Function to update the value for this input. */
   onChange: (payload: ActionSetMin['payload']) => void;
-  /** The maximum allowed value for the screen width input. */
-  maxScreenWidth: FormState['max']['screenWidth'];
+  /** The maximum allowed value for the screen/container width input. */
+  maxWidth: FormState['max']['width'];
 };
 
 const GroupMinimum = (props: Props) => {
-  const { min, maxScreenWidth, onChange } = props;
+  const { min, maxWidth, shouldUseContainerWidth, onChange } = props;
 
   return (
     <Fieldset
       title="Minimum (Mobile)"
-      description="Define the minimum font size and viewport width for your type scale's baseline step. The minimum font size for all other steps is this baseline font size scaled up/down by your chosen type scale ratio."
+      description={`At this minimum ${
+        shouldUseContainerWidth ? 'container' : 'viewport'
+      } width, all font sizes in your type scale are computed as the base font size times a power of your chosen ratio.`}
     >
       <Label>
-        Base font size (pixels)
+        Base font size (px)
         <Input
           name={QueryParamId.minFontSize}
           type="number"
@@ -37,17 +39,17 @@ const GroupMinimum = (props: Props) => {
         />
       </Label>
       <Label>
-        Screen width (pixels)
+        {shouldUseContainerWidth ? 'Container' : 'Screen'} width (px)
         <Input
           name={QueryParamId.minWidth}
           type="number"
           required={true}
           min={0}
-          max={maxScreenWidth}
-          defaultValue={min.screenWidth}
+          max={maxWidth}
+          defaultValue={min.width}
           onChange={(e) =>
             onChange({
-              screenWidth: e.target.valueAsNumber,
+              width: e.target.valueAsNumber,
             })
           }
         />

@@ -15,6 +15,8 @@ export type FormState = {
   };
   /** The string prefix to use when creating the output CSS custom property variables. Example: `fs` with steps of `base`, `md`, and `lg` implies that you get three variables: `--fs-base`, `--fs-md`, and `--fs-lg`. */
   namingConvention: string;
+  /** Whether to use container query units instead of the default viewport units. */
+  shouldUseContainerWidth: boolean;
   /** Whether to include fallback output for browsers that don't yet support CSS `clamp`. */
   shouldIncludeFallbacks: boolean;
   /** Whether to use rems for font sizing in the output. */
@@ -53,6 +55,11 @@ export type ActionSetNamingConvention = {
   payload: FormState['namingConvention'];
 };
 
+export type ActionSetShouldUseContainerWidth = {
+  type: 'setShouldUseContainerWidth';
+  payload: FormState['shouldUseContainerWidth'];
+};
+
 export type ActionSetShouldIncludeFallbacks = {
   type: 'setShouldIncludeFallbacks';
   payload: FormState['shouldIncludeFallbacks'];
@@ -82,6 +89,7 @@ export type ActionSetPreview = {
 export type FormAction =
   | ActionSetMin
   | ActionSetMax
+  | ActionSetShouldUseContainerWidth
   | ActionSetTypeScaleSteps
   | ActionSetNamingConvention
   | ActionSetShouldIncludeFallbacks
