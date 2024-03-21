@@ -15,11 +15,12 @@ export const schema = z
     [QueryParamId.maxRatio]: z.coerce.number().min(0).default(typeScaleRatios.perfectFourth.ratio),
     [QueryParamId.allSteps]: z.preprocess(
       // Array query params come in as strings, but we need them as runtime arrays, so preprocess split if not undefined
-      (value) => typeof value === 'undefined' ? undefined : toCommaSeparatedList(String(value)),
+      (value) => (typeof value === 'undefined' ? undefined : toCommaSeparatedList(String(value))),
       z.string().array().min(1).default(['sm', 'base', 'md', 'lg', 'xl', 'xxl', 'xxxl'])
     ),
     [QueryParamId.baseStep]: z.coerce.string().min(1).default('base'),
     [QueryParamId.namingConvention]: z.coerce.string().min(1).default('fs'),
+    [QueryParamId.shouldUseContainerWidth]: z.coerce.boolean().default(false),
     [QueryParamId.shouldIncludeFallbacks]: z.coerce.boolean().default(false),
     [QueryParamId.shouldUseRems]: z.preprocess(
       (value) =>

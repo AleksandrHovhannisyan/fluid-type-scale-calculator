@@ -21,6 +21,9 @@ export const formStateReducer = (state: FormState, action: FormAction): FormStat
     case 'setMax': {
       return { ...state, max: { ...state.max, ...action.payload } };
     }
+    case 'setShouldUseContainerWidth': {
+      return { ...state, shouldUseContainerWidth: action.payload };
+    }
     case 'setTypeScaleSteps': {
       const allSteps = action.payload.all ?? state.typeScaleSteps.all;
       let baseStep = action.payload.base ?? state.typeScaleSteps.base;

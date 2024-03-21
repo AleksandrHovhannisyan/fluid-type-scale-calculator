@@ -13,12 +13,12 @@ export const getStateFromSchema = (
   return {
     min: {
       fontSize: params.minFontSize,
-      screenWidth: params.minWidth,
+      width: params.minWidth,
       ratio: params.minRatio,
     },
     max: {
       fontSize: params.maxFontSize,
-      screenWidth: params.maxWidth,
+      width: params.maxWidth,
       ratio: params.maxRatio,
     },
     typeScaleSteps: {
@@ -26,6 +26,7 @@ export const getStateFromSchema = (
       base: params.baseStep,
     },
     namingConvention: params.prefix,
+    shouldUseContainerWidth: params.useContainerWidth,
     shouldIncludeFallbacks: params.includeFallbacks,
     shouldUseRems: params.useRems,
     remValueInPx: params.remValue,
@@ -61,14 +62,14 @@ export const getTypeScale = (state: FormState): TypeScale => {
   const typeScale = state.typeScaleSteps.all.reduce((steps, step, i) => {
     const min = {
       fontSize: state.min.fontSize * Math.pow(state.min.ratio, i - baseStepIndex),
-      breakpoint: state.min.screenWidth,
+      breakpoint: state.min.width,
     };
     const max = {
       fontSize: state.max.fontSize * Math.pow(state.max.ratio, i - baseStepIndex),
-      breakpoint: state.max.screenWidth,
+      breakpoint: state.max.width,
     };
     const slope = (max.fontSize - min.fontSize) / (max.breakpoint - min.breakpoint);
-    const slopeVw = `${round(slope * 100)}vw`;
+    const slopeVw = `${round(slope * 100)}${state.shouldUseContainerWidth ? 'cqi' : 'vi'}`;
     const intercept = min.fontSize - slope * min.breakpoint;
 
     steps.set(step, {

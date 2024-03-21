@@ -1,5 +1,4 @@
 import { memo } from 'react';
-import { schema } from '../../../../schema/schema';
 import { QueryParamId } from '../../../../schema/schema.types';
 import Fieldset from '../../../Fieldset/Fieldset';
 import Input from '../../../Input/Input';
@@ -7,23 +6,25 @@ import Label from '../../../Label/Label';
 import type { ActionSetMax, FormState } from '../../FluidTypeScaleCalculator.types';
 import TypeScalePicker from '../../TypeScalePicker/TypeScalePicker';
 
-type Props = Pick<FormState, 'max'> & {
+type Props = Pick<FormState, 'max' | 'shouldUseContainerWidth'> & {
   /** Function to update the value for this input. */
   onChange: (payload: ActionSetMax['payload']) => void;
-  /** The minimum allowed value for the screen width input. */
-  minScreenWidth: FormState['min']['screenWidth'];
+  /** The minimum allowed value for the screen/container width input. */
+  minWidth: FormState['min']['width'];
 };
 
 const GroupMaximum = (props: Props) => {
-  const { max, minScreenWidth, onChange } = props;
+  const { max, minWidth, shouldUseContainerWidth, onChange } = props;
 
   return (
     <Fieldset
       title="Maximum (Desktop)"
-      description="Define the maximum font size and viewport width for your type scale's baseline step. The max font size for all other steps is this baseline font size scaled up/down by your chosen type scale ratio."
+      description={`Define the maximum font size and ${
+        shouldUseContainerWidth ? 'container' : 'screen'
+      } width for your type scale's baseline step. The max font size for all other steps is this baseline font size scaled up/down by your chosen type scale ratio.`}
     >
       <Label>
-        Base font size (pixels)
+        Base font size (px)
         <Input
           name={QueryParamId.maxFontSize}
           type="number"
@@ -38,16 +39,16 @@ const GroupMaximum = (props: Props) => {
         />
       </Label>
       <Label>
-        Screen width (pixels)
+        {shouldUseContainerWidth ? 'Container' : 'Screen'} width (px)
         <Input
           name={QueryParamId.maxWidth}
           type="number"
           required={true}
-          min={minScreenWidth}
-          defaultValue={max.screenWidth}
+          min={minWidth}
+          defaultValue={max.width}
           onChange={(e) =>
             onChange({
-              screenWidth: e.target.valueAsNumber,
+              width: e.target.valueAsNumber,
             })
           }
         />

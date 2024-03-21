@@ -8,6 +8,7 @@ export enum QueryParamId {
   maxFontSize = 'maxFontSize',
   maxWidth = 'maxWidth',
   maxRatio = 'maxRatio',
+  shouldUseContainerWidth = 'useContainerWidth',
   allSteps = 'steps',
   baseStep = 'baseStep',
   namingConvention = 'prefix',

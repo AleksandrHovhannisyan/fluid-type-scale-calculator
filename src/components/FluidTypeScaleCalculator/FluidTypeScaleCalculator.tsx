@@ -4,6 +4,7 @@ import { Delay } from '../../constants';
 import type { WithFonts } from '../../types';
 import Button from '../Button/Button';
 import Switcher from '../Switcher/Switcher';
+import GroupUseContainerWidth from './Form/GroupUseContainerWidth/GroupUseContainerWidth';
 import Output from './Output/Output';
 import Preview from './Preview/Preview';
 import {
@@ -18,6 +19,7 @@ import {
   ActionSetRemValueInPx,
   ActionSetRoundingDecimalPlaces,
   ActionSetShouldIncludeFallbacks,
+  ActionSetShouldUseContainerWidth,
   ActionSetShouldUseRems,
   ActionSetTypeScaleSteps,
   FormState,
@@ -83,6 +85,11 @@ const FluidTypeScaleCalculator = (props: Props) => {
       dispatch({ type: 'setRoundingDecimalPlaces', payload }),
     []
   );
+  const handleShouldUseContainerWidthChange = useCallback(
+    (payload: ActionSetShouldUseContainerWidth['payload']) =>
+      dispatch({ type: 'setShouldUseContainerWidth', payload }),
+    []
+  );
   const handleFallbacksChange = useCallback(
     (payload: ActionSetShouldIncludeFallbacks['payload']) =>
       dispatch({ type: 'setShouldIncludeFallbacks', payload }),
@@ -112,12 +119,14 @@ const FluidTypeScaleCalculator = (props: Props) => {
             {/* Pass in props explicitly to each of these sub-components so we can memoize them. Otherwise, if we consume the context in each component, they will all re-render whenever some unrelated piece of state updates. */}
             <GroupMinimum
               min={state.min}
-              maxScreenWidth={state.max.screenWidth - 1}
+              maxWidth={state.max.width - 1}
+              shouldUseContainerWidth={state.shouldUseContainerWidth}
               onChange={handleMinChange}
             />
             <GroupMaximum
               max={state.max}
-              minScreenWidth={state.min.screenWidth + 1}
+              minWidth={state.min.width + 1}
+              shouldUseContainerWidth={state.shouldUseContainerWidth}
               onChange={handleMaxChange}
             />
             <GroupTypeScaleSteps
@@ -131,6 +140,10 @@ const FluidTypeScaleCalculator = (props: Props) => {
             <GroupRounding
               roundingDecimalPlaces={state.roundingDecimalPlaces}
               onChange={handleRoundingChange}
+            />
+            <GroupUseContainerWidth
+              shouldUseContainerWidth={state.shouldUseContainerWidth}
+              onChange={handleShouldUseContainerWidthChange}
             />
             <GroupIncludeFallbacks
               shouldIncludeFallbacks={state.shouldIncludeFallbacks}
