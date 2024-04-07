@@ -1,14 +1,11 @@
-import { ZodSchema } from 'zod';
+import type { Schema } from '../../schema/schema';
 import { UserSuppliedQueryParams } from '../../schema/schema.types';
 import { TypeScale } from '../../types';
 import { clamp } from '../../utils';
 import { FormState } from './FluidTypeScaleCalculator.types';
 
 /** Given a schema and query params, returns the corresponding runtime app state. */
-export const getStateFromSchema = (
-  schema: ZodSchema,
-  query: UserSuppliedQueryParams
-): FormState => {
+export const getStateFromSchema = (schema: Schema, query: UserSuppliedQueryParams): FormState => {
   const params = schema.parse(query);
   return {
     min: {

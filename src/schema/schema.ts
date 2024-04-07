@@ -62,3 +62,5 @@ export const getSchema = (data: WithFonts) => {
     path: [QueryParamId.previewFont],
   });
 };
+
+export type Schema = ReturnType<typeof getSchema>;
