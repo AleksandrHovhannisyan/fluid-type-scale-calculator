@@ -66,4 +66,4 @@ export const getSchema = (data: WithFonts) => {
   });
 };
 
-export type Schema = ReturnType<typeof getSchema>;
+export type Schema = typeof schema | ReturnType<typeof getSchema>;
