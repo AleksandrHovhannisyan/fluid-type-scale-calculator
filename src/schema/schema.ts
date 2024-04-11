@@ -8,12 +8,15 @@ import { preprocessBoolean } from './schema.utils';
 /** Schema for validating and parsing all query parameters recognized by the app. Used on the server side to read query params on the /calculate route. */
 export const schema = z
   .object({
-    [QueryParamId.minFontSize]: z.coerce.number().min(0).default(16),
-    [QueryParamId.minWidth]: z.coerce.number().min(0).default(400),
-    [QueryParamId.minRatio]: z.coerce.number().min(0).default(typeScaleRatios.majorThird.ratio),
-    [QueryParamId.maxFontSize]: z.coerce.number().min(0).default(19),
-    [QueryParamId.maxWidth]: z.coerce.number().min(0).default(1280),
-    [QueryParamId.maxRatio]: z.coerce.number().min(0).default(typeScaleRatios.perfectFourth.ratio),
+    [QueryParamId.minFontSize]: z.coerce.number().min(1).default(16),
+    [QueryParamId.minWidth]: z.coerce.number().min(1).default(400),
+    [QueryParamId.minRatio]: z.coerce.number().min(0.1).default(typeScaleRatios.majorThird.ratio),
+    [QueryParamId.maxFontSize]: z.coerce.number().min(1).default(19),
+    [QueryParamId.maxWidth]: z.coerce.number().min(1).default(1280),
+    [QueryParamId.maxRatio]: z.coerce
+      .number()
+      .min(0.1)
+      .default(typeScaleRatios.perfectFourth.ratio),
     [QueryParamId.allSteps]: z.preprocess(
       // Array query params come in as strings, but we need them as runtime arrays, so preprocess split if not undefined
       (value) => (typeof value === 'undefined' ? undefined : toCommaSeparatedList(String(value))),

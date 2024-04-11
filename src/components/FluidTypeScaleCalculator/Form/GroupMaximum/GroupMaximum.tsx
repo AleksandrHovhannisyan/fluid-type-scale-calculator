@@ -29,7 +29,7 @@ const GroupMaximum = (props: Props) => {
           name={QueryParamId.maxFontSize}
           type="number"
           required={true}
-          min={0}
+          min={1}
           defaultValue={max.fontSize}
           onChange={(e) =>
             onChange({
@@ -57,7 +57,7 @@ const GroupMaximum = (props: Props) => {
         name={QueryParamId.maxRatio}
         id="type-scale-max"
         ratio={max.ratio}
-        min={0}
+        min={0.1}
         onChange={(e) => onChange({ ratio: e.target.valueAsNumber })}
       />
     </Fieldset>

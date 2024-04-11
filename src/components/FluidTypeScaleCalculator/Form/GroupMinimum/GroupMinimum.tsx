@@ -29,7 +29,7 @@ const GroupMinimum = (props: Props) => {
           name={QueryParamId.minFontSize}
           type="number"
           required={true}
-          min={0}
+          min={1}
           defaultValue={min.fontSize}
           onChange={(e) =>
             onChange({
@@ -44,7 +44,7 @@ const GroupMinimum = (props: Props) => {
           name={QueryParamId.minWidth}
           type="number"
           required={true}
-          min={0}
+          min={1}
           max={maxWidth}
           defaultValue={min.width}
           onChange={(e) =>
@@ -58,7 +58,7 @@ const GroupMinimum = (props: Props) => {
         name={QueryParamId.minRatio}
         id="type-scale-min"
         ratio={min.ratio}
-        min={0}
+        min={0.1}
         onChange={(e) => onChange({ ratio: e.target.valueAsNumber })}
       />
     </Fieldset>
