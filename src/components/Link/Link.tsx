@@ -11,19 +11,13 @@ type Props = Pick<LinkProps, 'href'> &
 
 const Link: FC<PropsWithChildren<Props>> = ({ href, className, children, ...otherProps }) => {
   const isExternalLink = /https?:\/\//.test(href.toString());
-  const hrefDependentProps = isExternalLink
-    ? {
-        rel: 'noreferrer noopener',
-        target: '_blank',
-      }
-    : {};
 
   const link = (
     <a
       href={href.toString()}
       className={clsx(styles.link, className)}
+      rel={isExternalLink ? 'noopener' : undefined}
       {...otherProps}
-      {...hrefDependentProps}
     >
       {children}
     </a>
