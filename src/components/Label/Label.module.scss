@@ -1,13 +1,12 @@
 @import "../../../styles/mixins";
 
 .label {
-  /* By default, all labels are vertically stacked, with the label above its associated input. */
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
+  display: flex;
   gap: var(--sp-2xs);
 
   &-text {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: 0.2em;
   }
 
@@ -16,16 +15,30 @@
   }
 }
 
-.horizontal {
-  align-items: center;
+.to-horizontal,
+.vertical {
+  flex-direction: column;
+  justify-content: end;
+}
 
-  /* We don't care about the particular column sizes or number—just that they flow horizontally. */
-  grid-auto-flow: column;
+.horizontal {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  input {
+    max-width: to-rems(120px);
+  }
 }
 
 @include mobile-lg {
   .to-horizontal {
+    flex-direction: row;
     align-items: center;
-    grid-auto-flow: column;
+    justify-content: space-between;
+
+    input {
+      max-width: to-rems(120px);
+    }
   }
 }

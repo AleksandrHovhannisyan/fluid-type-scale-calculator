@@ -1,4 +1,3 @@
-import { useId } from 'react';
 import clsx from 'clsx';
 import Input, { InputProps } from '../Input/Input';
 import Label from '../Label/Label';
@@ -28,12 +27,10 @@ const RangeInput = (props: RangeInputProps) => {
     className,
     ...otherProps
   } = props;
-  const numericInputId = useId();
 
   return (
-    <div className={clsx(styles.range, className)}>
-      <Label htmlFor={id} title={label} />
-      <div className={styles['range-inputs']}>
+    <Label title={label}>
+      <div className={styles['range-input']}>
         <Input
           type="range"
           id={id}
@@ -41,20 +38,9 @@ const RangeInput = (props: RangeInputProps) => {
           className={clsx(styles['range-slider'], sliderClassName)}
           {...otherProps}
         />
-        {/* Hide this label in an accessible manner since sighted users don't need to see it (the range label is sufficient). */}
-        <Label title={`${label}, manual override`} className="sr-only" htmlFor={numericInputId} />
-        <Input
-          id={numericInputId}
-          name={name}
-          type="number"
-          step={1}
-          delay={0}
-          required={required}
-          className={numericInputClassName}
-          {...otherProps}
-        />
+        <span>{otherProps.value}</span>
       </div>
-    </div>
+    </Label>
   );
 };
 

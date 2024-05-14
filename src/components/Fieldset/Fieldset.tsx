@@ -24,7 +24,7 @@ const Fieldset: FC<PropsWithChildren<FieldsetProps>> = (props) => {
     ...otherProps
   } = props;
   return (
-    <fieldset {...otherProps}>
+    <fieldset className={clsx(className, styles.fieldset)} {...otherProps}>
       <legend className={clsx({ 'sr-only': isLegendVisuallyHidden })}>
         <span className={styles['legend']}>
           {title && <span className={styles['legend-title']}>{title}</span>}

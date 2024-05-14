@@ -1,3 +1,20 @@
+.input {
+  // Reset for datalist dropdown icon: https://stackoverflow.com/a/20941546/5323344
+  &::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &[aria-invalid="true"] {
+    border-color: var(--color-danger);
+  }
+
+  &[type="checkbox"] {
+    min-width: var(--sp-base);
+    aspect-ratio: 1;
+  }
+}
+
 .error {
   font-size: var(--sp-xs);
   color: var(--color-danger);

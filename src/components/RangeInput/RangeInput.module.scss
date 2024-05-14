@@ -1,18 +1,12 @@
 @import "../../../styles/functions";
 @import "../../../styles/mixins";
 
-.range {
-  display: grid;
+.range-input {
+  display: flex;
+  align-items: center;
   gap: var(--sp-2xs);
 
-  &-slider {
-    padding: 4px 0;
-  }
-
-  &-inputs {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: center;
-    gap: var(--sp-2xs);
+  input[type="range"] {
+    flex: 1;
   }
 }

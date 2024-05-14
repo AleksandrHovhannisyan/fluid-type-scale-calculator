@@ -15,21 +15,15 @@ export type LabelProps = Omit<HTMLProps<HTMLLabelElement & HTMLFieldSetElement>,
 const Label: FC<PropsWithChildren<LabelProps>> = (props) => {
   const { className, children, title, description, layout = 'vertical', ...otherProps } = props;
 
-  const hasStylizedLabelText = !!title || !!description;
-
-  const labelText = hasStylizedLabelText && (
+  const labelText = (!!title || !!description) && (
     <span className={styles['label-text']}>
       {title && <span className={styles['label-title']}>{title}</span>}
       {description && <span>{description}</span>}
     </span>
   );
 
-  // We don't want certain classes on fieldset variants since fieldset doesn't support flex/grid anyway,
-  // so enable those classes conditionally only if we're rendering a literal <label>.
-  const labelClassName = clsx(styles.label, { [styles[layout]]: layout !== 'vertical' }, className);
-
   return (
-    <label className={labelClassName} {...otherProps}>
+    <label className={clsx(styles.label, styles[layout], className)} {...otherProps}>
       {labelText}
       {children}
     </label>

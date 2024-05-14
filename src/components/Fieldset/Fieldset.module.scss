@@ -1,6 +1,14 @@
+@import "../../../styles/functions";
+
+.fieldset {
+  max-width: to-rems(1200px);
+}
+
 .legend {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 0.2em;
+  max-width: 1200px;
 
   &-title {
     font-weight: var(--fw-body-bold);
@@ -8,21 +16,18 @@
 }
 
 .label-group {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: var(--sp-sm);
+
+  > * {
+    flex: 1;
+    min-width: min(175px, 100%);
+  }
 
   > label {
     /* to emphasize proximity, enforce a fixed small gap on the label children */
     gap: 4px;
-
-    /* all labels in the group should be vertically stacked */
-    grid-auto-flow: row;
-    grid-template-rows: auto min-content;
-
-    /* in case one label has longer text than the others, always align each label's text to the bottom
-    so it's as close to its corresponding input as possible */
-    align-items: end;
   }
 }
 

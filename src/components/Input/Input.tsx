@@ -3,7 +3,6 @@ import {
   DetailedHTMLProps,
   FocusEvent,
   HTMLInputTypeAttribute,
-  HTMLProps,
   InputHTMLAttributes,
   useId,
 } from 'react';
@@ -11,15 +10,7 @@ import { useMemo, useState } from 'react';
 import debounce from 'lodash/debounce';
 import { Delay } from '../../constants';
 import styles from './Input.module.scss';
-
-type InputType = NonNullable<HTMLInputTypeAttribute>;
-
-/** Props by input type. */
-const specializedPropsByType: Partial<Record<InputType, Partial<HTMLProps<HTMLInputElement>>>> = {
-  number: {
-    inputMode: 'decimal',
-  },
-};
+import clsx from 'clsx';
 
 export type InputProps = Omit<
   DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
@@ -28,11 +19,11 @@ export type InputProps = Omit<
   /** The delay (in milliseconds) for the change event. Defaults to a short delay if not specified and `0` for checkboxes, radio buttons, and range inputs. */
   delay?: 0 | Delay;
   /** The type of input. */
-  type: InputType;
+  type: NonNullable<HTMLInputTypeAttribute>;
 };
 
 const Input = (props: InputProps) => {
-  const { onChange, type, step, pattern, delay = Delay.SHORT, ...otherProps } = props;
+  const { className, onChange, type, step, pattern, delay = Delay.SHORT, ...otherProps } = props;
   const htmlStep = type === 'number' ? step ?? 'any' : undefined;
   const finalDelay = ['checkbox', 'radio', 'range'].includes(type) ? 0 : delay;
   const [errorMessage, setErrorMessage] = useState('');
@@ -89,11 +80,12 @@ const Input = (props: InputProps) => {
       )}
       <input
         {...otherProps}
-        {...specializedPropsByType[type]}
+        className={clsx(styles.input, className)}
         type={type}
         step={htmlStep}
-        aria-invalid={!!errorMessage}
         pattern={pattern}
+        inputMode={type === 'number' ? 'decimal' : props.inputMode}
+        aria-invalid={!!errorMessage}
         aria-describedby={errorMessage ? errorMessageId : undefined}
         onChange={handleChange}
         onBlur={handleBlur}
