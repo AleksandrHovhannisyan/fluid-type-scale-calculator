@@ -8,6 +8,9 @@
     "email": "aleksandrhovhannisyan@gmail.com",
     "url": "https://www.aleksandrhovhannisyan.com/"
   },
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "dev": "next dev",
     "prod": "run-s build start",
