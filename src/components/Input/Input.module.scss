@@ -10,8 +10,9 @@
   }
 
   &[type="checkbox"] {
+    outline-offset: 4px;
     min-width: var(--sp-base);
-    aspect-ratio: 1;
+    min-height: var(--sp-base);
   }
 }
 
