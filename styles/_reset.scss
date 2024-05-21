@@ -31,14 +31,13 @@ option {
   font: inherit;
 }
 
-input,
+input:not([type="range"]),
 select,
 textarea {
   --input-padding: 8px;
   padding: var(--input-padding);
   border-radius: 0;
   border: solid 1px var(--color-border);
-  font-weight: var(--fw-body-regular);
 }
 
 select {
@@ -53,10 +52,6 @@ select {
 select,
 input:where([type="number"], [type="text"]) {
   min-height: 46px;
-}
-
-:where(input,textarea,select,option) {
-  font-weight: var(--fw-body-regular);
 }
 
 :where(button,label,input,textarea,select,option,a, [tabindex="0"]):focus-visible {
