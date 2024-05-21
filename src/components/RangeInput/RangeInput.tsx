@@ -38,7 +38,7 @@ const RangeInput = (props: RangeInputProps) => {
           className={clsx(styles['range-slider'], sliderClassName)}
           {...otherProps}
         />
-        <span>{otherProps.value}</span>
+        <span aria-hidden={true}>{otherProps.value}</span>
       </div>
     </Label>
   );

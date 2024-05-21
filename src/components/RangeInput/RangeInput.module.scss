@@ -6,6 +6,12 @@
   align-items: center;
   gap: var(--sp-2xs);
 
+  span {
+    /* minimize layout shifts */
+    min-width: 5ch;
+    font-variant-numeric: tabular-nums;
+  }
+
   input[type="range"] {
     flex: 1;
   }
