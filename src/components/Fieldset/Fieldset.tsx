@@ -9,20 +9,10 @@ type FieldsetProps = Omit<HTMLProps<HTMLFieldSetElement>, 'title'> & {
   description?: string;
   /** Whether the legend is visually (accessibly) hidden. */
   isLegendVisuallyHidden?: boolean;
-  /** Additional styling for the label group. */
-  labelGroupClassName?: string;
 };
 
 const Fieldset: FC<PropsWithChildren<FieldsetProps>> = (props) => {
-  const {
-    className,
-    children,
-    title,
-    description,
-    isLegendVisuallyHidden,
-    labelGroupClassName,
-    ...otherProps
-  } = props;
+  const { className, children, title, description, isLegendVisuallyHidden, ...otherProps } = props;
   return (
     <fieldset className={clsx(className, styles.fieldset)} {...otherProps}>
       <legend className={clsx({ 'sr-only': isLegendVisuallyHidden })}>
@@ -31,7 +21,7 @@ const Fieldset: FC<PropsWithChildren<FieldsetProps>> = (props) => {
           {description && <span>{description}</span>}
         </span>
       </legend>
-      <div className={clsx(styles['label-group'], labelGroupClassName)}>{children}</div>
+      <div className={styles['label-group']}>{children}</div>
     </fieldset>
   );
 };

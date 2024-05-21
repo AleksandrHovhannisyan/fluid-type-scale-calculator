@@ -57,11 +57,7 @@ const Preview = (props: Props) => {
       )}
       <section className={styles.preview}>
         <h2>Preview your type scale</h2>
-        <Fieldset
-          title="Preview controls"
-          isLegendVisuallyHidden={true}
-          labelGroupClassName={styles['label-group']}
-        >
+        <Fieldset title="Preview controls" isLegendVisuallyHidden={true}>
           <Label title="Font family">
             <GoogleFontsPicker
               name={QueryParamId.previewFont}
