@@ -1,0 +1,35 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+  line-height: calc(2ex + 6px);
+}
+
+*,
+*::before,
+*::after {
+  @media (prefers-reduced-motion) {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+html,
+body {
+  height: 100%;
+}
+
+button,
+label,
+input,
+textarea,
+select,
+option {
+  font: inherit;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}

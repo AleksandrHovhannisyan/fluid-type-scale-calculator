@@ -9,16 +9,9 @@
     seo = 0.89
     pwa = 0
 
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
-
 [dev]
-  command = "npm run dev"
+  command = "pnpm run dev"
 
 [build]
-  command = "npm run build"
-  publish = ".next"
-
-# Disable asset optimization since Next.js already does this: https://github.com/netlify/netlify-plugin-nextjs#asset-optimization
-[build.processing]
-  skip_processing = true
+  command = "pnpm run build"
+  publish = "build"
