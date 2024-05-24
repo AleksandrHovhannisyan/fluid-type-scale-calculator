@@ -1,7 +1,18 @@
 {
-	"name": "ftsc-svelte",
-	"version": "0.0.1",
+	"name": "fluid-type-scale-calculator",
+	"description": "Generate fluid typography variables with a modular type scale.",
+	"version": "2.0.0",
+	"license": "MIT",
+	"author": {
+		"name": "Aleksandr Hovhannisyan",
+		"email": "aleksandrhovhannisyan@gmail.com",
+		"url": "https://www.aleksandrhovhannisyan.com/"
+	},
+	"engines": {
+		"node": ">=18"
+	},
 	"private": true,
+	"type": "module",
 	"scripts": {
 		"prebuild": "node prebuild.js",
 		"clean": "rimraf build .netlify .svelte-kit",
@@ -40,12 +51,17 @@
 		"vite": "^5.0.3",
 		"vitest": "^1.2.0"
 	},
-	"type": "module",
 	"dependencies": {
 		"@fontsource-variable/inter": "^5.0.18",
 		"@fontsource-variable/source-code-pro": "^5.0.19",
 		"lodash.debounce": "^4.0.8",
 		"outdent": "^0.8.0",
 		"valibot": "^0.30.0"
-	}
+	},
+	"browserslist": [
+		"last 2 chrome versions",
+		"last 3 safari versions",
+		"last 2 firefox versions",
+		"last 2 edge versions"
+	]
 }
