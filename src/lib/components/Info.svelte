@@ -4,22 +4,16 @@
 
 <div class="switcher">
 	<section class="rhythm">
-		<h2>How it works</h2>
+		<h2>About this tool</h2>
 		<p>
-			A <Link href="https://every-layout.dev/rudiments/modular-scale/">modular type scale</Link> consists
-			of a baseline font size and proportionally smaller and larger font sizes. Traditionally, design
-			systems used static type scales, where each step has a fixed font size at every viewport width.
+			Design systems traditionally used static type scales, where the steps in the scale are not dependent on the viewport or container width. This means that developers have to write media queries to switch font sizes at mobile, tablet, and desktop breakpoints. But in practice, there are innumerable device widths and orientations, so there are always going to be edge cases where your font sizes are either too large or too small.
 		</p>
 		<p>
-			By contrast, in a fluid type scale, each modular step has a minimum, maximum, and variable
-			font size. We can leverage <Link
+			By contrast, in a fluid type scale, each step has a minimum, maximum, and variable (viewport-dependent)
+			font size. We can use <Link
 				href="https://developer.mozilla.org/en-US/docs/Web/CSS/clamp()">CSS <code>clamp</code></Link
 			> and viewport width (<code>vw</code>) units to generate a set of font size variables that
-			scale linearly between their minimum and maximum sizes, with mathematical precision.
-		</p>
-		<p>
-			This is done by solving the equation <code>y = mx + b</code>, which corresponds to the
-			preferred value in a CSS <code>clamp</code> declaration.
+			scale linearly. This means you no longer need to worry about fine-tuning your design for discrete device widths: Just pick your minima and maxima, and the font sizes will scale fluidly in between.
 		</p>
 	</section>
 	<section class="rhythm">
