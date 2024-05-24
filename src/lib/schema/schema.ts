@@ -10,7 +10,8 @@ import {
 	optional,
 	maxValue,
 	custom,
-	forward
+	forward,
+	integer
 } from 'valibot';
 import fonts from '../data/fonts.json';
 import typeScaleRatios from '../data/typeScaleRatios.json';
@@ -63,7 +64,7 @@ export const schema = object(
 		[Param.shouldIncludeFallbacks]: optional(boolean()),
 		[Param.shouldUseRems]: optional(boolean()),
 		[Param.remValueInPx]: number([minValue(1)]),
-		[Param.roundingDecimalPlaces]: number([minValue(0), maxValue(10)]),
+		[Param.roundingDecimalPlaces]: number([minValue(0), maxValue(10), integer()]),
 		[Param.previewFont]: string([minLength(1, "Expected non-empty value")]),
 		[Param.previewText]: string([minLength(1, "Expected non-empty value")]),
 		[Param.previewWidth]: number([minValue(1)])
