@@ -11,10 +11,7 @@ const config = {
 		version: {
 			name: process.env.npm_package_version,
 		},
-		adapter: adapter({
-			edge: false,
-			split: true,
-		})
+		adapter: adapter()
 	}
 };
 
