@@ -21,7 +21,6 @@
 	}
 	h1 {
 		font-size: var(--sp-3xl);
-		font-weight: var(--fw-body-bold);
 		letter-spacing: var(--ls-sm);
 
 		@include mobile-lg {
