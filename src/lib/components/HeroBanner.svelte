@@ -16,6 +16,9 @@
 	@import '../styles/mixins';
 	@import '../styles/functions';
 
+	header {
+		text-wrap: balance;
+	}
 	h1 {
 		font-size: var(--sp-3xl);
 		font-weight: var(--fw-body-bold);
