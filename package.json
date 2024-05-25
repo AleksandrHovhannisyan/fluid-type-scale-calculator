@@ -54,7 +54,6 @@
 	"dependencies": {
 		"@fontsource-variable/inter": "^5.0.18",
 		"@fontsource-variable/source-code-pro": "^5.0.19",
-		"lodash.debounce": "^4.0.8",
 		"outdent": "^0.8.0",
 		"valibot": "^0.30.0"
 	},
