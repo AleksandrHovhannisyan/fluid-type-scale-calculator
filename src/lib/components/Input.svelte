@@ -24,7 +24,7 @@
 	$: isInvalid = !!errors && errors.length > 0;
 </script>
 
-<FormError id={errorMessageId} message={errors}></FormError>
+<FormError id={errorMessageId} errors={errors}></FormError>
 <input
 	{type}
 	{name}

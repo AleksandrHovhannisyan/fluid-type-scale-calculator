@@ -3,12 +3,12 @@
 
     /** A unique HTML ID for the error message. Used to associate the error with an input via `aria-describedby`. */
     export let id: string;
-	/** The error message to display. */
-	export let message: SchemaErrors | undefined;
+	/** The error messages to display. */
+	export let errors: SchemaErrors | undefined;
 </script>
 
-{#if message}
-	<span class="error" id={id}>{message}</span>
+{#if errors}
+	<span class="error" id={id}>{errors}</span>
 {/if}
 <style>
 .error {
