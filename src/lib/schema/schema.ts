@@ -50,7 +50,7 @@ export const schema = object(
 		[Param.minRatio]: number([minValue(Number.MIN_VALUE, "Expected positive number")]),
 		[Param.maxFontSize]: number([minValue(1)]),
 		[Param.maxWidth]: number([minValue(1)]),
-		[Param.maxRatio]: number([minValue(Number.MIN_VALUE)]),
+		[Param.maxRatio]: number([minValue(Number.MIN_VALUE, "Expected positive number")]),
 		[Param.allSteps]: string([
 			regex(COMMA_SEPARATED_LIST_REGEX, 'Expected comma-separated list of names')
 		]),
@@ -67,7 +67,7 @@ export const schema = object(
 		[Param.roundingDecimalPlaces]: number([minValue(0), maxValue(10), integer()]),
 		[Param.previewFont]: string([minLength(1, "Expected non-empty value")]),
 		[Param.previewText]: string([minLength(1, "Expected non-empty value")]),
-		[Param.previewWidth]: number([minValue(1)])
+		[Param.previewWidth]: number([minValue(Number.MIN_VALUE, "Expected positive number")])
 	},
 	[
 		forward(
