@@ -6,7 +6,7 @@
 
 Customize everything, grab the output CSS, and drop it into any design system. Share the URL with your team members or use it to document your CSS.
 
-![](./public/assets/images/thumbnail.png)
+![](./static/images/thumbnail.png)
 
 ### Features
 
