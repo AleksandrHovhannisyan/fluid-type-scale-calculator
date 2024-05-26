@@ -1,0 +1,65 @@
+@import "./functions";
+
+::selection {
+  background-color: var(--color-surface-dark);
+  color: var(--color-surface-light);
+  text-shadow: none;
+}
+
+body {
+  font-family: var(--ff-body);
+  font-weight: var(--fw-body-regular);
+  font-size: var(--sp-base);
+  accent-color: var(--color-surface-dark);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: var(--fw-body-bold);
+  margin-block-end: 0.25em;
+}
+
+.size-font-3xl,
+h1 {
+  font-size: var(--sp-3xl);
+}
+.size-font-2xl,
+h2 {
+  font-size: var(--sp-2xl);
+}
+.size-font-xl,
+h3 {
+  font-size: var(--sp-xl);
+}
+.size-font-lg,
+h4 {
+  font-size: var(--sp-lg);
+}
+.size-font-md,
+h5 {
+  font-size: var(--sp-md);
+}
+.size-font-base,
+h6 {
+  font-size: var(--sp-base);
+}
+
+code {
+  line-height: 1.8;
+  font-family: var(--ff-mono);
+  font-weight: var(--fw-mono-regular);
+  font-size: var(--sp-sm);
+  background-color: var(--color-surface-medium);
+  padding: 4px;
+  tab-size: 2;
+}
+
+[aria-invalid='true'] {
+  border-color: var(--color-danger);
+  outline-color: var(--color-danger);
+}

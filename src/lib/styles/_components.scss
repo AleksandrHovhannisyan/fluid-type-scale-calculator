@@ -1,0 +1,17 @@
+input:not([type='range']),
+select,
+textarea {
+	--input-padding: 8px;
+	padding: var(--input-padding);
+	border-radius: 0;
+	border: solid 1px var(--color-border);
+}
+
+select,
+input:where([type='number'], [type='text']) {
+	min-height: 46px;
+}
+
+:where(button, label, input, textarea, select, option, a, [tabindex='0']):focus-visible {
+	outline: solid 4px;
+}
