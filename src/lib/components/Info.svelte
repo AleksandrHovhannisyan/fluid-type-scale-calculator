@@ -13,7 +13,7 @@
 			font size. We can use <Link
 				href="https://developer.mozilla.org/en-US/docs/Web/CSS/clamp()">CSS <code>clamp</code></Link
 			> and viewport width (<code>vw</code>) units to generate a set of font size variables that
-			scale linearly. This means you no longer need to worry about fine-tuning your design for discrete device widths: Just pick your minima and maxima, and the font sizes will scale fluidly in between.
+			scale linearly. This means you no longer need to worry about fine-tuning your typography for discrete device widths: Just pick your minima and maxima, and the font sizes will scale fluidly in between.
 		</p>
 	</section>
 	<section class="rhythm">
