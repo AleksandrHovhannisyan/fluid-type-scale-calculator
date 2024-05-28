@@ -41,7 +41,7 @@
 	@include mobile-lg {
 		p {
 			font-size: var(--sp-lg);
-			max-width: 50ch;
+			max-width: 52ch;
 		}
 	}
 </style>
