@@ -27,7 +27,7 @@
 </script>
 
 <svelte:head>
-	<meta name="description" content={title} />
+	<meta name="description" content={description} />
 	<meta name="keywords" content={keywords.join(', ')} />
 	<meta name="author" content="Aleksandr Hovhannisyan" />
 	<link rel="canonical" href={$page.url.href} />
