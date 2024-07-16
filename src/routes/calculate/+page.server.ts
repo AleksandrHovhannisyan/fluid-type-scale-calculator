@@ -11,7 +11,7 @@ export const actions: Actions = {
 	default: async () => {}
 } ;
 
-// Since this route is pre-rendered, this is essentially getStaticProps, i.e. it only runs once on build.
+// Since this route is SSR (prerender=false), this is essentially getServerSideProps, i.e. it runs on each request to /calculate
 export const load = async ({ request, url }) => {
 	let data: Schema | URLSearchParams | FormData = SCHEMA_DEFAULTS;
 	// GET request
