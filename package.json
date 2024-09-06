@@ -15,7 +15,7 @@
 	"type": "module",
 	"scripts": {
 		"prebuild": "node prebuild.js",
-		"clean": "rimraf build .netlify .svelte-kit",
+		"clean": "rm -rf build .svelte-kit",
 		"dev": "pnpm run clean && pnpm run prebuild && vite dev",
 		"build": "pnpm run clean && pnpm run prebuild && vite build",
 		"preview": "vite preview",
@@ -26,8 +26,7 @@
 		"format": "prettier --write ."
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-auto": "^3.0.0",
-		"@sveltejs/adapter-netlify": "^4.2.0",
+		"@sveltejs/adapter-cloudflare": "^4.7.2",
 		"@sveltejs/kit": "^2.0.0",
 		"@sveltejs/vite-plugin-svelte": "^3.0.0",
 		"@types/eslint": "^8.56.0",
@@ -41,7 +40,6 @@
 		"eslint-plugin-svelte": "^2.35.1",
 		"prettier": "^3.1.1",
 		"prettier-plugin-svelte": "^3.1.2",
-		"rimraf": "^5.0.7",
 		"sass": "^1.77.0",
 		"svelte": "^4.2.7",
 		"svelte-check": "^3.6.0",
@@ -62,5 +60,6 @@
 		"last 3 safari versions",
 		"last 2 firefox versions",
 		"last 2 edge versions"
-	]
+	],
+	"packageManager": "pnpm@8.15.9+sha256.daa27a0b541bc635323ff96c2ded995467ff9fe6d69ff67021558aa9ad9dcc36"
 }
