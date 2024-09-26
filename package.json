@@ -9,12 +9,12 @@
 		"url": "https://www.aleksandrhovhannisyan.com/"
 	},
 	"engines": {
-		"node": ">=18"
+		"node": ">=20"
 	},
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"prebuild": "node prebuild.js",
+		"prebuild": "node --env-file=.env prebuild.js",
 		"clean": "rm -rf build .svelte-kit",
 		"dev": "pnpm run clean && pnpm run prebuild && vite dev",
 		"build": "pnpm run clean && pnpm run prebuild && vite build",
@@ -34,7 +34,6 @@
 		"@typescript-eslint/eslint-plugin": "^7.0.0",
 		"@typescript-eslint/parser": "^7.0.0",
 		"clsx": "^2.1.1",
-		"dotenv": "^16.4.5",
 		"eslint": "^8.56.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.35.1",
