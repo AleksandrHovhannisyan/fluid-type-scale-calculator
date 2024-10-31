@@ -91,6 +91,27 @@ export const schema = object(
 			),
 			[Param.minRatio]
 		),
+    forward(
+      custom(
+        (schema) => schema[Param.minFontSize] < schema[Param.maxFontSize],
+        'Max font size must be greater than min font size'
+      ),
+      [Param.maxFontSize]
+    ),
+    forward(
+      custom(
+        (schema) => schema[Param.minWidth] < schema[Param.maxWidth],
+        'Max width must be greater than min width'
+      ),
+      [Param.maxWidth]
+    ),
+    forward(
+      custom(
+        (schema) => schema[Param.minRatio] < schema[Param.maxRatio],
+        'Max ratio must be greater than min ratio'
+      ),
+      [Param.maxRatio]
+    ),
 		forward(
 			custom((schema) => {
 				const steps = toCommaSeparatedList(schema[Param.allSteps]);
