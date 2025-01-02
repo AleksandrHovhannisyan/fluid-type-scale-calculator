@@ -24,6 +24,7 @@
 	@import '../styles/mixins';
 
 	.page-footer {
+		text-wrap: balance;
 		display: flex;
 		justify-content: center;
 		align-items: center;
