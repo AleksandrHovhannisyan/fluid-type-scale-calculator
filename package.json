@@ -43,7 +43,7 @@
 		"sass": "~1.77.0",
 		"svelte": "~4.2.7",
 		"svelte-check": "~3.6.0",
-		"sveltekit-superforms": "~2.13.1",
+		"sveltekit-superforms": "~2.23.0",
 		"tslib": "~2.4.1",
 		"typescript": "~5.0.0",
 		"vite": "~5.0.3",
@@ -53,7 +53,7 @@
 		"@fontsource-variable/inter": "~5.0.18",
 		"@fontsource-variable/source-code-pro": "~5.0.19",
 		"outdent": "~0.8.0",
-		"valibot": "~0.30.0"
+		"valibot": "~1.0.0-rc.3"
 	},
 	"browserslist": [
 		"last 2 chrome versions",

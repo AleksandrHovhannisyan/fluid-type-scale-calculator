@@ -1,9 +1,9 @@
-import type { TypeScale } from "$lib/types";
-import { clamp, toCommaSeparatedList } from "$lib/utils";
-import { getContext, setContext } from "svelte";
-import { type Schema, type SchemaSuperform, FORM_CONTEXT_KEY, schema } from "./schema";
-import { superForm, type SuperValidated } from "sveltekit-superforms";
-import { valibot } from "sveltekit-superforms/adapters";
+import type { TypeScale } from '$lib/types';
+import { clamp, toCommaSeparatedList } from '$lib/utils';
+import { getContext, setContext } from 'svelte';
+import { type Schema, type SchemaSuperform, FORM_CONTEXT_KEY, schema } from './schema';
+import { superForm, type SuperValidated } from 'sveltekit-superforms';
+import { valibot } from 'sveltekit-superforms/adapters';
 
 export const useFormState = () => getContext<SchemaSuperform>(FORM_CONTEXT_KEY);
 
