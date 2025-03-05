@@ -12,9 +12,11 @@
 	title="Include fallback CSS"
 	description="Fall back to media queries if the browser doesn't support clamp."
 	layout="horizontal"
+	htmlFor={name}
 >
 	<Checkbox
-		name={name}
+		id={name}
+		{name}
 		checked={$form[name]}
 		errors={$errors[name]}
 		constraints={$constraints[name]}

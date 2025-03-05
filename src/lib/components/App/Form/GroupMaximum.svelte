@@ -15,33 +15,35 @@
 		$form.useContainerWidth ? 'container' : 'viewport'
 	} width, all font sizes in your type scale are computed as the base font size times a power of your chosen ratio.`}
 >
-	<Label>
-		Base font size (px)
+	<Label title="Base font size (px)" htmlFor={Param.maxFontSize}>
 		<Input
+			id={Param.maxFontSize}
+			name={Param.maxFontSize}
 			type="number"
 			inputmode="decimal"
-			name={Param.maxFontSize}
 			value={$form[Param.maxFontSize]}
 			errors={$errors[Param.maxFontSize]}
 			constraints={$constraints[Param.maxFontSize]}
-			onInput={(e) =>
-				form.set({ ...$form, [Param.maxFontSize]: e.currentTarget.valueAsNumber })}
+			onInput={(e) => form.set({ ...$form, [Param.maxFontSize]: e.currentTarget.valueAsNumber })}
 		/>
 	</Label>
-	<Label>
-		{$form.useContainerWidth ? 'Container' : 'Screen'} width (px)
+	<Label
+		title={`${$form.useContainerWidth ? 'Container' : 'Screen'} width (px)`}
+		htmlFor={Param.maxWidth}
+	>
 		<Input
+			id={Param.maxWidth}
+			name={Param.maxWidth}
 			type="number"
 			inputmode="decimal"
-			name={Param.maxWidth}
 			value={$form[Param.maxWidth]}
 			errors={$errors[Param.maxWidth]}
 			constraints={$constraints[Param.maxWidth]}
-			onInput={(e) =>
-				form.set({ ...$form, [Param.maxWidth]: e.currentTarget.valueAsNumber })}
+			onInput={(e) => form.set({ ...$form, [Param.maxWidth]: e.currentTarget.valueAsNumber })}
 		/>
 	</Label>
 	<TypeScalePicker
+		id={Param.maxRatio}
 		name={Param.maxRatio}
 		value={$form[Param.maxRatio]}
 		errors={$errors[Param.maxRatio]}

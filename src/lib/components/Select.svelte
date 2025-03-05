@@ -5,8 +5,9 @@
 	import FormError from './FormError.svelte';
 	import type { SelectProps } from './Select.types';
 
+	export let id: string;
 	/** A reference to the rendered select element, for `this` binding. */
-	export let ref: HTMLSelectElement | undefined = undefined; 
+	export let ref: HTMLSelectElement | undefined = undefined;
 	export let name: Param;
 	export let value: SelectProps['value'] = undefined;
 	export let options: SelectProps['options'];
@@ -20,10 +21,11 @@
 	$: isInvalid = !!errors && errors.length > 0;
 </script>
 
-<FormError id={errorMessageId} errors={errors}></FormError>
+<FormError id={errorMessageId} {errors}></FormError>
 <select
 	{value}
 	{name}
+	{id}
 	{...constraints}
 	bind:this={ref}
 	on:input={onInput}

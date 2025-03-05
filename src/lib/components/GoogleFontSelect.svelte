@@ -3,12 +3,17 @@
 </script>
 
 <script lang="ts">
-	import { DEFAULT_FONT_FAMILY, type SchemaConstraints, type SchemaErrors } from '$lib/schema/schema';
+	import {
+		DEFAULT_FONT_FAMILY,
+		type SchemaConstraints,
+		type SchemaErrors
+	} from '$lib/schema/schema';
 	import type { Param } from '$lib/schema/schema';
 	import { onDestroy, onMount } from 'svelte';
-
 	import Select from './Select.svelte';
 	import type { SelectOption, SelectProps } from './Select.types';
+
+	export let id: Param;
 	export let name: Param;
 	export let value: SelectProps['value'];
 	export let onInput: SelectProps['onInput'];
@@ -46,4 +51,4 @@
 	});
 </script>
 
-<Select bind:ref={selectElement} {name} {value} {onInput} {errors} {constraints} {options} />
+<Select bind:ref={selectElement} {id} {name} {value} {onInput} {errors} {constraints} {options} />

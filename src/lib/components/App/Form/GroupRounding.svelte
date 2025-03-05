@@ -11,8 +11,10 @@
 	title="Rounding"
 	description="The maximum number of decimal places in the output."
 	layout="to-horizontal"
+	htmlFor={Param.roundingDecimalPlaces}
 >
 	<Input
+		id={Param.roundingDecimalPlaces}
 		name={Param.roundingDecimalPlaces}
 		type="number"
 		step={1}

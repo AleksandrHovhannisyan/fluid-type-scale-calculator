@@ -3,8 +3,9 @@
 </script>
 
 <h1>{$page.error?.message}</h1>
+
 <style>
-    h1 {
-        text-align: center;
-    }
+	h1 {
+		text-align: center;
+	}
 </style>

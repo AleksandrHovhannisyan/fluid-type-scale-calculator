@@ -1,45 +1,45 @@
-@use "sass:map";
-@use "sass:math";
-@import "./breakpoints";
+@use 'sass:map';
+@use 'sass:math';
+@import './breakpoints';
 
 @mixin headings {
-  :is(h1, h2, h3, h4, h5, h6) {
-    @content;
-  }
+	:is(h1, h2, h3, h4, h5, h6) {
+		@content;
+	}
 }
 
 // Breakpoint mixins
 
 @mixin breakpoint($name) {
-  $bp: map.get($breakpoints, $name);
-  $bp: math.div($bp, 16px) * 1em;
-  @media screen and (min-width: $bp) {
-    @content;
-  }
+	$bp: map.get($breakpoints, $name);
+	$bp: math.div($bp, 16px) * 1em;
+	@media screen and (min-width: $bp) {
+		@content;
+	}
 }
 
 @mixin mobile {
-  @include breakpoint("mobile") {
-    @content;
-  }
+	@include breakpoint('mobile') {
+		@content;
+	}
 }
 @mixin mobile-lg {
-  @include breakpoint("mobile-lg") {
-    @content;
-  }
+	@include breakpoint('mobile-lg') {
+		@content;
+	}
 }
 @mixin tablet-sm {
-  @include breakpoint("tablet-sm") {
-    @content;
-  }
+	@include breakpoint('tablet-sm') {
+		@content;
+	}
 }
 @mixin tablet {
-  @include breakpoint("tablet") {
-    @content;
-  }
+	@include breakpoint('tablet') {
+		@content;
+	}
 }
 @mixin desktop {
-  @include breakpoint("desktop") {
-    @content;
-  }
+	@include breakpoint('desktop') {
+		@content;
+	}
 }

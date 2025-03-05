@@ -10,6 +10,7 @@
 	import type { Param } from '$lib/schema/schema';
 	import type { SchemaConstraints, SchemaErrors } from '$lib/schema/schema';
 
+	export let id: Param.minRatio | Param.maxRatio;
 	export let name: Param.minRatio | Param.maxRatio;
 	export let value: HTMLInputAttributes['value'] = undefined;
 	export let onInput: HTMLInputAttributes['on:input'] = undefined;
@@ -18,27 +19,28 @@
 	/** HTML validation constraints to set on the input */
 	export let constraints: SchemaConstraints | undefined = undefined;
 
-	const id = createId('datalist');
+	const dataListId = createId('datalist');
 </script>
 
-<Label>
-	Type scale ratio
+<Label title="Type scale ratio" htmlFor={id}>
 	<Input
-		{name}
+		{id}
 		type="number"
 		inputmode="decimal"
 		step="any"
-		list={id}
+		list={dataListId}
+		{name}
 		{value}
 		{onInput}
 		{errors}
 		{constraints}
 	/>
-	<datalist {id}>
-		{#each Object.entries(typeScaleRatios) as [_key, { name, ratio }]}
-			<option value={ratio}>
-				{name}
-			</option>
-		{/each}
-	</datalist>
 </Label>
+
+<datalist id={dataListId}>
+	{#each Object.entries(typeScaleRatios) as [_key, { name, ratio }]}
+		<option value={ratio}>
+			{name}
+		</option>
+	{/each}
+</datalist>

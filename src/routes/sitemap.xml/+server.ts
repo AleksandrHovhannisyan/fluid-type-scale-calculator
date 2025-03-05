@@ -1,11 +1,13 @@
-import { execSync } from "child_process";
+import { execSync } from 'child_process';
 import site from '$lib/data/site.json';
 
 export const prerender = true;
 
 const URL_CHANGE_FREQUENCY = 'daily';
 const URL_PRIORITY = 0.7;
-const URL_LAST_MODIFICATION_DATE = new Date(execSync('git log -1 --format=%cI').toString().trim()).toISOString();
+const URL_LAST_MODIFICATION_DATE = new Date(
+	execSync('git log -1 --format=%cI').toString().trim()
+).toISOString();
 
 export async function GET() {
 	return new Response(
@@ -26,8 +28,8 @@ export async function GET() {
         </urlset>`.trim(),
 		{
 			headers: {
-				'Content-Type': 'application/xml',
-			},
-		},
+				'Content-Type': 'application/xml'
+			}
+		}
 	);
 }

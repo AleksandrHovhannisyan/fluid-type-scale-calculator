@@ -45,8 +45,9 @@
 <section class="preview">
 	<h2>Preview your type scale</h2>
 	<Fieldset title="Preview controls" isLegendVisuallyHidden={true}>
-		<Label title="Font family">
+		<Label title="Font family" isTitleBold={true} htmlFor={Param.previewFont}>
 			<GoogleFontSelect
+				id={Param.previewFont}
 				name={Param.previewFont}
 				value={previewFont}
 				errors={$errors[Param.previewFont]}
@@ -54,8 +55,9 @@
 				onInput={handleFontInput}
 			/>
 		</Label>
-		<Label title="Preview text">
+		<Label title="Preview text" isTitleBold={true} htmlFor={Param.previewText}>
 			<Input
+				id={Param.previewText}
 				name={Param.previewText}
 				type="text"
 				value={previewText}
@@ -110,7 +112,9 @@
 							class="nowrap"
 							style={`font-size: calc(${getFontSizeAtScreenWidth(previewWidth)} * ${
 								$form[Param.shouldUseRems] ? $form[Param.remValueInPx] : SCHEMA_DEFAULTS.remValue
-							}/${SCHEMA_DEFAULTS.remValue}); font-family: ${isDefaultFontFamily ? 'var(--ff-body)' : previewFont}`}
+							}/${SCHEMA_DEFAULTS.remValue}); font-family: ${
+								isDefaultFontFamily ? 'var(--ff-body)' : previewFont
+							}`}
 						>
 							{previewText}
 						</td>

@@ -1,14 +1,14 @@
 {
-  "linkedin": {
-    "name": "LinkedIn",
-    "url": "https://www.linkedin.com/in/aleksandr-hovhannisyan-ba154b120/"
-  },
-  "github": {
-    "name": "GitHub",
-    "url": "https://github.com/AleksandrHovhannisyan"
-  },
-  "buyMeACoffee": {
-    "name": "Buy Me a Coffee",
-    "url": "https://buymeacoffee.com/hovhadovah"
-  }
+	"linkedin": {
+		"name": "LinkedIn",
+		"url": "https://www.linkedin.com/in/aleksandr-hovhannisyan-ba154b120/"
+	},
+	"github": {
+		"name": "GitHub",
+		"url": "https://github.com/AleksandrHovhannisyan"
+	},
+	"buyMeACoffee": {
+		"name": "Buy Me a Coffee",
+		"url": "https://buymeacoffee.com/hovhadovah"
+	}
 }

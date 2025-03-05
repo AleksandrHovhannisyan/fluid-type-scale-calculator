@@ -13,6 +13,6 @@ input:where([type='number'], [type='text']) {
 }
 
 :where(button, label, input, textarea, select, option, a, [tabindex='0']):focus-visible {
-  outline-style: solid;
-  outline-width: 4px;
+	outline-style: solid;
+	outline-width: 4px;
 }

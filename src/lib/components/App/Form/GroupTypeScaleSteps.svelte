@@ -14,9 +14,9 @@
 	title="Type scale"
 	description="Provide a comma-separated list of names for each step in your type scale, in ascending order of font size. Use any convention you want. Be sure to also identify the name of your base step."
 >
-	<Label>
-		All steps
+	<Label title="All steps" htmlFor={Param.allSteps}>
 		<Input
+			id={Param.allSteps}
 			name={Param.allSteps}
 			type="text"
 			title="Comma-separated list"
@@ -27,9 +27,9 @@
 			onInput={(e) => form.set({ ...$form, [Param.allSteps]: e.currentTarget.value })}
 		/>
 	</Label>
-	<Label>
-		Baseline step
+	<Label title="Baseline step" htmlFor={Param.baseStep}>
 		<Select
+			id={Param.baseStep}
 			name={Param.baseStep}
 			options={toCommaSeparatedList($form[Param.allSteps]).map((step) => ({ value: step }))}
 			value={$form[Param.baseStep]}

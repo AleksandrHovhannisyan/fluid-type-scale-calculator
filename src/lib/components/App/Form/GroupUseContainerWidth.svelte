@@ -12,9 +12,11 @@
 	title="Use container inline size (cqi) instead of viewport width"
 	description="Note: Container queries may not be supported by all browsers."
 	layout="horizontal"
+	htmlFor={name}
 >
 	<Checkbox
-		name={name}
+		id={name}
+		{name}
 		checked={$form[name]}
 		errors={$errors[name]}
 		constraints={$constraints[name]}

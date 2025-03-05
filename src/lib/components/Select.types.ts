@@ -10,5 +10,5 @@ export type SelectProps = Pick<HTMLSelectAttributes, 'value' | 'name' | 'require
 	delay?: number;
 	/** The options to render. */
 	options: SelectOption[];
-	onInput?: HTMLSelectAttributes['on:input']
+	onInput?: HTMLSelectAttributes['on:input'];
 };

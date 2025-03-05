@@ -1,51 +1,53 @@
 <script lang="ts">
-	import clsx from "clsx";
+	import clsx from 'clsx';
 
-	/** An optional title to display prominently above the input. */
-	export let title: string | undefined = undefined;
-	/** An optional, extended description of the label's contents. */
+	/** The ID of the form input with which this label is associated. */
+	export let htmlFor: string;
+	/** The main label text. */
+	export let title: string;
+	/** Whether to bold the title. Not bold by default unless a description is also provided. */
+	export let isTitleBold: boolean | undefined = undefined;
+	/** An optional extended description of the label's contents. */
 	export let description: string | undefined = undefined;
+	/** Whether to hide this label and its input. */
+	export let isHidden: boolean | undefined = false;
 	/** Dictates the label's layout/content arrangement. If `'to-horizontal'` is specified, the label will
 	 * automatically switch from a vertical arrangement to a horizontal one at a target breakpoint. Default: `'vertical'`. */
 	export let layout: 'vertical' | 'horizontal' | 'to-horizontal' | undefined = 'vertical';
-	/** Whether to hide this label and its input. */
-	export let isHidden: boolean | undefined = false;
 </script>
 
-<label class={clsx(layout, { hidden: isHidden })} {...$$restProps}>
-	{#if !!title || !!description}
-		<span class="label-text">
-			{#if title}
-				<span class="label-title">{title}</span>
-			{/if}
-			{#if description}
-				<span>{description}</span>
-			{/if}
-		</span>
-	{/if}
+<div class={clsx('label-layout', layout, { hidden: isHidden })}>
+	<label for={htmlFor} {...$$restProps}>
+		<span class={clsx('title', { bold: isTitleBold ?? !!description })}>{title}</span>
+		{#if description}
+			<span class="description">{description}</span>
+		{/if}
+	</label>
 	<slot />
-</label>
+</div>
 
 <style lang="scss">
 	@import '../styles/functions';
 	@import '../styles/mixins';
 
-	label {
-		display: flex;
-		gap: var(--sp-2xs);
-	}
-	label :global(input[type='range']) {
-		flex: 1;
-	}
 	.hidden {
 		display: none;
 	}
-	.label-text {
+	.label-layout,
+	label {
 		display: flex;
+	}
+	label {
 		flex-direction: column;
 		gap: 0.2em;
 	}
-	.label-title {
+	.label-layout {
+		gap: var(--sp-2xs);
+	}
+	.label-layout :global(input[type='range']) {
+		flex: 1;
+	}
+	.title.bold {
 		font-weight: var(--fw-body-bold);
 	}
 	.to-horizontal,

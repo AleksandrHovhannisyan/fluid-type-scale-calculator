@@ -15,24 +15,27 @@
 		$form.useContainerWidth ? 'container' : 'viewport'
 	} width, all font sizes in your type scale are computed as the base font size times a power of your chosen ratio.`}
 >
-	<Label>
-		Base font size (px)
+	<Label title="Base font size (px)" htmlFor={Param.minFontSize}>
 		<Input
+			id={Param.minFontSize}
+			name={Param.minFontSize}
 			type="number"
 			inputmode="decimal"
-			name={Param.minFontSize}
 			value={$form[Param.minFontSize]}
 			errors={$errors[Param.minFontSize]}
 			constraints={$constraints[Param.minFontSize]}
 			onInput={(e) => form.set({ ...$form, [Param.minFontSize]: e.currentTarget.valueAsNumber })}
 		/>
 	</Label>
-	<Label>
-		{$form.useContainerWidth ? 'Container' : 'Screen'} width (px)
+	<Label
+		title={`${$form.useContainerWidth ? 'Container' : 'Screen'} width (px)`}
+		htmlFor={Param.minWidth}
+	>
 		<Input
+			id={Param.minWidth}
+			name={Param.minWidth}
 			type="number"
 			inputmode="decimal"
-			name={Param.minWidth}
 			value={$form[Param.minWidth]}
 			errors={$errors[Param.minWidth]}
 			constraints={$constraints[Param.minWidth]}
@@ -40,6 +43,7 @@
 		/>
 	</Label>
 	<TypeScalePicker
+		id={Param.minRatio}
 		name={Param.minRatio}
 		value={$form[Param.minRatio]}
 		errors={$errors[Param.minRatio]}

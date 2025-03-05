@@ -66,9 +66,10 @@ export const getTypeScale = (state: Schema): TypeScale => {
 export const initClientSideForm = (form: SuperValidated<Schema>) => {
 	const superform = superForm(form, {
 		validators: valibot(schema),
-		validationMethod: 'onblur',
-		// https://superforms.rocks/concepts/error-handling#autofocusonerror
-		autoFocusOnError: 'detect',
+		validationMethod: 'auto',
+		errorSelector: 'input[aria-invalid="true"]',
+		// Doesn't seem to work, but docs here: https://superforms.rocks/concepts/error-handling#autofocusonerror
+		autoFocusOnError: true
 	});
 	setContext<SchemaSuperform>(FORM_CONTEXT_KEY, superform);
-}
+};

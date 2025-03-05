@@ -7,5 +7,4 @@ labels: enhancement
 
 ## Description/user story
 
-
 ## Additional context, ideas, or considerations

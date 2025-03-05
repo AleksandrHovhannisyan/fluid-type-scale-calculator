@@ -1,30 +1,30 @@
-@use "sass:math";
-@use "sass:list";
-@use "sass:map";
-@import "./breakpoints";
+@use 'sass:math';
+@use 'sass:list';
+@use 'sass:map';
+@import './breakpoints';
 
 @function to-rems($value) {
-  $value-rems: math.div($value, 16px) * 1rem;
-  @return $value-rems;
+	$value-rems: math.div($value, 16px) * 1rem;
+	@return $value-rems;
 }
 
 @function rnd($number, $places: 0) {
-  $n: 1;
-  @if $places > 0 {
-    @for $i from 1 through $places {
-      $n: $n * 10;
-    }
-  }
-  @return math.div(math.round($number * $n), $n);
+	$n: 1;
+	@if $places > 0 {
+		@for $i from 1 through $places {
+			$n: $n * 10;
+		}
+	}
+	@return math.div(math.round($number * $n), $n);
 }
 
 @function clamped($min-px, $max-px) {
-  $min-bp: map.get($breakpoints, "mobile");
-  $max-bp: map.get($breakpoints, "desktop");
-  $slope: math.div($max-px - $min-px, $max-bp - $min-bp);
-  $slope-vw: rnd($slope * 100, 2);
-  $intercept-rems: rnd(to-rems($min-px - $slope * $min-bp), 2);
-  $min-rems: rnd(to-rems($min-px), 2);
-  $max-rems: rnd(to-rems($max-px), 2);
-  @return clamp(#{$min-rems}, #{$slope-vw}vw + #{$intercept-rems}, #{$max-rems});
+	$min-bp: map.get($breakpoints, 'mobile');
+	$max-bp: map.get($breakpoints, 'desktop');
+	$slope: math.div($max-px - $min-px, $max-bp - $min-bp);
+	$slope-vw: rnd($slope * 100, 2);
+	$intercept-rems: rnd(to-rems($min-px - $slope * $min-bp), 2);
+	$min-rems: rnd(to-rems($min-px), 2);
+	$max-rems: rnd(to-rems($max-px), 2);
+	@return clamp(#{$min-rems}, #{$slope-vw}vw + #{$intercept-rems}, #{$max-rems});
 }

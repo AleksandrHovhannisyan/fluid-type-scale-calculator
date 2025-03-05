@@ -1,34 +1,34 @@
 {
-  "minorSecond": {
-    "name": "Minor second",
-    "ratio": 1.067
-  },
-  "majorSecond": {
-    "name": "Major second",
-    "ratio": 1.125
-  },
-  "minorThird": {
-    "name": "Minor third",
-    "ratio": 1.2
-  },
-  "majorThird": {
-    "name": "Major third",
-    "ratio": 1.25
-  },
-  "perfectFourth": {
-    "name": "Perfect fourth",
-    "ratio": 1.333
-  },
-  "augmentedFourth": {
-    "name": "Augmented fourth",
-    "ratio": 1.414
-  },
-  "perfectFifth": {
-    "name": "Perfect fifth",
-    "ratio": 1.5
-  },
-  "goldenRatio": {
-    "name": "Golden ratio",
-    "ratio": 1.618
-  }
+	"minorSecond": {
+		"name": "Minor second",
+		"ratio": 1.067
+	},
+	"majorSecond": {
+		"name": "Major second",
+		"ratio": 1.125
+	},
+	"minorThird": {
+		"name": "Minor third",
+		"ratio": 1.2
+	},
+	"majorThird": {
+		"name": "Major third",
+		"ratio": 1.25
+	},
+	"perfectFourth": {
+		"name": "Perfect fourth",
+		"ratio": 1.333
+	},
+	"augmentedFourth": {
+		"name": "Augmented fourth",
+		"ratio": 1.414
+	},
+	"perfectFifth": {
+		"name": "Perfect fifth",
+		"ratio": 1.5
+	},
+	"goldenRatio": {
+		"name": "Golden ratio",
+		"ratio": 1.618
+	}
 }

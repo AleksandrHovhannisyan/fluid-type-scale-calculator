@@ -12,8 +12,10 @@
 	title="Use rems instead of pixels for font size"
 	description="It's recommended that you use rems for font size to respect user preferences in browser settings."
 	layout="horizontal"
+	htmlFor={Param.shouldUseRems}
 >
 	<Checkbox
+		id={Param.shouldUseRems}
 		name={Param.shouldUseRems}
 		checked={$form[Param.shouldUseRems]}
 		errors={$errors[Param.shouldUseRems]}
@@ -26,8 +28,10 @@
 	description="The pixel value of 1rem. Defaults to 16px in all browsers but can be changed with CSS. For example, if you set your root font size to 62.5%, then 1rem equals 10px."
 	layout="to-horizontal"
 	isHidden={!$form.useRems}
+	htmlFor={Param.remValueInPx}
 >
 	<Input
+		id={Param.remValueInPx}
 		name={Param.remValueInPx}
 		type="number"
 		step={1}

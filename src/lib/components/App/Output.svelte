@@ -90,7 +90,7 @@
 			top: var(--sp-xl);
 		}
 	}
-	[role="region"] {
+	[role='region'] {
 		border: solid 1px var(--color-border);
 		max-height: 50vh;
 		overflow: auto;

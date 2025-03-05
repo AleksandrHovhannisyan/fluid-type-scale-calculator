@@ -9,7 +9,7 @@ export const prerender = false;
 // Need this for POST to work
 export const actions: Actions = {
 	default: async () => {}
-} ;
+};
 
 // Since this route is SSR (prerender=false), this is essentially getServerSideProps, i.e. it runs on each request to /calculate
 export const load = async ({ request, url }) => {

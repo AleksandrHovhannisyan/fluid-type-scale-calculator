@@ -1,39 +1,39 @@
-@import "./functions";
-@import "./mixins";
+@import './functions';
+@import './mixins';
 
 // Generic utility classes that don't need to be CSS modules
 
 .sr-only {
-  position: absolute;
-  left: 0;
-  clip: rect(0, 0, 0, 0);
+	position: absolute;
+	left: 0;
+	clip: rect(0, 0, 0, 0);
 
-  &:focus {
-    clip: auto;
-  }
+	&:focus {
+		clip: auto;
+	}
 }
 
 .list {
-  padding-inline-start: 1em;
-  
-  li {
-    margin-top: 0.5lh;
-  }
+	padding-inline-start: 1em;
+
+	li {
+		margin-top: 0.5lh;
+	}
 }
 
 .rhythm {
-  > * + * {
-    margin-top: 1lh;
-  }
+	> * + * {
+		margin-top: 1lh;
+	}
 }
 
 .switcher {
-  display: grid;
-  gap: var(--sp-4xl);
-  grid-template-columns: minmax(0, 1fr);
-  grid-auto-flow: row;
+	display: grid;
+	gap: var(--sp-4xl);
+	grid-template-columns: minmax(0, 1fr);
+	grid-auto-flow: row;
 
-  @include desktop {
-    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
-  }
+	@include desktop {
+		grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+	}
 }

@@ -8,19 +8,11 @@ assignees: ''
 
 ## Description
 
-
-
 ## Steps to Reproduce
-
-
 
 ## Expected Behavior
 
-
-
 ## Screenshots (Optional)
-
-
 
 ## Environment (please complete the following information):
 
@@ -28,4 +20,3 @@ assignees: ''
 - Browser and version: [e.g. Chrome 97, Safari 15.1]
 
 ## Additional context (if applicable)
-

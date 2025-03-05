@@ -9,22 +9,22 @@
 
 <div class="copy-to-clipboard">
 	<Button
-	type="button"
-    isFullWidth={true}
-	onClick={() => {
-		window.navigator.clipboard.writeText(text);
-		isCopied = true;
-		setTimeout(() => {
-			isCopied = false;
-		}, 2000);
-	}}
->
-    {#if isCopied}
-        <span role="alert">Copied!</span> <span aria-hidden="true">🎉</span>
-    {:else}
-        Copy to clipboard <span aria-hidden="true">📋</span>
-    {/if}
-</Button>
+		type="button"
+		isFullWidth={true}
+		onClick={() => {
+			window.navigator.clipboard.writeText(text);
+			isCopied = true;
+			setTimeout(() => {
+				isCopied = false;
+			}, 2000);
+		}}
+	>
+		{#if isCopied}
+			<span role="alert">Copied!</span> <span aria-hidden="true">🎉</span>
+		{:else}
+			Copy to clipboard <span aria-hidden="true">📋</span>
+		{/if}
+	</Button>
 </div>
 <noscript>
 	<style>

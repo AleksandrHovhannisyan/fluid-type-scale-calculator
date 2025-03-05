@@ -5,6 +5,7 @@
 	import type { SchemaConstraints, SchemaErrors } from '$lib/schema/schema';
 	import FormError from './FormError.svelte';
 
+	export let id: Param;
 	export let name: Param;
 	export let value: HTMLInputAttributes['value'] = undefined;
 	export let checked: HTMLInputAttributes['checked'] = undefined;
@@ -24,8 +25,9 @@
 	$: isInvalid = !!errors && errors.length > 0;
 </script>
 
-<FormError id={errorMessageId} errors={errors}></FormError>
+<FormError id={errorMessageId} {errors}></FormError>
 <input
+	{id}
 	{type}
 	{name}
 	{inputmode}
@@ -42,6 +44,7 @@
 />
 
 <style lang="scss">
+	@import '../styles/mixins';
 	input {
 		flex-shrink: 0;
 

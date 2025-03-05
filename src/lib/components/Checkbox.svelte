@@ -4,6 +4,7 @@
 	import Input from './Input.svelte';
 	import type { HTMLInputAttributes } from 'svelte/elements';
 
+	export let id: Param;
 	export let name: Param;
 	export let checked: HTMLInputAttributes['checked'];
 	export let onInput: HTMLInputAttributes['on:input'] = undefined;
@@ -11,4 +12,4 @@
 	export let constraints: SchemaConstraints | undefined = undefined;
 </script>
 
-<Input type="checkbox" {name} {checked} {errors} {constraints} {onInput} />
+<Input type="checkbox" {id} {name} {checked} {errors} {constraints} {onInput} />

@@ -24,7 +24,7 @@
 </fieldset>
 
 <style lang="scss">
-	@import "../styles/functions";
+	@import '../styles/functions';
 
 	fieldset {
 		border: none;

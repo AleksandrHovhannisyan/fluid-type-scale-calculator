@@ -15,9 +15,9 @@
 	export let constraints: SchemaConstraints | undefined = undefined;
 </script>
 
-<Label title={label}>
+<Label title={label} isTitleBold={true} htmlFor={name}>
 	<div class="inputs">
-		<Input type="range" {name} {value} {errors} {constraints} step={1} {onInput} />
+		<Input type="range" id={name} {name} {value} {errors} {constraints} step={1} {onInput} />
 		<span aria-hidden="true">{value}</span>
 	</div>
 </Label>
