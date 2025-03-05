@@ -1,33 +1,70 @@
 @font-face {
 	font-family: 'body-fallback-1';
+	font-weight: 400;
 	src: local('Segoe UI');
 	ascent-override: 90.3985%;
 	descent-override: 22.5334%;
 	size-adjust: 107.1644%;
 }
 @font-face {
+	font-family: 'body-fallback-1';
+	font-weight: 900;
+	src: local('Segoe UI Bold');
+	ascent-override: 90.3985%;
+	descent-override: 22.5334%;
+	size-adjust: 107.1644%;
+}
+@font-face {
 	font-family: 'body-fallback-2';
+	font-weight: 400;
 	src: local('Arial');
 	ascent-override: 90.199%;
 	descent-override: 22.4836%;
 	size-adjust: 107.4014%;
 }
 @font-face {
+	font-family: 'body-fallback-2';
+	font-weight: 900;
+	src: local('Arial Bold');
+	ascent-override: 90.199%;
+	descent-override: 22.4836%;
+	size-adjust: 107.4014%;
+}
+@font-face {
 	font-family: 'body-fallback-3';
+	font-weight: 400;
 	src: local('Roboto');
 	ascent-override: 90.2987%;
 	descent-override: 22.5085%;
 	size-adjust: 107.2828%;
 }
 @font-face {
+	font-family: 'body-fallback-3';
+	font-weight: 900;
+	src: local('Roboto Bold');
+	ascent-override: 90.2987%;
+	descent-override: 22.5085%;
+	size-adjust: 107.2828%;
+}
+@font-face {
 	font-family: 'body-fallback-4';
+	font-weight: 400;
 	src: local('Ubuntu');
 	ascent-override: 92.5681%;
 	descent-override: 23.0742%;
 	size-adjust: 104.6527%;
 }
 @font-face {
+	font-family: 'body-fallback-4';
+	font-weight: 900;
+	src: local('Ubuntu Bold');
+	ascent-override: 92.5681%;
+	descent-override: 23.0742%;
+	size-adjust: 104.6527%;
+}
+@font-face {
 	font-family: 'mono-fallback';
+	font-weight: 400;
 	src: local('Menlo'), local('Courier New');
 	size-adjust: 80%;
 }
